@@ -96,6 +96,9 @@ if [[ "$scope" == differential ]]; then
   # acceptance outside the documented `lean-only pass` cases (#13).
   python3 scripts/differential_soundness.py \
     docs/reports/generated/differential-m1-results.md tests/differential
+  # Vacuity oracle (#16): assert(false) mutants of every expect-pass case;
+  # Lean proving one that Verus rejects is a vacuous obligation.
+  python3 scripts/differential_vacuity.py
   ./scripts/test_differential_editor.sh
   echo "differential corpus passed: verdict and failure-span parity hold."
   exit 0
@@ -192,6 +195,7 @@ banner "6/$phases" "differential corpus (Verus as oracle)"
 python3 scripts/run_differential.py
 python3 scripts/differential_soundness.py \
   docs/reports/generated/differential-m1-results.md tests/differential
+python3 scripts/differential_vacuity.py
 ./scripts/test_differential_editor.sh
 
 echo "Vermilion suite passed: every example and case study verified by Lean" \

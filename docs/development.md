@@ -101,6 +101,12 @@ Lean passes only after `vrml_check --twin-check` kernel-checks the twin, and
 the results table says which passes came from automation and which from a
 twin.
 
+Verdict parity cannot see a vacuous obligation (contradictory hypotheses
+prove any goal). `scripts/differential_vacuity.py` is the oracle for that:
+it inserts `assert(false);` at statement positions in every expect-pass case
+and runs both verifiers on each mutant. Lean proving a mutant that Verus
+rejects is a vacuity bug and fails the run; both proving it is dead code.
+
 For an interactive edit loop outside the editor, keep one source under
 watch. The watcher detects changed obligation hashes and rechecks all
 obligations in each affected function:

@@ -55,3 +55,26 @@ bug. It needs an oracle.
   Treat a newly vacuous obligation (absent from a checked-in allowlist of
   known dead code) as a regression.
 - Run both in the full gate.
+
+### Progress (mutation half landed)
+
+- `scripts/differential_vacuity.py` implements the mutation differential:
+  `assert(false);` after statement-ending lines and at the start of nested
+  blocks inside every exec/proof fn body of each expect-pass case (up to
+  `--per-case N`, default 6, sampled evenly). Mutants Verus cannot
+  elaborate are skipped. The Lean side runs under sweep budgets with a
+  300 s wall-clock limit, because a `False` goal on a live path can keep an
+  uncapped rung searching for an hour (seen on c93's broadcast lemmas).
+- It runs in `run_suite.sh` after the exact soundness gate, in both the
+  full and `--differential` scopes.
+- First full run, 4 positions per case: 269 mutants, **0 vacuity bugs**,
+  9 dead positions (both verifiers prove them: early returns, empty ranges,
+  short-circuit loop bodies, code after `break`/`continue`), 256 live,
+  4 skipped.
+- Separately, while re-rendering dalek-lite for #22, a real vacuous
+  obligation turned up there: `lemma_p_is_odd.assert_5` had the
+  hypothesis `((0 - 1) % 2) = 1`, false over `Nat`. It is fixed by #22.
+
+Still open: the Lean-side `vrml_check --vacuity` report with an allowlist
+of known dead code, which would cover examples and case studies that the
+mutation oracle does not reach.
