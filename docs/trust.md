@@ -179,8 +179,10 @@ Lean obligations and proof twins pass without `sorry`.
   - `Seq.update s i x` with `i < 0` is `s`;
   - `Map.index m k` off the domain is whatever the constructing operations
     stored (`default` for `Map.empty`, the old value under `Map.insert`);
-  - wrong-variant field accessors and out-of-range recursive spec fns
-    return `default` (below).
+  - out-of-range recursive spec fns return `default` (below). Wrong-variant
+    field reads used to return `default` too, and automation proved
+    `None::<int>.unwrap() == 0`; they now return the opaque
+    `Vermilion.unspecified` (c223-c225).
 
   The automated ladder does not unfold the models, so differential
   verdicts agree; but an interactive twin proof can establish such a fact
@@ -245,12 +247,15 @@ generic-instantiated.
   `has_type` axioms for the same type — Verus assumes exactly the same
   about every well-typed value.
 - Datatype field facts are emitted **unguarded** (no `is_variant`
-  condition). Sound because a wrong-variant accessor returns `default`,
-  and every emitted fact holds of `default`: integer defaults are `0`
-  (in every range), container defaults are empty (element facts
-  vacuous), datatype defaults recurse. This argument depends on
-  `deriving Inhabited` defaulting fields; it is re-verified by every
-  example run since the accessors and facts are generated together.
+  condition). A wrong-variant accessor returns the opaque
+  `Vermilion.unspecified tag` (one constant per accessor), so an unguarded
+  fact is an assumption about that constant. It is consistent: every
+  emitted fact holds of `default` (integer defaults are `0`, in every
+  range; container defaults are empty, so element facts are vacuous;
+  datatype defaults recurse), so interpreting the constant as `default`
+  satisfies all of them at once. This is also Verus's own reading: its
+  type invariants hold of every value of the field's type, including an
+  unspecified wrong-variant read.
 
 ## Mutable references (prophecy, resolved at lowering)
 
@@ -547,8 +552,9 @@ identity — hints are not axioms).
   parameter's range is a typing fact the `Int` embedding does not carry
   into a definition, so recursive bodies guard on their decreases
   measures being nonnegative and return `default` off-range — a valid
-  interpretation of Verus's *unconstrained* off-range semantics (the
-  same `default` argument as wrong-variant accessors).
+  interpretation of Verus's *unconstrained* off-range semantics. Unlike a
+  wrong-variant read, a negative argument cannot reach such a function
+  from a well-typed program, so the fixed value is not observable.
 - **`usize`/`isize` follow the crate's word size (issue #26)**: a crate
   that pins it (`global size_of usize == 8;`) gets that width exactly.
   Otherwise Verus verifies for a 32-bit AND a 64-bit word, and so does

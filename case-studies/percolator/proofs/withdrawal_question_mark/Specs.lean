@@ -230,10 +230,10 @@ instance {T : Type} {E : Type} (x : (core.result.Result T E)) : Decidable (core.
 
 @[simp, grind] def core.result.Result.get_Ok__0 {T : Type} [Inhabited T] {E : Type} [Inhabited E] : (core.result.Result T E) → T
   | .Ok _0 => _0
-  | .Err _ => default
+  | .Err _ => Vermilion.unspecified "core.result.Result.get_Ok_0"
 
 @[simp, grind] def core.result.Result.get_Err__0 {T : Type} [Inhabited T] {E : Type} [Inhabited E] : (core.result.Result T E) → E
-  | .Ok _ => default
+  | .Ok _ => Vermilion.unspecified "core.result.Result.get_Err_0"
   | .Err _0 => _0
 
 inductive vermilion.tuple_2 (T_0 : Type) (T_1 : Type) where
@@ -270,7 +270,7 @@ instance {V : Type} (x : (core.option.Option V)) : Decidable (core.option.Option
   cases x <;> first | exact isTrue trivial | exact isFalse (by simp)
 
 @[simp, grind] def core.option.Option.get_Some__0 {V : Type} [Inhabited V] : (core.option.Option V) → V
-  | .None => default
+  | .None => Vermilion.unspecified "core.option.Option.get_Some_0"
   | .Some _0 => _0
 
 inductive core.ops.control_flow.ControlFlow (B : Type) (C : Type) where
@@ -292,10 +292,10 @@ instance {B : Type} {C : Type} (x : (core.ops.control_flow.ControlFlow B C)) : D
 
 @[simp, grind] def core.ops.control_flow.ControlFlow.get_Continue__0 {B : Type} [Inhabited B] {C : Type} [Inhabited C] : (core.ops.control_flow.ControlFlow B C) → C
   | .Continue _0 => _0
-  | .Break _ => default
+  | .Break _ => Vermilion.unspecified "core.ops.control_flow.ControlFlow.get_Continue_0"
 
 @[simp, grind] def core.ops.control_flow.ControlFlow.get_Break__0 {B : Type} [Inhabited B] {C : Type} [Inhabited C] : (core.ops.control_flow.ControlFlow B C) → B
-  | .Continue _ => default
+  | .Continue _ => Vermilion.unspecified "core.ops.control_flow.ControlFlow.get_Break_0"
   | .Break _0 => _0
 
 inductive core.convert.Infallible where

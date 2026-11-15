@@ -100,6 +100,14 @@ theorem emod_usize64 (x : Int) :
     emod x 18446744073709551616 = x % 18446744073709551616 :=
   emod_of_ne_zero x (by decide)
 
+/-- A value Verus leaves unspecified, such as a datatype field read through
+the wrong variant (`None.unwrap()`, `get_Rect_width (Circle r)`). `opaque`,
+like `divZero`: nothing can be proved about it except that it equals
+itself. The `tag` (the accessor's name) keeps distinct unspecified reads
+distinct. Before, these reads returned `default`, so automation proved
+`None::<int>.unwrap() == 0`, which Verus cannot. -/
+opaque unspecified {α : Type u} [Inhabited α] (tag : String) : α
+
 /-! Machine-width remainder chains. Verus lowers every u64 (etc.)
 operation through an exact clip, so spec/impl comparisons pile up
 `((e % 2⁶⁴) % k) % 2⁶⁴`-style chains against a plain `e % k`. The three

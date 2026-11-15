@@ -242,7 +242,7 @@ instance {V : Type} (x : (core.option.Option V)) : Decidable (core.option.Option
   cases x <;> first | exact isTrue trivial | exact isFalse (by simp)
 
 @[simp, grind] def core.option.Option.get_Some__0 {V : Type} [Inhabited V] : (core.option.Option V) → V
-  | .None => default
+  | .None => Vermilion.unspecified "core.option.Option.get_Some_0"
   | .Some _0 => _0
 
 inductive policy_gates.AutoCrankPlanV16 where
@@ -315,34 +315,34 @@ instance (x : policy_gates.AutoCrankPlanV16) : Decidable (policy_gates.AutoCrank
   cases x <;> first | exact isTrue trivial | exact isFalse (by simp)
 
 @[simp, grind] def policy_gates.AutoCrankPlanV16.get_RefreshAccount_asset_index : policy_gates.AutoCrankPlanV16 → (core.option.Option Int)
-  | .NoAction => default
+  | .NoAction => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_RefreshAccount_asset_index"
   | .RefreshAccount asset_index => asset_index
-  | .SettleBChunk _ => default
-  | .Liquidate _ => default
-  | .DeclareRecovery _ => default
-  | .CloseResolved => default
+  | .SettleBChunk _ => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_RefreshAccount_asset_index"
+  | .Liquidate _ => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_RefreshAccount_asset_index"
+  | .DeclareRecovery _ => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_RefreshAccount_asset_index"
+  | .CloseResolved => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_RefreshAccount_asset_index"
 
 @[simp, grind] def policy_gates.AutoCrankPlanV16.get_SettleBChunk_asset_index : policy_gates.AutoCrankPlanV16 → Int
-  | .NoAction => default
-  | .RefreshAccount _ => default
+  | .NoAction => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_SettleBChunk_asset_index"
+  | .RefreshAccount _ => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_SettleBChunk_asset_index"
   | .SettleBChunk asset_index => asset_index
-  | .Liquidate _ => default
-  | .DeclareRecovery _ => default
-  | .CloseResolved => default
+  | .Liquidate _ => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_SettleBChunk_asset_index"
+  | .DeclareRecovery _ => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_SettleBChunk_asset_index"
+  | .CloseResolved => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_SettleBChunk_asset_index"
 
 @[simp, grind] def policy_gates.AutoCrankPlanV16.get_Liquidate_asset_index : policy_gates.AutoCrankPlanV16 → Int
-  | .NoAction => default
-  | .RefreshAccount _ => default
-  | .SettleBChunk _ => default
+  | .NoAction => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_Liquidate_asset_index"
+  | .RefreshAccount _ => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_Liquidate_asset_index"
+  | .SettleBChunk _ => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_Liquidate_asset_index"
   | .Liquidate asset_index => asset_index
-  | .DeclareRecovery _ => default
-  | .CloseResolved => default
+  | .DeclareRecovery _ => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_Liquidate_asset_index"
+  | .CloseResolved => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_Liquidate_asset_index"
 
 @[simp, grind] def policy_gates.AutoCrankPlanV16.get_DeclareRecovery_reason : policy_gates.AutoCrankPlanV16 → policy_gates.PermissionlessRecoveryReasonV16
-  | .NoAction => default
-  | .RefreshAccount _ => default
-  | .SettleBChunk _ => default
-  | .Liquidate _ => default
+  | .NoAction => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_DeclareRecovery_reason"
+  | .RefreshAccount _ => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_DeclareRecovery_reason"
+  | .SettleBChunk _ => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_DeclareRecovery_reason"
+  | .Liquidate _ => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_DeclareRecovery_reason"
   | .DeclareRecovery reason => reason
-  | .CloseResolved => default
+  | .CloseResolved => Vermilion.unspecified "policy_gates.AutoCrankPlanV16.get_DeclareRecovery_reason"
 

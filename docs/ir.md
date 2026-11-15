@@ -431,8 +431,9 @@ BINOP     ::= add | sub | mul | ediv | emod
   module — injectivity, disjointness, and exhaustiveness come from the
   kernel, never from axioms — plus `@[simp]` per-variant predicates
   (`is_<variant>`) and field accessors (`get_<variant>_<field>`;
-  wrong-variant access returns `default`, mirroring Verus's
-  underspecification, which also makes unguarded field range facts sound:
+  wrong-variant access returns the opaque `Vermilion.unspecified tag`,
+  mirroring Verus's underspecification; unguarded field range facts are
+  consistent because they all hold of `default`:
   a datatype's type fact is the conjunction of its integer-ranged fields'
   ranges, one level deep). `match` never reaches the IR: Verus desugars it
   into branch trees over `isvariant` guards and `fieldof` projections.
@@ -472,8 +473,8 @@ BINOP     ::= add | sub | mul | ediv | emod
   element facts for `Seq`/`Vec` (`∀ i` in bounds), `Set`/`Multiset`
   (contained elements), `Map` (values at contained keys); datatype field
   facts through the accessors (generic-instantiated, sound unguarded
-  because wrong-variant access returns `default`, of which every such
-  fact holds; recursive datatypes unroll once). The quantified facts are
+  because every such fact holds of `default`, a consistent value for the
+  opaque wrong-variant read; recursive datatypes unroll once). The quantified facts are
   plain hypotheses — the ladder instantiates them without trigger
   machinery, and goals beyond it go interactive in the twin.
 - Spec closures are genuine Lean functions: `spec_fn(T…) -> U` lowers to

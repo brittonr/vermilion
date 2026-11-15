@@ -229,7 +229,7 @@ instance {V : Type} (x : (core.option.Option V)) : Decidable (core.option.Option
   cases x <;> first | exact isTrue trivial | exact isFalse (by simp)
 
 @[simp, grind] def core.option.Option.get_Some__0 {V : Type} [Inhabited V] : (core.option.Option V) → V
-  | .None => default
+  | .None => Vermilion.unspecified "core.option.Option.get_Some_0"
   | .Some _0 => _0
 
 inductive core.result.Result (T : Type) (E : Type) where
@@ -251,9 +251,9 @@ instance {T : Type} {E : Type} (x : (core.result.Result T E)) : Decidable (core.
 
 @[simp, grind] def core.result.Result.get_Ok__0 {T : Type} [Inhabited T] {E : Type} [Inhabited E] : (core.result.Result T E) → Int
   | .Ok _0 => _0
-  | .Err _ => default
+  | .Err _ => Vermilion.unspecified "core.result.Result.get_Ok_0"
 
 @[simp, grind] def core.result.Result.get_Err__0 {T : Type} [Inhabited T] {E : Type} [Inhabited E] : (core.result.Result T E) → bounded_arithmetic.V16Error
-  | .Ok _ => default
+  | .Ok _ => Vermilion.unspecified "core.result.Result.get_Err_0"
   | .Err _0 => _0
 

@@ -294,14 +294,14 @@ private def countLines (text : String) : Nat :=
   text.foldl (fun n c => if c == '\n' then n + 1 else n) 0
 
 /-- Render one user datatype as a real `inductive` plus `@[simp]` field
-accessors (wrong-variant access yields `default`, mirroring Verus's
-underspecification) and variant predicates. Structural facts —
+accessors (wrong-variant access yields an opaque `Vermilion.unspecified`
+value, mirroring Verus's underspecification) and variant predicates. Structural facts —
 injectivity, disjointness, exhaustiveness — come from the kernel. -/
 def renderDatatype (data : DataView) : String := Id.run do
   let name := data.id.qualified
   let params := data.typeParams.toList.map leanSegment
   -- `(T : Type)` binders on the inductive header and every generated def;
-  -- accessors also need `[Inhabited T]` for the wrong-variant `default`.
+  -- accessors also need `[Inhabited T]` for the wrong-variant value.
   let explicit := String.join (params.map (fun p => s!" ({p} : Type)"))
   let implicit := String.join (params.map (fun p => s!" \{{p} : Type}"))
   let withInhab := String.join
@@ -359,8 +359,12 @@ Decidable ({name}.is_{leanSegment variant.name} x) := by\n"
         else
           let wildcards := String.intercalate ""
             (candidate.fields.toList.map (fun _ => " _"))
+          -- Verus leaves a wrong-variant read unspecified: an opaque
+          -- value, tagged with the accessor, not `default` (which would
+          -- make `None.unwrap() == 0` provable).
           out := out ++
-            s!"  | .{leanSegment candidate.name}{wildcards} => default\n"
+            s!"  | .{leanSegment candidate.name}{wildcards} => \
+Vermilion.unspecified \"{name}.get_{variant.name}_{field.name}\"\n"
       out := out ++ "\n"
   return out
 

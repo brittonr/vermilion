@@ -516,9 +516,9 @@ instance {T : Type} {E : Type} (x : (core.result.Result T E)) : Decidable (core.
 
 @[simp, grind] def core.result.Result.get_Ok__0 {T : Type} [Inhabited T] {E : Type} [Inhabited E] : (core.result.Result T E) → T
   | .Ok _0 => _0
-  | .Err _ => default
+  | .Err _ => Vermilion.unspecified "core.result.Result.get_Ok_0"
 
 @[simp, grind] def core.result.Result.get_Err__0 {T : Type} [Inhabited T] {E : Type} [Inhabited E] : (core.result.Result T E) → E
-  | .Ok _ => default
+  | .Ok _ => Vermilion.unspecified "core.result.Result.get_Err_0"
   | .Err _0 => _0
 
