@@ -4840,6 +4840,11 @@ impl Lowering<'_> {
         // The isolated body drops the enclosing context; like Verus's
         // `typ_invs`, the binder range facts survive into it.
         let mut iteration = self.type_facts.clone();
+        // Range facts of locals the body (or condition setup) declares are
+        // scoped to it, exactly like their `env` entries: restore this set
+        // after the body so a later loop's iteration context never assumes
+        // a fact about a binder its theorem does not bind (HYGIENE).
+        let outer_type_facts = self.type_facts.clone();
         let mut havoc_facts = Vec::new();
         for ident in assigned {
             if !self.env.contains_key(&ident) {
@@ -5012,6 +5017,7 @@ impl Lowering<'_> {
         // state. Break-capable loops (`cond = None`) get no condition fact:
         // control may leave through a `break`, where only the at-exit
         // invariants were checked.
+        self.type_facts = outer_type_facts;
         self.type_facts.extend(havoc_facts.iter().cloned());
         let mut exit = havoc_facts;
         for inv in invs.iter() {
@@ -5663,6 +5669,8 @@ impl Lowering<'_> {
         // loop variable itself.
         let mut havoc = Vec::new();
         let mut iteration = self.type_facts.clone();
+        // Body-local range facts are scoped to the body (see `lower_loop`).
+        let outer_type_facts = self.type_facts.clone();
         let mut havoc_facts = Vec::new();
         for ident in assigned {
             if !self.env.contains_key(&ident) {
@@ -5786,6 +5794,7 @@ impl Lowering<'_> {
         // Exit: the continuation sees the havoc symbols, the invariants at
         // the exit peek value, and the borrow resolutions from the
         // exhausted-iterator arm.
+        self.type_facts = outer_type_facts;
         self.type_facts.extend(havoc_facts.iter().cloned());
         let mut exit = havoc_facts;
         for inv in &plan.user_invs {
