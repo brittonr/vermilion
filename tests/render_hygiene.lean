@@ -208,9 +208,18 @@ private def minusOneMod256 : Expr :=
 
 #guard (eq minusOneMod256 (.int 0)).renderTop == "(((0 - 1) % 256) : Int) = 0"
 #guard (eq minusOneMod256 (.int 0)).render == "((((0 - 1) % 256) : Int) = 0)"
-#guard (lt (.int (-1)) (.int 0)).renderTop == "((-1) : Int) < 0"
+#guard (lt (.int (-1)) (.int 0)).renderTop == "(-1) < 0"
 #guard (lt (.int 10) (.int 100)).renderTop == "10 < 100"
-#guard (eq (var "x") minusOneMod256).renderTop == "x = ((0 - 1) % 256)"
+-- Anchored wherever it occurs, also beside a typed operand.
+#guard (eq (var "x") minusOneMod256).renderTop == "x = (((0 - 1) % 256) : Int)"
+-- Generic contexts (tuples, generic structs and spec fns): the argument,
+-- not the comparison, is the maximal literal-only subterm.
+private def genericId : FunctionId := { crateName := "g", modules := #[], name := "id" }
+#guard (eq (.apply genericId #[] #[minusOneMod256]) (.apply genericId #[] #[.int 0])).renderTop
+  == "g.id (((0 - 1) % 256) : Int) = g.id 0"
+-- One anchor at the root of a literal-only term, none inside it.
+#guard (Expr.binary .add (.binary .sub (.int 0) (.int 1)) (.int 2)).render
+  == "(((0 - 1) + 2) : Int)"
 
 -- The anchored statement is false over `Int`, as Verus says.
 example : ¬ ((((0 - 1) % 256) : Int) = 0) := by decide

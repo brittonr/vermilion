@@ -672,7 +672,29 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         );
     }
     if let Some(path) = failures_path {
-        for line in std::fs::read_to_string(&path)?.lines() {
+        let text = std::fs::read_to_string(&path)?;
+        // A failures file is evidence only if the checker finished judging:
+        // `vrml_check` ends every complete judgment with a completion record.
+        // A checker that crashed or was killed mid-run leaves a truncated
+        // stream whose missing failures would otherwise read as successes
+        // and reclaim `sorry` placeholders (issue #23). Without the record,
+        // fall back to the conservative reading of issue #21.
+        let complete = text.lines().any(|line| {
+            serde_json::from_str::<serde_json::Value>(line)
+                .ok()
+                .and_then(|value| value.get("$message_type").cloned())
+                .and_then(|kind| kind.as_str().map(|kind| kind == "vrml_check_complete"))
+                .unwrap_or(false)
+        });
+        if !complete {
+            eprintln!(
+                "vrml_sync: {} has no completion record (the check did not finish); \
+                 new or changed obligations get `sorry` and existing placeholders are kept",
+                path.display()
+            );
+            failing.extend(manifest.obligations.iter().map(|record| record.name.clone()));
+        }
+        for line in text.lines() {
             let Ok(value) = serde_json::from_str::<serde_json::Value>(line) else {
                 continue;
             };

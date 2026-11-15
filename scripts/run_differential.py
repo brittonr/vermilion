@@ -322,7 +322,18 @@ def main() -> int:
         expect_pass = match.group(1) in ("pass", "lean-only pass")
         lean_only = match.group(1) == "lean-only pass"
         expect_line = int(match.group(2)) if match.group(2) else None
-        key = hashlib.sha256(source.encode()).hexdigest()
+        # The case key covers the hand-written twins too: a twin-covered
+        # verdict depends on the twin kernel-checking, so editing a twin
+        # must not replay a cached pass (#14). Both layouts: the per-file
+        # twin and the per-function unit-twin directory.
+        digest = hashlib.sha256(source.encode())
+        twin_dir = CASES / "proofs" / case.stem
+        for twin in sorted([CASES / "proofs" / f"{case.stem}.lean",
+                            *(twin_dir.rglob("*.lean") if twin_dir.is_dir() else [])]):
+            if twin.exists():
+                digest.update(str(twin.relative_to(CASES)).encode())
+                digest.update(twin.read_bytes())
+        key = digest.hexdigest()
         prepared.append((case, expect_pass, lean_only, expect_line, key))
         cached = cache["cases"].get(case.stem)
         if (cached and cached.get("key") == key

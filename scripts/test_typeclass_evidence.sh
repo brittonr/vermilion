@@ -48,6 +48,19 @@ if ./target/debug/vrml_sync "$manifest" --probe; then
   exit 1
 fi
 
+# A truncated failures stream (a check killed mid-run: no completion record)
+# is not evidence that the unlisted obligations passed: the placeholder must
+# survive (#23). A complete stream that lists no failure does reclaim it.
+: > "$workdir/truncated.json"
+cp "$twin" "$workdir/sorry-twin.lean"
+./target/debug/vrml_sync "$manifest" --failures "$workdir/truncated.json" 2>&1 \
+  | grep -q " 1 sorry)" || { echo "a truncated failures file reclaimed a sorry" >&2; exit 1; }
+echo '{"$message_type":"vrml_check_complete"}' > "$workdir/complete.json"
+./target/debug/vrml_sync "$manifest" --failures "$workdir/complete.json" 2>&1 \
+  | grep -q " 0 sorry)" || {
+  echo "a complete, failure-free stream did not reclaim the placeholder" >&2; exit 1; }
+cp "$workdir/sorry-twin.lean" "$twin"
+
 python3 -c '
 from pathlib import Path
 import sys

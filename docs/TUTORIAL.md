@@ -161,7 +161,12 @@ rules are the same either way:
   statement hash, so `vrml_sync` migrates your hand-written proofs from a
   per-file twin into the per-function unit twins (and back), moves shared
   helper sections into the Specs twin, and warns about the leftover legacy
-  file for you to delete.
+  file for you to delete;
+- run by hand, `vrml_sync <manifest.json>` does not know which obligations
+  automation proved, so it is conservative: existing `sorry` placeholders
+  stay, and new or changed obligations get `sorry`. Pass `--failures
+  <check.json>` (what the run scripts do) to fill in automatic proofs, or
+  `--assume-automation-succeeded` if you know every obligation passed.
 
 Try it. Run `./examples/m1-widening/run.sh` once, open
 `examples/m1-widening/proofs/widening/flags.lean` (the twin of the `flags`

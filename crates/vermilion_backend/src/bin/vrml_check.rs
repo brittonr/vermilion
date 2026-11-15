@@ -1356,6 +1356,7 @@ fn main() {
                 println!("{diagnostic}");
                 eprint!("{}", human_report(record, detail, twin));
             }
+            judged_complete();
             std::process::exit(1);
         }
         report_summary(&s, &manifest, total, &interactive, 0);
@@ -1534,13 +1535,23 @@ fn main() {
         report_summary(&s, &manifest, total, &interactive, elaborating);
         exit_with_refusals(&s, refused_count);
     }
+    judged_complete();
     std::process::exit(1);
+}
+
+/// Mark the diagnostic stream complete: every obligation of the manifest was
+/// judged and every failure has been printed. `vrml_sync --failures` trusts a
+/// failures file only with this record, so a check that crashes or is killed
+/// mid-stream can never read as "the rest passed" (issue #23).
+fn judged_complete() {
+    println!("{}", serde_json::json!({"$message_type": "vrml_check_complete"}));
 }
 
 /// Exit an otherwise-green run: 0 with no refusals; 1 (with an explicit
 /// count on stderr) when the manifest carries per-function lowering
 /// refusals — obligations may all pass, the FILE is still not verified.
 fn exit_with_refusals(s: &Style, refused_count: usize) -> ! {
+    judged_complete();
     if refused_count == 0 {
         std::process::exit(0);
     }

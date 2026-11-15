@@ -62,14 +62,14 @@ def invariant_entry_0_1_meta : Vermilion.ObligationMeta := {
   vrml
 -- vrml:end looping.sum_below.invariant_entry_0_1
 
--- vrml:begin looping.sum_below.invariant_entry_0_2 49838481faf57f97
+-- vrml:begin looping.sum_below.invariant_entry_0_2 a221015eff58b001
 /--
 Generated VC `looping.sum_below.invariant_entry_0_2`.
 
 - Rust source: `examples/m2-loops/looping.rs:45:13-45:33`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_2`
-- Statement hash: `49838481faf57f97`
+- Statement hash: `a221015eff58b001`
 -/
 def invariant_entry_0_2_meta : Vermilion.ObligationMeta := {
   rustFile := "examples/m2-loops/looping.rs"
@@ -80,13 +80,13 @@ def invariant_entry_0_2_meta : Vermilion.ObligationMeta := {
   assertId := "0_2"
   functionName := "looping.sum_below"
   kind := "invariant_entry"
-  statementHash := "49838481faf57f97"
+  statementHash := "a221015eff58b001"
 }
 @[vrml_obligation] theorem invariant_entry_0_2
     (n : Int)
     (requires_0 : Vermilion.inUnsignedRange 32 n)
     (requires_1 : n ≤ 100) :
-    ((2 * 0) : Int) = (0 * (0 - 1)) := by
+    (2 * 0) = ((0 * (0 - 1)) : Int) := by
   vrml
 -- vrml:end looping.sum_below.invariant_entry_0_2
 

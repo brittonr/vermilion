@@ -43,27 +43,15 @@ def Expr.closedNumeric : Expr → Bool
   | _ => false
 
 /-- Whether a literal-only term can differ between `Nat` and `Int`: only
-through a subtraction or a negative literal (without them every
-subterm is a nonnegative integer, where `+ * / %` agree). Plain literal
-comparisons (`10 < 100`) stay unannotated, so existing statements and
-their hashes are unchanged. -/
+through a subtraction. Without one every subterm is a nonnegative integer,
+where `+ * / %` agree; a negative literal needs `Neg`, which Lean resolves to
+`Int` by default. Literal-only terms without a subtraction (`10 < 100`) stay
+unannotated, so their statements and hashes are unchanged. -/
 def Expr.natHazard : Expr → Bool
-  | .int v => v < 0
   | .binary .sub _ _ => true
   | .binary _ l r => l.natHazard || r.natHazard
   | .ite _ t e => t.natHazard || e.natHazard
   | _ => false
-
-/-- Comparison operators: `binrel%` elaborates both operands together, so one
-`Int` ascription on the left anchors the whole comparison. -/
-def BinOp.isComparison : BinOp → Bool
-  | .lt | .le | .gt | .ge | .eq | .ne => true
-  | _ => false
-
-/-- A comparison that needs an explicit `Int` anchor. -/
-def needsIntAnchor (op : BinOp) (lhs rhs : Expr) : Bool :=
-  op.isComparison && lhs.closedNumeric && rhs.closedNumeric
-    && (lhs.natHazard || rhs.natHazard)
 
 mutual
 
@@ -72,7 +60,43 @@ parentheses; atoms come out bare. `dite` switches spec-level conditionals
 from `Vermilion.iteP` to dependent `if _h : c then … else …` — used only
 inside recursive spec-function bodies, where the equation compiler needs
 the branch hypothesis for the termination goals. -/
-partial def Expr.renderD (dite : Bool) : Expr → String
+partial def Expr.renderD (dite : Bool) (e : Expr) : String :=
+  -- A maximal literal-only subterm that can differ over `Nat` is ascribed
+  -- `Int` wherever it occurs: as a comparison operand, a constructor field,
+  -- or the argument of a generic function, it has no type anchor and Lean
+  -- would read it over `Nat`, where `0 - 1 = 0` (false acceptances c204,
+  -- and generic tuples/structs/spec fns). Its subterms render unanchored.
+  if e.closedNumeric && e.natHazard then s!"({e.renderClosed dite} : Int)"
+  else e.renderCore dite
+
+/-- The body of a literal-only term, with no `Int` anchors inside (the
+enclosing `renderD` adds exactly one, at the root). Identical text to
+`renderCore` on these forms. -/
+partial def Expr.renderClosed (dite : Bool) : Expr → String
+  | .int value => if value < 0 then s!"({value})" else s!"{value}"
+  | .binary .ediv lhs (.int v) =>
+    if v != 0 then s!"({lhs.renderClosed dite} / {(Expr.int v).renderClosed dite})"
+    else s!"(Vermilion.ediv {lhs.renderClosed dite} {(Expr.int v).renderClosed dite})"
+  | .binary .emod lhs (.int v) =>
+    if v != 0 then s!"({lhs.renderClosed dite} % {(Expr.int v).renderClosed dite})"
+    else s!"(Vermilion.emod {lhs.renderClosed dite} {(Expr.int v).renderClosed dite})"
+  | .binary .ediv lhs rhs =>
+    s!"(Vermilion.ediv {lhs.renderClosed dite} {rhs.renderClosed dite})"
+  | .binary .emod lhs rhs =>
+    s!"(Vermilion.emod {lhs.renderClosed dite} {rhs.renderClosed dite})"
+  | .binary op lhs rhs =>
+    let symbol := (op.leanSymbol).getD "?"
+    s!"({lhs.renderClosed dite} {symbol} {rhs.renderClosed dite})"
+  | .ite cond thenValue elseValue =>
+    if dite then
+      s!"(if _h : {cond.renderD dite} then {thenValue.renderClosed dite} \
+else {elseValue.renderClosed dite})"
+    else
+      s!"(Vermilion.iteP {cond.renderAtomD dite} {thenValue.renderClosed dite} \
+{elseValue.renderClosed dite})"
+  | other => other.renderCore dite
+
+partial def Expr.renderCore (dite : Bool) : Expr → String
   | .var name => leanSegment name
   | .int value => if value < 0 then s!"({value})" else s!"{value}"
   | .tt => "True"
@@ -96,13 +120,7 @@ partial def Expr.renderD (dite : Bool) : Expr → String
     s!"({lhs.renderD dite} ↔ ¬ {rhs.renderD dite})"
   | .binary op lhs rhs =>
     let symbol := (op.leanSymbol).getD "?"
-    -- A comparison between two literal-only terms has no typed leaf: anchor
-    -- it at `Int`, or Lean reads `(0 - 1) % 256 = 0` over `Nat` and proves
-    -- it (a false acceptance; c204).
-    if needsIntAnchor op lhs rhs then
-      s!"(({lhs.renderD dite} : Int) {symbol} {rhs.renderD dite})"
-    else
-      s!"({lhs.renderD dite} {symbol} {rhs.renderD dite})"
+    s!"({lhs.renderD dite} {symbol} {rhs.renderD dite})"
   | .not e => s!"(¬ {e.renderD dite})"
   | .ite cond thenValue elseValue =>
     if dite then
@@ -232,11 +250,7 @@ def Expr.renderTop (e : Expr) : String :=
   | .binary .niff lhs rhs => s!"{lhs.render} ↔ ¬ {rhs.render}"
   | .binary op lhs rhs =>
     let symbol := (BinOp.leanSymbol op).getD "?"
-    -- Same `Int` anchor as `renderD` (literal-only comparisons, c204).
-    if needsIntAnchor op lhs rhs then
-      s!"({lhs.render} : Int) {symbol} {rhs.render}"
-    else
-      s!"{lhs.render} {symbol} {rhs.render}"
+    s!"{lhs.render} {symbol} {rhs.render}"
   | other => other.render
 
 /-- Recursive spec-function body rendering: dependent conditionals so the

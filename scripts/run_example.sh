@@ -244,7 +244,10 @@ if [[ -n "$generated_root" ]]; then
     # every sorry as if automation had succeeded. (This exact false green
     # shipped once: the binary path said target/release while only
     # target/debug is built; every sweep 'passed' and sync un-sorried the
-    # twins. See logs/2026-08-19-lean-4.33-veil-removal.md.)
+    # twins. See logs/2026-08-19-lean-4.33-veil-removal.md.) A checker
+    # killed MID-stream leaves a non-empty but truncated file; vrml_sync
+    # trusts --failures only when it ends with vrml_check's completion
+    # record (issue #23), so that case falls back to keeping placeholders.
     if [[ "$st" -ne 0 && ! -s ".vermilion/ga-$mstem-check.json" ]]; then
       echo "vrml_check could not judge $m (exit $st):" >&2
       cat ".vermilion/ga-$mstem-check.human" >&2
