@@ -20,6 +20,10 @@ lake build vrml_gen >/dev/null
 lake env lean tests/render_hygiene.lean
 # Documented off-domain model values (issue #19, docs/trust.md).
 lake env lean tests/off_domain_models.lean
+# Every keyword of the generated modules' environment is escaped, and only
+# keywords are (a Rust `include` parameter broke a whole Specs module).
+lake build Vermilion >/dev/null
+lake env lean tests/lean_reserved_words.lean
 
 ./scripts/setup_verus.sh
 source "$repository/scripts/verus_env.sh"
@@ -42,4 +46,4 @@ for stem in c_hygiene_07_keyword_escape c_hygiene_08_param_keyword_pair \
   rm -rf "$workdir"
 done
 
-echo "rendering hygiene: keyword-escaped binders and telescope entries stay distinct; every capture-sensitive false claim is rejected by Lean"
+echo "rendering hygiene: every Lean keyword is escaped; keyword-escaped binders and telescope entries stay distinct; every capture-sensitive false claim is rejected by Lean"

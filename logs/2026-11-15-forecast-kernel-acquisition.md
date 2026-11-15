@@ -67,3 +67,11 @@ span); `tests/vrml_first.lean`; all 37 examples and 10 case-study runners
 (aeneas and dalek-lite not run) pass with no tracked twin changes.
 forecast-kernel by automation alone: 98 → 110 of 123, at roughly twice
 the wall time for its 13 remaining failures, which now try every depth.
+
+## Follow-up: every Lean keyword escaped
+
+The kernel's new `scenario` module named a parameter `include`, which is a
+Lean keyword missing from the hand-curated `leanReservedWords` (35 of the
+247 identifier-shaped tokens in the generated modules' environment). The
+Specs module failed to parse. The list is now the full token set, guarded
+by `tests/lean_reserved_words.lean`; corpus c226/c227.

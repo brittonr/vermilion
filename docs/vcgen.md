@@ -178,7 +178,11 @@ them:
 - **Γ's names are pairwise distinct as strings** (`fresh_binder_name`).
 
 Rendering maps every name through `leanSegment` (keyword escaping,
-punctuation normalization), which is not injective: Rust `end` and `end_`
+punctuation normalization). The escaped set, `leanReservedWords`, is every
+identifier-shaped token of the generated modules' environment (Lean core,
+Mathlib, Aesop, lean-smt: `include`, `lemma`, `Type`, … as well as `end`);
+`tests/lean_reserved_words.lean` recomputes the token table and fails on a
+gap. The mapping is not injective: Rust `end` and `end_`
 both render as `end_`. Distinctness as strings therefore does not survive
 rendering. Rendered verbatim, a binder `end` over a free `end_` would bind
 both occurrences in the Lean text, and parameters `end` and `end_` would
