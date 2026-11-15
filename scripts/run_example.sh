@@ -90,6 +90,10 @@ done
 repository="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$repository"
 relative_dir="${example_dir#"$repository"/}"
+# Repository-relative, like every other path in emitted artifacts: an
+# absolute --generated-root leaks into manifests and into every
+# diagnostic's twin_file (no machine-specific paths).
+generated_root="${generated_root#"$repository"/}"
 stem="$(basename "$source_file" .rs)"
 
 # Live one-line status: each caption replaces the previous one.
