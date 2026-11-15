@@ -7,14 +7,14 @@ set_option linter.dupNamespace false
 
 namespace vec_pop_uninterp.pop_test
 
--- vrml:begin vec_pop_uninterp.pop_test.call_requires_1 f3ae26d6f836b960
+-- vrml:begin vec_pop_uninterp.pop_test.call_requires_1 dbc520fe67769a5d
 /--
 Generated VC `vec_pop_uninterp.pop_test.call_requires_1`.
 
 - Rust source: `case-studies/vec-pop-uninterp/vec_pop_uninterp.rs:16:13-16:29`
 - Rust/SST construct: call unwrap
 - AssertId: `1`
-- Statement hash: `f3ae26d6f836b960`
+- Statement hash: `dbc520fe67769a5d`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index t vrml_i0⟩ ⟨Vermilion.Seq.index t i⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def call_requires_1_meta : Vermilion.ObligationMeta := {
@@ -26,17 +26,17 @@ def call_requires_1_meta : Vermilion.ObligationMeta := {
   assertId := "1"
   functionName := "vec_pop_uninterp.pop_test"
   kind := "call_requires"
-  statementHash := "f3ae26d6f836b960"
+  statementHash := "dbc520fe67769a5d"
 }
 @[vrml_obligation] theorem call_requires_1
     (t : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq Int))
     (tmp_ : (core.option.Option Int))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len t))
+    (requires_0 : (0 ≤ Vermilion.Seq.len t) ∧ (Vermilion.Seq.len t < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len t)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index t vrml_i0))))
     (requires_2 : Vermilion.Seq.len t > 0)
     (requires_3 : (∀ (i : Int), (((0 ≤ i) ∧ (i < Vermilion.Seq.len t)) → vec_pop_uninterp.uninterp_fn (Vermilion.Seq.index t i))))
-    (assume_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (assume_4 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
     (assume_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (call_pop_ensures_0 : Vermilion.inUnsignedRange 64 (core.option.Option.get_Some__0 tmp_))
     (call_pop_ensures_1 : (Vermilion.Seq.len t > 0) → ((tmp_ = core.option.Option.Some (Vermilion.Seq.index t (Vermilion.Seq.len t - 1))) ∧ (tmp__post = Vermilion.Seq.subrange t 0 (Vermilion.Seq.len t - 1))))
@@ -45,14 +45,14 @@ def call_requires_1_meta : Vermilion.ObligationMeta := {
   vrml
 -- vrml:end vec_pop_uninterp.pop_test.call_requires_1
 
--- vrml:begin vec_pop_uninterp.pop_test.assert_2 b724cbb9714db562
+-- vrml:begin vec_pop_uninterp.pop_test.assert_2 4c6f94fd1f188175
 /--
 Generated VC `vec_pop_uninterp.pop_test.assert_2`.
 
 - Rust source: `case-studies/vec-pop-uninterp/vec_pop_uninterp.rs:17:12-17:26`
 - Rust/SST construct: Rust source assertion
 - AssertId: `2`
-- Statement hash: `b724cbb9714db562`
+- Statement hash: `4c6f94fd1f188175`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index t vrml_i0⟩ ⟨Vermilion.Seq.index t i⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def assert_2_meta : Vermilion.ObligationMeta := {
@@ -64,18 +64,18 @@ def assert_2_meta : Vermilion.ObligationMeta := {
   assertId := "2"
   functionName := "vec_pop_uninterp.pop_test"
   kind := "assert"
-  statementHash := "b724cbb9714db562"
+  statementHash := "4c6f94fd1f188175"
 }
 @[vrml_obligation] theorem assert_2
     (t : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq Int))
     (tmp_ : (core.option.Option Int))
     (tmp__2 : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len t))
+    (requires_0 : (0 ≤ Vermilion.Seq.len t) ∧ (Vermilion.Seq.len t < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len t)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index t vrml_i0))))
     (requires_2 : Vermilion.Seq.len t > 0)
     (requires_3 : (∀ (i : Int), (((0 ≤ i) ∧ (i < Vermilion.Seq.len t)) → vec_pop_uninterp.uninterp_fn (Vermilion.Seq.index t i))))
-    (assume_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (assume_4 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
     (assume_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (call_pop_ensures_0 : Vermilion.inUnsignedRange 64 (core.option.Option.get_Some__0 tmp_))
     (call_pop_ensures_1 : (Vermilion.Seq.len t > 0) → ((tmp_ = core.option.Option.Some (Vermilion.Seq.index t (Vermilion.Seq.len t - 1))) ∧ (tmp__post = Vermilion.Seq.subrange t 0 (Vermilion.Seq.len t - 1))))
@@ -86,14 +86,14 @@ def assert_2_meta : Vermilion.ObligationMeta := {
   vrml
 -- vrml:end vec_pop_uninterp.pop_test.assert_2
 
--- vrml:begin vec_pop_uninterp.pop_test.assert_3 09f3595f5d61e393
+-- vrml:begin vec_pop_uninterp.pop_test.assert_3 bc6e0ec1233d901e
 /--
 Generated VC `vec_pop_uninterp.pop_test.assert_3`.
 
 - Rust source: `case-studies/vec-pop-uninterp/vec_pop_uninterp.rs:18:12-18:74`
 - Rust/SST construct: Rust source assertion
 - AssertId: `3`
-- Statement hash: `09f3595f5d61e393`
+- Statement hash: `bc6e0ec1233d901e`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index tmp__post i⟩ ⟨Vermilion.Seq.index t vrml_i0⟩ ⟨Vermilion.Seq.index t i⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def assert_3_meta : Vermilion.ObligationMeta := {
@@ -105,18 +105,18 @@ def assert_3_meta : Vermilion.ObligationMeta := {
   assertId := "3"
   functionName := "vec_pop_uninterp.pop_test"
   kind := "assert"
-  statementHash := "09f3595f5d61e393"
+  statementHash := "bc6e0ec1233d901e"
 }
 @[vrml_obligation] theorem assert_3
     (t : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq Int))
     (tmp_ : (core.option.Option Int))
     (tmp__2 : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len t))
+    (requires_0 : (0 ≤ Vermilion.Seq.len t) ∧ (Vermilion.Seq.len t < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len t)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index t vrml_i0))))
     (requires_2 : Vermilion.Seq.len t > 0)
     (requires_3 : (∀ (i : Int), (((0 ≤ i) ∧ (i < Vermilion.Seq.len t)) → vec_pop_uninterp.uninterp_fn (Vermilion.Seq.index t i))))
-    (assume_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (assume_4 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
     (assume_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (call_pop_ensures_0 : Vermilion.inUnsignedRange 64 (core.option.Option.get_Some__0 tmp_))
     (call_pop_ensures_1 : (Vermilion.Seq.len t > 0) → ((tmp_ = core.option.Option.Some (Vermilion.Seq.index t (Vermilion.Seq.len t - 1))) ∧ (tmp__post = Vermilion.Seq.subrange t 0 (Vermilion.Seq.len t - 1))))

@@ -187,8 +187,11 @@ Lean obligations and proof twins pass without `sorry`.
   (`index s (-1) = 0`), and Verus cannot. Nothing executable is affected:
   exec indexing checks bounds. `tests/off_domain_models.lean` pins each
   fact, so making one opaque (the route `emod` took for `x % 0`, #4) is a
-  visible, deliberate change. These, the exact casts and shifts above, are
-  the places Lean can accept what Verus rejects.
+  visible, deliberate change. These, the exact casts and shifts above, and
+  nonlinear arithmetic (Lean's `nlinarith`/`grind` rungs close products
+  that Verus only proves under `by (nonlinear_arith)`) are the known places
+  where Lean can accept what Verus rejects; each is a strengthening of a
+  fact that is true, not a false acceptance.
 
 ## Lean typeclass evidence at the Verus boundary
 
@@ -546,10 +549,18 @@ identity — hints are not axioms).
   measures being nonnegative and return `default` off-range — a valid
   interpretation of Verus's *unconstrained* off-range semantics (the
   same `default` argument as wrong-variant accessors).
-- **`usize`/`isize` carry the arch-neutral 64-bit bounds**: Verus
-  verifies for a symbolic 32/64-bit word; the 64-bit bounds hold on
-  both. Arch-pinned 32-bit programs may prove more in Verus
-  (fail-closed direction, documented in docs/ir.md).
+- **`usize`/`isize` follow the crate's word size (issue #26)**: a crate
+  that pins it (`global size_of usize == 8;`) gets that width exactly.
+  Otherwise Verus verifies for a 32-bit AND a 64-bit word, and so does
+  Vermilion: ranges, clips and `usize::MAX`-style bounds use
+  `Vermilion.usizeMod`, an `opaque` value of the subtype
+  `{m // m = 2^32 ∨ m = 2^64}` (no axiom), and the ladder's
+  normalization splits every obligation that mentions it into the two
+  cases. Before this, the 64-bit bounds were used as obligations too:
+  sound as hypotheses but too weak as overflow checks, they accepted
+  `x + 1` at `x == 2^32 - 1` and other 32-bit overflows Verus rejects.
+  At a symbolic width only `&`, `|`, `^` and `>>` on `usize` are lowered;
+  `<<`, `!` and `isize` bit operations fail closed.
 - **`broadcast use` facts are theorems, not axioms**: the lemma's own
   body is verified — by Verus and by us — before its quantified fact is
   assumed at any use point.

@@ -9,6 +9,6 @@ def active_bitmap_get.V16_MAX_PORTFOLIO_ASSETS_N : Int :=
   16
 
 -- vrml:spec active_bitmap_get.V16_ACTIVE_BITMAP_WORDS case-studies/percolator/active_bitmap_get.rs:12:1
-def active_bitmap_get.V16_ACTIVE_BITMAP_WORDS : Int :=
-  ((((active_bitmap_get.V16_MAX_PORTFOLIO_ASSETS_N + 63) % 18446744073709551616) / 64) % 18446744073709551616)
+noncomputable def active_bitmap_get.V16_ACTIVE_BITMAP_WORDS : Int :=
+  (Vermilion.emod ((Vermilion.emod (active_bitmap_get.V16_MAX_PORTFOLIO_ASSETS_N + 63) Vermilion.usizeMod) / 64) Vermilion.usizeMod)
 

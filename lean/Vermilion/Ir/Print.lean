@@ -63,7 +63,7 @@ rendered at `Int` (below), so it counts too. -/
 def Expr.surelyInt : Expr → Bool
   | .var _ => true
   | .int v => v < 0
-  | .natClip _ | .sclip .. | .seqLen _ => true
+  | .natClip _ | .sclip .. | .seqLen _ | .usizeMod => true
   | .binary .sub _ _ => true
   | .binary .ediv l (.int v) | .binary .emod l (.int v) =>
     -- `Vermilion.ediv`/`emod` (divisor zero) are `Int` functions; a native
@@ -190,6 +190,7 @@ else {elseValue.renderD dite})"
       let rendered := String.intercalate " " (args.toList.map (Expr.renderAtomD dite))
       s!"{leanName} {rendered}"
   | .strLit value => s!"Vermilion.StrSlice.mk {value.quote}"
+  | .usizeMod => "Vermilion.usizeMod"
   | .seqEmpty elem => s!"(Vermilion.Seq.empty : Vermilion.Seq {elem.render})"
   | .coll op args =>
     let rendered := String.intercalate " " (args.toList.map (Expr.renderAtomD dite))
@@ -254,6 +255,7 @@ partial def Expr.renderAtomD (dite : RenderMode) (e : Expr) : String :=
   match e with
   | .var _ | .tt | .ff => e.renderD dite
   | .strLit _ => s!"({e.renderD dite})"
+  | .usizeMod => e.renderD dite
   | .seqEmpty _ | .setEmpty _ | .mapEmpty .. | .multisetEmpty _ => e.renderD dite
   | .int value => if value < 0 then e.renderD dite else s!"{value}"
   | .binary .. | .not _ | .ite .. => e.renderD dite

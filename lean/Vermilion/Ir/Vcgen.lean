@@ -126,7 +126,7 @@ partial def Ty.hasDecidableEq : Ty → Bool
 `env` determine it; `none` otherwise (conservative). -/
 partial def Expr.inferTy (env : List (String × Ty)) : Expr → Option Ty
   | .var name => (env.find? (·.1 == name)).map (·.2)
-  | .int _ | .natClip _ | .sclip .. | .seqLen _ | .bitOp .. => some .int
+  | .int _ | .natClip _ | .sclip .. | .seqLen _ | .bitOp .. | .usizeMod => some .int
   | .strLit _ => some .strSlice
   | .binary op lhs rhs =>
     match op with

@@ -128,6 +128,7 @@ partial def decodeExpr (sexp : Sexp) : Decode Expr := do
     match head, args.size with
     | "var", 1 => return .var (← expectStr args[0]!)
     | "strlit", 1 => return .strLit (← expectStr args[0]!)
+    | "usizemod", 0 => return .usizeMod
     | "int", 1 =>
       match args[0]! with
       | .int v _ => return .int v

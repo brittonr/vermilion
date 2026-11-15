@@ -114,12 +114,36 @@ def assertVC (context assertion : Prop) : Prop := context → assertion
 def callRequiresVC (context calleeRequires : Prop) : Prop :=
   context → calleeRequires
 
+open Lean Meta Elab Tactic in
+/-- When the goal or a hypothesis mentions the symbolic word modulus
+`Vermilion.usizeMod` (an unpinned crate's `usize`/`isize`, issue #26), split
+on its two possible values and substitute each: the goal must then hold at
+a 32-bit AND at a 64-bit word, exactly Verus's `Either32Or64` reading, and
+every clip becomes a remainder by a literal that the arithmetic rungs read.
+Does nothing otherwise, so pinned and usize-free obligations are
+unchanged. -/
+elab "vrml_usize_facts" : tactic => do
+  let goal ← getMainGoal
+  let mentions (e : Expr) : MetaM Bool := do
+    return (← instantiateMVars e).containsConst (· == ``Vermilion.usizeMod)
+  let mut found ← mentions (← goal.getType)
+  unless found do
+    for decl in (← goal.getDecl).lctx do
+      unless decl.isImplementationDetail do
+        if ← mentions decl.type then
+          found := true
+          break
+  if found then
+    evalTactic (← `(tactic|
+      (rcases Vermilion.usizeMod_cases' with _vrml_usize | _vrml_usize <;>
+        simp only [_vrml_usize, Vermilion.emod_usize32, Vermilion.emod_usize64] at *)))
+
 /-- Normalization shared by every discharger rung. -/
 macro "vrml_norm" : tactic =>
   `(tactic|
-    (try simp only [Vermilion.inUnsignedRange, Vermilion.inSignedRange,
+    ((try simp only [Vermilion.inUnsignedRange, Vermilion.inSignedRange,
       Vermilion.natClip, Vermilion.sclip, Vermilion.iteP,
-      Int.reducePow, Nat.reducePow] at *))
+      Int.reducePow, Nat.reducePow] at *); try vrml_usize_facts))
 
 /-- `vrml_norm` extended with extra simp arguments (the revealed spec-fn
 definitions and broadcast hints of `vrml [ids]`). Both entry points share
@@ -129,9 +153,9 @@ syntax "vrml_norm" "[" Lean.Parser.Tactic.simpLemma,* "]" : tactic
 macro_rules
   | `(tactic| vrml_norm [$ids,*]) =>
     `(tactic|
-      (try simp only [Vermilion.inUnsignedRange, Vermilion.inSignedRange,
+      ((try simp only [Vermilion.inUnsignedRange, Vermilion.inSignedRange,
         Vermilion.natClip, Vermilion.sclip, Vermilion.iteP,
-        Int.reducePow, Nat.reducePow, $ids,*] at *))
+        Int.reducePow, Nat.reducePow, $ids,*] at *); try vrml_usize_facts))
 
 /-- Linear side-condition solver used by the collection simp rung. Unfold
 cardinality models only after plain `omega` fails, keeping main expressions

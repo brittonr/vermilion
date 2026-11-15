@@ -7,330 +7,330 @@ set_option linter.dupNamespace false
 
 namespace mergesort_clean.merge
 
--- vrml:begin mergesort_clean.merge.invariant_entry_0_0 69f647670f126616
+-- vrml:begin mergesort_clean.merge.invariant_entry_0_0 dedbea957805d4ec
 /--
 Generated VC `mergesort_clean.merge.invariant_entry_0_0`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:51:13-51:32`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:53:13-53:32`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_0`
-- Statement hash: `69f647670f126616`
+- Statement hash: `dedbea957805d4ec`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩
 -/
 def invariant_entry_0_0_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 51
+  startLine := 53
   startColumn := 13
-  endLine := 51
+  endLine := 53
   endColumn := 32
   assertId := "0_0"
   functionName := "mergesort_clean.merge"
   kind := "invariant_entry"
-  statementHash := "69f647670f126616"
+  statementHash := "dedbea957805d4ec"
 }
 @[vrml_obligation] theorem invariant_entry_0_0
     (v1 : (Vermilion.Seq Int))
     (v2 : (Vermilion.Seq Int))
     (tmp_ : (Vermilion.Seq Int))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (requires_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
     (requires_4 : mergesort_clean.is_sorted v1)
     (requires_5 : mergesort_clean.is_sorted v2)
-    (call_new_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (call_new_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (call_new_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
     (call_new_ensures_2 : tmp_ = (Vermilion.Seq.empty : Vermilion.Seq Int)) :
     (0 ≤ 0) ∧ (0 ≤ Vermilion.Seq.len v1) := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.invariant_entry_0_0
 
--- vrml:begin mergesort_clean.merge.invariant_entry_0_1 69f9af670f154ca5
+-- vrml:begin mergesort_clean.merge.invariant_entry_0_1 ded18a9577fcdd47
 /--
 Generated VC `mergesort_clean.merge.invariant_entry_0_1`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:52:13-52:32`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:54:13-54:32`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_1`
-- Statement hash: `69f9af670f154ca5`
+- Statement hash: `ded18a9577fcdd47`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩
 -/
 def invariant_entry_0_1_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 52
+  startLine := 54
   startColumn := 13
-  endLine := 52
+  endLine := 54
   endColumn := 32
   assertId := "0_1"
   functionName := "mergesort_clean.merge"
   kind := "invariant_entry"
-  statementHash := "69f9af670f154ca5"
+  statementHash := "ded18a9577fcdd47"
 }
 @[vrml_obligation] theorem invariant_entry_0_1
     (v1 : (Vermilion.Seq Int))
     (v2 : (Vermilion.Seq Int))
     (tmp_ : (Vermilion.Seq Int))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (requires_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
     (requires_4 : mergesort_clean.is_sorted v1)
     (requires_5 : mergesort_clean.is_sorted v2)
-    (call_new_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (call_new_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (call_new_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
     (call_new_ensures_2 : tmp_ = (Vermilion.Seq.empty : Vermilion.Seq Int)) :
     (0 ≤ 0) ∧ (0 ≤ Vermilion.Seq.len v2) := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.invariant_entry_0_1
 
--- vrml:begin mergesort_clean.merge.invariant_entry_0_2 b17dbc07c6e884e6
+-- vrml:begin mergesort_clean.merge.invariant_entry_0_2 a0bf682267212304
 /--
 Generated VC `mergesort_clean.merge.invariant_entry_0_2`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:53:13-53:26`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:55:13-55:26`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_2`
-- Statement hash: `b17dbc07c6e884e6`
+- Statement hash: `a0bf682267212304`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩
 -/
 def invariant_entry_0_2_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 53
+  startLine := 55
   startColumn := 13
-  endLine := 53
+  endLine := 55
   endColumn := 26
   assertId := "0_2"
   functionName := "mergesort_clean.merge"
   kind := "invariant_entry"
-  statementHash := "b17dbc07c6e884e6"
+  statementHash := "a0bf682267212304"
 }
 @[vrml_obligation] theorem invariant_entry_0_2
     (v1 : (Vermilion.Seq Int))
     (v2 : (Vermilion.Seq Int))
     (tmp_ : (Vermilion.Seq Int))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (requires_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
     (requires_4 : mergesort_clean.is_sorted v1)
     (requires_5 : mergesort_clean.is_sorted v2)
-    (call_new_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (call_new_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (call_new_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
     (call_new_ensures_2 : tmp_ = (Vermilion.Seq.empty : Vermilion.Seq Int)) :
     mergesort_clean.is_sorted v1 := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.invariant_entry_0_2
 
--- vrml:begin mergesort_clean.merge.invariant_entry_0_3 b17dbb07c6e88333
+-- vrml:begin mergesort_clean.merge.invariant_entry_0_3 a0bf6b226721281d
 /--
 Generated VC `mergesort_clean.merge.invariant_entry_0_3`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:54:13-54:26`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:56:13-56:26`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_3`
-- Statement hash: `b17dbb07c6e88333`
+- Statement hash: `a0bf6b226721281d`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩
 -/
 def invariant_entry_0_3_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 54
+  startLine := 56
   startColumn := 13
-  endLine := 54
+  endLine := 56
   endColumn := 26
   assertId := "0_3"
   functionName := "mergesort_clean.merge"
   kind := "invariant_entry"
-  statementHash := "b17dbb07c6e88333"
+  statementHash := "a0bf6b226721281d"
 }
 @[vrml_obligation] theorem invariant_entry_0_3
     (v1 : (Vermilion.Seq Int))
     (v2 : (Vermilion.Seq Int))
     (tmp_ : (Vermilion.Seq Int))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (requires_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
     (requires_4 : mergesort_clean.is_sorted v1)
     (requires_5 : mergesort_clean.is_sorted v2)
-    (call_new_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (call_new_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (call_new_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
     (call_new_ensures_2 : tmp_ = (Vermilion.Seq.empty : Vermilion.Seq Int)) :
     mergesort_clean.is_sorted v2 := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.invariant_entry_0_3
 
--- vrml:begin mergesort_clean.merge.invariant_entry_0_4 bd2580edaf3e52a4
+-- vrml:begin mergesort_clean.merge.invariant_entry_0_4 fd3f0b247fb41aaa
 /--
 Generated VC `mergesort_clean.merge.invariant_entry_0_4`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:55:13-55:88`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:57:13-57:88`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_4`
-- Statement hash: `bd2580edaf3e52a4`
+- Statement hash: `fd3f0b247fb41aaa`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index tmp_ i⟩ ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩
 -/
 def invariant_entry_0_4_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 55
+  startLine := 57
   startColumn := 13
-  endLine := 55
+  endLine := 57
   endColumn := 88
   assertId := "0_4"
   functionName := "mergesort_clean.merge"
   kind := "invariant_entry"
-  statementHash := "bd2580edaf3e52a4"
+  statementHash := "fd3f0b247fb41aaa"
 }
 @[vrml_obligation] theorem invariant_entry_0_4
     (v1 : (Vermilion.Seq Int))
     (v2 : (Vermilion.Seq Int))
     (tmp_ : (Vermilion.Seq Int))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (requires_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
     (requires_4 : mergesort_clean.is_sorted v1)
     (requires_5 : mergesort_clean.is_sorted v2)
-    (call_new_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (call_new_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (call_new_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
     (call_new_ensures_2 : tmp_ = (Vermilion.Seq.empty : Vermilion.Seq Int)) :
     (∀ (i : Int), ((0 < Vermilion.Seq.len v1) → (((0 ≤ i) ∧ (i < Vermilion.Seq.len tmp_)) → (Vermilion.Seq.index tmp_ i ≤ Vermilion.Seq.index v1 0)))) := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.invariant_entry_0_4
 
--- vrml:begin mergesort_clean.merge.invariant_entry_0_5 d4d9b64f91b52740
+-- vrml:begin mergesort_clean.merge.invariant_entry_0_5 d9fec7eaec267cbe
 /--
 Generated VC `mergesort_clean.merge.invariant_entry_0_5`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:56:13-56:88`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:58:13-58:88`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_5`
-- Statement hash: `d4d9b64f91b52740`
+- Statement hash: `d9fec7eaec267cbe`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index tmp_ i⟩ ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩
 -/
 def invariant_entry_0_5_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 56
+  startLine := 58
   startColumn := 13
-  endLine := 56
+  endLine := 58
   endColumn := 88
   assertId := "0_5"
   functionName := "mergesort_clean.merge"
   kind := "invariant_entry"
-  statementHash := "d4d9b64f91b52740"
+  statementHash := "d9fec7eaec267cbe"
 }
 @[vrml_obligation] theorem invariant_entry_0_5
     (v1 : (Vermilion.Seq Int))
     (v2 : (Vermilion.Seq Int))
     (tmp_ : (Vermilion.Seq Int))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (requires_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
     (requires_4 : mergesort_clean.is_sorted v1)
     (requires_5 : mergesort_clean.is_sorted v2)
-    (call_new_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (call_new_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (call_new_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
     (call_new_ensures_2 : tmp_ = (Vermilion.Seq.empty : Vermilion.Seq Int)) :
     (∀ (i : Int), ((0 < Vermilion.Seq.len v2) → (((0 ≤ i) ∧ (i < Vermilion.Seq.len tmp_)) → (Vermilion.Seq.index tmp_ i ≤ Vermilion.Seq.index v2 0)))) := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.invariant_entry_0_5
 
--- vrml:begin mergesort_clean.merge.invariant_entry_0_6 7d6472eccfa29e2d
+-- vrml:begin mergesort_clean.merge.invariant_entry_0_6 faa3094ff4e7acfb
 /--
 Generated VC `mergesort_clean.merge.invariant_entry_0_6`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:57:13-60:29`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:59:13-62:29`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_6`
-- Statement hash: `7d6472eccfa29e2d`
+- Statement hash: `faa3094ff4e7acfb`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩
 -/
 def invariant_entry_0_6_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 57
+  startLine := 59
   startColumn := 13
-  endLine := 60
+  endLine := 62
   endColumn := 29
   assertId := "0_6"
   functionName := "mergesort_clean.merge"
   kind := "invariant_entry"
-  statementHash := "7d6472eccfa29e2d"
+  statementHash := "faa3094ff4e7acfb"
 }
 @[vrml_obligation] theorem invariant_entry_0_6
     (v1 : (Vermilion.Seq Int))
     (v2 : (Vermilion.Seq Int))
     (tmp_ : (Vermilion.Seq Int))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (requires_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
     (requires_4 : mergesort_clean.is_sorted v1)
     (requires_5 : mergesort_clean.is_sorted v2)
-    (call_new_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (call_new_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (call_new_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
     (call_new_ensures_2 : tmp_ = (Vermilion.Seq.empty : Vermilion.Seq Int)) :
     Vermilion.Seq.toMultiset tmp_ = Vermilion.Seq.toMultiset (Vermilion.Seq.add (Vermilion.Seq.subrange v1 0 0) (Vermilion.Seq.subrange v2 0 0)) := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.invariant_entry_0_6
 
--- vrml:begin mergesort_clean.merge.invariant_entry_0_7 944807836f138a21
+-- vrml:begin mergesort_clean.merge.invariant_entry_0_7 fe70a4246ea31f1f
 /--
 Generated VC `mergesort_clean.merge.invariant_entry_0_7`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:61:13-61:26`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:63:13-63:26`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_7`
-- Statement hash: `944807836f138a21`
+- Statement hash: `fe70a4246ea31f1f`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩
 -/
 def invariant_entry_0_7_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 61
+  startLine := 63
   startColumn := 13
-  endLine := 61
+  endLine := 63
   endColumn := 26
   assertId := "0_7"
   functionName := "mergesort_clean.merge"
   kind := "invariant_entry"
-  statementHash := "944807836f138a21"
+  statementHash := "fe70a4246ea31f1f"
 }
 @[vrml_obligation] theorem invariant_entry_0_7
     (v1 : (Vermilion.Seq Int))
     (v2 : (Vermilion.Seq Int))
     (tmp_ : (Vermilion.Seq Int))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (requires_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
     (requires_4 : mergesort_clean.is_sorted v1)
     (requires_5 : mergesort_clean.is_sorted v2)
-    (call_new_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (call_new_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (call_new_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
     (call_new_ensures_2 : tmp_ = (Vermilion.Seq.empty : Vermilion.Seq Int)) :
     mergesort_clean.is_sorted tmp_ := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.invariant_entry_0_7
 
--- vrml:begin mergesort_clean.merge.call_requires_3 0cb7c70a5f4be170
+-- vrml:begin mergesort_clean.merge.call_requires_3 9efa0d4500cb4cb8
 /--
 Generated VC `mergesort_clean.merge.call_requires_3`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:64:12-64:18`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:66:12-66:18`
 - Rust/SST construct: call vec_index
 - AssertId: `3`
-- Statement hash: `0cb7c70a5f4be170`
+- Statement hash: `9efa0d4500cb4cb8`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩
 -/
 def call_requires_3_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 64
+  startLine := 66
   startColumn := 12
-  endLine := 64
+  endLine := 66
   endColumn := 18
   assertId := "3"
   functionName := "mergesort_clean.merge"
   kind := "call_requires"
-  statementHash := "0cb7c70a5f4be170"
+  statementHash := "9efa0d4500cb4cb8"
 }
 @[vrml_obligation] theorem call_requires_3
     (v1 : (Vermilion.Seq Int))
@@ -339,16 +339,16 @@ def call_requires_3_meta : Vermilion.ObligationMeta := {
     (r : (Vermilion.Seq Int))
     (i1 : Int)
     (i2 : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (loop_0_iteration_4 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (loop_0_iteration_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_iteration_7 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_8 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_10 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_iteration_11 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_iteration_12 : mergesort_clean.is_sorted v1)
@@ -362,26 +362,26 @@ def call_requires_3_meta : Vermilion.ObligationMeta := {
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.call_requires_3
 
--- vrml:begin mergesort_clean.merge.call_requires_4 d2195c622562a77c
+-- vrml:begin mergesort_clean.merge.call_requires_4 5f629c7d93cb4666
 /--
 Generated VC `mergesort_clean.merge.call_requires_4`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:64:21-64:27`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:66:21-66:27`
 - Rust/SST construct: call vec_index
 - AssertId: `4`
-- Statement hash: `d2195c622562a77c`
+- Statement hash: `5f629c7d93cb4666`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩
 -/
 def call_requires_4_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 64
+  startLine := 66
   startColumn := 21
-  endLine := 64
+  endLine := 66
   endColumn := 27
   assertId := "4"
   functionName := "mergesort_clean.merge"
   kind := "call_requires"
-  statementHash := "d2195c622562a77c"
+  statementHash := "5f629c7d93cb4666"
 }
 @[vrml_obligation] theorem call_requires_4
     (v1 : (Vermilion.Seq Int))
@@ -391,16 +391,16 @@ def call_requires_4_meta : Vermilion.ObligationMeta := {
     (i1 : Int)
     (i2 : Int)
     (tmp__2 : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (loop_0_iteration_4 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (loop_0_iteration_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_iteration_7 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_8 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_10 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_iteration_11 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_iteration_12 : mergesort_clean.is_sorted v1)
@@ -416,26 +416,26 @@ def call_requires_4_meta : Vermilion.ObligationMeta := {
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.call_requires_4
 
--- vrml:begin mergesort_clean.merge.call_requires_5 d575da2c214503c1
+-- vrml:begin mergesort_clean.merge.call_requires_5 4c8ccffc03c5fafd
 /--
 Generated VC `mergesort_clean.merge.call_requires_5`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:65:20-65:26`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:67:20-67:26`
 - Rust/SST construct: call vec_index
 - AssertId: `5`
-- Statement hash: `d575da2c214503c1`
+- Statement hash: `4c8ccffc03c5fafd`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩
 -/
 def call_requires_5_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 65
+  startLine := 67
   startColumn := 20
-  endLine := 65
+  endLine := 67
   endColumn := 26
   assertId := "5"
   functionName := "mergesort_clean.merge"
   kind := "call_requires"
-  statementHash := "d575da2c214503c1"
+  statementHash := "4c8ccffc03c5fafd"
 }
 @[vrml_obligation] theorem call_requires_5
     (v1 : (Vermilion.Seq Int))
@@ -449,16 +449,16 @@ def call_requires_5_meta : Vermilion.ObligationMeta := {
     (i1_2 : Int)
     (i2_2 : Int)
     (r_2 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (loop_0_iteration_4 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (loop_0_iteration_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_iteration_7 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_8 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_10 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_iteration_11 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_iteration_12 : mergesort_clean.is_sorted v1)
@@ -477,26 +477,26 @@ def call_requires_5_meta : Vermilion.ObligationMeta := {
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.call_requires_5
 
--- vrml:begin mergesort_clean.merge.assert_7 85a5a55de05b1bb5
+-- vrml:begin mergesort_clean.merge.assert_7 9ec8978149666875
 /--
 Generated VC `mergesort_clean.merge.assert_7`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:66:13-66:20`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:68:13-68:20`
 - Rust/SST construct: possible arithmetic underflow/overflow
 - AssertId: `7`
-- Statement hash: `85a5a55de05b1bb5`
+- Statement hash: `9ec8978149666875`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def assert_7_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 66
+  startLine := 68
   startColumn := 13
-  endLine := 66
+  endLine := 68
   endColumn := 20
   assertId := "7"
   functionName := "mergesort_clean.merge"
   kind := "assert"
-  statementHash := "85a5a55de05b1bb5"
+  statementHash := "9ec8978149666875"
 }
 @[vrml_obligation] theorem assert_7
     (v1 : (Vermilion.Seq Int))
@@ -512,16 +512,16 @@ def assert_7_meta : Vermilion.ObligationMeta := {
     (r_2 : (Vermilion.Seq Int))
     (tmp__4 : Int)
     (tmp__post : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (loop_0_iteration_4 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (loop_0_iteration_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_iteration_7 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_8 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_10 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_iteration_11 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_iteration_12 : mergesort_clean.is_sorted v1)
@@ -538,33 +538,33 @@ def assert_7_meta : Vermilion.ObligationMeta := {
     (branch_0 : tmp__2 < tmp__3)
     (call_vec_index_2_ensures_0 : Vermilion.inUnsignedRange 64 tmp__4)
     (call_vec_index_2_ensures_1 : tmp__4 = Vermilion.Seq.index v1 i1)
-    (assume_26 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (assume_26 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
     (assume_27 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push r tmp__4) :
-    Vermilion.inUnsignedRange 64 (i1 + 1) := by
+    (0 ≤ (i1 + 1)) ∧ ((i1 + 1) < Vermilion.usizeMod) := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.assert_7
 
--- vrml:begin mergesort_clean.merge.call_requires_8 576b0ef222fcf2b1
+-- vrml:begin mergesort_clean.merge.call_requires_8 2fceb0aef056611d
 /--
 Generated VC `mergesort_clean.merge.call_requires_8`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:68:20-68:26`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:70:20-70:26`
 - Rust/SST construct: call vec_index
 - AssertId: `8`
-- Statement hash: `576b0ef222fcf2b1`
+- Statement hash: `2fceb0aef056611d`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩
 -/
 def call_requires_8_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 68
+  startLine := 70
   startColumn := 20
-  endLine := 68
+  endLine := 70
   endColumn := 26
   assertId := "8"
   functionName := "mergesort_clean.merge"
   kind := "call_requires"
-  statementHash := "576b0ef222fcf2b1"
+  statementHash := "2fceb0aef056611d"
 }
 @[vrml_obligation] theorem call_requires_8
     (v1 : (Vermilion.Seq Int))
@@ -578,16 +578,16 @@ def call_requires_8_meta : Vermilion.ObligationMeta := {
     (i1_2 : Int)
     (i2_2 : Int)
     (r_2 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (loop_0_iteration_4 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (loop_0_iteration_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_iteration_7 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_8 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_10 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_iteration_11 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_iteration_12 : mergesort_clean.is_sorted v1)
@@ -606,26 +606,26 @@ def call_requires_8_meta : Vermilion.ObligationMeta := {
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.call_requires_8
 
--- vrml:begin mergesort_clean.merge.assert_10 2f7c66ed385e9d43
+-- vrml:begin mergesort_clean.merge.assert_10 7ee463212496137f
 /--
 Generated VC `mergesort_clean.merge.assert_10`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:69:13-69:20`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:71:13-71:20`
 - Rust/SST construct: possible arithmetic underflow/overflow
 - AssertId: `10`
-- Statement hash: `2f7c66ed385e9d43`
+- Statement hash: `7ee463212496137f`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index tmp__post_2 vrml_i0⟩
 -/
 def assert_10_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 69
+  startLine := 71
   startColumn := 13
-  endLine := 69
+  endLine := 71
   endColumn := 20
   assertId := "10"
   functionName := "mergesort_clean.merge"
   kind := "assert"
-  statementHash := "2f7c66ed385e9d43"
+  statementHash := "7ee463212496137f"
 }
 @[vrml_obligation] theorem assert_10
     (v1 : (Vermilion.Seq Int))
@@ -641,16 +641,16 @@ def assert_10_meta : Vermilion.ObligationMeta := {
     (r_2 : (Vermilion.Seq Int))
     (tmp__5 : Int)
     (tmp__post_2 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (loop_0_iteration_4 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (loop_0_iteration_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_iteration_7 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_8 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_10 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_iteration_11 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_iteration_12 : mergesort_clean.is_sorted v1)
@@ -667,21 +667,21 @@ def assert_10_meta : Vermilion.ObligationMeta := {
     (branch_0 : (¬ (tmp__2 < tmp__3)))
     (call_vec_index_3_ensures_0 : Vermilion.inUnsignedRange 64 tmp__5)
     (call_vec_index_3_ensures_1 : tmp__5 = Vermilion.Seq.index v2 i2)
-    (assume_26 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_2))
+    (assume_26 : (0 ≤ Vermilion.Seq.len tmp__post_2) ∧ (Vermilion.Seq.len tmp__post_2 < Vermilion.usizeMod))
     (assume_27 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_2 vrml_i0))))
     (call_push_1_ensures_0 : tmp__post_2 = Vermilion.Seq.push r tmp__5) :
-    Vermilion.inUnsignedRange 64 (i2 + 1) := by
+    (0 ≤ (i2 + 1)) ∧ ((i2 + 1) < Vermilion.usizeMod) := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.assert_10
 
--- vrml:begin mergesort_clean.merge.invariant_preserve_0_0 fd8720a14074caa6
+-- vrml:begin mergesort_clean.merge.invariant_preserve_0_0 8d4039ef469e3d41
 /--
 Generated VC `mergesort_clean.merge.invariant_preserve_0_0`.
 
 - Rust source: `case-studies/merge-sort/mergesort_clean.rs:53:13-53:32`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_0`
-- Statement hash: `fd8720a14074caa6`
+- Statement hash: `8d4039ef469e3d41`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post_2 vrml_i0⟩ ⟨Vermilion.Seq.index r_2 vrml_i0⟩
 -/
 def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
@@ -693,7 +693,7 @@ def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
   assertId := "0_0"
   functionName := "mergesort_clean.merge"
   kind := "invariant_preserve"
-  statementHash := "fd8720a14074caa6"
+  statementHash := "8d4039ef469e3d41"
 }
 @[vrml_obligation] theorem invariant_preserve_0_0
     (v1 : (Vermilion.Seq Int))
@@ -711,16 +711,16 @@ def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
     (tmp__post : (Vermilion.Seq Int))
     (tmp__5 : Int)
     (tmp__post_2 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (loop_0_iteration_4 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (loop_0_iteration_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_iteration_7 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_8 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_10 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_iteration_11 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_iteration_12 : mergesort_clean.is_sorted v1)
@@ -736,38 +736,38 @@ def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
     (call_vec_index_1_ensures_1 : tmp__3 = Vermilion.Seq.index v2 i2)
     (then_0_call_vec_index_2_ensures_0 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 tmp__4)
     (then_0_call_vec_index_2_ensures_1 : (tmp__2 < tmp__3) → (tmp__4 = Vermilion.Seq.index v1 i1))
-    (then_0_assume_26 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (then_0_assume_26 : (tmp__2 < tmp__3) → ((0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod)))
     (then_0_assume_27 : (tmp__2 < tmp__3) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (then_0_call_push_ensures_0 : (tmp__2 < tmp__3) → (tmp__post = Vermilion.Seq.push r tmp__4))
-    (then_0_assert_7 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (i1 + 1))
-    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = ((i1 + 1) % 18446744073709551616)))
+    (then_0_assert_7 : (tmp__2 < tmp__3) → ((0 ≤ (i1 + 1)) ∧ ((i1 + 1) < Vermilion.usizeMod)))
+    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = (Vermilion.emod (i1 + 1) Vermilion.usizeMod)))
     (then_0_assume_31 : (tmp__2 < tmp__3) → (i2_2 = i2))
     (then_0_assume_32 : (tmp__2 < tmp__3) → (r_2 = tmp__post))
     (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 tmp__5)
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 < tmp__3)) → (tmp__5 = Vermilion.Seq.index v2 i2))
-    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_2))
+    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ Vermilion.Seq.len tmp__post_2) ∧ (Vermilion.Seq.len tmp__post_2 < Vermilion.usizeMod)))
     (else_0_assume_27 : (¬ (tmp__2 < tmp__3)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_2 vrml_i0))))
     (else_0_call_push_1_ensures_0 : (¬ (tmp__2 < tmp__3)) → (tmp__post_2 = Vermilion.Seq.push r tmp__5))
-    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (i2 + 1))
+    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ (i2 + 1)) ∧ ((i2 + 1) < Vermilion.usizeMod)))
     (else_0_assume_30 : (¬ (tmp__2 < tmp__3)) → (i1_2 = i1))
-    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = ((i2 + 1) % 18446744073709551616)))
+    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = (Vermilion.emod (i2 + 1) Vermilion.usizeMod)))
     (else_0_assume_32 : (¬ (tmp__2 < tmp__3)) → (r_2 = tmp__post_2))
-    (assume_41 : Vermilion.inUnsignedRange 64 i1_2)
-    (assume_42 : Vermilion.inUnsignedRange 64 i2_2)
-    (assume_43 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r_2))
+    (assume_41 : (0 ≤ i1_2) ∧ (i1_2 < Vermilion.usizeMod))
+    (assume_42 : (0 ≤ i2_2) ∧ (i2_2 < Vermilion.usizeMod))
+    (assume_43 : (0 ≤ Vermilion.Seq.len r_2) ∧ (Vermilion.Seq.len r_2 < Vermilion.usizeMod))
     (assume_44 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r_2 vrml_i0)))) :
     (0 ≤ i1_2) ∧ (i1_2 ≤ Vermilion.Seq.len v1) := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.invariant_preserve_0_0
 
--- vrml:begin mergesort_clean.merge.invariant_preserve_0_1 115a5c2b97d9606b
+-- vrml:begin mergesort_clean.merge.invariant_preserve_0_1 13a120ae345ce188
 /--
 Generated VC `mergesort_clean.merge.invariant_preserve_0_1`.
 
 - Rust source: `case-studies/merge-sort/mergesort_clean.rs:54:13-54:32`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_1`
-- Statement hash: `115a5c2b97d9606b`
+- Statement hash: `13a120ae345ce188`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post_2 vrml_i0⟩ ⟨Vermilion.Seq.index r_2 vrml_i0⟩
 -/
 def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
@@ -779,7 +779,7 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
   assertId := "0_1"
   functionName := "mergesort_clean.merge"
   kind := "invariant_preserve"
-  statementHash := "115a5c2b97d9606b"
+  statementHash := "13a120ae345ce188"
 }
 @[vrml_obligation] theorem invariant_preserve_0_1
     (v1 : (Vermilion.Seq Int))
@@ -797,16 +797,16 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
     (tmp__post : (Vermilion.Seq Int))
     (tmp__5 : Int)
     (tmp__post_2 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (loop_0_iteration_4 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (loop_0_iteration_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_iteration_7 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_8 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_10 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_iteration_11 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_iteration_12 : mergesort_clean.is_sorted v1)
@@ -822,38 +822,38 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
     (call_vec_index_1_ensures_1 : tmp__3 = Vermilion.Seq.index v2 i2)
     (then_0_call_vec_index_2_ensures_0 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 tmp__4)
     (then_0_call_vec_index_2_ensures_1 : (tmp__2 < tmp__3) → (tmp__4 = Vermilion.Seq.index v1 i1))
-    (then_0_assume_26 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (then_0_assume_26 : (tmp__2 < tmp__3) → ((0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod)))
     (then_0_assume_27 : (tmp__2 < tmp__3) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (then_0_call_push_ensures_0 : (tmp__2 < tmp__3) → (tmp__post = Vermilion.Seq.push r tmp__4))
-    (then_0_assert_7 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (i1 + 1))
-    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = ((i1 + 1) % 18446744073709551616)))
+    (then_0_assert_7 : (tmp__2 < tmp__3) → ((0 ≤ (i1 + 1)) ∧ ((i1 + 1) < Vermilion.usizeMod)))
+    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = (Vermilion.emod (i1 + 1) Vermilion.usizeMod)))
     (then_0_assume_31 : (tmp__2 < tmp__3) → (i2_2 = i2))
     (then_0_assume_32 : (tmp__2 < tmp__3) → (r_2 = tmp__post))
     (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 tmp__5)
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 < tmp__3)) → (tmp__5 = Vermilion.Seq.index v2 i2))
-    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_2))
+    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ Vermilion.Seq.len tmp__post_2) ∧ (Vermilion.Seq.len tmp__post_2 < Vermilion.usizeMod)))
     (else_0_assume_27 : (¬ (tmp__2 < tmp__3)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_2 vrml_i0))))
     (else_0_call_push_1_ensures_0 : (¬ (tmp__2 < tmp__3)) → (tmp__post_2 = Vermilion.Seq.push r tmp__5))
-    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (i2 + 1))
+    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ (i2 + 1)) ∧ ((i2 + 1) < Vermilion.usizeMod)))
     (else_0_assume_30 : (¬ (tmp__2 < tmp__3)) → (i1_2 = i1))
-    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = ((i2 + 1) % 18446744073709551616)))
+    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = (Vermilion.emod (i2 + 1) Vermilion.usizeMod)))
     (else_0_assume_32 : (¬ (tmp__2 < tmp__3)) → (r_2 = tmp__post_2))
-    (assume_41 : Vermilion.inUnsignedRange 64 i1_2)
-    (assume_42 : Vermilion.inUnsignedRange 64 i2_2)
-    (assume_43 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r_2))
+    (assume_41 : (0 ≤ i1_2) ∧ (i1_2 < Vermilion.usizeMod))
+    (assume_42 : (0 ≤ i2_2) ∧ (i2_2 < Vermilion.usizeMod))
+    (assume_43 : (0 ≤ Vermilion.Seq.len r_2) ∧ (Vermilion.Seq.len r_2 < Vermilion.usizeMod))
     (assume_44 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r_2 vrml_i0)))) :
     (0 ≤ i2_2) ∧ (i2_2 ≤ Vermilion.Seq.len v2) := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.invariant_preserve_0_1
 
--- vrml:begin mergesort_clean.merge.invariant_preserve_0_2 6e1ee5665a8e3a3c
+-- vrml:begin mergesort_clean.merge.invariant_preserve_0_2 70b42e77d9c67513
 /--
 Generated VC `mergesort_clean.merge.invariant_preserve_0_2`.
 
 - Rust source: `case-studies/merge-sort/mergesort_clean.rs:55:13-55:26`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_2`
-- Statement hash: `6e1ee5665a8e3a3c`
+- Statement hash: `70b42e77d9c67513`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post_2 vrml_i0⟩ ⟨Vermilion.Seq.index r_2 vrml_i0⟩
 -/
 def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
@@ -865,7 +865,7 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
   assertId := "0_2"
   functionName := "mergesort_clean.merge"
   kind := "invariant_preserve"
-  statementHash := "6e1ee5665a8e3a3c"
+  statementHash := "70b42e77d9c67513"
 }
 @[vrml_obligation] theorem invariant_preserve_0_2
     (v1 : (Vermilion.Seq Int))
@@ -883,16 +883,16 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
     (tmp__post : (Vermilion.Seq Int))
     (tmp__5 : Int)
     (tmp__post_2 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (loop_0_iteration_4 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (loop_0_iteration_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_iteration_7 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_8 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_10 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_iteration_11 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_iteration_12 : mergesort_clean.is_sorted v1)
@@ -908,38 +908,38 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
     (call_vec_index_1_ensures_1 : tmp__3 = Vermilion.Seq.index v2 i2)
     (then_0_call_vec_index_2_ensures_0 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 tmp__4)
     (then_0_call_vec_index_2_ensures_1 : (tmp__2 < tmp__3) → (tmp__4 = Vermilion.Seq.index v1 i1))
-    (then_0_assume_26 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (then_0_assume_26 : (tmp__2 < tmp__3) → ((0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod)))
     (then_0_assume_27 : (tmp__2 < tmp__3) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (then_0_call_push_ensures_0 : (tmp__2 < tmp__3) → (tmp__post = Vermilion.Seq.push r tmp__4))
-    (then_0_assert_7 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (i1 + 1))
-    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = ((i1 + 1) % 18446744073709551616)))
+    (then_0_assert_7 : (tmp__2 < tmp__3) → ((0 ≤ (i1 + 1)) ∧ ((i1 + 1) < Vermilion.usizeMod)))
+    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = (Vermilion.emod (i1 + 1) Vermilion.usizeMod)))
     (then_0_assume_31 : (tmp__2 < tmp__3) → (i2_2 = i2))
     (then_0_assume_32 : (tmp__2 < tmp__3) → (r_2 = tmp__post))
     (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 tmp__5)
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 < tmp__3)) → (tmp__5 = Vermilion.Seq.index v2 i2))
-    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_2))
+    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ Vermilion.Seq.len tmp__post_2) ∧ (Vermilion.Seq.len tmp__post_2 < Vermilion.usizeMod)))
     (else_0_assume_27 : (¬ (tmp__2 < tmp__3)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_2 vrml_i0))))
     (else_0_call_push_1_ensures_0 : (¬ (tmp__2 < tmp__3)) → (tmp__post_2 = Vermilion.Seq.push r tmp__5))
-    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (i2 + 1))
+    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ (i2 + 1)) ∧ ((i2 + 1) < Vermilion.usizeMod)))
     (else_0_assume_30 : (¬ (tmp__2 < tmp__3)) → (i1_2 = i1))
-    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = ((i2 + 1) % 18446744073709551616)))
+    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = (Vermilion.emod (i2 + 1) Vermilion.usizeMod)))
     (else_0_assume_32 : (¬ (tmp__2 < tmp__3)) → (r_2 = tmp__post_2))
-    (assume_41 : Vermilion.inUnsignedRange 64 i1_2)
-    (assume_42 : Vermilion.inUnsignedRange 64 i2_2)
-    (assume_43 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r_2))
+    (assume_41 : (0 ≤ i1_2) ∧ (i1_2 < Vermilion.usizeMod))
+    (assume_42 : (0 ≤ i2_2) ∧ (i2_2 < Vermilion.usizeMod))
+    (assume_43 : (0 ≤ Vermilion.Seq.len r_2) ∧ (Vermilion.Seq.len r_2 < Vermilion.usizeMod))
     (assume_44 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r_2 vrml_i0)))) :
     mergesort_clean.is_sorted v1 := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.invariant_preserve_0_2
 
--- vrml:begin mergesort_clean.merge.invariant_preserve_0_3 6e1ee8665a8e3f55
+-- vrml:begin mergesort_clean.merge.invariant_preserve_0_3 70b42f77d9c676c6
 /--
 Generated VC `mergesort_clean.merge.invariant_preserve_0_3`.
 
 - Rust source: `case-studies/merge-sort/mergesort_clean.rs:56:13-56:26`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_3`
-- Statement hash: `6e1ee8665a8e3f55`
+- Statement hash: `70b42f77d9c676c6`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post_2 vrml_i0⟩ ⟨Vermilion.Seq.index r_2 vrml_i0⟩
 -/
 def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
@@ -951,7 +951,7 @@ def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
   assertId := "0_3"
   functionName := "mergesort_clean.merge"
   kind := "invariant_preserve"
-  statementHash := "6e1ee8665a8e3f55"
+  statementHash := "70b42f77d9c676c6"
 }
 @[vrml_obligation] theorem invariant_preserve_0_3
     (v1 : (Vermilion.Seq Int))
@@ -969,16 +969,16 @@ def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
     (tmp__post : (Vermilion.Seq Int))
     (tmp__5 : Int)
     (tmp__post_2 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (loop_0_iteration_4 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (loop_0_iteration_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_iteration_7 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_8 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_10 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_iteration_11 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_iteration_12 : mergesort_clean.is_sorted v1)
@@ -994,38 +994,38 @@ def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
     (call_vec_index_1_ensures_1 : tmp__3 = Vermilion.Seq.index v2 i2)
     (then_0_call_vec_index_2_ensures_0 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 tmp__4)
     (then_0_call_vec_index_2_ensures_1 : (tmp__2 < tmp__3) → (tmp__4 = Vermilion.Seq.index v1 i1))
-    (then_0_assume_26 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (then_0_assume_26 : (tmp__2 < tmp__3) → ((0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod)))
     (then_0_assume_27 : (tmp__2 < tmp__3) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (then_0_call_push_ensures_0 : (tmp__2 < tmp__3) → (tmp__post = Vermilion.Seq.push r tmp__4))
-    (then_0_assert_7 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (i1 + 1))
-    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = ((i1 + 1) % 18446744073709551616)))
+    (then_0_assert_7 : (tmp__2 < tmp__3) → ((0 ≤ (i1 + 1)) ∧ ((i1 + 1) < Vermilion.usizeMod)))
+    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = (Vermilion.emod (i1 + 1) Vermilion.usizeMod)))
     (then_0_assume_31 : (tmp__2 < tmp__3) → (i2_2 = i2))
     (then_0_assume_32 : (tmp__2 < tmp__3) → (r_2 = tmp__post))
     (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 tmp__5)
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 < tmp__3)) → (tmp__5 = Vermilion.Seq.index v2 i2))
-    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_2))
+    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ Vermilion.Seq.len tmp__post_2) ∧ (Vermilion.Seq.len tmp__post_2 < Vermilion.usizeMod)))
     (else_0_assume_27 : (¬ (tmp__2 < tmp__3)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_2 vrml_i0))))
     (else_0_call_push_1_ensures_0 : (¬ (tmp__2 < tmp__3)) → (tmp__post_2 = Vermilion.Seq.push r tmp__5))
-    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (i2 + 1))
+    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ (i2 + 1)) ∧ ((i2 + 1) < Vermilion.usizeMod)))
     (else_0_assume_30 : (¬ (tmp__2 < tmp__3)) → (i1_2 = i1))
-    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = ((i2 + 1) % 18446744073709551616)))
+    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = (Vermilion.emod (i2 + 1) Vermilion.usizeMod)))
     (else_0_assume_32 : (¬ (tmp__2 < tmp__3)) → (r_2 = tmp__post_2))
-    (assume_41 : Vermilion.inUnsignedRange 64 i1_2)
-    (assume_42 : Vermilion.inUnsignedRange 64 i2_2)
-    (assume_43 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r_2))
+    (assume_41 : (0 ≤ i1_2) ∧ (i1_2 < Vermilion.usizeMod))
+    (assume_42 : (0 ≤ i2_2) ∧ (i2_2 < Vermilion.usizeMod))
+    (assume_43 : (0 ≤ Vermilion.Seq.len r_2) ∧ (Vermilion.Seq.len r_2 < Vermilion.usizeMod))
     (assume_44 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r_2 vrml_i0)))) :
     mergesort_clean.is_sorted v2 := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.invariant_preserve_0_3
 
--- vrml:begin mergesort_clean.merge.invariant_preserve_0_4 c8471e93f955f0f0
+-- vrml:begin mergesort_clean.merge.invariant_preserve_0_4 aec4a1c9504566e3
 /--
 Generated VC `mergesort_clean.merge.invariant_preserve_0_4`.
 
 - Rust source: `case-studies/merge-sort/mergesort_clean.rs:57:13-57:88`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_4`
-- Statement hash: `c8471e93f955f0f0`
+- Statement hash: `aec4a1c9504566e3`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index r_2 i⟩ ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post_2 vrml_i0⟩ ⟨Vermilion.Seq.index r_2 vrml_i0⟩
 -/
 def invariant_preserve_0_4_meta : Vermilion.ObligationMeta := {
@@ -1037,7 +1037,7 @@ def invariant_preserve_0_4_meta : Vermilion.ObligationMeta := {
   assertId := "0_4"
   functionName := "mergesort_clean.merge"
   kind := "invariant_preserve"
-  statementHash := "c8471e93f955f0f0"
+  statementHash := "aec4a1c9504566e3"
 }
 @[vrml_obligation] theorem invariant_preserve_0_4
     (v1 : (Vermilion.Seq Int))
@@ -1055,16 +1055,16 @@ def invariant_preserve_0_4_meta : Vermilion.ObligationMeta := {
     (tmp__post : (Vermilion.Seq Int))
     (tmp__5 : Int)
     (tmp__post_2 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (loop_0_iteration_4 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (loop_0_iteration_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_iteration_7 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_8 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_10 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_iteration_11 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_iteration_12 : mergesort_clean.is_sorted v1)
@@ -1080,25 +1080,25 @@ def invariant_preserve_0_4_meta : Vermilion.ObligationMeta := {
     (call_vec_index_1_ensures_1 : tmp__3 = Vermilion.Seq.index v2 i2)
     (then_0_call_vec_index_2_ensures_0 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 tmp__4)
     (then_0_call_vec_index_2_ensures_1 : (tmp__2 < tmp__3) → (tmp__4 = Vermilion.Seq.index v1 i1))
-    (then_0_assume_26 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (then_0_assume_26 : (tmp__2 < tmp__3) → ((0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod)))
     (then_0_assume_27 : (tmp__2 < tmp__3) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (then_0_call_push_ensures_0 : (tmp__2 < tmp__3) → (tmp__post = Vermilion.Seq.push r tmp__4))
-    (then_0_assert_7 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (i1 + 1))
-    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = ((i1 + 1) % 18446744073709551616)))
+    (then_0_assert_7 : (tmp__2 < tmp__3) → ((0 ≤ (i1 + 1)) ∧ ((i1 + 1) < Vermilion.usizeMod)))
+    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = (Vermilion.emod (i1 + 1) Vermilion.usizeMod)))
     (then_0_assume_31 : (tmp__2 < tmp__3) → (i2_2 = i2))
     (then_0_assume_32 : (tmp__2 < tmp__3) → (r_2 = tmp__post))
     (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 tmp__5)
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 < tmp__3)) → (tmp__5 = Vermilion.Seq.index v2 i2))
-    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_2))
+    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ Vermilion.Seq.len tmp__post_2) ∧ (Vermilion.Seq.len tmp__post_2 < Vermilion.usizeMod)))
     (else_0_assume_27 : (¬ (tmp__2 < tmp__3)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_2 vrml_i0))))
     (else_0_call_push_1_ensures_0 : (¬ (tmp__2 < tmp__3)) → (tmp__post_2 = Vermilion.Seq.push r tmp__5))
-    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (i2 + 1))
+    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ (i2 + 1)) ∧ ((i2 + 1) < Vermilion.usizeMod)))
     (else_0_assume_30 : (¬ (tmp__2 < tmp__3)) → (i1_2 = i1))
-    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = ((i2 + 1) % 18446744073709551616)))
+    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = (Vermilion.emod (i2 + 1) Vermilion.usizeMod)))
     (else_0_assume_32 : (¬ (tmp__2 < tmp__3)) → (r_2 = tmp__post_2))
-    (assume_41 : Vermilion.inUnsignedRange 64 i1_2)
-    (assume_42 : Vermilion.inUnsignedRange 64 i2_2)
-    (assume_43 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r_2))
+    (assume_41 : (0 ≤ i1_2) ∧ (i1_2 < Vermilion.usizeMod))
+    (assume_42 : (0 ≤ i2_2) ∧ (i2_2 < Vermilion.usizeMod))
+    (assume_43 : (0 ≤ Vermilion.Seq.len r_2) ∧ (Vermilion.Seq.len r_2 < Vermilion.usizeMod))
     (assume_44 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r_2 vrml_i0)))) :
     (∀ (i : Int), ((i1_2 < Vermilion.Seq.len v1) → (((0 ≤ i) ∧ (i < Vermilion.Seq.len r_2)) → (Vermilion.Seq.index r_2 i ≤ Vermilion.Seq.index v1 i1_2)))) := by
   -- Interactive proof: every element of the extended result stays bounded
@@ -1115,9 +1115,8 @@ def invariant_preserve_0_4_meta : Vermilion.ObligationMeta := {
       rw [then_0_assume_32 hbr, then_0_call_push_ensures_0 hbr,
         then_0_call_vec_index_2_ensures_1 hbr]
     have hinc := then_0_assert_7 hbr
-    simp only [Vermilion.inUnsignedRange] at hinc
-    have hmod : (i1 + 1) % 18446744073709551616 = i1 + 1 :=
-      Int.emod_eq_of_lt hinc.1 hinc.2
+    have hmod : Vermilion.emod (i1 + 1) Vermilion.usizeMod = i1 + 1 :=
+      Vermilion.emod_usizeMod_of_lt hinc.1 hinc.2
     rw [then_0_assume_30 hbr, hmod] at hlt ⊢
     have hv1 : Vermilion.Seq.index v1 i1 ≤ Vermilion.Seq.index v1 (i1 + 1) :=
       loop_0_iteration_12 i1 (i1 + 1) ⟨⟨loop_0_iteration_10.1, by omega⟩, hlt⟩
@@ -1147,14 +1146,14 @@ def invariant_preserve_0_4_meta : Vermilion.ObligationMeta := {
       exact hcross
 -- vrml:end mergesort_clean.merge.invariant_preserve_0_4
 
--- vrml:begin mergesort_clean.merge.invariant_preserve_0_5 294b2c4f58d49bf4
+-- vrml:begin mergesort_clean.merge.invariant_preserve_0_5 a26250176d3ca387
 /--
 Generated VC `mergesort_clean.merge.invariant_preserve_0_5`.
 
 - Rust source: `case-studies/merge-sort/mergesort_clean.rs:58:13-58:88`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_5`
-- Statement hash: `294b2c4f58d49bf4`
+- Statement hash: `a26250176d3ca387`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index r_2 i⟩ ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post_2 vrml_i0⟩ ⟨Vermilion.Seq.index r_2 vrml_i0⟩
 -/
 def invariant_preserve_0_5_meta : Vermilion.ObligationMeta := {
@@ -1166,7 +1165,7 @@ def invariant_preserve_0_5_meta : Vermilion.ObligationMeta := {
   assertId := "0_5"
   functionName := "mergesort_clean.merge"
   kind := "invariant_preserve"
-  statementHash := "294b2c4f58d49bf4"
+  statementHash := "a26250176d3ca387"
 }
 @[vrml_obligation] theorem invariant_preserve_0_5
     (v1 : (Vermilion.Seq Int))
@@ -1184,16 +1183,16 @@ def invariant_preserve_0_5_meta : Vermilion.ObligationMeta := {
     (tmp__post : (Vermilion.Seq Int))
     (tmp__5 : Int)
     (tmp__post_2 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (loop_0_iteration_4 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (loop_0_iteration_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_iteration_7 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_8 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_10 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_iteration_11 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_iteration_12 : mergesort_clean.is_sorted v1)
@@ -1209,25 +1208,25 @@ def invariant_preserve_0_5_meta : Vermilion.ObligationMeta := {
     (call_vec_index_1_ensures_1 : tmp__3 = Vermilion.Seq.index v2 i2)
     (then_0_call_vec_index_2_ensures_0 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 tmp__4)
     (then_0_call_vec_index_2_ensures_1 : (tmp__2 < tmp__3) → (tmp__4 = Vermilion.Seq.index v1 i1))
-    (then_0_assume_26 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (then_0_assume_26 : (tmp__2 < tmp__3) → ((0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod)))
     (then_0_assume_27 : (tmp__2 < tmp__3) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (then_0_call_push_ensures_0 : (tmp__2 < tmp__3) → (tmp__post = Vermilion.Seq.push r tmp__4))
-    (then_0_assert_7 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (i1 + 1))
-    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = ((i1 + 1) % 18446744073709551616)))
+    (then_0_assert_7 : (tmp__2 < tmp__3) → ((0 ≤ (i1 + 1)) ∧ ((i1 + 1) < Vermilion.usizeMod)))
+    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = (Vermilion.emod (i1 + 1) Vermilion.usizeMod)))
     (then_0_assume_31 : (tmp__2 < tmp__3) → (i2_2 = i2))
     (then_0_assume_32 : (tmp__2 < tmp__3) → (r_2 = tmp__post))
     (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 tmp__5)
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 < tmp__3)) → (tmp__5 = Vermilion.Seq.index v2 i2))
-    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_2))
+    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ Vermilion.Seq.len tmp__post_2) ∧ (Vermilion.Seq.len tmp__post_2 < Vermilion.usizeMod)))
     (else_0_assume_27 : (¬ (tmp__2 < tmp__3)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_2 vrml_i0))))
     (else_0_call_push_1_ensures_0 : (¬ (tmp__2 < tmp__3)) → (tmp__post_2 = Vermilion.Seq.push r tmp__5))
-    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (i2 + 1))
+    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ (i2 + 1)) ∧ ((i2 + 1) < Vermilion.usizeMod)))
     (else_0_assume_30 : (¬ (tmp__2 < tmp__3)) → (i1_2 = i1))
-    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = ((i2 + 1) % 18446744073709551616)))
+    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = (Vermilion.emod (i2 + 1) Vermilion.usizeMod)))
     (else_0_assume_32 : (¬ (tmp__2 < tmp__3)) → (r_2 = tmp__post_2))
-    (assume_41 : Vermilion.inUnsignedRange 64 i1_2)
-    (assume_42 : Vermilion.inUnsignedRange 64 i2_2)
-    (assume_43 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r_2))
+    (assume_41 : (0 ≤ i1_2) ∧ (i1_2 < Vermilion.usizeMod))
+    (assume_42 : (0 ≤ i2_2) ∧ (i2_2 < Vermilion.usizeMod))
+    (assume_43 : (0 ≤ Vermilion.Seq.len r_2) ∧ (Vermilion.Seq.len r_2 < Vermilion.usizeMod))
     (assume_44 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r_2 vrml_i0)))) :
     (∀ (i : Int), ((i2_2 < Vermilion.Seq.len v2) → (((0 ≤ i) ∧ (i < Vermilion.Seq.len r_2)) → (Vermilion.Seq.index r_2 i ≤ Vermilion.Seq.index v2 i2_2)))) := by
   -- Interactive proof: mirror image of the previous invariant, for the
@@ -1259,9 +1258,8 @@ def invariant_preserve_0_5_meta : Vermilion.ObligationMeta := {
       rw [else_0_assume_32 hbr, else_0_call_push_1_ensures_0 hbr,
         else_0_call_vec_index_3_ensures_1 hbr]
     have hinc := else_0_assert_10 hbr
-    simp only [Vermilion.inUnsignedRange] at hinc
-    have hmod : (i2 + 1) % 18446744073709551616 = i2 + 1 :=
-      Int.emod_eq_of_lt hinc.1 hinc.2
+    have hmod : Vermilion.emod (i2 + 1) Vermilion.usizeMod = i2 + 1 :=
+      Vermilion.emod_usizeMod_of_lt hinc.1 hinc.2
     rw [else_0_assume_31 hbr, hmod] at hlt ⊢
     have hv2 : Vermilion.Seq.index v2 i2 ≤ Vermilion.Seq.index v2 (i2 + 1) :=
       loop_0_iteration_13 i2 (i2 + 1) ⟨⟨loop_0_iteration_11.1, by omega⟩, hlt⟩
@@ -1275,14 +1273,14 @@ def invariant_preserve_0_5_meta : Vermilion.ObligationMeta := {
       exact hv2
 -- vrml:end mergesort_clean.merge.invariant_preserve_0_5
 
--- vrml:begin mergesort_clean.merge.invariant_preserve_0_6 3a4f8492ae693611
+-- vrml:begin mergesort_clean.merge.invariant_preserve_0_6 c30e46c66b0e2fa0
 /--
 Generated VC `mergesort_clean.merge.invariant_preserve_0_6`.
 
 - Rust source: `case-studies/merge-sort/mergesort_clean.rs:59:13-62:29`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_6`
-- Statement hash: `3a4f8492ae693611`
+- Statement hash: `c30e46c66b0e2fa0`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post_2 vrml_i0⟩ ⟨Vermilion.Seq.index r_2 vrml_i0⟩
 -/
 def invariant_preserve_0_6_meta : Vermilion.ObligationMeta := {
@@ -1294,7 +1292,7 @@ def invariant_preserve_0_6_meta : Vermilion.ObligationMeta := {
   assertId := "0_6"
   functionName := "mergesort_clean.merge"
   kind := "invariant_preserve"
-  statementHash := "3a4f8492ae693611"
+  statementHash := "c30e46c66b0e2fa0"
 }
 @[vrml_obligation] theorem invariant_preserve_0_6
     (v1 : (Vermilion.Seq Int))
@@ -1312,16 +1310,16 @@ def invariant_preserve_0_6_meta : Vermilion.ObligationMeta := {
     (tmp__post : (Vermilion.Seq Int))
     (tmp__5 : Int)
     (tmp__post_2 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (loop_0_iteration_4 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (loop_0_iteration_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_iteration_7 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_8 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_10 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_iteration_11 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_iteration_12 : mergesort_clean.is_sorted v1)
@@ -1337,25 +1335,25 @@ def invariant_preserve_0_6_meta : Vermilion.ObligationMeta := {
     (call_vec_index_1_ensures_1 : tmp__3 = Vermilion.Seq.index v2 i2)
     (then_0_call_vec_index_2_ensures_0 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 tmp__4)
     (then_0_call_vec_index_2_ensures_1 : (tmp__2 < tmp__3) → (tmp__4 = Vermilion.Seq.index v1 i1))
-    (then_0_assume_26 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (then_0_assume_26 : (tmp__2 < tmp__3) → ((0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod)))
     (then_0_assume_27 : (tmp__2 < tmp__3) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (then_0_call_push_ensures_0 : (tmp__2 < tmp__3) → (tmp__post = Vermilion.Seq.push r tmp__4))
-    (then_0_assert_7 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (i1 + 1))
-    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = ((i1 + 1) % 18446744073709551616)))
+    (then_0_assert_7 : (tmp__2 < tmp__3) → ((0 ≤ (i1 + 1)) ∧ ((i1 + 1) < Vermilion.usizeMod)))
+    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = (Vermilion.emod (i1 + 1) Vermilion.usizeMod)))
     (then_0_assume_31 : (tmp__2 < tmp__3) → (i2_2 = i2))
     (then_0_assume_32 : (tmp__2 < tmp__3) → (r_2 = tmp__post))
     (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 tmp__5)
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 < tmp__3)) → (tmp__5 = Vermilion.Seq.index v2 i2))
-    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_2))
+    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ Vermilion.Seq.len tmp__post_2) ∧ (Vermilion.Seq.len tmp__post_2 < Vermilion.usizeMod)))
     (else_0_assume_27 : (¬ (tmp__2 < tmp__3)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_2 vrml_i0))))
     (else_0_call_push_1_ensures_0 : (¬ (tmp__2 < tmp__3)) → (tmp__post_2 = Vermilion.Seq.push r tmp__5))
-    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (i2 + 1))
+    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ (i2 + 1)) ∧ ((i2 + 1) < Vermilion.usizeMod)))
     (else_0_assume_30 : (¬ (tmp__2 < tmp__3)) → (i1_2 = i1))
-    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = ((i2 + 1) % 18446744073709551616)))
+    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = (Vermilion.emod (i2 + 1) Vermilion.usizeMod)))
     (else_0_assume_32 : (¬ (tmp__2 < tmp__3)) → (r_2 = tmp__post_2))
-    (assume_41 : Vermilion.inUnsignedRange 64 i1_2)
-    (assume_42 : Vermilion.inUnsignedRange 64 i2_2)
-    (assume_43 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r_2))
+    (assume_41 : (0 ≤ i1_2) ∧ (i1_2 < Vermilion.usizeMod))
+    (assume_42 : (0 ≤ i2_2) ∧ (i2_2 < Vermilion.usizeMod))
+    (assume_43 : (0 ≤ Vermilion.Seq.len r_2) ∧ (Vermilion.Seq.len r_2 < Vermilion.usizeMod))
     (assume_44 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r_2 vrml_i0)))) :
     Vermilion.Seq.toMultiset r_2 = Vermilion.Seq.toMultiset (Vermilion.Seq.add (Vermilion.Seq.subrange v1 0 i1_2) (Vermilion.Seq.subrange v2 0 i2_2)) := by
   -- Interactive proof: the multiset invariant, via the helper step lemmas
@@ -1367,18 +1365,16 @@ def invariant_preserve_0_6_meta : Vermilion.ObligationMeta := {
     exact ⟨hc, h⟩
   by_cases hbr : tmp__2 < tmp__3
   · have hinc := then_0_assert_7 hbr
-    simp only [Vermilion.inUnsignedRange] at hinc
-    have hmod : (i1 + 1) % 18446744073709551616 = i1 + 1 :=
-      Int.emod_eq_of_lt hinc.1 hinc.2
+    have hmod : Vermilion.emod (i1 + 1) Vermilion.usizeMod = i1 + 1 :=
+      Vermilion.emod_usizeMod_of_lt hinc.1 hinc.2
     rw [then_0_assume_32 hbr, then_0_call_push_ensures_0 hbr,
       then_0_call_vec_index_2_ensures_1 hbr, then_0_assume_30 hbr, hmod,
       then_0_assume_31 hbr]
     exact MergeSortHelpers.multiset_step_left v1 v2 r i1 i2 loop_0_iteration_16
       loop_0_iteration_10.1 hguard.1
   · have hinc := else_0_assert_10 hbr
-    simp only [Vermilion.inUnsignedRange] at hinc
-    have hmod : (i2 + 1) % 18446744073709551616 = i2 + 1 :=
-      Int.emod_eq_of_lt hinc.1 hinc.2
+    have hmod : Vermilion.emod (i2 + 1) Vermilion.usizeMod = i2 + 1 :=
+      Vermilion.emod_usizeMod_of_lt hinc.1 hinc.2
     rw [else_0_assume_32 hbr, else_0_call_push_1_ensures_0 hbr,
       else_0_call_vec_index_3_ensures_1 hbr, else_0_assume_30 hbr,
       else_0_assume_31 hbr, hmod]
@@ -1386,14 +1382,14 @@ def invariant_preserve_0_6_meta : Vermilion.ObligationMeta := {
       loop_0_iteration_11.1 hguard.2
 -- vrml:end mergesort_clean.merge.invariant_preserve_0_6
 
--- vrml:begin mergesort_clean.merge.invariant_preserve_0_7 8ae69eebccbfa840
+-- vrml:begin mergesort_clean.merge.invariant_preserve_0_7 69ddcaa71ea6f991
 /--
 Generated VC `mergesort_clean.merge.invariant_preserve_0_7`.
 
 - Rust source: `case-studies/merge-sort/mergesort_clean.rs:63:13-63:26`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_7`
-- Statement hash: `8ae69eebccbfa840`
+- Statement hash: `69ddcaa71ea6f991`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post_2 vrml_i0⟩ ⟨Vermilion.Seq.index r_2 vrml_i0⟩
 -/
 def invariant_preserve_0_7_meta : Vermilion.ObligationMeta := {
@@ -1405,7 +1401,7 @@ def invariant_preserve_0_7_meta : Vermilion.ObligationMeta := {
   assertId := "0_7"
   functionName := "mergesort_clean.merge"
   kind := "invariant_preserve"
-  statementHash := "8ae69eebccbfa840"
+  statementHash := "69ddcaa71ea6f991"
 }
 @[vrml_obligation] theorem invariant_preserve_0_7
     (v1 : (Vermilion.Seq Int))
@@ -1423,16 +1419,16 @@ def invariant_preserve_0_7_meta : Vermilion.ObligationMeta := {
     (tmp__post : (Vermilion.Seq Int))
     (tmp__5 : Int)
     (tmp__post_2 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (loop_0_iteration_4 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (loop_0_iteration_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_iteration_7 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_8 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_10 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_iteration_11 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_iteration_12 : mergesort_clean.is_sorted v1)
@@ -1448,25 +1444,25 @@ def invariant_preserve_0_7_meta : Vermilion.ObligationMeta := {
     (call_vec_index_1_ensures_1 : tmp__3 = Vermilion.Seq.index v2 i2)
     (then_0_call_vec_index_2_ensures_0 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 tmp__4)
     (then_0_call_vec_index_2_ensures_1 : (tmp__2 < tmp__3) → (tmp__4 = Vermilion.Seq.index v1 i1))
-    (then_0_assume_26 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (then_0_assume_26 : (tmp__2 < tmp__3) → ((0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod)))
     (then_0_assume_27 : (tmp__2 < tmp__3) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (then_0_call_push_ensures_0 : (tmp__2 < tmp__3) → (tmp__post = Vermilion.Seq.push r tmp__4))
-    (then_0_assert_7 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (i1 + 1))
-    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = ((i1 + 1) % 18446744073709551616)))
+    (then_0_assert_7 : (tmp__2 < tmp__3) → ((0 ≤ (i1 + 1)) ∧ ((i1 + 1) < Vermilion.usizeMod)))
+    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = (Vermilion.emod (i1 + 1) Vermilion.usizeMod)))
     (then_0_assume_31 : (tmp__2 < tmp__3) → (i2_2 = i2))
     (then_0_assume_32 : (tmp__2 < tmp__3) → (r_2 = tmp__post))
     (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 tmp__5)
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 < tmp__3)) → (tmp__5 = Vermilion.Seq.index v2 i2))
-    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_2))
+    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ Vermilion.Seq.len tmp__post_2) ∧ (Vermilion.Seq.len tmp__post_2 < Vermilion.usizeMod)))
     (else_0_assume_27 : (¬ (tmp__2 < tmp__3)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_2 vrml_i0))))
     (else_0_call_push_1_ensures_0 : (¬ (tmp__2 < tmp__3)) → (tmp__post_2 = Vermilion.Seq.push r tmp__5))
-    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (i2 + 1))
+    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ (i2 + 1)) ∧ ((i2 + 1) < Vermilion.usizeMod)))
     (else_0_assume_30 : (¬ (tmp__2 < tmp__3)) → (i1_2 = i1))
-    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = ((i2 + 1) % 18446744073709551616)))
+    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = (Vermilion.emod (i2 + 1) Vermilion.usizeMod)))
     (else_0_assume_32 : (¬ (tmp__2 < tmp__3)) → (r_2 = tmp__post_2))
-    (assume_41 : Vermilion.inUnsignedRange 64 i1_2)
-    (assume_42 : Vermilion.inUnsignedRange 64 i2_2)
-    (assume_43 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r_2))
+    (assume_41 : (0 ≤ i1_2) ∧ (i1_2 < Vermilion.usizeMod))
+    (assume_42 : (0 ≤ i2_2) ∧ (i2_2 < Vermilion.usizeMod))
+    (assume_43 : (0 ≤ Vermilion.Seq.len r_2) ∧ (Vermilion.Seq.len r_2 < Vermilion.usizeMod))
     (assume_44 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r_2 vrml_i0)))) :
     mergesort_clean.is_sorted r_2 := by
   -- Interactive proof: the pushed element dominates everything already in
@@ -1491,14 +1487,14 @@ def invariant_preserve_0_7_meta : Vermilion.ObligationMeta := {
       (fun i h0 hl => loop_0_iteration_15 i hguard.2 ⟨h0, hl⟩)
 -- vrml:end mergesort_clean.merge.invariant_preserve_0_7
 
--- vrml:begin mergesort_clean.merge.assert_0_decreases 7326ea06852a595b
+-- vrml:begin mergesort_clean.merge.assert_0_decreases 5542b7fc3bd5765a
 /--
 Generated VC `mergesort_clean.merge.assert_0_decreases`.
 
 - Rust source: `case-studies/merge-sort/mergesort_clean.rs:64:19-64:48`
 - Rust/SST construct: loop termination measure must decrease
 - AssertId: `0_decreases`
-- Statement hash: `7326ea06852a595b`
+- Statement hash: `5542b7fc3bd5765a`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post_2 vrml_i0⟩ ⟨Vermilion.Seq.index r_2 vrml_i0⟩
 -/
 def assert_0_decreases_meta : Vermilion.ObligationMeta := {
@@ -1510,7 +1506,7 @@ def assert_0_decreases_meta : Vermilion.ObligationMeta := {
   assertId := "0_decreases"
   functionName := "mergesort_clean.merge"
   kind := "assert"
-  statementHash := "7326ea06852a595b"
+  statementHash := "5542b7fc3bd5765a"
 }
 @[vrml_obligation] theorem assert_0_decreases
     (v1 : (Vermilion.Seq Int))
@@ -1528,16 +1524,16 @@ def assert_0_decreases_meta : Vermilion.ObligationMeta := {
     (tmp__post : (Vermilion.Seq Int))
     (tmp__5 : Int)
     (tmp__post_2 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (loop_0_iteration_4 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (loop_0_iteration_5 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_iteration_7 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_8 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_10 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_iteration_11 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_iteration_12 : mergesort_clean.is_sorted v1)
@@ -1553,50 +1549,50 @@ def assert_0_decreases_meta : Vermilion.ObligationMeta := {
     (call_vec_index_1_ensures_1 : tmp__3 = Vermilion.Seq.index v2 i2)
     (then_0_call_vec_index_2_ensures_0 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 tmp__4)
     (then_0_call_vec_index_2_ensures_1 : (tmp__2 < tmp__3) → (tmp__4 = Vermilion.Seq.index v1 i1))
-    (then_0_assume_26 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (then_0_assume_26 : (tmp__2 < tmp__3) → ((0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod)))
     (then_0_assume_27 : (tmp__2 < tmp__3) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (then_0_call_push_ensures_0 : (tmp__2 < tmp__3) → (tmp__post = Vermilion.Seq.push r tmp__4))
-    (then_0_assert_7 : (tmp__2 < tmp__3) → Vermilion.inUnsignedRange 64 (i1 + 1))
-    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = ((i1 + 1) % 18446744073709551616)))
+    (then_0_assert_7 : (tmp__2 < tmp__3) → ((0 ≤ (i1 + 1)) ∧ ((i1 + 1) < Vermilion.usizeMod)))
+    (then_0_assume_30 : (tmp__2 < tmp__3) → (i1_2 = (Vermilion.emod (i1 + 1) Vermilion.usizeMod)))
     (then_0_assume_31 : (tmp__2 < tmp__3) → (i2_2 = i2))
     (then_0_assume_32 : (tmp__2 < tmp__3) → (r_2 = tmp__post))
     (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 tmp__5)
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 < tmp__3)) → (tmp__5 = Vermilion.Seq.index v2 i2))
-    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_2))
+    (else_0_assume_26 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ Vermilion.Seq.len tmp__post_2) ∧ (Vermilion.Seq.len tmp__post_2 < Vermilion.usizeMod)))
     (else_0_assume_27 : (¬ (tmp__2 < tmp__3)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_2 vrml_i0))))
     (else_0_call_push_1_ensures_0 : (¬ (tmp__2 < tmp__3)) → (tmp__post_2 = Vermilion.Seq.push r tmp__5))
-    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → Vermilion.inUnsignedRange 64 (i2 + 1))
+    (else_0_assert_10 : (¬ (tmp__2 < tmp__3)) → ((0 ≤ (i2 + 1)) ∧ ((i2 + 1) < Vermilion.usizeMod)))
     (else_0_assume_30 : (¬ (tmp__2 < tmp__3)) → (i1_2 = i1))
-    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = ((i2 + 1) % 18446744073709551616)))
+    (else_0_assume_31 : (¬ (tmp__2 < tmp__3)) → (i2_2 = (Vermilion.emod (i2 + 1) Vermilion.usizeMod)))
     (else_0_assume_32 : (¬ (tmp__2 < tmp__3)) → (r_2 = tmp__post_2))
-    (assume_41 : Vermilion.inUnsignedRange 64 i1_2)
-    (assume_42 : Vermilion.inUnsignedRange 64 i2_2)
-    (assume_43 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r_2))
+    (assume_41 : (0 ≤ i1_2) ∧ (i1_2 < Vermilion.usizeMod))
+    (assume_42 : (0 ≤ i2_2) ∧ (i2_2 < Vermilion.usizeMod))
+    (assume_43 : (0 ≤ Vermilion.Seq.len r_2) ∧ (Vermilion.Seq.len r_2 < Vermilion.usizeMod))
     (assume_44 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r_2 vrml_i0)))) :
     ((0 ≤ (((Vermilion.Seq.len v1 + Vermilion.Seq.len v2) - i1_2) - i2_2)) ∧ ((((Vermilion.Seq.len v1 + Vermilion.Seq.len v2) - i1_2) - i2_2) < (((Vermilion.Seq.len v1 + Vermilion.Seq.len v2) - i1) - i2))) ∨ (((((Vermilion.Seq.len v1 + Vermilion.Seq.len v2) - i1_2) - i2_2) = (((Vermilion.Seq.len v1 + Vermilion.Seq.len v2) - i1) - i2)) ∧ False) := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.assert_0_decreases
 
--- vrml:begin mergesort_clean.merge.call_requires_12 b253f0f07203bbe8
+-- vrml:begin mergesort_clean.merge.call_requires_12 d42db3534f19f032
 /--
 Generated VC `mergesort_clean.merge.call_requires_12`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:74:9-74:40`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:76:9-76:40`
 - Rust/SST construct: call extend_from_idx
 - AssertId: `12`
-- Statement hash: `b253f0f07203bbe8`
+- Statement hash: `d42db3534f19f032`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index tmp__post_3 vrml_i0⟩
 -/
 def call_requires_12_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 74
+  startLine := 76
   startColumn := 9
-  endLine := 74
+  endLine := 76
   endColumn := 40
   assertId := "12"
   functionName := "mergesort_clean.merge"
   kind := "call_requires"
-  statementHash := "b253f0f07203bbe8"
+  statementHash := "d42db3534f19f032"
 }
 @[vrml_obligation] theorem call_requires_12
     (v1 : (Vermilion.Seq Int))
@@ -1607,19 +1603,19 @@ def call_requires_12_meta : Vermilion.ObligationMeta := {
     (i2 : Int)
     (r_4 : (Vermilion.Seq Int))
     (tmp__post_3 : (Vermilion.Seq Int))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (requires_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
     (requires_4 : mergesort_clean.is_sorted v1)
     (requires_5 : mergesort_clean.is_sorted v2)
-    (call_new_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (call_new_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (call_new_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
     (call_new_ensures_2 : tmp_ = (Vermilion.Seq.empty : Vermilion.Seq Int))
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_exit_0 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_exit_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_exit_2 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_exit_3 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_exit_2 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_exit_3 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_exit_4 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_exit_5 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_exit_6 : mergesort_clean.is_sorted v1)
@@ -1629,34 +1625,34 @@ def call_requires_12_meta : Vermilion.ObligationMeta := {
     (loop_0_exit_10 : Vermilion.Seq.toMultiset r = Vermilion.Seq.toMultiset (Vermilion.Seq.add (Vermilion.Seq.subrange v1 0 i1) (Vermilion.Seq.subrange v2 0 i2)))
     (loop_0_exit_11 : mergesort_clean.is_sorted r)
     (loop_0_exit_12 : (¬ (Vermilion.iteP (i1 < Vermilion.Seq.len v1) (i2 < Vermilion.Seq.len v2) False)))
-    (assume_22 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (assume_22 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (branch_1 : i1 < Vermilion.Seq.len v1)
-    (assume_24 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_3))
+    (assume_24 : (0 ≤ Vermilion.Seq.len tmp__post_3) ∧ (Vermilion.Seq.len tmp__post_3 < Vermilion.usizeMod))
     (assume_25 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_3)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_3 vrml_i0)))) :
     i1 < Vermilion.Seq.len v1 := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.call_requires_12
 
--- vrml:begin mergesort_clean.merge.call_requires_14 0fccad796ca4ae63
+-- vrml:begin mergesort_clean.merge.call_requires_14 98446a13c177e7ff
 /--
 Generated VC `mergesort_clean.merge.call_requires_14`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:76:9-76:40`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:78:9-78:40`
 - Rust/SST construct: call extend_from_idx
 - AssertId: `14`
-- Statement hash: `0fccad796ca4ae63`
+- Statement hash: `98446a13c177e7ff`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index tmp__post_4 vrml_i0⟩
 -/
 def call_requires_14_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 76
+  startLine := 78
   startColumn := 9
-  endLine := 76
+  endLine := 78
   endColumn := 40
   assertId := "14"
   functionName := "mergesort_clean.merge"
   kind := "call_requires"
-  statementHash := "0fccad796ca4ae63"
+  statementHash := "98446a13c177e7ff"
 }
 @[vrml_obligation] theorem call_requires_14
     (v1 : (Vermilion.Seq Int))
@@ -1668,19 +1664,19 @@ def call_requires_14_meta : Vermilion.ObligationMeta := {
     (r_4 : (Vermilion.Seq Int))
     (r_3 : (Vermilion.Seq Int))
     (tmp__post_4 : (Vermilion.Seq Int))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (requires_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
     (requires_4 : mergesort_clean.is_sorted v1)
     (requires_5 : mergesort_clean.is_sorted v2)
-    (call_new_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (call_new_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (call_new_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
     (call_new_ensures_2 : tmp_ = (Vermilion.Seq.empty : Vermilion.Seq Int))
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_exit_0 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_exit_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_exit_2 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_exit_3 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_exit_2 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_exit_3 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_exit_4 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_exit_5 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_exit_6 : mergesort_clean.is_sorted v1)
@@ -1690,36 +1686,36 @@ def call_requires_14_meta : Vermilion.ObligationMeta := {
     (loop_0_exit_10 : Vermilion.Seq.toMultiset r = Vermilion.Seq.toMultiset (Vermilion.Seq.add (Vermilion.Seq.subrange v1 0 i1) (Vermilion.Seq.subrange v2 0 i2)))
     (loop_0_exit_11 : mergesort_clean.is_sorted r)
     (loop_0_exit_12 : (¬ (Vermilion.iteP (i1 < Vermilion.Seq.len v1) (i2 < Vermilion.Seq.len v2) False)))
-    (assume_22 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (assume_22 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (branch_1 : (¬ (i1 < Vermilion.Seq.len v1)))
-    (assume_24 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (assume_24 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (branch_2 : i2 < Vermilion.Seq.len v2)
-    (assume_26 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_4))
+    (assume_26 : (0 ≤ Vermilion.Seq.len tmp__post_4) ∧ (Vermilion.Seq.len tmp__post_4 < Vermilion.usizeMod))
     (assume_27 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_4)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_4 vrml_i0)))) :
     i2 < Vermilion.Seq.len v2 := by
   vrml [mergesort_clean.is_sorted]
 -- vrml:end mergesort_clean.merge.call_requires_14
 
--- vrml:begin mergesort_clean.merge.ensures_15_0 f10a3a1f16c54c7d
+-- vrml:begin mergesort_clean.merge.ensures_15_0 b85de7dee1b75270
 /--
 Generated VC `mergesort_clean.merge.ensures_15_0`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:42:9-42:54`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:44:9-44:54`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `15_0`
-- Statement hash: `f10a3a1f16c54c7d`
+- Statement hash: `b85de7dee1b75270`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index tmp__post_3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post_4 vrml_i0⟩ ⟨Vermilion.Seq.index r_3 vrml_i0⟩ ⟨Vermilion.Seq.index r_4 vrml_i0⟩
 -/
 def ensures_15_0_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 42
+  startLine := 44
   startColumn := 9
-  endLine := 42
+  endLine := 44
   endColumn := 54
   assertId := "15_0"
   functionName := "mergesort_clean.merge"
   kind := "ensures"
-  statementHash := "f10a3a1f16c54c7d"
+  statementHash := "b85de7dee1b75270"
 }
 @[vrml_obligation] theorem ensures_15_0
     (v1 : (Vermilion.Seq Int))
@@ -1732,19 +1728,19 @@ def ensures_15_0_meta : Vermilion.ObligationMeta := {
     (tmp__post_3 : (Vermilion.Seq Int))
     (r_3 : (Vermilion.Seq Int))
     (tmp__post_4 : (Vermilion.Seq Int))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (requires_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
     (requires_4 : mergesort_clean.is_sorted v1)
     (requires_5 : mergesort_clean.is_sorted v2)
-    (call_new_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (call_new_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (call_new_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
     (call_new_ensures_2 : tmp_ = (Vermilion.Seq.empty : Vermilion.Seq Int))
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_exit_0 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_exit_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_exit_2 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_exit_3 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_exit_2 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_exit_3 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_exit_4 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_exit_5 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_exit_6 : mergesort_clean.is_sorted v1)
@@ -1754,21 +1750,21 @@ def ensures_15_0_meta : Vermilion.ObligationMeta := {
     (loop_0_exit_10 : Vermilion.Seq.toMultiset r = Vermilion.Seq.toMultiset (Vermilion.Seq.add (Vermilion.Seq.subrange v1 0 i1) (Vermilion.Seq.subrange v2 0 i2)))
     (loop_0_exit_11 : mergesort_clean.is_sorted r)
     (loop_0_exit_12 : (¬ (Vermilion.iteP (i1 < Vermilion.Seq.len v1) (i2 < Vermilion.Seq.len v2) False)))
-    (assume_22 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
-    (then_1_assume_24 : (i1 < Vermilion.Seq.len v1) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_3))
+    (assume_22 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
+    (then_1_assume_24 : (i1 < Vermilion.Seq.len v1) → ((0 ≤ Vermilion.Seq.len tmp__post_3) ∧ (Vermilion.Seq.len tmp__post_3 < Vermilion.usizeMod)))
     (then_1_assume_25 : (i1 < Vermilion.Seq.len v1) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_3)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_3 vrml_i0))))
     (then_1_call_extend_from_idx_ensures_0 : (i1 < Vermilion.Seq.len v1) → (tmp__post_3 = Vermilion.Seq.add r (Vermilion.Seq.subrange v1 i1 (Vermilion.Seq.len v1))))
     (then_1_assume_27 : (i1 < Vermilion.Seq.len v1) → (r_4 = tmp__post_3))
-    (else_1_assume_24 : (¬ (i1 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
-    (else_1_then_2_assume_26 : (¬ (i1 < Vermilion.Seq.len v1)) → ((i2 < Vermilion.Seq.len v2) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_4)))
+    (else_1_assume_24 : (¬ (i1 < Vermilion.Seq.len v1)) → ((0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod)))
+    (else_1_then_2_assume_26 : (¬ (i1 < Vermilion.Seq.len v1)) → ((i2 < Vermilion.Seq.len v2) → ((0 ≤ Vermilion.Seq.len tmp__post_4) ∧ (Vermilion.Seq.len tmp__post_4 < Vermilion.usizeMod))))
     (else_1_then_2_assume_27 : (¬ (i1 < Vermilion.Seq.len v1)) → ((i2 < Vermilion.Seq.len v2) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_4)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_4 vrml_i0)))))
     (else_1_then_2_call_extend_from_idx_1_ensures_0 : (¬ (i1 < Vermilion.Seq.len v1)) → ((i2 < Vermilion.Seq.len v2) → (tmp__post_4 = Vermilion.Seq.add r (Vermilion.Seq.subrange v2 i2 (Vermilion.Seq.len v2)))))
     (else_1_then_2_assume_29 : (¬ (i1 < Vermilion.Seq.len v1)) → ((i2 < Vermilion.Seq.len v2) → (r_3 = tmp__post_4)))
     (else_1_else_2_assume_26 : (¬ (i1 < Vermilion.Seq.len v1)) → ((¬ (i2 < Vermilion.Seq.len v2)) → (r_3 = r)))
-    (else_1_assume_30 : (¬ (i1 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r_3))
+    (else_1_assume_30 : (¬ (i1 < Vermilion.Seq.len v1)) → ((0 ≤ Vermilion.Seq.len r_3) ∧ (Vermilion.Seq.len r_3 < Vermilion.usizeMod)))
     (else_1_assume_31 : (¬ (i1 < Vermilion.Seq.len v1)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r_3)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r_3 vrml_i0))))
     (else_1_assume_32 : (¬ (i1 < Vermilion.Seq.len v1)) → (r_4 = r_3))
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r_4))
+    (assume_36 : (0 ≤ Vermilion.Seq.len r_4) ∧ (Vermilion.Seq.len r_4 < Vermilion.usizeMod))
     (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r_4)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r_4 vrml_i0)))) :
     Vermilion.Seq.toMultiset r_4 = Vermilion.Seq.toMultiset (Vermilion.Seq.add v1 v2) := by
   -- Interactive proof: at exit one side is exhausted; the appended
@@ -1824,26 +1820,26 @@ def ensures_15_0_meta : Vermilion.ObligationMeta := {
         h1e, h2e, Vermilion.Seq.subrange_all, Vermilion.Seq.subrange_all]
 -- vrml:end mergesort_clean.merge.ensures_15_0
 
--- vrml:begin mergesort_clean.merge.ensures_15_1 4c812de864ae232f
+-- vrml:begin mergesort_clean.merge.ensures_15_1 3476d6b8d20d1dd2
 /--
 Generated VC `mergesort_clean.merge.ensures_15_1`.
 
-- Rust source: `case-studies/merge-sort/mergesort_clean.rs:43:9-43:22`
+- Rust source: `case-studies/merge-sort/mergesort_clean.rs:45:9-45:22`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `15_1`
-- Statement hash: `4c812de864ae232f`
+- Statement hash: `3476d6b8d20d1dd2`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v1 vrml_i0⟩ ⟨Vermilion.Seq.index v2 vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index r vrml_i0⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index r i⟩ ⟨Vermilion.Seq.index tmp__post_3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post_4 vrml_i0⟩ ⟨Vermilion.Seq.index r_3 vrml_i0⟩ ⟨Vermilion.Seq.index r_4 vrml_i0⟩
 -/
 def ensures_15_1_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/merge-sort/mergesort_clean.rs"
-  startLine := 43
+  startLine := 45
   startColumn := 9
-  endLine := 43
+  endLine := 45
   endColumn := 22
   assertId := "15_1"
   functionName := "mergesort_clean.merge"
   kind := "ensures"
-  statementHash := "4c812de864ae232f"
+  statementHash := "3476d6b8d20d1dd2"
 }
 @[vrml_obligation] theorem ensures_15_1
     (v1 : (Vermilion.Seq Int))
@@ -1856,19 +1852,19 @@ def ensures_15_1_meta : Vermilion.ObligationMeta := {
     (tmp__post_3 : (Vermilion.Seq Int))
     (r_3 : (Vermilion.Seq Int))
     (tmp__post_4 : (Vermilion.Seq Int))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v1 vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
+    (requires_2 : (0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod))
     (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v2 vrml_i0))))
     (requires_4 : mergesort_clean.is_sorted v1)
     (requires_5 : mergesort_clean.is_sorted v2)
-    (call_new_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
+    (call_new_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
     (call_new_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp_ vrml_i0))))
     (call_new_ensures_2 : tmp_ = (Vermilion.Seq.empty : Vermilion.Seq Int))
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r))
+    (loop_0_exit_0 : (0 ≤ Vermilion.Seq.len r) ∧ (Vermilion.Seq.len r < Vermilion.usizeMod))
     (loop_0_exit_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r vrml_i0))))
-    (loop_0_exit_2 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_exit_3 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_exit_2 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_exit_3 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_exit_4 : (0 ≤ i1) ∧ (i1 ≤ Vermilion.Seq.len v1))
     (loop_0_exit_5 : (0 ≤ i2) ∧ (i2 ≤ Vermilion.Seq.len v2))
     (loop_0_exit_6 : mergesort_clean.is_sorted v1)
@@ -1878,21 +1874,21 @@ def ensures_15_1_meta : Vermilion.ObligationMeta := {
     (loop_0_exit_10 : Vermilion.Seq.toMultiset r = Vermilion.Seq.toMultiset (Vermilion.Seq.add (Vermilion.Seq.subrange v1 0 i1) (Vermilion.Seq.subrange v2 0 i2)))
     (loop_0_exit_11 : mergesort_clean.is_sorted r)
     (loop_0_exit_12 : (¬ (Vermilion.iteP (i1 < Vermilion.Seq.len v1) (i2 < Vermilion.Seq.len v2) False)))
-    (assume_22 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v1))
-    (then_1_assume_24 : (i1 < Vermilion.Seq.len v1) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_3))
+    (assume_22 : (0 ≤ Vermilion.Seq.len v1) ∧ (Vermilion.Seq.len v1 < Vermilion.usizeMod))
+    (then_1_assume_24 : (i1 < Vermilion.Seq.len v1) → ((0 ≤ Vermilion.Seq.len tmp__post_3) ∧ (Vermilion.Seq.len tmp__post_3 < Vermilion.usizeMod)))
     (then_1_assume_25 : (i1 < Vermilion.Seq.len v1) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_3)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_3 vrml_i0))))
     (then_1_call_extend_from_idx_ensures_0 : (i1 < Vermilion.Seq.len v1) → (tmp__post_3 = Vermilion.Seq.add r (Vermilion.Seq.subrange v1 i1 (Vermilion.Seq.len v1))))
     (then_1_assume_27 : (i1 < Vermilion.Seq.len v1) → (r_4 = tmp__post_3))
-    (else_1_assume_24 : (¬ (i1 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v2))
-    (else_1_then_2_assume_26 : (¬ (i1 < Vermilion.Seq.len v1)) → ((i2 < Vermilion.Seq.len v2) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post_4)))
+    (else_1_assume_24 : (¬ (i1 < Vermilion.Seq.len v1)) → ((0 ≤ Vermilion.Seq.len v2) ∧ (Vermilion.Seq.len v2 < Vermilion.usizeMod)))
+    (else_1_then_2_assume_26 : (¬ (i1 < Vermilion.Seq.len v1)) → ((i2 < Vermilion.Seq.len v2) → ((0 ≤ Vermilion.Seq.len tmp__post_4) ∧ (Vermilion.Seq.len tmp__post_4 < Vermilion.usizeMod))))
     (else_1_then_2_assume_27 : (¬ (i1 < Vermilion.Seq.len v1)) → ((i2 < Vermilion.Seq.len v2) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post_4)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post_4 vrml_i0)))))
     (else_1_then_2_call_extend_from_idx_1_ensures_0 : (¬ (i1 < Vermilion.Seq.len v1)) → ((i2 < Vermilion.Seq.len v2) → (tmp__post_4 = Vermilion.Seq.add r (Vermilion.Seq.subrange v2 i2 (Vermilion.Seq.len v2)))))
     (else_1_then_2_assume_29 : (¬ (i1 < Vermilion.Seq.len v1)) → ((i2 < Vermilion.Seq.len v2) → (r_3 = tmp__post_4)))
     (else_1_else_2_assume_26 : (¬ (i1 < Vermilion.Seq.len v1)) → ((¬ (i2 < Vermilion.Seq.len v2)) → (r_3 = r)))
-    (else_1_assume_30 : (¬ (i1 < Vermilion.Seq.len v1)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r_3))
+    (else_1_assume_30 : (¬ (i1 < Vermilion.Seq.len v1)) → ((0 ≤ Vermilion.Seq.len r_3) ∧ (Vermilion.Seq.len r_3 < Vermilion.usizeMod)))
     (else_1_assume_31 : (¬ (i1 < Vermilion.Seq.len v1)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r_3)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r_3 vrml_i0))))
     (else_1_assume_32 : (¬ (i1 < Vermilion.Seq.len v1)) → (r_4 = r_3))
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len r_4))
+    (assume_36 : (0 ≤ Vermilion.Seq.len r_4) ∧ (Vermilion.Seq.len r_4 < Vermilion.usizeMod))
     (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len r_4)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index r_4 vrml_i0)))) :
     mergesort_clean.is_sorted r_4 := by
   -- Interactive proof: the appended remainder is sorted (a subrange of a

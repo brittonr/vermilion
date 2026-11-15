@@ -751,7 +751,10 @@ the target theorems are:
    whose operands is certainly `Int` (`surelyInt`), in `Print.lean`
    (c204-c213, issue #22). Negative literals need no anchor: `Neg` defaults
    to `Int`. The statement hash (`canonicalStatement`) is computed over the
-   anchor-free rendering (`renderTopPlain`).
+   anchor-free rendering (`renderTopPlain`). `usize`/`isize` of a crate
+   that does not pin its word size render through the atom
+   `Vermilion.usizeMod` (`2^32` or `2^64`, issue #26); the ladder's
+   normalization splits such an obligation into both values.
 5. **Coherence (differential).** The mechanized policy keeps the differential
    parity the `tests/differential/` corpus measures: same accept/reject
    verdict as Verus, including the `reveal`/`hide`/fuel behavior encoded in V.

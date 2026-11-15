@@ -6,14 +6,14 @@ set_option linter.dupNamespace false
 
 namespace vec_set.zero_prefix
 
--- vrml:begin vec_set.zero_prefix.invariant_entry_0_0 cb7901fa0a5643b8
+-- vrml:begin vec_set.zero_prefix.invariant_entry_0_0 3daaf7df9a6719de
 /--
 Generated VC `vec_set.zero_prefix.invariant_entry_0_0`.
 
 - Rust source: `examples/m3-vec-set/vec_set.rs:43:13-43:19`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_0`
-- Statement hash: `cb7901fa0a5643b8`
+- Statement hash: `3daaf7df9a6719de`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩
 -/
 def invariant_entry_0_0_meta : Vermilion.ObligationMeta := {
@@ -25,27 +25,27 @@ def invariant_entry_0_0_meta : Vermilion.ObligationMeta := {
   assertId := "0_0"
   functionName := "vec_set.zero_prefix"
   kind := "invariant_entry"
-  statementHash := "cb7901fa0a5643b8"
+  statementHash := "3daaf7df9a6719de"
 }
 @[vrml_obligation] theorem invariant_entry_0_0
     (v : (Vermilion.Seq Int))
     (n : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 n)
+    (requires_2 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
     (requires_3 : n ≤ Vermilion.Seq.len v) :
     0 ≤ n := by
   vrml
 -- vrml:end vec_set.zero_prefix.invariant_entry_0_0
 
--- vrml:begin vec_set.zero_prefix.invariant_entry_0_1 349fe8cf1f508523
+-- vrml:begin vec_set.zero_prefix.invariant_entry_0_1 180e82ab8255d735
 /--
 Generated VC `vec_set.zero_prefix.invariant_entry_0_1`.
 
 - Rust source: `examples/m3-vec-set/vec_set.rs:44:13-44:25`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_1`
-- Statement hash: `349fe8cf1f508523`
+- Statement hash: `180e82ab8255d735`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩
 -/
 def invariant_entry_0_1_meta : Vermilion.ObligationMeta := {
@@ -57,27 +57,27 @@ def invariant_entry_0_1_meta : Vermilion.ObligationMeta := {
   assertId := "0_1"
   functionName := "vec_set.zero_prefix"
   kind := "invariant_entry"
-  statementHash := "349fe8cf1f508523"
+  statementHash := "180e82ab8255d735"
 }
 @[vrml_obligation] theorem invariant_entry_0_1
     (v : (Vermilion.Seq Int))
     (n : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 n)
+    (requires_2 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
     (requires_3 : n ≤ Vermilion.Seq.len v) :
     n ≤ Vermilion.Seq.len v := by
   vrml
 -- vrml:end vec_set.zero_prefix.invariant_entry_0_1
 
--- vrml:begin vec_set.zero_prefix.invariant_entry_0_2 d1189c7ca86de1f6
+-- vrml:begin vec_set.zero_prefix.invariant_entry_0_2 acb7f649ce35fb84
 /--
 Generated VC `vec_set.zero_prefix.invariant_entry_0_2`.
 
 - Rust source: `examples/m3-vec-set/vec_set.rs:45:13-45:36`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_2`
-- Statement hash: `d1189c7ca86de1f6`
+- Statement hash: `acb7f649ce35fb84`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩
 -/
 def invariant_entry_0_2_meta : Vermilion.ObligationMeta := {
@@ -89,27 +89,27 @@ def invariant_entry_0_2_meta : Vermilion.ObligationMeta := {
   assertId := "0_2"
   functionName := "vec_set.zero_prefix"
   kind := "invariant_entry"
-  statementHash := "d1189c7ca86de1f6"
+  statementHash := "acb7f649ce35fb84"
 }
 @[vrml_obligation] theorem invariant_entry_0_2
     (v : (Vermilion.Seq Int))
     (n : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 n)
+    (requires_2 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
     (requires_3 : n ≤ Vermilion.Seq.len v) :
     Vermilion.Seq.len v = Vermilion.Seq.len v := by
   vrml
 -- vrml:end vec_set.zero_prefix.invariant_entry_0_2
 
--- vrml:begin vec_set.zero_prefix.invariant_entry_0_3 731bf8371749c584
+-- vrml:begin vec_set.zero_prefix.invariant_entry_0_3 06c89e17626b09b6
 /--
 Generated VC `vec_set.zero_prefix.invariant_entry_0_3`.
 
 - Rust source: `examples/m3-vec-set/vec_set.rs:46:13-46:52`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_3`
-- Statement hash: `731bf8371749c584`
+- Statement hash: `06c89e17626b09b6`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v k⟩ ⟨Vermilion.Seq.index v vrml_i0⟩
 -/
 def invariant_entry_0_3_meta : Vermilion.ObligationMeta := {
@@ -121,27 +121,27 @@ def invariant_entry_0_3_meta : Vermilion.ObligationMeta := {
   assertId := "0_3"
   functionName := "vec_set.zero_prefix"
   kind := "invariant_entry"
-  statementHash := "731bf8371749c584"
+  statementHash := "06c89e17626b09b6"
 }
 @[vrml_obligation] theorem invariant_entry_0_3
     (v : (Vermilion.Seq Int))
     (n : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 n)
+    (requires_2 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
     (requires_3 : n ≤ Vermilion.Seq.len v) :
     (∀ (k : Int), (((0 ≤ k) ∧ (k < 0)) → (Vermilion.Seq.index v k = 0))) := by
   vrml
 -- vrml:end vec_set.zero_prefix.invariant_entry_0_3
 
--- vrml:begin vec_set.zero_prefix.call_requires_0 53083252af2c8843
+-- vrml:begin vec_set.zero_prefix.call_requires_0 6dc0d0a10223b1b1
 /--
 Generated VC `vec_set.zero_prefix.call_requires_0`.
 
 - Rust source: `examples/m3-vec-set/vec_set.rs:49:9-49:20`
 - Rust/SST construct: call set
 - AssertId: `0`
-- Statement hash: `53083252af2c8843`
+- Statement hash: `6dc0d0a10223b1b1`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v_2 vrml_i0⟩ ⟨Vermilion.Seq.index v_2 k⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def call_requires_0_meta : Vermilion.ObligationMeta := {
@@ -153,7 +153,7 @@ def call_requires_0_meta : Vermilion.ObligationMeta := {
   assertId := "0"
   functionName := "vec_set.zero_prefix"
   kind := "call_requires"
-  statementHash := "53083252af2c8843"
+  statementHash := "6dc0d0a10223b1b1"
 }
 @[vrml_obligation] theorem call_requires_0
     (v : (Vermilion.Seq Int))
@@ -161,31 +161,31 @@ def call_requires_0_meta : Vermilion.ObligationMeta := {
     (v_2 : (Vermilion.Seq Int))
     (i : Int)
     (tmp__post : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v_2))
+    (loop_0_iteration_2 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v_2) ∧ (Vermilion.Seq.len v_2 < Vermilion.usizeMod))
     (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v_2 vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i)
+    (loop_0_iteration_5 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_0_iteration_6 : i ≤ n)
     (loop_0_iteration_7 : n ≤ Vermilion.Seq.len v_2)
     (loop_0_iteration_8 : Vermilion.Seq.len v_2 = Vermilion.Seq.len v)
     (loop_0_iteration_9 : (∀ (k : Int), (((0 ≤ k) ∧ (k < i)) → (Vermilion.Seq.index v_2 k = 0))))
     (loop_0_iteration_10 : i < n)
-    (assume_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (assume_11 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
     (assume_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0)))) :
     i < Vermilion.Seq.len v_2 := by
   vrml
 -- vrml:end vec_set.zero_prefix.call_requires_0
 
--- vrml:begin vec_set.zero_prefix.assert_1 73df585005b7cd3c
+-- vrml:begin vec_set.zero_prefix.assert_1 cef28fbfc221e1db
 /--
 Generated VC `vec_set.zero_prefix.assert_1`.
 
 - Rust source: `examples/m3-vec-set/vec_set.rs:50:13-50:18`
 - Rust/SST construct: possible arithmetic underflow/overflow
 - AssertId: `1`
-- Statement hash: `73df585005b7cd3c`
+- Statement hash: `cef28fbfc221e1db`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v_2 vrml_i0⟩ ⟨Vermilion.Seq.index v_2 k⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def assert_1_meta : Vermilion.ObligationMeta := {
@@ -197,7 +197,7 @@ def assert_1_meta : Vermilion.ObligationMeta := {
   assertId := "1"
   functionName := "vec_set.zero_prefix"
   kind := "assert"
-  statementHash := "73df585005b7cd3c"
+  statementHash := "cef28fbfc221e1db"
 }
 @[vrml_obligation] theorem assert_1
     (v : (Vermilion.Seq Int))
@@ -205,32 +205,32 @@ def assert_1_meta : Vermilion.ObligationMeta := {
     (v_2 : (Vermilion.Seq Int))
     (i : Int)
     (tmp__post : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v_2))
+    (loop_0_iteration_2 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v_2) ∧ (Vermilion.Seq.len v_2 < Vermilion.usizeMod))
     (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v_2 vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i)
+    (loop_0_iteration_5 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_0_iteration_6 : i ≤ n)
     (loop_0_iteration_7 : n ≤ Vermilion.Seq.len v_2)
     (loop_0_iteration_8 : Vermilion.Seq.len v_2 = Vermilion.Seq.len v)
     (loop_0_iteration_9 : (∀ (k : Int), (((0 ≤ k) ∧ (k < i)) → (Vermilion.Seq.index v_2 k = 0))))
     (loop_0_iteration_10 : i < n)
-    (assume_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (assume_11 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
     (assume_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (call_set_ensures_0 : tmp__post = Vermilion.Seq.update v_2 i 0) :
-    Vermilion.inUnsignedRange 64 (i + 1) := by
+    (0 ≤ (i + 1)) ∧ ((i + 1) < Vermilion.usizeMod) := by
   vrml
 -- vrml:end vec_set.zero_prefix.assert_1
 
--- vrml:begin vec_set.zero_prefix.invariant_preserve_0_0 fe02f363a5386050
+-- vrml:begin vec_set.zero_prefix.invariant_preserve_0_0 467e59d1eae81575
 /--
 Generated VC `vec_set.zero_prefix.invariant_preserve_0_0`.
 
 - Rust source: `examples/m3-vec-set/vec_set.rs:43:13-43:19`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_0`
-- Statement hash: `fe02f363a5386050`
+- Statement hash: `467e59d1eae81575`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v_2 vrml_i0⟩ ⟨Vermilion.Seq.index v_2 k⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
@@ -242,7 +242,7 @@ def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
   assertId := "0_0"
   functionName := "vec_set.zero_prefix"
   kind := "invariant_preserve"
-  statementHash := "fe02f363a5386050"
+  statementHash := "467e59d1eae81575"
 }
 @[vrml_obligation] theorem invariant_preserve_0_0
     (v : (Vermilion.Seq Int))
@@ -250,33 +250,33 @@ def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
     (v_2 : (Vermilion.Seq Int))
     (i : Int)
     (tmp__post : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v_2))
+    (loop_0_iteration_2 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v_2) ∧ (Vermilion.Seq.len v_2 < Vermilion.usizeMod))
     (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v_2 vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i)
+    (loop_0_iteration_5 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_0_iteration_6 : i ≤ n)
     (loop_0_iteration_7 : n ≤ Vermilion.Seq.len v_2)
     (loop_0_iteration_8 : Vermilion.Seq.len v_2 = Vermilion.Seq.len v)
     (loop_0_iteration_9 : (∀ (k : Int), (((0 ≤ k) ∧ (k < i)) → (Vermilion.Seq.index v_2 k = 0))))
     (loop_0_iteration_10 : i < n)
-    (assume_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (assume_11 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
     (assume_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (call_set_ensures_0 : tmp__post = Vermilion.Seq.update v_2 i 0)
-    (assert_1 : Vermilion.inUnsignedRange 64 (i + 1)) :
-    ((i + 1) % 18446744073709551616) ≤ n := by
+    (assert_1 : (0 ≤ (i + 1)) ∧ ((i + 1) < Vermilion.usizeMod)) :
+    (Vermilion.emod (i + 1) Vermilion.usizeMod) ≤ n := by
   vrml
 -- vrml:end vec_set.zero_prefix.invariant_preserve_0_0
 
--- vrml:begin vec_set.zero_prefix.invariant_preserve_0_1 45640b0820d45b4a
+-- vrml:begin vec_set.zero_prefix.invariant_preserve_0_1 28e5af464177d6ab
 /--
 Generated VC `vec_set.zero_prefix.invariant_preserve_0_1`.
 
 - Rust source: `examples/m3-vec-set/vec_set.rs:44:13-44:25`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_1`
-- Statement hash: `45640b0820d45b4a`
+- Statement hash: `28e5af464177d6ab`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v_2 vrml_i0⟩ ⟨Vermilion.Seq.index v_2 k⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
@@ -288,7 +288,7 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
   assertId := "0_1"
   functionName := "vec_set.zero_prefix"
   kind := "invariant_preserve"
-  statementHash := "45640b0820d45b4a"
+  statementHash := "28e5af464177d6ab"
 }
 @[vrml_obligation] theorem invariant_preserve_0_1
     (v : (Vermilion.Seq Int))
@@ -296,33 +296,33 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
     (v_2 : (Vermilion.Seq Int))
     (i : Int)
     (tmp__post : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v_2))
+    (loop_0_iteration_2 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v_2) ∧ (Vermilion.Seq.len v_2 < Vermilion.usizeMod))
     (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v_2 vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i)
+    (loop_0_iteration_5 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_0_iteration_6 : i ≤ n)
     (loop_0_iteration_7 : n ≤ Vermilion.Seq.len v_2)
     (loop_0_iteration_8 : Vermilion.Seq.len v_2 = Vermilion.Seq.len v)
     (loop_0_iteration_9 : (∀ (k : Int), (((0 ≤ k) ∧ (k < i)) → (Vermilion.Seq.index v_2 k = 0))))
     (loop_0_iteration_10 : i < n)
-    (assume_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (assume_11 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
     (assume_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (call_set_ensures_0 : tmp__post = Vermilion.Seq.update v_2 i 0)
-    (assert_1 : Vermilion.inUnsignedRange 64 (i + 1)) :
+    (assert_1 : (0 ≤ (i + 1)) ∧ ((i + 1) < Vermilion.usizeMod)) :
     n ≤ Vermilion.Seq.len tmp__post := by
   vrml
 -- vrml:end vec_set.zero_prefix.invariant_preserve_0_1
 
--- vrml:begin vec_set.zero_prefix.invariant_preserve_0_2 3a85750e5bb194f7
+-- vrml:begin vec_set.zero_prefix.invariant_preserve_0_2 6e1656961ad9a22a
 /--
 Generated VC `vec_set.zero_prefix.invariant_preserve_0_2`.
 
 - Rust source: `examples/m3-vec-set/vec_set.rs:45:13-45:36`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_2`
-- Statement hash: `3a85750e5bb194f7`
+- Statement hash: `6e1656961ad9a22a`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v_2 vrml_i0⟩ ⟨Vermilion.Seq.index v_2 k⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
@@ -334,7 +334,7 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
   assertId := "0_2"
   functionName := "vec_set.zero_prefix"
   kind := "invariant_preserve"
-  statementHash := "3a85750e5bb194f7"
+  statementHash := "6e1656961ad9a22a"
 }
 @[vrml_obligation] theorem invariant_preserve_0_2
     (v : (Vermilion.Seq Int))
@@ -342,33 +342,33 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
     (v_2 : (Vermilion.Seq Int))
     (i : Int)
     (tmp__post : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v_2))
+    (loop_0_iteration_2 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v_2) ∧ (Vermilion.Seq.len v_2 < Vermilion.usizeMod))
     (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v_2 vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i)
+    (loop_0_iteration_5 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_0_iteration_6 : i ≤ n)
     (loop_0_iteration_7 : n ≤ Vermilion.Seq.len v_2)
     (loop_0_iteration_8 : Vermilion.Seq.len v_2 = Vermilion.Seq.len v)
     (loop_0_iteration_9 : (∀ (k : Int), (((0 ≤ k) ∧ (k < i)) → (Vermilion.Seq.index v_2 k = 0))))
     (loop_0_iteration_10 : i < n)
-    (assume_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (assume_11 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
     (assume_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (call_set_ensures_0 : tmp__post = Vermilion.Seq.update v_2 i 0)
-    (assert_1 : Vermilion.inUnsignedRange 64 (i + 1)) :
+    (assert_1 : (0 ≤ (i + 1)) ∧ ((i + 1) < Vermilion.usizeMod)) :
     Vermilion.Seq.len tmp__post = Vermilion.Seq.len v := by
   vrml
 -- vrml:end vec_set.zero_prefix.invariant_preserve_0_2
 
--- vrml:begin vec_set.zero_prefix.invariant_preserve_0_3 e111a8950e15e609
+-- vrml:begin vec_set.zero_prefix.invariant_preserve_0_3 aa9113e87f579a36
 /--
 Generated VC `vec_set.zero_prefix.invariant_preserve_0_3`.
 
 - Rust source: `examples/m3-vec-set/vec_set.rs:46:13-46:52`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_3`
-- Statement hash: `e111a8950e15e609`
+- Statement hash: `aa9113e87f579a36`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index tmp__post k⟩ ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v_2 vrml_i0⟩ ⟨Vermilion.Seq.index v_2 k⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
@@ -380,7 +380,7 @@ def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
   assertId := "0_3"
   functionName := "vec_set.zero_prefix"
   kind := "invariant_preserve"
-  statementHash := "e111a8950e15e609"
+  statementHash := "aa9113e87f579a36"
 }
 @[vrml_obligation] theorem invariant_preserve_0_3
     (v : (Vermilion.Seq Int))
@@ -388,26 +388,24 @@ def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
     (v_2 : (Vermilion.Seq Int))
     (i : Int)
     (tmp__post : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v_2))
+    (loop_0_iteration_2 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v_2) ∧ (Vermilion.Seq.len v_2 < Vermilion.usizeMod))
     (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v_2 vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i)
+    (loop_0_iteration_5 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_0_iteration_6 : i ≤ n)
     (loop_0_iteration_7 : n ≤ Vermilion.Seq.len v_2)
     (loop_0_iteration_8 : Vermilion.Seq.len v_2 = Vermilion.Seq.len v)
     (loop_0_iteration_9 : (∀ (k : Int), (((0 ≤ k) ∧ (k < i)) → (Vermilion.Seq.index v_2 k = 0))))
     (loop_0_iteration_10 : i < n)
-    (assume_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (assume_11 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
     (assume_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (call_set_ensures_0 : tmp__post = Vermilion.Seq.update v_2 i 0)
-    (assert_1 : Vermilion.inUnsignedRange 64 (i + 1)) :
-    (∀ (k : Int), (((0 ≤ k) ∧ (k < ((i + 1) % 18446744073709551616))) → (Vermilion.Seq.index tmp__post k = 0))) := by
+    (assert_1 : (0 ≤ (i + 1)) ∧ ((i + 1) < Vermilion.usizeMod)) :
+    (∀ (k : Int), (((0 ≤ k) ∧ (k < (Vermilion.emod (i + 1) Vermilion.usizeMod))) → (Vermilion.Seq.index tmp__post k = 0))) := by
   -- The overflow check makes the usize clip on the next index an identity.
-  simp only [Vermilion.inUnsignedRange] at assert_1
-  norm_num at assert_1
-  rw [Int.emod_eq_of_lt assert_1.1 assert_1.2]
+  rw [Vermilion.emod_usizeMod_of_lt assert_1.1 assert_1.2]
   -- The written slot k = i reads back 0; k < i kept its value from the
   -- prefix invariant (index_update_other).
   subst call_set_ensures_0
@@ -419,14 +417,14 @@ def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
     exact loop_0_iteration_9 k ⟨hk0, by omega⟩
 -- vrml:end vec_set.zero_prefix.invariant_preserve_0_3
 
--- vrml:begin vec_set.zero_prefix.assert_0_decreases 7c1dc6dd82752b1d
+-- vrml:begin vec_set.zero_prefix.assert_0_decreases 7af94115e1a2126a
 /--
 Generated VC `vec_set.zero_prefix.assert_0_decreases`.
 
 - Rust source: `examples/m3-vec-set/vec_set.rs:47:19-47:24`
 - Rust/SST construct: loop termination measure must decrease
 - AssertId: `0_decreases`
-- Statement hash: `7c1dc6dd82752b1d`
+- Statement hash: `7af94115e1a2126a`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v_2 vrml_i0⟩ ⟨Vermilion.Seq.index v_2 k⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def assert_0_decreases_meta : Vermilion.ObligationMeta := {
@@ -438,7 +436,7 @@ def assert_0_decreases_meta : Vermilion.ObligationMeta := {
   assertId := "0_decreases"
   functionName := "vec_set.zero_prefix"
   kind := "assert"
-  statementHash := "7c1dc6dd82752b1d"
+  statementHash := "7af94115e1a2126a"
 }
 @[vrml_obligation] theorem assert_0_decreases
     (v : (Vermilion.Seq Int))
@@ -446,33 +444,33 @@ def assert_0_decreases_meta : Vermilion.ObligationMeta := {
     (v_2 : (Vermilion.Seq Int))
     (i : Int)
     (tmp__post : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v_2))
+    (loop_0_iteration_2 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v_2) ∧ (Vermilion.Seq.len v_2 < Vermilion.usizeMod))
     (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v_2 vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i)
+    (loop_0_iteration_5 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_0_iteration_6 : i ≤ n)
     (loop_0_iteration_7 : n ≤ Vermilion.Seq.len v_2)
     (loop_0_iteration_8 : Vermilion.Seq.len v_2 = Vermilion.Seq.len v)
     (loop_0_iteration_9 : (∀ (k : Int), (((0 ≤ k) ∧ (k < i)) → (Vermilion.Seq.index v_2 k = 0))))
     (loop_0_iteration_10 : i < n)
-    (assume_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (assume_11 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
     (assume_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (call_set_ensures_0 : tmp__post = Vermilion.Seq.update v_2 i 0)
-    (assert_1 : Vermilion.inUnsignedRange 64 (i + 1)) :
-    ((0 ≤ (n - ((i + 1) % 18446744073709551616))) ∧ ((n - ((i + 1) % 18446744073709551616)) < (n - i))) ∨ (((n - ((i + 1) % 18446744073709551616)) = (n - i)) ∧ False) := by
+    (assert_1 : (0 ≤ (i + 1)) ∧ ((i + 1) < Vermilion.usizeMod)) :
+    ((0 ≤ (n - (Vermilion.emod (i + 1) Vermilion.usizeMod))) ∧ ((n - (Vermilion.emod (i + 1) Vermilion.usizeMod)) < (n - i))) ∨ (((n - (Vermilion.emod (i + 1) Vermilion.usizeMod)) = (n - i)) ∧ False) := by
   vrml
 -- vrml:end vec_set.zero_prefix.assert_0_decreases
 
--- vrml:begin vec_set.zero_prefix.ensures_2_0 69488e88bc4cbe6e
+-- vrml:begin vec_set.zero_prefix.ensures_2_0 5012a36a365b061a
 /--
 Generated VC `vec_set.zero_prefix.ensures_2_0`.
 
 - Rust source: `examples/m3-vec-set/vec_set.rs:37:9-37:39`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `2_0`
-- Statement hash: `69488e88bc4cbe6e`
+- Statement hash: `5012a36a365b061a`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v_2 vrml_i0⟩ ⟨Vermilion.Seq.index v_2 k⟩
 -/
 def ensures_2_0_meta : Vermilion.ObligationMeta := {
@@ -484,20 +482,20 @@ def ensures_2_0_meta : Vermilion.ObligationMeta := {
   assertId := "2_0"
   functionName := "vec_set.zero_prefix"
   kind := "ensures"
-  statementHash := "69488e88bc4cbe6e"
+  statementHash := "5012a36a365b061a"
 }
 @[vrml_obligation] theorem ensures_2_0
     (v : (Vermilion.Seq Int))
     (n : Int)
     (v_2 : (Vermilion.Seq Int))
     (i : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 n)
+    (requires_2 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
     (requires_3 : n ≤ Vermilion.Seq.len v)
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v_2))
+    (loop_0_exit_0 : (0 ≤ Vermilion.Seq.len v_2) ∧ (Vermilion.Seq.len v_2 < Vermilion.usizeMod))
     (loop_0_exit_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v_2 vrml_i0))))
-    (loop_0_exit_2 : Vermilion.inUnsignedRange 64 i)
+    (loop_0_exit_2 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_0_exit_3 : i ≤ n)
     (loop_0_exit_4 : n ≤ Vermilion.Seq.len v_2)
     (loop_0_exit_5 : Vermilion.Seq.len v_2 = Vermilion.Seq.len v)
@@ -507,14 +505,14 @@ def ensures_2_0_meta : Vermilion.ObligationMeta := {
   vrml
 -- vrml:end vec_set.zero_prefix.ensures_2_0
 
--- vrml:begin vec_set.zero_prefix.ensures_2_1 7fcbcecb28f93a82
+-- vrml:begin vec_set.zero_prefix.ensures_2_1 1f75ca21b2157e5e
 /--
 Generated VC `vec_set.zero_prefix.ensures_2_1`.
 
 - Rust source: `examples/m3-vec-set/vec_set.rs:38:9-38:55`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `2_1`
-- Statement hash: `7fcbcecb28f93a82`
+- Statement hash: `1f75ca21b2157e5e`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v_2 k⟩ ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v_2 vrml_i0⟩ ⟨Vermilion.Seq.index v_2 k⟩
 -/
 def ensures_2_1_meta : Vermilion.ObligationMeta := {
@@ -526,20 +524,20 @@ def ensures_2_1_meta : Vermilion.ObligationMeta := {
   assertId := "2_1"
   functionName := "vec_set.zero_prefix"
   kind := "ensures"
-  statementHash := "7fcbcecb28f93a82"
+  statementHash := "1f75ca21b2157e5e"
 }
 @[vrml_obligation] theorem ensures_2_1
     (v : (Vermilion.Seq Int))
     (n : Int)
     (v_2 : (Vermilion.Seq Int))
     (i : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
-    (requires_2 : Vermilion.inUnsignedRange 64 n)
+    (requires_2 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
     (requires_3 : n ≤ Vermilion.Seq.len v)
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v_2))
+    (loop_0_exit_0 : (0 ≤ Vermilion.Seq.len v_2) ∧ (Vermilion.Seq.len v_2 < Vermilion.usizeMod))
     (loop_0_exit_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v_2)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v_2 vrml_i0))))
-    (loop_0_exit_2 : Vermilion.inUnsignedRange 64 i)
+    (loop_0_exit_2 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_0_exit_3 : i ≤ n)
     (loop_0_exit_4 : n ≤ Vermilion.Seq.len v_2)
     (loop_0_exit_5 : Vermilion.Seq.len v_2 = Vermilion.Seq.len v)

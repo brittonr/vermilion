@@ -180,6 +180,9 @@ expr      ::= (var STRING)
             | (apply id typs? expr*)                            ; M2, user spec fn
             | (ctor id STRING typs? expr*)                      ; M3, decl order
             | (strlit STRING)                                   ; DL5, &str literal
+            | (usizemod)                                        ; #26, 2^w for the
+                                                                ; symbolic word size
+                                                                ; w ∈ {32, 64}
                                                                 ; (StrSlice.mk)
             | (fieldof id STRING STRING expr)                   ; M3, variant+field
             | (isvariant id STRING expr)                        ; M3
@@ -233,8 +236,13 @@ BINOP     ::= add | sub | mul | ediv | emod
   `[-2^(w-1), 2^(w-1))`). The dedicated forms exist because the inline
   conditional expansions restate their operand, and nested `nat`
   arithmetic then grows exponentially in the clip depth (dalek-lite DL8,
-  `from_bytes`). `usize`/`isize` use the project's architecture-neutral
-  64-bit convention. `char` clipping fails closed because Unicode scalar
+  `from_bytes`). `usize`/`isize` use the crate's architecture word size:
+  the pinned width `w` (`global size_of usize == w/8`) exactly as above,
+  and otherwise Verus's symbolic 32-or-64-bit word, with `(usizemod)`
+  (`Vermilion.usizeMod`, `2^w`) as the modulus: a `usize` clip is
+  `emod x (usizemod)`, an `isize` clip `emod (x + h) (usizemod) - h` with
+  `h = (usizemod) / 2`, and the type range is `0 ≤ x < (usizemod)` (issue
+  #26). `char` clipping fails closed because Unicode scalar
   values are not one contiguous range.
 - vstd collections keep their vstd operation names structurally: `Seq` is a
   Lean `List`, `Set` a `Finset`, `Multiset` a Mathlib `Multiset`, and `Map`
@@ -494,9 +502,9 @@ BINOP     ::= add | sub | mul | ediv | emod
   (recognized by its `ConstTyp` bound) becomes an `Int` value binder
   with its declared type's range facts; `ConstGeneric` uses are the
   binder inside the generic function and the substituted literal at
-  instantiated calls. `usize`/`isize` range facts are the arch-neutral
-  64-bit bounds (Verus verifies for a symbolic 32/64-bit word; programs
-  pinning 32 bits may prove more in Verus). Const-generic spec fns and
+  instantiated calls. `usize`/`isize` range facts follow the crate's word
+  size: pinned and concrete, or symbolic via `(usizemod)` (issue #26).
+  Const-generic spec fns and
   datatypes fail closed.
 - Exec closures need no new constructs: the body check is a `(scope …)`
   with fresh parameter binders; `ClosureReq`/`ClosureEns` are fresh

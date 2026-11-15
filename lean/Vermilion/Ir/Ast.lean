@@ -131,6 +131,9 @@ inductive Expr where
   /-- A string literal (`&str` constant): `Vermilion.StrSlice.mk "…"`.
   Opaque data — no string operations are lowered. -/
   | strLit (value : String)
+  /-- `Vermilion.usizeMod`: `2^w` for the symbolic architecture word size
+  `w ∈ {32, 64}` of a crate that does not pin `size_of usize` (issue #26). -/
+  | usizeMod
   | tt
   | ff
   | binary (op : BinOp) (lhs rhs : Expr)

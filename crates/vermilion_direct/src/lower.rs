@@ -81,6 +81,24 @@ enum RangeConstraint {
     Unsigned(u32),
     Signed(u32),
     Nat,
+    /// `usize` of a crate that does not pin its word size: `[0, 2^w)` for
+    /// the symbolic `w ∈ {32, 64}` (`Vermilion.usizeMod` = `2^w`).
+    SymbolicUsize,
+    /// `isize` likewise: `[-2^(w-1), 2^(w-1))`.
+    SymbolicIsize,
+}
+
+/// The crate's architecture word size: `Some(w)` when the crate pins it
+/// (`global size_of usize == w/8`), `None` for Verus's default
+/// `Either32Or64`. Set once per run from the exported crate (`main.rs`).
+static ARCH_WORD_BITS: std::sync::OnceLock<Option<u32>> = std::sync::OnceLock::new();
+
+pub fn set_arch_word_bits(bits: Option<u32>) {
+    let _ = ARCH_WORD_BITS.set(bits);
+}
+
+fn arch_word_bits() -> Option<u32> {
+    ARCH_WORD_BITS.get().copied().flatten()
 }
 
 /// Range constraint carried by an integer type, if any.
@@ -89,14 +107,27 @@ fn range_constraint(typ: &Typ) -> Option<RangeConstraint> {
         TypX::Int(IntRange::U(bits)) => Some(RangeConstraint::Unsigned(*bits)),
         TypX::Int(IntRange::I(bits)) => Some(RangeConstraint::Signed(*bits)),
         TypX::Int(IntRange::Nat) => Some(RangeConstraint::Nat),
-        // usize/isize: Verus verifies for a symbolic architecture word of
-        // 32 or 64 bits; the arch-neutral facts (valid on both) are the
-        // 64-bit bounds. Programs pinning a 32-bit arch may prove more in
-        // Verus than here (fail-closed direction; documented).
-        TypX::Int(IntRange::USize) => Some(RangeConstraint::Unsigned(64)),
-        TypX::Int(IntRange::ISize) => Some(RangeConstraint::Signed(64)),
+        // usize/isize: Verus verifies for the crate's architecture word. A
+        // pinned width is concrete; otherwise it is SYMBOLIC (32 or 64), and
+        // so is the range. Concrete 64-bit bounds would be sound as
+        // hypotheses but too weak as overflow obligations and clips: they
+        // accepted `x + 1` at `x == 2^32 - 1`, which overflows on 32-bit
+        // targets and which Verus rejects (issue #26).
+        TypX::Int(IntRange::USize) => Some(match arch_word_bits() {
+            Some(bits) => RangeConstraint::Unsigned(bits),
+            None => RangeConstraint::SymbolicUsize,
+        }),
+        TypX::Int(IntRange::ISize) => Some(match arch_word_bits() {
+            Some(bits) => RangeConstraint::Signed(bits),
+            None => RangeConstraint::SymbolicIsize,
+        }),
         _ => None,
     }
+}
+
+/// `2^(w-1)` for the symbolic word size: `usizeMod / 2`.
+fn half_usize_mod() -> Expr {
+    Expr::binary(BinOp::EDiv, Expr::UsizeMod, Expr::Int("2".to_owned()))
 }
 
 fn range_proposition(constraint: &RangeConstraint, subject: Expr) -> Expr {
@@ -104,6 +135,28 @@ fn range_proposition(constraint: &RangeConstraint, subject: Expr) -> Expr {
         RangeConstraint::Unsigned(bits) => Expr::URange(*bits, Box::new(subject)),
         RangeConstraint::Signed(bits) => Expr::SRange(*bits, Box::new(subject)),
         RangeConstraint::Nat => Expr::binary(BinOp::Le, Expr::Int("0".to_owned()), subject),
+        RangeConstraint::SymbolicUsize => Expr::binary(
+            BinOp::And,
+            Expr::binary(BinOp::Le, Expr::Int("0".to_owned()), subject.clone()),
+            Expr::binary(BinOp::Lt, subject, Expr::UsizeMod),
+        ),
+        RangeConstraint::SymbolicIsize => Expr::binary(
+            BinOp::And,
+            Expr::binary(
+                BinOp::Le,
+                Expr::binary(BinOp::Sub, Expr::Int("0".to_owned()), half_usize_mod()),
+                subject.clone(),
+            ),
+            Expr::binary(BinOp::Lt, subject, half_usize_mod()),
+        ),
+    }
+}
+
+/// The range proposition of `usize` itself (Vec lengths and the like).
+fn usize_range() -> RangeConstraint {
+    match arch_word_bits() {
+        Some(bits) => RangeConstraint::Unsigned(bits),
+        None => RangeConstraint::SymbolicUsize,
     }
 }
 
@@ -660,7 +713,7 @@ fn type_facts_rec(
             // carries no such bound.
             if matches!(dt, vir::ast::Dt::Path(path) if is_alloc_vec(path)) {
                 all.push(range_proposition(
-                    &RangeConstraint::Unsigned(64),
+                    &usize_range(),
                     Expr::SeqLen(Box::new(subject.clone())),
                 ));
             }
@@ -1478,7 +1531,7 @@ fn annotate_span(error: String, raw: &vir::messages::Span) -> String {
 fn reserve_expr_names(expr: &Expr, taken: &mut std::collections::HashSet<String>) {
     match expr {
         Expr::Var(name) => { taken.insert(name.clone()); }
-        Expr::Int(_) | Expr::StrLit(_) | Expr::True | Expr::False
+        Expr::Int(_) | Expr::StrLit(_) | Expr::UsizeMod | Expr::True | Expr::False
         | Expr::SeqEmpty(_) | Expr::SetEmpty(_) | Expr::MapEmpty(_, _)
         | Expr::MultisetEmpty(_) => {}
         Expr::Binary(_, a, b) | Expr::SeqPush(a, b) | Expr::SeqIndex(a, b)
@@ -1816,12 +1869,28 @@ fn lower_clip(range: &IntRange, operand: Expr) -> Result<Expr, String> {
         // exponentially in the clip depth (dalek-lite DL8, `from_bytes`).
         IntRange::Nat => Ok(Expr::NatClip(Box::new(operand))),
         IntRange::U(bits) => Ok(unsigned(*bits, operand)),
-        IntRange::USize => Ok(unsigned(64, operand)),
+        IntRange::USize => Ok(match arch_word_bits() {
+            Some(bits) => unsigned(bits, operand),
+            None => Expr::binary(BinOp::EMod, operand, Expr::UsizeMod),
+        }),
         IntRange::I(bits) if *bits == 0 => {
             Err("unsupported zero-width signed integer clip".to_owned())
         }
         IntRange::I(bits) => Ok(Expr::SignedClip(*bits, Box::new(operand))),
-        IntRange::ISize => Ok(Expr::SignedClip(64, Box::new(operand))),
+        IntRange::ISize => Ok(match arch_word_bits() {
+            Some(bits) => Expr::SignedClip(bits, Box::new(operand)),
+            // ((x + 2^(w-1)) mod 2^w) - 2^(w-1): the two's-complement
+            // representative at the symbolic width.
+            None => Expr::binary(
+                BinOp::Sub,
+                Expr::binary(
+                    BinOp::EMod,
+                    Expr::binary(BinOp::Add, operand, half_usize_mod()),
+                    Expr::UsizeMod,
+                ),
+                half_usize_mod(),
+            ),
+        }),
         IntRange::Char => Err("unsupported `char` clipping (Unicode scalar-value gap)".to_owned()),
     }
 }
@@ -1900,8 +1969,39 @@ fn lower_exp_impl(ctx: ExpCtx<'_>, env: &Env, exp: &Exp) -> Result<Expr, String>
                     let (signed, bits) = match undecorate(&resolve_typ(ctx, &lhs_exp.typ)) {
                         TypX::Int(IntRange::U(bits)) => (false, *bits),
                         TypX::Int(IntRange::I(bits)) => (true, *bits),
-                        TypX::Int(IntRange::USize) => (false, 64),
-                        TypX::Int(IntRange::ISize) => (true, 64),
+                        TypX::Int(IntRange::USize) | TypX::Int(IntRange::ISize) => {
+                            let signed = matches!(
+                                undecorate(&resolve_typ(ctx, &lhs_exp.typ)),
+                                TypX::Int(IntRange::ISize)
+                            );
+                            match arch_word_bits() {
+                                Some(bits) => (signed, bits),
+                                // At a symbolic word size only the
+                                // width-independent operations have one
+                                // meaning: `&`, `|`, `^` and `>>` of
+                                // in-range unsigned operands. Shifting left
+                                // and signed operations depend on the width
+                                // (issue #26): fail closed.
+                                None if !signed
+                                    && matches!(
+                                        op,
+                                        vir::ast::BitwiseOp::BitAnd
+                                            | vir::ast::BitwiseOp::BitOr
+                                            | vir::ast::BitwiseOp::BitXor
+                                            | vir::ast::BitwiseOp::Shr
+                                    ) =>
+                                {
+                                    (false, 64)
+                                }
+                                None => {
+                                    return Err(format!(
+                                        "unsupported {op:?} on usize/isize: its meaning depends on \
+                                         the architecture word size, which this crate does not pin \
+                                         (`global size_of usize == 8;` pins it)"
+                                    ))
+                                }
+                            }
+                        }
                         other => {
                             return Err(format!("unsupported bit operation at type {other:?}"))
                         }
@@ -2727,6 +2827,65 @@ fn lower_exp_impl(ctx: ExpCtx<'_>, env: &Env, exp: &Exp) -> Result<Expr, String>
             let type_args = ctor_type_args(ctx, declaration, variant, &exp.typ)?;
             Ok(Expr::Ctor(id, variant_name.to_string(), type_args, fields))
         }
+        // Integer type bounds (`u8::MAX`, `usize::MAX`, `isize::MIN`, the
+        // word size itself). The argument is the width in bits; for
+        // usize/isize it is the `ArchWordBits` bound, symbolic in a crate
+        // that does not pin `size_of usize` (issue #26).
+        ExpX::UnaryOpr(UnaryOpr::IntegerTypeBound(kind, _), operand) => {
+            use vir::ast::IntegerTypeBoundKind as K;
+            let is_arch = |exp: &Exp| {
+                matches!(
+                    &exp.x,
+                    ExpX::UnaryOpr(UnaryOpr::IntegerTypeBound(K::ArchWordBits, _), _)
+                )
+            };
+            let int = |value: BigInt| Expr::Int(value.to_string());
+            if matches!(kind, K::ArchWordBits) {
+                return Ok(match arch_word_bits() {
+                    Some(bits) => int(BigInt::from(bits)),
+                    None => Expr::Ite(
+                        Box::new(Expr::binary(
+                            BinOp::Eq,
+                            Expr::UsizeMod,
+                            int(BigInt::from(1u8) << 32u32),
+                        )),
+                        Box::new(int(BigInt::from(32u8))),
+                        Box::new(int(BigInt::from(64u8))),
+                    ),
+                });
+            }
+            if is_arch(operand) && arch_word_bits().is_none() {
+                let half = half_usize_mod();
+                return Ok(match kind {
+                    K::UnsignedMax => {
+                        Expr::binary(BinOp::Sub, Expr::UsizeMod, int(BigInt::from(1u8)))
+                    }
+                    K::SignedMax => Expr::binary(BinOp::Sub, half, int(BigInt::from(1u8))),
+                    _ => Expr::binary(BinOp::Sub, int(BigInt::from(0u8)), half),
+                });
+            }
+            let bits: u32 = if is_arch(operand) {
+                arch_word_bits().expect("pinned word size checked above")
+            } else {
+                match lower_exp(ctx, env, operand)? {
+                    Expr::Int(digits) => digits
+                        .parse()
+                        .map_err(|_| format!("unsupported integer bound width {digits}"))?,
+                    other => {
+                        return Err(format!("unsupported non-literal integer bound width {other:?}"))
+                    }
+                }
+            };
+            if bits == 0 {
+                return Err("unsupported zero-width integer bound".to_owned());
+            }
+            let one = BigInt::from(1u8);
+            Ok(match kind {
+                K::UnsignedMax => int((one.clone() << bits) - one),
+                K::SignedMax => int((one.clone() << (bits - 1)) - one),
+                _ => int(-(one << (bits - 1))),
+            })
+        }
         ExpX::UnaryOpr(operator, operand) => {
             let operand_lowered = lower_exp(ctx, env, operand)?;
             match operator {
@@ -3370,6 +3529,7 @@ fn expr_size_capped(expr: &Expr, cap: i64) -> i64 {
             Expr::Var(_)
             | Expr::Int(_)
             | Expr::StrLit(_)
+            | Expr::UsizeMod
             | Expr::True
             | Expr::False
             | Expr::SeqEmpty(_)

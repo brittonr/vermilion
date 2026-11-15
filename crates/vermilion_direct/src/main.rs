@@ -63,6 +63,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     });
 
     let export = middle::read_export(&export_path)?;
+    lower::set_arch_word_bits(match export.krate.arch.word_bits {
+        vir::ast::ArchWordBits::Exactly(bits) => Some(bits),
+        vir::ast::ArchWordBits::Either32Or64 => None,
+    });
     let middle_output = middle::function_ssts(&export)?;
     let registry = lower::SpecRegistry::new();
     let mut views = Vec::new();

@@ -45,6 +45,61 @@ noncomputable def emod (x y : Int) : Int :=
     emod x y = x % y := by
   simp [emod, h]
 
+/-! ## The architecture word size (issue #26)
+
+Verus verifies a crate that does not pin `size_of usize` for an
+architecture word of 32 OR 64 bits (`ArchWordBits::Either32Or64`): a
+`usize` lies in `[0, 2^w)` for a symbolic `w`, so an overflow check must
+hold at both widths and nothing may depend on which one it is. `usizeMod`
+is that `2^w`: an `opaque` value of a subtype that carries the two
+possibilities, so its value is unknowable but the disjunction is a theorem
+(no axiom is added). -/
+
+/-- `2^32` or `2^64`, and nothing more is known. -/
+def UsizeModulus : Type := {m : Int // m = 2 ^ 32 ∨ m = 2 ^ 64}
+
+instance : Inhabited UsizeModulus := ⟨⟨2 ^ 64, Or.inr rfl⟩⟩
+
+/-- The symbolic architecture word modulus. -/
+opaque usizeModulus : UsizeModulus
+
+/-- `2^w` for the symbolic architecture word size `w ∈ {32, 64}`. -/
+def usizeMod : Int := usizeModulus.val
+
+theorem usizeMod_cases : usizeMod = 2 ^ 32 ∨ usizeMod = 2 ^ 64 :=
+  usizeModulus.property
+
+/-- The form `omega` consumes (it does not evaluate `^`). -/
+theorem usizeMod_cases' :
+    usizeMod = 4294967296 ∨ usizeMod = 18446744073709551616 := by
+  have h := usizeMod_cases
+  norm_num at h
+  exact h
+
+@[simp] theorem usizeMod_ne_zero : usizeMod ≠ 0 := by
+  rcases usizeMod_cases' with h | h <;> rw [h] <;> decide
+
+theorem usizeMod_pos : 0 < usizeMod := by
+  rcases usizeMod_cases' with h | h <;> rw [h] <;> decide
+
+/-- An in-range unsigned `usize` clip is the identity: the rewrite an
+interactive proof uses where it would use `Int.emod_eq_of_lt` against a
+literal modulus. -/
+theorem emod_usizeMod_of_lt {x : Int} (h0 : 0 ≤ x) (h1 : x < usizeMod) :
+    emod x usizeMod = x := by
+  rw [emod_of_ne_zero x usizeMod_ne_zero]
+  exact Int.emod_eq_of_lt h0 h1
+
+/-- After `usizeMod` is replaced by one of its two values, an unpinned
+`usize` clip `Vermilion.emod x usizeMod` becomes a remainder by a literal,
+which `omega` reads. -/
+theorem emod_usize32 (x : Int) : emod x 4294967296 = x % 4294967296 :=
+  emod_of_ne_zero x (by decide)
+
+theorem emod_usize64 (x : Int) :
+    emod x 18446744073709551616 = x % 18446744073709551616 :=
+  emod_of_ne_zero x (by decide)
+
 /-! Machine-width remainder chains. Verus lowers every u64 (etc.)
 operation through an exact clip, so spec/impl comparisons pile up
 `((e % 2⁶⁴) % k) % 2⁶⁴`-style chains against a plain `e % k`. The three

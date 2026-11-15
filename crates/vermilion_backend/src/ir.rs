@@ -159,6 +159,7 @@ fn write_expr(out: &mut String, expr: &Expr) {
         }
         Expr::SetEmpty(elem) => write!(out, "(setempty {})", elem.ir_form()).unwrap(),
         Expr::StrLit(value) => write!(out, "(strlit {})", quoted(value)).unwrap(),
+        Expr::UsizeMod => out.push_str("(usizemod)"),
         Expr::MapEmpty(key, value) => {
             write!(out, "(mapempty {} {})", key.ir_form(), value.ir_form()).unwrap()
         }

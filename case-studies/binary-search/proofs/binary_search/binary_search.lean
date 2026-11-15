@@ -6,14 +6,14 @@ set_option linter.dupNamespace false
 
 namespace binary_search.binary_search
 
--- vrml:begin binary_search.binary_search.assert_1 c2ccfc600ba6d039
+-- vrml:begin binary_search.binary_search.assert_1 c868e8493d225254
 /--
 Generated VC `binary_search.binary_search.assert_1`.
 
 - Rust source: `case-studies/binary-search/binary_search.rs:19:25-19:36`
 - Rust/SST construct: possible arithmetic underflow/overflow
 - AssertId: `1`
-- Statement hash: `c2ccfc600ba6d039`
+- Statement hash: `c868e8493d225254`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩ ⟨Vermilion.Seq.index v i⟩
 -/
 def assert_1_meta : Vermilion.ObligationMeta := {
@@ -25,29 +25,29 @@ def assert_1_meta : Vermilion.ObligationMeta := {
   assertId := "1"
   functionName := "binary_search.binary_search"
   kind := "assert"
-  statementHash := "c2ccfc600ba6d039"
+  statementHash := "c868e8493d225254"
 }
 @[vrml_obligation] theorem assert_1
     (v : (Vermilion.Seq Int))
     (k : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
     (requires_2 : Vermilion.inUnsignedRange 64 k)
     (requires_3 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
     (requires_4 : (∃ (i : Int), (((0 ≤ i) ∧ (i < Vermilion.Seq.len v)) ∧ (k = Vermilion.Seq.index v i))))
-    (assume_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v)) :
-    Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v - 1) := by
+    (assume_5 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod)) :
+    (0 ≤ (Vermilion.Seq.len v - 1)) ∧ ((Vermilion.Seq.len v - 1) < Vermilion.usizeMod) := by
   vrml
 -- vrml:end binary_search.binary_search.assert_1
 
--- vrml:begin binary_search.binary_search.invariant_entry_0_0 a2fa64c9d38735c1
+-- vrml:begin binary_search.binary_search.invariant_entry_0_0 19edf8587c4af288
 /--
 Generated VC `binary_search.binary_search.invariant_entry_0_0`.
 
 - Rust source: `case-studies/binary-search/binary_search.rs:22:13-22:25`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_0`
-- Statement hash: `a2fa64c9d38735c1`
+- Statement hash: `19edf8587c4af288`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩ ⟨Vermilion.Seq.index v i⟩
 -/
 def invariant_entry_0_0_meta : Vermilion.ObligationMeta := {
@@ -59,30 +59,30 @@ def invariant_entry_0_0_meta : Vermilion.ObligationMeta := {
   assertId := "0_0"
   functionName := "binary_search.binary_search"
   kind := "invariant_entry"
-  statementHash := "a2fa64c9d38735c1"
+  statementHash := "19edf8587c4af288"
 }
 @[vrml_obligation] theorem invariant_entry_0_0
     (v : (Vermilion.Seq Int))
     (k : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
     (requires_2 : Vermilion.inUnsignedRange 64 k)
     (requires_3 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
     (requires_4 : (∃ (i : Int), (((0 ≤ i) ∧ (i < Vermilion.Seq.len v)) ∧ (k = Vermilion.Seq.index v i))))
-    (assume_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
-    (assert_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v - 1)) :
-    ((Vermilion.Seq.len v - 1) % 18446744073709551616) < Vermilion.Seq.len v := by
+    (assume_5 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
+    (assert_1 : (0 ≤ (Vermilion.Seq.len v - 1)) ∧ ((Vermilion.Seq.len v - 1) < Vermilion.usizeMod)) :
+    (Vermilion.emod (Vermilion.Seq.len v - 1) Vermilion.usizeMod) < Vermilion.Seq.len v := by
   vrml
 -- vrml:end binary_search.binary_search.invariant_entry_0_0
 
--- vrml:begin binary_search.binary_search.invariant_entry_0_1 7f5016167ded2f81
+-- vrml:begin binary_search.binary_search.invariant_entry_0_1 504b3ad3196edc8a
 /--
 Generated VC `binary_search.binary_search.invariant_entry_0_1`.
 
 - Rust source: `case-studies/binary-search/binary_search.rs:23:13-23:54`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_1`
-- Statement hash: `7f5016167ded2f81`
+- Statement hash: `504b3ad3196edc8a`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v i⟩ ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩ ⟨Vermilion.Seq.index v i⟩
 -/
 def invariant_entry_0_1_meta : Vermilion.ObligationMeta := {
@@ -94,30 +94,30 @@ def invariant_entry_0_1_meta : Vermilion.ObligationMeta := {
   assertId := "0_1"
   functionName := "binary_search.binary_search"
   kind := "invariant_entry"
-  statementHash := "7f5016167ded2f81"
+  statementHash := "504b3ad3196edc8a"
 }
 @[vrml_obligation] theorem invariant_entry_0_1
     (v : (Vermilion.Seq Int))
     (k : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
     (requires_2 : Vermilion.inUnsignedRange 64 k)
     (requires_3 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
     (requires_4 : (∃ (i : Int), (((0 ≤ i) ∧ (i < Vermilion.Seq.len v)) ∧ (k = Vermilion.Seq.index v i))))
-    (assume_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
-    (assert_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v - 1)) :
-    (∃ (i : Int), (((0 ≤ i) ∧ (i ≤ ((Vermilion.Seq.len v - 1) % 18446744073709551616))) ∧ (k = Vermilion.Seq.index v i))) := by
+    (assume_5 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
+    (assert_1 : (0 ≤ (Vermilion.Seq.len v - 1)) ∧ ((Vermilion.Seq.len v - 1) < Vermilion.usizeMod)) :
+    (∃ (i : Int), (((0 ≤ i) ∧ (i ≤ (Vermilion.emod (Vermilion.Seq.len v - 1) Vermilion.usizeMod))) ∧ (k = Vermilion.Seq.index v i))) := by
   vrml
 -- vrml:end binary_search.binary_search.invariant_entry_0_1
 
--- vrml:begin binary_search.binary_search.invariant_entry_0_2 cb93e3684b71d056
+-- vrml:begin binary_search.binary_search.invariant_entry_0_2 d22677bcc6befdbf
 /--
 Generated VC `binary_search.binary_search.invariant_entry_0_2`.
 
 - Rust source: `case-studies/binary-search/binary_search.rs:24:13-24:74`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_2`
-- Statement hash: `cb93e3684b71d056`
+- Statement hash: `d22677bcc6befdbf`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩ ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩ ⟨Vermilion.Seq.index v i⟩
 -/
 def invariant_entry_0_2_meta : Vermilion.ObligationMeta := {
@@ -129,30 +129,30 @@ def invariant_entry_0_2_meta : Vermilion.ObligationMeta := {
   assertId := "0_2"
   functionName := "binary_search.binary_search"
   kind := "invariant_entry"
-  statementHash := "cb93e3684b71d056"
+  statementHash := "d22677bcc6befdbf"
 }
 @[vrml_obligation] theorem invariant_entry_0_2
     (v : (Vermilion.Seq Int))
     (k : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
     (requires_2 : Vermilion.inUnsignedRange 64 k)
     (requires_3 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
     (requires_4 : (∃ (i : Int), (((0 ≤ i) ∧ (i < Vermilion.Seq.len v)) ∧ (k = Vermilion.Seq.index v i))))
-    (assume_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
-    (assert_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v - 1)) :
+    (assume_5 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
+    (assert_1 : (0 ≤ (Vermilion.Seq.len v - 1)) ∧ ((Vermilion.Seq.len v - 1) < Vermilion.usizeMod)) :
     (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))) := by
   vrml
 -- vrml:end binary_search.binary_search.invariant_entry_0_2
 
--- vrml:begin binary_search.binary_search.assert_2 a9afd66456312a65
+-- vrml:begin binary_search.binary_search.assert_2 eca9659174c4f1e6
 /--
 Generated VC `binary_search.binary_search.assert_2`.
 
 - Rust source: `case-studies/binary-search/binary_search.rs:27:23-27:32`
 - Rust/SST construct: possible arithmetic underflow/overflow
 - AssertId: `2`
-- Statement hash: `a9afd66456312a65`
+- Statement hash: `eca9659174c4f1e6`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v i⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩
 -/
 def assert_2_meta : Vermilion.ObligationMeta := {
@@ -164,35 +164,35 @@ def assert_2_meta : Vermilion.ObligationMeta := {
   assertId := "2"
   functionName := "binary_search.binary_search"
   kind := "assert"
-  statementHash := "a9afd66456312a65"
+  statementHash := "eca9659174c4f1e6"
 }
 @[vrml_obligation] theorem assert_2
     (v : (Vermilion.Seq Int))
     (k : Int)
     (i1 : Int)
     (i2 : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
     (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 k)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_6 : i2 < Vermilion.Seq.len v)
     (loop_0_iteration_7 : (∃ (i : Int), (((i1 ≤ i) ∧ (i ≤ i2)) ∧ (k = Vermilion.Seq.index v i))))
     (loop_0_iteration_8 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
     (loop_0_iteration_9 : i1 ≠ i2) :
-    Vermilion.inUnsignedRange 64 (i2 - i1) := by
+    (0 ≤ (i2 - i1)) ∧ ((i2 - i1) < Vermilion.usizeMod) := by
   vrml
 -- vrml:end binary_search.binary_search.assert_2
 
--- vrml:begin binary_search.binary_search.assert_3 6dafa29461acfb6c
+-- vrml:begin binary_search.binary_search.assert_3 8c0c4ea070baa0a1
 /--
 Generated VC `binary_search.binary_search.assert_3`.
 
 - Rust source: `case-studies/binary-search/binary_search.rs:27:23-27:36`
 - Rust/SST construct: possible division by zero
 - AssertId: `3`
-- Statement hash: `6dafa29461acfb6c`
+- Statement hash: `8c0c4ea070baa0a1`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v i⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩
 -/
 def assert_3_meta : Vermilion.ObligationMeta := {
@@ -204,36 +204,36 @@ def assert_3_meta : Vermilion.ObligationMeta := {
   assertId := "3"
   functionName := "binary_search.binary_search"
   kind := "assert"
-  statementHash := "6dafa29461acfb6c"
+  statementHash := "8c0c4ea070baa0a1"
 }
 @[vrml_obligation] theorem assert_3
     (v : (Vermilion.Seq Int))
     (k : Int)
     (i1 : Int)
     (i2 : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
     (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 k)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_6 : i2 < Vermilion.Seq.len v)
     (loop_0_iteration_7 : (∃ (i : Int), (((i1 ≤ i) ∧ (i ≤ i2)) ∧ (k = Vermilion.Seq.index v i))))
     (loop_0_iteration_8 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
     (loop_0_iteration_9 : i1 ≠ i2)
-    (assert_2 : Vermilion.inUnsignedRange 64 (i2 - i1)) :
+    (assert_2 : (0 ≤ (i2 - i1)) ∧ ((i2 - i1) < Vermilion.usizeMod)) :
     2 ≠ 0 := by
   vrml
 -- vrml:end binary_search.binary_search.assert_3
 
--- vrml:begin binary_search.binary_search.assert_4 501afeb0d67d7024
+-- vrml:begin binary_search.binary_search.assert_4 4bf166ad6a58608d
 /--
 Generated VC `binary_search.binary_search.assert_4`.
 
 - Rust source: `case-studies/binary-search/binary_search.rs:27:18-27:36`
 - Rust/SST construct: possible arithmetic underflow/overflow
 - AssertId: `4`
-- Statement hash: `501afeb0d67d7024`
+- Statement hash: `4bf166ad6a58608d`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v i⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩
 -/
 def assert_4_meta : Vermilion.ObligationMeta := {
@@ -245,37 +245,37 @@ def assert_4_meta : Vermilion.ObligationMeta := {
   assertId := "4"
   functionName := "binary_search.binary_search"
   kind := "assert"
-  statementHash := "501afeb0d67d7024"
+  statementHash := "4bf166ad6a58608d"
 }
 @[vrml_obligation] theorem assert_4
     (v : (Vermilion.Seq Int))
     (k : Int)
     (i1 : Int)
     (i2 : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
     (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 k)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_6 : i2 < Vermilion.Seq.len v)
     (loop_0_iteration_7 : (∃ (i : Int), (((i1 ≤ i) ∧ (i ≤ i2)) ∧ (k = Vermilion.Seq.index v i))))
     (loop_0_iteration_8 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
     (loop_0_iteration_9 : i1 ≠ i2)
-    (assert_2 : Vermilion.inUnsignedRange 64 (i2 - i1))
+    (assert_2 : (0 ≤ (i2 - i1)) ∧ ((i2 - i1) < Vermilion.usizeMod))
     (assert_3 : 2 ≠ 0) :
-    Vermilion.inUnsignedRange 64 (i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) := by
+    (0 ≤ (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod))) ∧ ((i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) < Vermilion.usizeMod) := by
   vrml
 -- vrml:end binary_search.binary_search.assert_4
 
--- vrml:begin binary_search.binary_search.call_requires_5 014b02ccb4852430
+-- vrml:begin binary_search.binary_search.call_requires_5 660aa6bb834d6c29
 /--
 Generated VC `binary_search.binary_search.call_requires_5`.
 
 - Rust source: `case-studies/binary-search/binary_search.rs:28:12-28:17`
 - Rust/SST construct: call vec_index
 - AssertId: `5`
-- Statement hash: `014b02ccb4852430`
+- Statement hash: `660aa6bb834d6c29`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v i⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩
 -/
 def call_requires_5_meta : Vermilion.ObligationMeta := {
@@ -287,38 +287,38 @@ def call_requires_5_meta : Vermilion.ObligationMeta := {
   assertId := "5"
   functionName := "binary_search.binary_search"
   kind := "call_requires"
-  statementHash := "014b02ccb4852430"
+  statementHash := "660aa6bb834d6c29"
 }
 @[vrml_obligation] theorem call_requires_5
     (v : (Vermilion.Seq Int))
     (k : Int)
     (i1 : Int)
     (i2 : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
     (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 k)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_6 : i2 < Vermilion.Seq.len v)
     (loop_0_iteration_7 : (∃ (i : Int), (((i1 ≤ i) ∧ (i ≤ i2)) ∧ (k = Vermilion.Seq.index v i))))
     (loop_0_iteration_8 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
     (loop_0_iteration_9 : i1 ≠ i2)
-    (assert_2 : Vermilion.inUnsignedRange 64 (i2 - i1))
+    (assert_2 : (0 ≤ (i2 - i1)) ∧ ((i2 - i1) < Vermilion.usizeMod))
     (assert_3 : 2 ≠ 0)
-    (assert_4 : Vermilion.inUnsignedRange 64 (i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616))) :
-    ((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616) < Vermilion.Seq.len v := by
+    (assert_4 : (0 ≤ (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod))) ∧ ((i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) < Vermilion.usizeMod)) :
+    (Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod) < Vermilion.Seq.len v := by
   vrml
 -- vrml:end binary_search.binary_search.call_requires_5
 
--- vrml:begin binary_search.binary_search.assert_6 cd2198705405f3e1
+-- vrml:begin binary_search.binary_search.assert_6 42ba72847d315d41
 /--
 Generated VC `binary_search.binary_search.assert_6`.
 
 - Rust source: `case-studies/binary-search/binary_search.rs:29:18-29:24`
 - Rust/SST construct: possible arithmetic underflow/overflow
 - AssertId: `6`
-- Statement hash: `cd2198705405f3e1`
+- Statement hash: `42ba72847d315d41`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v i⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩
 -/
 def assert_6_meta : Vermilion.ObligationMeta := {
@@ -330,7 +330,7 @@ def assert_6_meta : Vermilion.ObligationMeta := {
   assertId := "6"
   functionName := "binary_search.binary_search"
   kind := "assert"
-  statementHash := "cd2198705405f3e1"
+  statementHash := "42ba72847d315d41"
 }
 @[vrml_obligation] theorem assert_6
     (v : (Vermilion.Seq Int))
@@ -340,34 +340,34 @@ def assert_6_meta : Vermilion.ObligationMeta := {
     (tmp_ : Int)
     (i1_2 : Int)
     (i2_2 : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
     (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 k)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_6 : i2 < Vermilion.Seq.len v)
     (loop_0_iteration_7 : (∃ (i : Int), (((i1 ≤ i) ∧ (i ≤ i2)) ∧ (k = Vermilion.Seq.index v i))))
     (loop_0_iteration_8 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
     (loop_0_iteration_9 : i1 ≠ i2)
-    (assert_2 : Vermilion.inUnsignedRange 64 (i2 - i1))
+    (assert_2 : (0 ≤ (i2 - i1)) ∧ ((i2 - i1) < Vermilion.usizeMod))
     (assert_3 : 2 ≠ 0)
-    (assert_4 : Vermilion.inUnsignedRange 64 (i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)))
+    (assert_4 : (0 ≤ (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod))) ∧ ((i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) < Vermilion.usizeMod))
     (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 tmp_)
-    (call_vec_index_ensures_1 : tmp_ = Vermilion.Seq.index v ((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616))
+    (call_vec_index_ensures_1 : tmp_ = Vermilion.Seq.index v (Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod))
     (branch_0 : tmp_ < k) :
-    Vermilion.inUnsignedRange 64 (((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616) + 1) := by
+    (0 ≤ ((Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod) + 1)) ∧ (((Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod) + 1) < Vermilion.usizeMod) := by
   vrml
 -- vrml:end binary_search.binary_search.assert_6
 
--- vrml:begin binary_search.binary_search.invariant_preserve_0_0 446a676733573414
+-- vrml:begin binary_search.binary_search.invariant_preserve_0_0 0cab0b519f820c2c
 /--
 Generated VC `binary_search.binary_search.invariant_preserve_0_0`.
 
 - Rust source: `case-studies/binary-search/binary_search.rs:22:13-22:25`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_0`
-- Statement hash: `446a676733573414`
+- Statement hash: `0cab0b519f820c2c`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v i⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩
 -/
 def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
@@ -379,7 +379,7 @@ def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
   assertId := "0_0"
   functionName := "binary_search.binary_search"
   kind := "invariant_preserve"
-  statementHash := "446a676733573414"
+  statementHash := "0cab0b519f820c2c"
 }
 @[vrml_obligation] theorem invariant_preserve_0_0
     (v : (Vermilion.Seq Int))
@@ -389,40 +389,40 @@ def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
     (tmp_ : Int)
     (i1_2 : Int)
     (i2_2 : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
     (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 k)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_6 : i2 < Vermilion.Seq.len v)
     (loop_0_iteration_7 : (∃ (i : Int), (((i1 ≤ i) ∧ (i ≤ i2)) ∧ (k = Vermilion.Seq.index v i))))
     (loop_0_iteration_8 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
     (loop_0_iteration_9 : i1 ≠ i2)
-    (assert_2 : Vermilion.inUnsignedRange 64 (i2 - i1))
+    (assert_2 : (0 ≤ (i2 - i1)) ∧ ((i2 - i1) < Vermilion.usizeMod))
     (assert_3 : 2 ≠ 0)
-    (assert_4 : Vermilion.inUnsignedRange 64 (i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)))
+    (assert_4 : (0 ≤ (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod))) ∧ ((i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) < Vermilion.usizeMod))
     (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 tmp_)
-    (call_vec_index_ensures_1 : tmp_ = Vermilion.Seq.index v ((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616))
-    (then_0_assert_6 : (tmp_ < k) → Vermilion.inUnsignedRange 64 (((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616) + 1))
-    (then_0_assume_17 : (tmp_ < k) → (i1_2 = ((((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616) + 1) % 18446744073709551616)))
+    (call_vec_index_ensures_1 : tmp_ = Vermilion.Seq.index v (Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod))
+    (then_0_assert_6 : (tmp_ < k) → ((0 ≤ ((Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod) + 1)) ∧ (((Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod) + 1) < Vermilion.usizeMod)))
+    (then_0_assume_17 : (tmp_ < k) → (i1_2 = (Vermilion.emod ((Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod) + 1) Vermilion.usizeMod)))
     (then_0_assume_18 : (tmp_ < k) → (i2_2 = i2))
     (else_0_assume_16 : (¬ (tmp_ < k)) → (i1_2 = i1))
-    (else_0_assume_17 : (¬ (tmp_ < k)) → (i2_2 = ((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616)))
-    (assume_20 : Vermilion.inUnsignedRange 64 i1_2)
-    (assume_21 : Vermilion.inUnsignedRange 64 i2_2) :
+    (else_0_assume_17 : (¬ (tmp_ < k)) → (i2_2 = (Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod)))
+    (assume_20 : (0 ≤ i1_2) ∧ (i1_2 < Vermilion.usizeMod))
+    (assume_21 : (0 ≤ i2_2) ∧ (i2_2 < Vermilion.usizeMod)) :
     i2_2 < Vermilion.Seq.len v := by
   vrml
 -- vrml:end binary_search.binary_search.invariant_preserve_0_0
 
--- vrml:begin binary_search.binary_search.invariant_preserve_0_1 86c579dbbef13435
+-- vrml:begin binary_search.binary_search.invariant_preserve_0_1 d2e9b897b41a05bd
 /--
 Generated VC `binary_search.binary_search.invariant_preserve_0_1`.
 
 - Rust source: `case-studies/binary-search/binary_search.rs:23:13-23:54`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_1`
-- Statement hash: `86c579dbbef13435`
+- Statement hash: `d2e9b897b41a05bd`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v i⟩ ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v i⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩
 -/
 def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
@@ -434,7 +434,7 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
   assertId := "0_1"
   functionName := "binary_search.binary_search"
   kind := "invariant_preserve"
-  statementHash := "86c579dbbef13435"
+  statementHash := "d2e9b897b41a05bd"
 }
 @[vrml_obligation] theorem invariant_preserve_0_1
     (v : (Vermilion.Seq Int))
@@ -444,41 +444,41 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
     (tmp_ : Int)
     (i1_2 : Int)
     (i2_2 : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
     (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 k)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_6 : i2 < Vermilion.Seq.len v)
     (loop_0_iteration_7 : (∃ (i : Int), (((i1 ≤ i) ∧ (i ≤ i2)) ∧ (k = Vermilion.Seq.index v i))))
     (loop_0_iteration_8 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
     (loop_0_iteration_9 : i1 ≠ i2)
-    (assert_2 : Vermilion.inUnsignedRange 64 (i2 - i1))
+    (assert_2 : (0 ≤ (i2 - i1)) ∧ ((i2 - i1) < Vermilion.usizeMod))
     (assert_3 : 2 ≠ 0)
-    (assert_4 : Vermilion.inUnsignedRange 64 (i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)))
+    (assert_4 : (0 ≤ (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod))) ∧ ((i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) < Vermilion.usizeMod))
     (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 tmp_)
-    (call_vec_index_ensures_1 : tmp_ = Vermilion.Seq.index v ((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616))
-    (then_0_assert_6 : (tmp_ < k) → Vermilion.inUnsignedRange 64 (((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616) + 1))
-    (then_0_assume_17 : (tmp_ < k) → (i1_2 = ((((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616) + 1) % 18446744073709551616)))
+    (call_vec_index_ensures_1 : tmp_ = Vermilion.Seq.index v (Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod))
+    (then_0_assert_6 : (tmp_ < k) → ((0 ≤ ((Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod) + 1)) ∧ (((Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod) + 1) < Vermilion.usizeMod)))
+    (then_0_assume_17 : (tmp_ < k) → (i1_2 = (Vermilion.emod ((Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod) + 1) Vermilion.usizeMod)))
     (then_0_assume_18 : (tmp_ < k) → (i2_2 = i2))
     (else_0_assume_16 : (¬ (tmp_ < k)) → (i1_2 = i1))
-    (else_0_assume_17 : (¬ (tmp_ < k)) → (i2_2 = ((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616)))
-    (assume_20 : Vermilion.inUnsignedRange 64 i1_2)
-    (assume_21 : Vermilion.inUnsignedRange 64 i2_2) :
+    (else_0_assume_17 : (¬ (tmp_ < k)) → (i2_2 = (Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod)))
+    (assume_20 : (0 ≤ i1_2) ∧ (i1_2 < Vermilion.usizeMod))
+    (assume_21 : (0 ≤ i2_2) ∧ (i2_2 < Vermilion.usizeMod)) :
     (∃ (i : Int), (((i1_2 ≤ i) ∧ (i ≤ i2_2)) ∧ (k = Vermilion.Seq.index v i))) := by
   -- Normalize the exact usize clips in dependency order. Each is guarded by
   -- the range check emitted by VIR; the successor clip is branch-local.
   simp only [Vermilion.inUnsignedRange] at *
-  have hdmod : (i2 - i1) % 18446744073709551616 = i2 - i1 :=
-    Int.emod_eq_of_lt (by omega) (by omega)
+  have hdmod : Vermilion.emod (i2 - i1) Vermilion.usizeMod = i2 - i1 :=
+    Vermilion.emod_usizeMod_of_lt (by omega) (by omega)
   simp_rw [hdmod] at *
-  have hqmod : ((i2 - i1) / 2) % 18446744073709551616 =
-      (i2 - i1) / 2 := Int.emod_eq_of_lt (by omega) (by omega)
+  have hqmod : Vermilion.emod ((i2 - i1) / 2) Vermilion.usizeMod =
+      (i2 - i1) / 2 := Vermilion.emod_usizeMod_of_lt (by omega) (by omega)
   simp_rw [hqmod] at *
-  have hixmod : (i1 + (i2 - i1) / 2) % 18446744073709551616 =
+  have hixmod : Vermilion.emod (i1 + (i2 - i1) / 2) Vermilion.usizeMod =
       i1 + (i2 - i1) / 2 :=
-    Int.emod_eq_of_lt (by omega) (by omega)
+    Vermilion.emod_usizeMod_of_lt (by omega) (by omega)
   simp_rw [hixmod] at *
   -- Interactive witness reasoning: the existing witness `w` stays in range,
   -- except in the else-branch when `w` was in the discarded right half — then
@@ -487,9 +487,8 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
   by_cases h : tmp_ < k
   · -- v[ix] < k: the target lies in the right half [ix+1, i2]; keep `w`.
     have hnext := then_0_assert_6 h
-    have hnextmod : (i1 + (i2 - i1) / 2 + 1) %
-        18446744073709551616 = i1 + (i2 - i1) / 2 + 1 :=
-      Int.emod_eq_of_lt (by omega) (by omega)
+    have hnextmod : Vermilion.emod (i1 + (i2 - i1) / 2 + 1) Vermilion.usizeMod = i1 + (i2 - i1) / 2 + 1 :=
+      Vermilion.emod_usizeMod_of_lt (by omega) (by omega)
     have e1 := then_0_assume_17 h
     simp_rw [hnextmod] at e1
     have e2 := then_0_assume_18 h
@@ -511,14 +510,14 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
       exact ⟨i1 + ((i2 - i1) / 2), ⟨⟨by omega, by omega⟩, by omega⟩⟩
 -- vrml:end binary_search.binary_search.invariant_preserve_0_1
 
--- vrml:begin binary_search.binary_search.invariant_preserve_0_2 a35423d8e09075d3
+-- vrml:begin binary_search.binary_search.invariant_preserve_0_2 69c90a07ab40c4db
 /--
 Generated VC `binary_search.binary_search.invariant_preserve_0_2`.
 
 - Rust source: `case-studies/binary-search/binary_search.rs:24:13-24:74`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_2`
-- Statement hash: `a35423d8e09075d3`
+- Statement hash: `69c90a07ab40c4db`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩ ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v i⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩
 -/
 def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
@@ -530,7 +529,7 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
   assertId := "0_2"
   functionName := "binary_search.binary_search"
   kind := "invariant_preserve"
-  statementHash := "a35423d8e09075d3"
+  statementHash := "69c90a07ab40c4db"
 }
 @[vrml_obligation] theorem invariant_preserve_0_2
     (v : (Vermilion.Seq Int))
@@ -540,40 +539,40 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
     (tmp_ : Int)
     (i1_2 : Int)
     (i2_2 : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
     (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 k)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_6 : i2 < Vermilion.Seq.len v)
     (loop_0_iteration_7 : (∃ (i : Int), (((i1 ≤ i) ∧ (i ≤ i2)) ∧ (k = Vermilion.Seq.index v i))))
     (loop_0_iteration_8 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
     (loop_0_iteration_9 : i1 ≠ i2)
-    (assert_2 : Vermilion.inUnsignedRange 64 (i2 - i1))
+    (assert_2 : (0 ≤ (i2 - i1)) ∧ ((i2 - i1) < Vermilion.usizeMod))
     (assert_3 : 2 ≠ 0)
-    (assert_4 : Vermilion.inUnsignedRange 64 (i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)))
+    (assert_4 : (0 ≤ (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod))) ∧ ((i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) < Vermilion.usizeMod))
     (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 tmp_)
-    (call_vec_index_ensures_1 : tmp_ = Vermilion.Seq.index v ((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616))
-    (then_0_assert_6 : (tmp_ < k) → Vermilion.inUnsignedRange 64 (((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616) + 1))
-    (then_0_assume_17 : (tmp_ < k) → (i1_2 = ((((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616) + 1) % 18446744073709551616)))
+    (call_vec_index_ensures_1 : tmp_ = Vermilion.Seq.index v (Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod))
+    (then_0_assert_6 : (tmp_ < k) → ((0 ≤ ((Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod) + 1)) ∧ (((Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod) + 1) < Vermilion.usizeMod)))
+    (then_0_assume_17 : (tmp_ < k) → (i1_2 = (Vermilion.emod ((Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod) + 1) Vermilion.usizeMod)))
     (then_0_assume_18 : (tmp_ < k) → (i2_2 = i2))
     (else_0_assume_16 : (¬ (tmp_ < k)) → (i1_2 = i1))
-    (else_0_assume_17 : (¬ (tmp_ < k)) → (i2_2 = ((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616)))
-    (assume_20 : Vermilion.inUnsignedRange 64 i1_2)
-    (assume_21 : Vermilion.inUnsignedRange 64 i2_2) :
+    (else_0_assume_17 : (¬ (tmp_ < k)) → (i2_2 = (Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod)))
+    (assume_20 : (0 ≤ i1_2) ∧ (i1_2 < Vermilion.usizeMod))
+    (assume_21 : (0 ≤ i2_2) ∧ (i2_2 < Vermilion.usizeMod)) :
     (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))) := by
   vrml
 -- vrml:end binary_search.binary_search.invariant_preserve_0_2
 
--- vrml:begin binary_search.binary_search.assert_0_decreases 88953262305a355e
+-- vrml:begin binary_search.binary_search.assert_0_decreases 5bd759aa0443fbc6
 /--
 Generated VC `binary_search.binary_search.assert_0_decreases`.
 
 - Rust source: `case-studies/binary-search/binary_search.rs:25:19-25:26`
 - Rust/SST construct: loop termination measure must decrease
 - AssertId: `0_decreases`
-- Statement hash: `88953262305a355e`
+- Statement hash: `5bd759aa0443fbc6`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v i⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩
 -/
 def assert_0_decreases_meta : Vermilion.ObligationMeta := {
@@ -585,7 +584,7 @@ def assert_0_decreases_meta : Vermilion.ObligationMeta := {
   assertId := "0_decreases"
   functionName := "binary_search.binary_search"
   kind := "assert"
-  statementHash := "88953262305a355e"
+  statementHash := "5bd759aa0443fbc6"
 }
 @[vrml_obligation] theorem assert_0_decreases
     (v : (Vermilion.Seq Int))
@@ -595,40 +594,40 @@ def assert_0_decreases_meta : Vermilion.ObligationMeta := {
     (tmp_ : Int)
     (i1_2 : Int)
     (i2_2 : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
     (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 k)
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 i2)
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_iteration_6 : i2 < Vermilion.Seq.len v)
     (loop_0_iteration_7 : (∃ (i : Int), (((i1 ≤ i) ∧ (i ≤ i2)) ∧ (k = Vermilion.Seq.index v i))))
     (loop_0_iteration_8 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
     (loop_0_iteration_9 : i1 ≠ i2)
-    (assert_2 : Vermilion.inUnsignedRange 64 (i2 - i1))
+    (assert_2 : (0 ≤ (i2 - i1)) ∧ ((i2 - i1) < Vermilion.usizeMod))
     (assert_3 : 2 ≠ 0)
-    (assert_4 : Vermilion.inUnsignedRange 64 (i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)))
+    (assert_4 : (0 ≤ (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod))) ∧ ((i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) < Vermilion.usizeMod))
     (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 tmp_)
-    (call_vec_index_ensures_1 : tmp_ = Vermilion.Seq.index v ((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616))
-    (then_0_assert_6 : (tmp_ < k) → Vermilion.inUnsignedRange 64 (((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616) + 1))
-    (then_0_assume_17 : (tmp_ < k) → (i1_2 = ((((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616) + 1) % 18446744073709551616)))
+    (call_vec_index_ensures_1 : tmp_ = Vermilion.Seq.index v (Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod))
+    (then_0_assert_6 : (tmp_ < k) → ((0 ≤ ((Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod) + 1)) ∧ (((Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod) + 1) < Vermilion.usizeMod)))
+    (then_0_assume_17 : (tmp_ < k) → (i1_2 = (Vermilion.emod ((Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod) + 1) Vermilion.usizeMod)))
     (then_0_assume_18 : (tmp_ < k) → (i2_2 = i2))
     (else_0_assume_16 : (¬ (tmp_ < k)) → (i1_2 = i1))
-    (else_0_assume_17 : (¬ (tmp_ < k)) → (i2_2 = ((i1 + ((((i2 - i1) % 18446744073709551616) / 2) % 18446744073709551616)) % 18446744073709551616)))
-    (assume_20 : Vermilion.inUnsignedRange 64 i1_2)
-    (assume_21 : Vermilion.inUnsignedRange 64 i2_2) :
+    (else_0_assume_17 : (¬ (tmp_ < k)) → (i2_2 = (Vermilion.emod (i1 + (Vermilion.emod ((Vermilion.emod (i2 - i1) Vermilion.usizeMod) / 2) Vermilion.usizeMod)) Vermilion.usizeMod)))
+    (assume_20 : (0 ≤ i1_2) ∧ (i1_2 < Vermilion.usizeMod))
+    (assume_21 : (0 ≤ i2_2) ∧ (i2_2 < Vermilion.usizeMod)) :
     ((0 ≤ (i2_2 - i1_2)) ∧ ((i2_2 - i1_2) < (i2 - i1))) ∨ (((i2_2 - i1_2) = (i2 - i1)) ∧ False) := by
   vrml
 -- vrml:end binary_search.binary_search.assert_0_decreases
 
--- vrml:begin binary_search.binary_search.ensures_7_0 3f96907b0b25f700
+-- vrml:begin binary_search.binary_search.ensures_7_0 56b3b85443074ca6
 /--
 Generated VC `binary_search.binary_search.ensures_7_0`.
 
 - Rust source: `case-studies/binary-search/binary_search.rs:15:9-15:20`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `7_0`
-- Statement hash: `3f96907b0b25f700`
+- Statement hash: `56b3b85443074ca6`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩ ⟨Vermilion.Seq.index v i⟩ ⟨Vermilion.Seq.index v i⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩
 -/
 def ensures_7_0_meta : Vermilion.ObligationMeta := {
@@ -640,22 +639,22 @@ def ensures_7_0_meta : Vermilion.ObligationMeta := {
   assertId := "7_0"
   functionName := "binary_search.binary_search"
   kind := "ensures"
-  statementHash := "3f96907b0b25f700"
+  statementHash := "56b3b85443074ca6"
 }
 @[vrml_obligation] theorem ensures_7_0
     (v : (Vermilion.Seq Int))
     (k : Int)
     (i1 : Int)
     (i2 : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
     (requires_2 : Vermilion.inUnsignedRange 64 k)
     (requires_3 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
     (requires_4 : (∃ (i : Int), (((0 ≤ i) ∧ (i < Vermilion.Seq.len v)) ∧ (k = Vermilion.Seq.index v i))))
-    (assume_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
-    (assert_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v - 1))
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_exit_1 : Vermilion.inUnsignedRange 64 i2)
+    (assume_5 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
+    (assert_1 : (0 ≤ (Vermilion.Seq.len v - 1)) ∧ ((Vermilion.Seq.len v - 1) < Vermilion.usizeMod))
+    (loop_0_exit_0 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_exit_1 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_exit_2 : i2 < Vermilion.Seq.len v)
     (loop_0_exit_3 : (∃ (i : Int), (((i1 ≤ i) ∧ (i ≤ i2)) ∧ (k = Vermilion.Seq.index v i))))
     (loop_0_exit_4 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
@@ -664,14 +663,14 @@ def ensures_7_0_meta : Vermilion.ObligationMeta := {
   vrml
 -- vrml:end binary_search.binary_search.ensures_7_0
 
--- vrml:begin binary_search.binary_search.ensures_7_1 af298941dab97ecd
+-- vrml:begin binary_search.binary_search.ensures_7_1 6f07d20ce1959da7
 /--
 Generated VC `binary_search.binary_search.ensures_7_1`.
 
 - Rust source: `case-studies/binary-search/binary_search.rs:16:9-16:25`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `7_1`
-- Statement hash: `af298941dab97ecd`
+- Statement hash: `6f07d20ce1959da7`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index v vrml_i0⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩ ⟨Vermilion.Seq.index v i⟩ ⟨Vermilion.Seq.index v i⟩ ⟨Vermilion.Seq.index v i, Vermilion.Seq.index v j⟩
 -/
 def ensures_7_1_meta : Vermilion.ObligationMeta := {
@@ -683,22 +682,22 @@ def ensures_7_1_meta : Vermilion.ObligationMeta := {
   assertId := "7_1"
   functionName := "binary_search.binary_search"
   kind := "ensures"
-  statementHash := "af298941dab97ecd"
+  statementHash := "6f07d20ce1959da7"
 }
 @[vrml_obligation] theorem ensures_7_1
     (v : (Vermilion.Seq Int))
     (k : Int)
     (i1 : Int)
     (i2 : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
+    (requires_0 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len v)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index v vrml_i0))))
     (requires_2 : Vermilion.inUnsignedRange 64 k)
     (requires_3 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))
     (requires_4 : (∃ (i : Int), (((0 ≤ i) ∧ (i < Vermilion.Seq.len v)) ∧ (k = Vermilion.Seq.index v i))))
-    (assume_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v))
-    (assert_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len v - 1))
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 i1)
-    (loop_0_exit_1 : Vermilion.inUnsignedRange 64 i2)
+    (assume_5 : (0 ≤ Vermilion.Seq.len v) ∧ (Vermilion.Seq.len v < Vermilion.usizeMod))
+    (assert_1 : (0 ≤ (Vermilion.Seq.len v - 1)) ∧ ((Vermilion.Seq.len v - 1) < Vermilion.usizeMod))
+    (loop_0_exit_0 : (0 ≤ i1) ∧ (i1 < Vermilion.usizeMod))
+    (loop_0_exit_1 : (0 ≤ i2) ∧ (i2 < Vermilion.usizeMod))
     (loop_0_exit_2 : i2 < Vermilion.Seq.len v)
     (loop_0_exit_3 : (∃ (i : Int), (((i1 ≤ i) ∧ (i ≤ i2)) ∧ (k = Vermilion.Seq.index v i))))
     (loop_0_exit_4 : (∀ (i : Int) (j : Int), ((((0 ≤ i) ∧ (i ≤ j)) ∧ (j < Vermilion.Seq.len v)) → (Vermilion.Seq.index v i ≤ Vermilion.Seq.index v j))))

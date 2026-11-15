@@ -7,14 +7,14 @@ set_option linter.dupNamespace false
 
 namespace vec_uninterp.push_test
 
--- vrml:begin vec_uninterp.push_test.assert_1 5d886efde4d3a1db
+-- vrml:begin vec_uninterp.push_test.assert_1 866b2853ed3cf922
 /--
 Generated VC `vec_uninterp.push_test.assert_1`.
 
 - Rust source: `case-studies/vec-uninterp/vec_uninterp.rs:17:12-17:74`
 - Rust/SST construct: Rust source assertion
 - AssertId: `1`
-- Statement hash: `5d886efde4d3a1db`
+- Statement hash: `866b2853ed3cf922`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index tmp__post i⟩ ⟨Vermilion.Seq.index t vrml_i0⟩ ⟨Vermilion.Seq.index t i⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def assert_1_meta : Vermilion.ObligationMeta := {
@@ -26,18 +26,18 @@ def assert_1_meta : Vermilion.ObligationMeta := {
   assertId := "1"
   functionName := "vec_uninterp.push_test"
   kind := "assert"
-  statementHash := "5d886efde4d3a1db"
+  statementHash := "866b2853ed3cf922"
 }
 @[vrml_obligation] theorem assert_1
     (t : (Vermilion.Seq Int))
     (y : Int)
     (tmp__post : (Vermilion.Seq Int))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len t))
+    (requires_0 : (0 ≤ Vermilion.Seq.len t) ∧ (Vermilion.Seq.len t < Vermilion.usizeMod))
     (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len t)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index t vrml_i0))))
     (requires_2 : Vermilion.inUnsignedRange 64 y)
     (requires_3 : (∀ (i : Int), (((0 ≤ i) ∧ (i < Vermilion.Seq.len t)) → vec_uninterp.uninterp_fn (Vermilion.Seq.index t i))))
     (requires_4 : vec_uninterp.uninterp_fn y)
-    (assume_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
+    (assume_5 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
     (assume_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index tmp__post vrml_i0))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push t y) :
     (∀ (i : Int), (((0 ≤ i) ∧ (i < Vermilion.Seq.len tmp__post)) → vec_uninterp.uninterp_fn (Vermilion.Seq.index tmp__post i))) := by

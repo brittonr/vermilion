@@ -208,6 +208,10 @@ pub enum Expr {
     /// `Vermilion.StrSlice.mk "…"`. Opaque data: no string operations are
     /// lowered, so literals only flow through contract-free calls.
     StrLit(String),
+    /// `Vermilion.usizeMod`: `2^w` for the symbolic architecture word size
+    /// `w ∈ {32, 64}` of a crate that does not pin `size_of usize`
+    /// (Verus's `ArchWordBits::Either32Or64`). Issue #26.
+    UsizeMod,
     True,
     False,
     Binary(BinOp, Box<Expr>, Box<Expr>),
