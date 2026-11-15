@@ -30,7 +30,7 @@
 
 use std::collections::BTreeSet;
 use std::path::{Path, PathBuf};
-use std::process::Command;
+use std::process::{Command, Stdio};
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Mutex;
 
@@ -1015,17 +1015,57 @@ fn run_worker_server(dir: &Path, files: &[String], json: bool) -> Option<Vec<Opt
     let request = serde_json::json!({
         "files": files, "json": json, "defines": defines, "jobs": worker_jobs()
     });
+    let pid: Option<u32> = std::fs::read_to_string(dir.join("pid"))
+        .ok()
+        .and_then(|text| text.trim().parse().ok());
+    // No PID file means no server ever started here.
+    let pid = pid?;
+    if !process_alive(pid) {
+        return None;
+    }
     // Non-blocking open: fails at once (ENXIO) when no server is reading.
-    let mut writer = std::fs::OpenOptions::new()
-        .write(true)
-        .custom_flags(O_NONBLOCK)
-        .open(dir.join("request"))
-        .ok()?;
+    // A live server re-opens the FIFO between jobs, so retry briefly.
+    let mut writer = None;
+    for _ in 0..20 {
+        match std::fs::OpenOptions::new()
+            .write(true)
+            .custom_flags(O_NONBLOCK)
+            .open(dir.join("request"))
+        {
+            Ok(file) => {
+                writer = Some(file);
+                break;
+            }
+            Err(_) if process_alive(pid) => std::thread::sleep(std::time::Duration::from_millis(50)),
+            Err(_) => return None,
+        }
+    }
+    let mut writer = writer?;
     let started = std::time::Instant::now();
     writer.write_all(format!("{request}\n").as_bytes()).ok()?;
     drop(writer);
-    let mut reply = String::new();
-    std::fs::File::open(dir.join("response")).ok()?.read_to_string(&mut reply).ok()?;
+    // Read the reply on a helper thread and poll the server's liveness:
+    // a server that dies mid-job must not hang this check (and the watch
+    // loop behind it). The blocked helper is abandoned in that case; it
+    // ends with the process.
+    let response = dir.join("response");
+    let (sender, receiver) = std::sync::mpsc::channel();
+    std::thread::spawn(move || {
+        let mut reply = String::new();
+        let read = std::fs::File::open(response).and_then(|mut file| file.read_to_string(&mut reply));
+        let _ = sender.send(read.map(|_| reply));
+    });
+    let reply = loop {
+        match receiver.recv_timeout(std::time::Duration::from_millis(500)) {
+            Ok(Ok(reply)) => break reply,
+            Ok(Err(_)) => return None,
+            Err(std::sync::mpsc::RecvTimeoutError::Timeout) if process_alive(pid) => continue,
+            Err(_) => {
+                eprintln!("[vrml-check] persistent worker {pid} died during the job");
+                return None;
+            }
+        }
+    };
     eprintln!(
         "[vrml-check] persistent worker units={} elapsed_ms={}",
         files.len(),
@@ -1035,6 +1075,17 @@ fn run_worker_server(dir: &Path, files: &[String], json: bool) -> Option<Vec<Opt
         return None;
     }
     split_worker_output(&reply, files.len())
+}
+
+/// Is process `pid` still running? (`kill -0`: no signal is sent.)
+fn process_alive(pid: u32) -> bool {
+    Command::new("kill")
+        .args(["-0", &pid.to_string()])
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .status()
+        .map(|status| status.success())
+        .unwrap_or(false)
 }
 
 /// Split worker output at the `### vrml-worker <index> <status>` markers

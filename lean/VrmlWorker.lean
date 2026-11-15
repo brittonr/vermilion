@@ -222,6 +222,9 @@ unsafe def serve (dir : String) (plugins : Array Plugin) : IO UInt32 := do
   let response : System.FilePath := dir ++ "/response"
   let cache ← IO.mkRef (∅ : Std.HashMap String CachedEnv)
   let pluginsPending ← IO.mkRef plugins
+  -- Clients poll this PID while waiting for a reply, so a server that dies
+  -- mid-job makes them fall back instead of blocking forever.
+  IO.FS.writeFile (dir ++ "/pid") s!"{← IO.Process.getPID}\n"
   let rec loop : IO UInt32 := do
     let line := (← IO.FS.readFile request).trimAscii.toString
     if line.isEmpty || line == "quit" then
