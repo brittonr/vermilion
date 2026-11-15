@@ -1,7 +1,7 @@
 ---
 title: Recursive-unfold preamble rewrites the goal but not the hypotheses
 labels: [bug, vcgen]
-state: open
+state: closed
 github: null
 ---
 
@@ -47,3 +47,23 @@ the same slice.
 Repro: forecast-kernel's `vermilion/run.sh`; obligations
 `kernel.spread.lemma_cumulative_monotone.call_requires_{1,2}_0` and
 `kernel.spread.lemma_cumulative_bounds.call_requires_{2,3,4,5}_0`.
+
+**Fix.** The attempt for an obligation with recursive unfolds is now a
+`vrml_first` over unfolding depths `N, 0, 1, …, N − 1` (the full bound
+first, so obligations that closed before cost the same). The folded
+attempt closes goals that are verbatim a hypothesis; shallower depths
+keep an induction hypothesis one step down in reach. `vrml_first` is a
+new combinator in `Vermilion/Obligations.lean`: each alternative runs
+against a fresh heartbeat baseline and heartbeat exhaustion counts as
+that alternative's failure (core `first` rethrows it, which aborted the
+remaining depths in the first version of this fix); like core `first`,
+all but the last alternative run without error recovery, so the last
+alternative's own error is the one reported. `docs/vcgen.md` and
+`docs/ir.md` describe the new form; `tests/vrml_first.lean`
+(`scripts/test_vrml_first.sh`, in the suite) covers the combinator;
+corpus c223 (passes; failed before) and c224 (false variant, now
+rejected at Verus's span; was rejected at the wrong one).
+
+forecast-kernel, automation only: 98 → 110 of 123 obligations.
+Existing twins keep their blocks (statement hashes are unchanged), so no
+tracked twin changes.

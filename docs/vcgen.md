@@ -703,7 +703,18 @@ obligation is which defining equations the machine attempt may use — the
   `iterate N (try first | (rw [f]; try norm_num) | …)`
   with `N` the summed rounds: a mutual chain alternates definitions at
   every step, which separate per-function loops cannot follow (and
-  `rw [f, g]` is sequential-all, not first-match);
+  `rw [f, g]` is sequential-all, not first-match). `rw` rewrites the
+  goal only, so unfolding can separate the goal from a hypothesis that
+  states the same fact about the folded call (a callee's `ensures`, an
+  induction hypothesis one step down). The attempt is therefore
+  `vrml_first` over the depths `N, 0, 1, …, N − 1` — the full bound
+  first, so an obligation that closes at depth `N` costs what it did
+  before — each alternative `((iterate d (try first | …)); vrml […])`, the
+  depth-0 one just `(vrml […])`. `vrml_first` gives each alternative a
+  fresh heartbeat baseline and counts heartbeat exhaustion as that
+  alternative's failure (core `first` rethrows it). A shallower depth
+  reveals no definition the full bound does not, so visibility stays as
+  below;
 - `f ∉ U` (hidden / un-`reveal`ed opaque): no equation, so an obligation that
   needs `f`'s body fails **exactly where Verus fails**.
 
@@ -778,7 +789,7 @@ complete than trigger-disciplined SMT).
 | `(HYGIENE)` post-pass `hyg` | `Obligation.hygienic` in `Vcgen.lean`; `Expr.hygienic`, `hygienicBinders`, `freshRendered` in `lean/Vermilion/Ir/Hygiene.lean` |
 | fail-closed hygiene check | `Obligation.hygieneViolations`, enforced in `lean/VrmlGen.lean` |
 | capture-free substitution (lowering) | `names_reserved_below`, `capture_avoiding_binder_name` in `crates/vermilion_direct/src/lower.rs` |
-| recursive ground normalization | bounded rewrite block in `renderObligation` |
+| recursive ground normalization | bounded rewrite block in `renderObligation`; `vrml_first` in `lean/Vermilion/Obligations.lean` |
 | statement / expression grammar | `docs/ir.md`, `lean/Vermilion/Ir/Ast.lean` |
 
 Any change to the policy must land here, in `Vcgen.lean`, and in the

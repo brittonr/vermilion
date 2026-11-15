@@ -161,7 +161,7 @@ obligation's own `unfolds` (spec-fn definitions visible at its program
 point) drive the machine attempt: non-recursive names go into the
 `vrml [names…]` simp list; recursive ones get bounded rewriting
 (`iterate N (try rw [f])` — a simp entry would loop), with N the reveal
-rounds. -/
+rounds, tried as a `vrml_first` over depths N, 0, 1, …, N - 1. -/
 def renderObligation (recursiveNames : Array String)
     (obligation : Obligation) : String := Id.run do
   let unfolds := (obligation.unfolds.filter
@@ -227,19 +227,38 @@ def renderObligation (recursiveNames : Array String)
   -- rewrite: exact `nat` clipping introduces conditionals around recursive
   -- predecessors, and leaving those branches suspended makes a small
   -- concrete mutual recursion expand exponentially.
-  unless bounded.isEmpty do
-    let rounds := bounded.foldl (fun acc (_, n) => acc + n) 0
-    let alts := String.intercalate " | " ((bounded.map (·.1)).toList.map
-      fun name => s!"(rw [{name}]; try norm_num)")
-    out := out ++ s!"  iterate {rounds} (try first | {alts})\n"
+  --
+  -- `rw` rewrites the goal only, so unfolding can separate the goal from a
+  -- hypothesis stating the same fact about the folded call (a callee's
+  -- `ensures`, an induction hypothesis one step down). The attempt is
+  -- therefore a `vrml_first` over unfolding depths (each with a fresh
+  -- heartbeat baseline, so one heavy failure cannot starve the rest): the
+  -- full bound first (what
+  -- every obligation that closes today already pays), then the folded goal,
+  -- then each smaller bound. Fewer rounds never reveal more than the full
+  -- bound, so visibility coherence with Verus is unchanged.
+  --
   -- The `vrml [...]` simp set carries both the revealed spec-fn
   -- definitions (`unfolds`) and the broadcast-use hint lemmas
   -- (`obligation.hints`, resolved from the vstd mirror registry).
   let simpNames := unfolds.toList ++ obligation.hints.toList
-  if simpNames.isEmpty then
-    out := out ++ "  vrml\n"
+  let vrmlCall :=
+    if simpNames.isEmpty then "vrml"
+    else s!"vrml [{String.intercalate ", " simpNames}]"
+  if bounded.isEmpty then
+    out := out ++ s!"  {vrmlCall}\n"
   else
-    out := out ++ s!"  vrml [{String.intercalate ", " simpNames}]\n"
+    let rounds := bounded.foldl (fun acc (_, n) => acc + n) 0
+    let alts := String.intercalate " | " ((bounded.map (·.1)).toList.map
+      fun name => s!"(rw [{name}]; try norm_num)")
+    -- `iterate` takes a tactic SEQUENCE: without the inner parentheses
+    -- `iterate d (…); vrml` would repeat `(…); vrml` d times.
+    let unfoldTo := fun (depth : Nat) =>
+      s!"((iterate {depth} (try first | {alts})); {vrmlCall})"
+    let shallower := (List.range (rounds - 1)).map fun k => unfoldTo (k + 1)
+    out := out ++ "  vrml_first\n"
+    for attempt in [unfoldTo rounds, s!"({vrmlCall})"] ++ shallower do
+      out := out ++ s!"    | {attempt}\n"
   out := out ++ s!"-- vrml:end {name}\n"
   return out
 

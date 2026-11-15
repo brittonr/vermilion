@@ -462,7 +462,8 @@ BINOP     ::= add | sub | mul | ediv | emod
   comes from the same decreases measures Verus already checked (the
   self-application's trailing `fuel%` argument is dropped), and machine
   attempts unfold by **bounded rewriting** — `iterate N (try rw [f])`
-  with N the reveal rounds — never by simp, which would loop on a
+  with N the reveal rounds, tried at depths N, 0, …, N − 1 under
+  `vrml_first` (docs/vcgen.md) — never by simp, which would loop on a
   recursive equation. Mutual recursion fails closed.
 - Type facts are systematic (the `typ_invariant` analogue): every
   value-introduction site — parameters, call results, branch joins, loop

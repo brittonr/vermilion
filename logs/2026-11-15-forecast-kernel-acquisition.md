@@ -49,3 +49,21 @@ u64/u128 cast chain in `spread`.
 A negative control (one twin proof corrupted) failed correctly, but exposed
 a misleading summary line: filed as
 `generated-check-summary-counts-a-broken-twin-proof-as-discharged`.
+
+## Follow-up: recursive-unfold attempts tried at every depth
+
+User go-ahead ("do it") on the preamble issue. The attempt for an
+obligation with recursive unfolds is now `vrml_first` over depths
+`N, 0, 1, …, N − 1`; `vrml_first` (new, `Vermilion/Obligations.lean`)
+rebases heartbeats per alternative and counts exhaustion as failure.
+Two bugs in the first cut, both caught before landing: core `first`
+rethrew heartbeat exhaustion (7 kernel obligations aborted mid-attempt),
+and `iterate d (…); vrml` parsed as iterating the whole sequence (c41,
+c60, c99 regressed until the `iterate` was parenthesised).
+
+Validation: corpus 234/234 in both emission modes (rebased on #26), 122/122 spans, 0 false
+acceptances (c223 passes and failed before; c224 now fails at Verus's
+span); `tests/vrml_first.lean`; all 37 examples and 10 case-study runners
+(aeneas and dalek-lite not run) pass with no tracked twin changes.
+forecast-kernel by automation alone: 98 → 110 of 123, at roughly twice
+the wall time for its 13 remaining failures, which now try every depth.

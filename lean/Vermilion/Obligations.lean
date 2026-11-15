@@ -656,6 +656,43 @@ is not). -/
 macro "vrml" "[" ids:Lean.Parser.Tactic.simpLemma,* "]" : tactic =>
   `(tactic| (vrml_norm [$ids,*]; all_goals vrml_ladder))
 
+/-- `vrml_first | t₁ | t₂ | …` tries the alternatives in order; the first
+that closes the goal wins. Unlike core `first`, each alternative runs
+against a fresh heartbeat baseline (under the declaration's own budget),
+and running out of heartbeats or recursion depth counts as that
+alternative's failure. A heavy failed attempt therefore cannot starve the
+next one: the rule the ladder applies to its rungs, one level up. Emitted
+for obligations that unfold recursive spec fns, where the alternatives are
+unfolding depths (see `renderObligation`). The last alternative's error is
+the one reported. -/
+syntax (name := vrmlFirst) "vrml_first "
+  withPosition((ppDedent(ppLine) colGe "| " tacticSeq)+) : tactic
+
+open Lean Elab Tactic in
+@[tactic vrmlFirst] def evalVrmlFirst : Tactic := fun stx => do
+  let alts := stx[1].getArgs.map (·[1])
+  if alts.isEmpty then throwError "vrml_first: no alternatives"
+  -- Like core `first`: every alternative but the last runs without error
+  -- recovery, so its failure is a real exception rather than a logged
+  -- error plus an abort (which rolling back the state would silence). The
+  -- last runs normally, so its error is the one reported.
+  for alt in alts.pop do
+    let saved ← Tactic.saveState
+    let heartbeats ← IO.getNumHeartbeats
+    let attempt : TacticM Bool := withoutRecover do
+      withTheReader Core.Context (fun ctx => { ctx with initHeartbeats := heartbeats }) do
+        evalTactic alt
+        unless (← getUnsolvedGoals).isEmpty do
+          throwError "vrml_first: alternative left goals open"
+      pure true
+    let closed ← tryCatchRuntimeEx attempt fun _ => do
+      saved.restore
+      pure false
+    if closed then return
+  let heartbeats ← IO.getNumHeartbeats
+  withTheReader Core.Context (fun ctx => { ctx with initHeartbeats := heartbeats }) do
+    evalTactic alts.back!
+
 open Lean Elab Command in
 /-- Audit every `@[vrml_obligation]` / `@[vrml_evidence]` declaration of the
 current module: each must depend on no axiom beyond Lean's standard three
