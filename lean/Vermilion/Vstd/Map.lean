@@ -9,8 +9,9 @@ namespace Vermilion
 
 /-- Base-camp map representation: a finite key set plus a total lookup
 function. vstd's `index` off the domain is underspecified; here it returns
-whatever the lookup function holds there, which obligations can never
-observe (nothing constrains it). -/
+whatever the lookup function holds there, which the constructing operations
+fix (`default` for `empty`). A twin proof can observe that value, which
+Verus cannot: a documented strengthening (`docs/trust.md`, issue #19). -/
 structure Map (κ : Type u) (ν : Type v) where
   keys : Finset κ
   get : κ → ν

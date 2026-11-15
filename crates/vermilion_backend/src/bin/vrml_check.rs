@@ -1382,7 +1382,10 @@ fn main() {
             },
             "--skip-identical" => skip_identical = true,
             "--only" => match arguments.next() {
-                Some(name) => only.push(name),
+                Some(name) => {
+                    PARTIAL_RUN.store(true, std::sync::atomic::Ordering::Relaxed);
+                    only.push(name)
+                }
                 None => {
                     eprintln!("--only requires a function name");
                     std::process::exit(2);
@@ -1727,8 +1730,16 @@ fn main() {
 /// failures file only with this record, so a check that crashes or is killed
 /// mid-stream can never read as "the rest passed" (issue #23).
 fn judged_complete() {
+    // `--only` judges a subset of the manifest: its stream does not cover
+    // the rest, so it must not read as a complete judgment.
+    if PARTIAL_RUN.load(std::sync::atomic::Ordering::Relaxed) {
+        return;
+    }
     println!("{}", serde_json::json!({"$message_type": "vrml_check_complete"}));
 }
+
+/// Set when `--only` restricts the run to some functions.
+static PARTIAL_RUN: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
 
 /// Exit an otherwise-green run: 0 with no refusals; 1 (with an explicit
 /// count on stderr) when the manifest carries per-function lowering
