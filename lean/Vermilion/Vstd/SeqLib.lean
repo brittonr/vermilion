@@ -59,6 +59,14 @@ opaque sortBy [Inhabited α] (s : Seq α) (leq : α → α → Prop) : Seq α
   simp only [dropLast]
   rw [len_subrange s 0 (s.len - 1) (by omega) (by omega) (by omega)]; omega
 
+/-- `drop_last` strictly shrinks a sequence a `len == 0` guard has ruled
+non-empty: the termination goal of `decreases s.len()` recursion through
+`s.drop_last()`. -/
+@[simp] theorem len_dropLast_lt (s : Seq α) (h : s.len ≠ 0) :
+    s.dropLast.len < s.len := by
+  have := len_nonneg s
+  rw [len_dropLast s (by omega)]; omega
+
 /-- Indexing `drop_last` below its length reads the base sequence. -/
 @[simp] theorem index_dropLast [Inhabited α] (s : Seq α) (i : Int)
     (low : 0 ≤ i) (high : i < s.len - 1) : s.dropLast.index i = s.index i := by
