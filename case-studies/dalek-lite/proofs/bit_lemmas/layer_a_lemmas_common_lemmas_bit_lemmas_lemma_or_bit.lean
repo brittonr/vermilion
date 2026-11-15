@@ -31,18 +31,6 @@ private theorem bv_or_self_bit8 (M : BitVec 8) (p : Nat) (hp : p < 8) :
   interval_cases p <;> bv_decide
 -- vrml:user:end
 
--- vrml:user:begin
--- Stopgap for docs/issues/bit-vector-assert-id-collision.md: the emitter
--- assigns this second `by (bit_vector)` assert the same id `bv_5_0` as the
--- block above, so its declarations collide. Namespacing keeps the unit
--- buildable until the emitter dedup fix lands; remove this wrapper then.
-namespace collision_635d62c1
--- vrml:user:end
-
--- vrml:user:begin
-end collision_635d62c1
--- vrml:user:end
-
 namespace layer_a.lemmas.common_lemmas.bit_lemmas.lemma_or_bit
 
 -- vrml:begin layer_a.lemmas.common_lemmas.bit_lemmas.lemma_or_bit.assert_0 74a7cdf477cefc3e
