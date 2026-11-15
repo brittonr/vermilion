@@ -1,7 +1,7 @@
 ---
 title: "Out-of-range casts and `as nat` of negatives prove exact values that Verus leaves unspecified"
 labels: [enhancement, vcgen, foundations]
-state: open
+state: closed
 github: 17
 ---
 
@@ -50,3 +50,18 @@ verification) and the Vermilion pipeline.*
 
 Either way, add the probes above to `tests/differential/`. The probe
 sources are one-liners; they are reproduced in the table.
+
+### Resolution (0fa8831): option 1
+
+- Exact clipping is kept (Rust semantics). `docs/trust.md` records each row
+  as a deliberate divergence from Verus.
+- New expectation header `// expect: lean-only pass`: expected Verus fail,
+  Lean pass. `run_differential.py` and `differential_soundness.py` exempt
+  those cases and no others from the false-acceptance check.
+- Corpus: c200 (`-1i64 as u8 == 255`), c201 (`0xffff_ffffu64 as i32 == -1`),
+  c202 (`(x - 5) as nat`), c203 (shift without `bit_vector`), and the
+  control c204 (`(-1i64) as u8 == 0`, expected fail).
+- c204 was **accepted** by Lean at first: the obligation
+  `((0 - 1) % 256) = 0` had no typed leaf, so its numerals defaulted to
+  `Nat`. The renderer now ascribes `: Int` to such comparisons (see
+  `needsIntAnchor` in `Print.lean`, `docs/vcgen.md`).

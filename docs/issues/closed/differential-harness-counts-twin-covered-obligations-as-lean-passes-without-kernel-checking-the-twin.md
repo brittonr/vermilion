@@ -1,7 +1,7 @@
 ---
 title: Differential harness counts twin-covered obligations as Lean passes without kernel-checking the twin
 labels: [bug, foundations]
-state: open
+state: closed
 github: 14
 ---
 
@@ -42,3 +42,18 @@ records that distinction as a design TODO for parity reporting.
   twin-discharged parity is visible and reported separately.
 - Add a regression case: a copy of `c139` whose twin evidence body is
   ill-typed must not reach "pass".
+
+### Resolution (0fa8831)
+
+- When a case has twin-covered obligations, the harness runs
+  `vrml_check --twin-check` (with the `#vrml_audit`). A twin that fails is
+  a Lean rejection.
+- The results table has a `Lean pass via` column: `auto`, `twin (N)`, or
+  `fail`. c139 now reports `twin (1)`.
+- Doing this exposed a second gap: coverage detection falls back to the
+  legacy per-file twin when per-function unit twins do not exist, but
+  `--twin-check` refused that case. `twin_check` now falls back the same
+  way (when every unit does), so the kernel check covers exactly the text
+  coverage was claimed from.
+- `test_typeclass_evidence.sh` pins that an ill-typed evidence twin fails
+  `--twin-check`; it was also checked by hand against the c139 corpus twin.

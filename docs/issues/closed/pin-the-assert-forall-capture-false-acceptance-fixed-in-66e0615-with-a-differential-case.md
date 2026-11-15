@@ -1,7 +1,7 @@
 ---
 title: Pin the assert-forall capture false acceptance (fixed in 66e0615) with a differential case
 labels: [enhancement, foundations]
-state: open
+state: closed
 github: 18
 ---
 
@@ -49,3 +49,13 @@ whose variable shadows a live local.
 - This class (contradictory hypotheses, so an accepted wrong program) is
   what the vacuity oracle proposed in #16 detects without a hand-written
   case.
+
+### Resolution (0fa8831)
+
+Corpus cases, all agreeing with Verus:
+- c193 / c194: shadows the loop variable (wrong / ok)
+- c195: shadows a parameter (wrong)
+- c196: shadows a local assigned before the block (wrong)
+- c197 / c198: two sequential `assert forall` with the same name (wrong / ok)
+- c199: nested `assert forall` with the same name (wrong, fails at the inner
+  assertion)

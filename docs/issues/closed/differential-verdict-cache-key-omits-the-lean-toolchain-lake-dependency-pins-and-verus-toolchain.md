@@ -1,7 +1,7 @@
 ---
 title: Differential verdict cache key omits the Lean toolchain, Lake dependency pins and Verus toolchain
 labels: [bug]
-state: open
+state: closed
 github: 15
 ---
 
@@ -38,3 +38,12 @@ the pinned Verus revision (from `setup_verus.sh` or `.vermilion-built-pin`)
 and the Z3 version string to the environment key. Prefer content hashes
 over mtimes for the four tool binaries. Bump the schema tag so existing
 caches are invalidated once.
+
+### Resolution (0fa8831)
+
+The cache environment key now hashes, by content rather than mtime: the
+`rust_verify`, `vermilion_direct`, `vrml_gen` and `vrml_check` binaries,
+`libvstd.rlib`, `vstd.vir`, the Verus `version.txt`, the Rust toolchain
+channel, `z3 --version`, the cvc5 plugin, `lean-toolchain`,
+`lake-manifest.json`, the lakefile and every Lean source. The schema tag is
+`classified-outcomes-v4`, so old caches are discarded.

@@ -1,7 +1,7 @@
 ---
 title: vrml_sync without --failures reclaims every sorry placeholder as if automation succeeded
 labels: [bug]
-state: open
+state: closed
 github: 21
 ---
 
@@ -40,3 +40,13 @@ reasons".
   attempt.
 - Add a test: syncing without `--failures` must leave the twin's `sorry`
   count unchanged.
+
+### Resolution (e279d59)
+
+Without `--failures`, `vrml_sync` now takes the conservative reading:
+every obligation is treated as failing, so existing placeholders are kept
+and new or changed obligations get `sorry`. It says so on stderr. The old
+behaviour is opt-in through `--assume-automation-succeeded` (exclusive with
+`--failures`). Tested: a sorry'd twin keeps its `sorry` without
+`--failures` and loses it only with the new flag; re-syncing the 27
+dalek-lite manifests changes nothing.

@@ -1,7 +1,7 @@
 ---
 title: The differential gate passes at 95% verdict parity and ignores span mismatches and false acceptances
 labels: [bug, foundations]
-state: open
+state: closed
 github: 13
 ---
 
@@ -47,3 +47,19 @@ directives call "the full gate, rerun after every implementation slice".
 
 Today's corpus is 200/200 and 101/101, so tightening the gate costs
 nothing now. It only stops a future regression from passing silently.
+
+### Resolution (0fa8831)
+
+- `run_differential.py` exits non-zero on any false acceptance (Lean
+  passes, Verus rejects, outside the `lean-only pass` cases) and on any
+  failure-span mismatch, whatever the parity percentage. The percentage gate
+  now only tolerates Lean-side incompleteness.
+- Spans compare as sets: every Lean failure line must be a Verus failure
+  line or the declared one, and there must be at least one.
+- `run_suite.sh` (both the full and `--differential` scopes) runs
+  `differential_soundness.py` after the harness.
+- The summary line reports false acceptances explicitly.
+
+The first run under the new gate found a real false acceptance (c204, a
+literal-only comparison read over `Nat`), fixed in the same commit.
+Corpus: 212/212, 107/107 spans, 0 false acceptances, both emission modes.
