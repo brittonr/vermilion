@@ -170,6 +170,7 @@ banner "$contracts_phase" "incrementality + fail-closed + interactive evidence c
 ./scripts/test_lowering_isolation.sh
 ./scripts/register_proof_lib.py scan
 ./scripts/test_typeclass_evidence.sh
+./scripts/test_twin_rename.sh
 ./scripts/test_render_hygiene.sh
 
 if [[ "$scope" == smoke ]]; then

@@ -146,6 +146,9 @@ rules are the same either way:
   markers delimit each block);
 - if the Rust code changes an obligation, your old proof is stale: it is
   replaced by a fresh attempt and you get a warning;
+- if only the obligation's *name* changes (adding a statement above a
+  `by (bit_vector)` assert renumbers it, for example) and its statement does
+  not, your proof is carried over to the new name, with a warning;
 - **helper lemmas live in user-owned sections**: anything you write between
   a `-- vrml:user:begin` line and a `-- vrml:user:end` line is preserved
   VERBATIM across every regeneration, re-emitted after the generated header

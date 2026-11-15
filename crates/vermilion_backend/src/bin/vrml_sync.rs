@@ -330,6 +330,59 @@ fn reconcile_module(
     };
     let mut preserved_emitted = false;
 
+    // Obligation names are not stable under unrelated edits (bit-vector
+    // assert ordinals and AssertIds shift when statements are added above
+    // them), but statement hashes are. Re-home an orphaned twin block (its
+    // name no longer generated) onto the new obligation of the same
+    // function with the identical statement hash, when the match is unique
+    // on both sides: a proof survives while its statement is unchanged,
+    // whatever the obligation is now called (issue #20).
+    let mut rehomed: BTreeMap<String, Block> = BTreeMap::new();
+    {
+        let function_of = |name: &str| {
+            name.rsplit_once('.')
+                .map(|(function, _)| function.to_owned())
+                .unwrap_or_default()
+        };
+        let generated_names: BTreeSet<&String> = segments
+            .iter()
+            .filter_map(|(_, block)| block.as_ref().map(|(name, _)| name))
+            .collect();
+        let mut wanted: BTreeMap<(String, String), Vec<String>> = BTreeMap::new();
+        for (name, block) in segments.iter().filter_map(|(_, block)| block.as_ref()) {
+            if !existing_blocks.contains_key(name) {
+                wanted
+                    .entry((function_of(name), block.hash.clone()))
+                    .or_default()
+                    .push(name.clone());
+            }
+        }
+        let mut orphans: BTreeMap<(String, String), Vec<String>> = BTreeMap::new();
+        for (name, block) in &existing_blocks {
+            if !generated_names.contains(name) {
+                orphans
+                    .entry((function_of(name), block.hash.clone()))
+                    .or_default()
+                    .push(name.clone());
+            }
+        }
+        for (key, new_names) in wanted {
+            let Some(old_names) = orphans.get(&key) else {
+                continue;
+            };
+            if new_names.len() != 1 || old_names.len() != 1 {
+                continue;
+            }
+            let (old, new) = (&old_names[0], &new_names[0]);
+            if let Some(block) = existing_blocks.remove(old) {
+                warner.warn(&format!(
+                    "proof for `{old}` carried over to `{new}` (obligation renamed, statement unchanged)"
+                ));
+                rehomed.insert(new.clone(), block);
+            }
+        }
+    }
+
     let mut output = String::new();
     let mut sorries = 0usize;
     let mut migrated = 0usize;
@@ -393,18 +446,38 @@ fn reconcile_module(
         };
         // A missing twin block may still have a proof to migrate from the
         // other emission mode's twin (matched by statement hash).
-        let previous = existing_blocks.remove(&name).or_else(|| {
-            fallback_blocks
-                .get(&name)
-                .filter(|block| block.hash == generated_block.hash)
-                .map(|block| {
-                    migrated += 1;
-                    Block {
-                        hash: block.hash.clone(),
-                        text: block.text.clone(),
+        let previous = existing_blocks
+            .remove(&name)
+            .or_else(|| {
+                // A re-homed block keeps its proof body under the generated
+                // signature (new name, markers and metadata).
+                let block = rehomed.remove(&name)?;
+                let (signature, _) = split_block(&generated_block.text)?;
+                let (_, body) = split_block(&block.text)?;
+                let end_marker = format!("-- vrml:end {name}\n");
+                let body = match body.trim_end_matches('\n').rsplit_once('\n') {
+                    Some((proof, last)) if last.starts_with("-- vrml:end ") => {
+                        format!("{proof}\n{end_marker}")
                     }
+                    _ => return None,
+                };
+                Some(Block {
+                    hash: block.hash,
+                    text: signature + &body,
                 })
-        });
+            })
+            .or_else(|| {
+                fallback_blocks
+                    .get(&name)
+                    .filter(|block| block.hash == generated_block.hash)
+                    .map(|block| {
+                        migrated += 1;
+                        Block {
+                            hash: block.hash.clone(),
+                            text: block.text.clone(),
+                        }
+                    })
+            });
         // A kept block must still state the generated declaration: the
         // marker hash alone does not cover the theorem text under it. An
         // edited statement is restored (the proof body is kept, and is

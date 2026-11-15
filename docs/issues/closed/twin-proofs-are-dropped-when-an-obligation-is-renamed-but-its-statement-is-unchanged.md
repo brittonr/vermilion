@@ -1,7 +1,7 @@
 ---
 title: Twin proofs are dropped when an obligation is renamed but its statement is unchanged
 labels: [enhancement]
-state: open
+state: closed
 github: 20
 ---
 
@@ -48,3 +48,20 @@ Related: the upstream tracker's `bit-vector-assert-id-collision` (#56)
 appears to be fixed in code already, since `bitvector_ids` adds a `_N`
 suffix on repeats. The committed dalek-lite twins carried the duplicate
 names until `66e0615`.
+
+### Resolution
+
+- `reconcile_module` now re-homes an orphaned block (its name is no longer
+  generated) onto the new obligation of the same function with the
+  identical statement hash, when the match is unique on both sides. The
+  proof body moves under the generated signature (new name, markers and
+  metadata), and `vrml_sync` warns "proof for X carried over to Y".
+  Ambiguous matches (several orphans or several new obligations with one
+  hash in a function) are left alone, as before.
+- `scripts/test_twin_rename.sh` (in `run_suite.sh`) inserts an assertion
+  above a `by (bit_vector)` assert whose twin holds a user proof. The
+  proof survives as `assert_bv_3_0` (was `assert_bv_2_0`). The test fails
+  without the change.
+- Not done: deriving bit-vector ids from something stable. Re-homing makes
+  the ids' instability harmless for twin proofs, and changing the id scheme
+  would rename every existing dalek-lite `assert_bv_*` block.
