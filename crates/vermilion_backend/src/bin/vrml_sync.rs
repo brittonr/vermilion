@@ -33,7 +33,14 @@
 //! manager arbitrating between automation and human proofs per obligation.
 //!
 //! Usage: vrml_sync <generated-manifest.json> [--failures <vrml_check.json>]
-//!                  [--fail-on-sorry] [--probe]
+//!                  [--assume-automation-succeeded] [--fail-on-sorry] [--probe]
+//!
+//! Without `--failures`, nothing is known about which obligations automation
+//! proved, so reconciliation is conservative (issue #21): existing `sorry`
+//! placeholders are kept and new or changed obligations get `sorry`, rather
+//! than generated attempts that may well fail. `--assume-automation-succeeded`
+//! restores the old "every obligation was proved" reading for the rare
+//! intentional case.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
@@ -621,6 +628,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut arguments = std::env::args().skip(1);
     let mut manifest_path: Option<PathBuf> = None;
     let mut failures_path: Option<PathBuf> = None;
+    let mut assume_success = false;
     let mut fail_on_sorry = false;
     let mut probe = false;
     while let Some(argument) = arguments.next() {
@@ -630,6 +638,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     arguments.next().ok_or("--failures requires a path")?,
                 ));
             }
+            "--assume-automation-succeeded" => assume_success = true,
             "--fail-on-sorry" => fail_on_sorry = true,
             // Report (without writing) whether the twin is already current &
             // complete for this manifest, so the driver can skip the redundant
@@ -640,7 +649,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
     let manifest_path = manifest_path.ok_or(
-        "usage: vrml_sync <manifest.json> [--failures <check.json>] [--fail-on-sorry] [--probe]",
+        "usage: vrml_sync <manifest.json> [--failures <check.json>] [--assume-automation-succeeded] [--fail-on-sorry] [--probe]",
     )?;
     let manifest: ModuleManifest =
         serde_json::from_str(&std::fs::read_to_string(&manifest_path)?)?;
@@ -649,7 +658,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         std::process::exit(if twin_is_current(&manifest) { 0 } else { 1 });
     }
 
+    if failures_path.is_some() && assume_success {
+        return Err("--failures and --assume-automation-succeeded are exclusive".into());
+    }
     let mut failing: BTreeSet<String> = BTreeSet::new();
+    if failures_path.is_none() && !assume_success {
+        // Unknown verdicts: treat every obligation as not (yet) proved by
+        // automation. Unchanged blocks are kept either way; this only stops
+        // placeholders from being "reclaimed" on no evidence (issue #21).
+        failing.extend(manifest.obligations.iter().map(|record| record.name.clone()));
+        eprintln!(
+            "vrml_sync: no --failures given; new or changed obligations get `sorry` and existing placeholders are kept"
+        );
+    }
     if let Some(path) = failures_path {
         for line in std::fs::read_to_string(&path)?.lines() {
             let Ok(value) = serde_json::from_str::<serde_json::Value>(line) else {
