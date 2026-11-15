@@ -1,7 +1,7 @@
 ---
 title: "Add a vacuity oracle: obligations whose hypotheses prove False"
 labels: [enhancement, foundations]
-state: open
+state: closed
 github: 16
 ---
 
@@ -75,6 +75,25 @@ bug. It needs an oracle.
   obligation turned up there: `lemma_p_is_odd.assert_5` had the
   hypothesis `((0 - 1) % 2) = 1`, false over `Nat`. It is fixed by #22.
 
-Still open: the Lean-side `vrml_check --vacuity` report with an allowlist
-of known dead code, which would cover examples and case studies that the
-mutation oracle does not reach.
+### Resolution (both halves)
+
+- `#vrml_vacuity` (in `Vermilion/Obligations.lean`) tries, for each
+  `@[vrml_obligation]` of the module, `intros; vrml_norm; first | omega |
+  (simp_all; done) | grind` against a `False` goal, at 40k heartbeats
+  (timeouts caught), and logs `vrml vacuity: <name> <hash>`.
+- `vrml_check <manifest> --vacuity [--vacuity-allow FILE]` elaborates each
+  unit's statements with `sorry` bodies plus that command, prints a
+  `vrml_vacuity` JSON record per hit, and with an allowlist exits 1 on any
+  unlisted hit.
+- `tests/differential/vacuity-allowlist.txt` holds the corpus's 14 vacuous
+  obligations (c15, c16, c29, c58, c119, c120, c172), each inspected as dead
+  code and matching the mutation oracle's dead positions.
+  `scripts/test_vacuity.sh` runs in `run_suite.sh`. An unlisted hit fails
+  (checked by removing c16's entry).
+- Mutation oracle in its committed configuration (6 per case, budgets):
+  308 mutants, 0 vacuity bugs, 10 dead, 276 live, 22 skipped, 6.3 min.
+  Some skips came from rebuilding the Lean library during that run; skip
+  reasons are now printed.
+
+Examples and case studies are not under an allowlist yet; `--vacuity` can be
+run on any manifest.

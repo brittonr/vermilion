@@ -657,4 +657,40 @@ elab "#vrml_audit" : command => do
       Lean's standard axioms alone (a `sorry`/`admit`, a user `axiom`, or \
       `native_decide`):{indentD (MessageData.joinSep problems.toList Format.line)}"
 
+open Lean Meta Elab Command Tactic in
+/-- Vacuity probe (issue #16): for every `@[vrml_obligation]` of the current
+module, try to prove `False` from its hypotheses alone (the goal replaced by
+`False`) with cheap, bounded tactics. Each success is reported as an
+information message `vrml vacuity: <name> <statement hash>`: the obligation
+holds whatever its goal says. That is legitimate for dead code (a branch
+that contradicts `requires`, code after `assert(false)`) and a lowering bug
+otherwise; `vrml_check --vacuity` lists them against an allowlist. Proof
+bodies are irrelevant here, only the theorem types are read. -/
+elab "#vrml_vacuity" : command => do
+  let env ← getEnv
+  let local_ := env.checked.get.constants.foldStage2 (fun names name _ => names.push name) #[]
+  let names := (local_.filter (vermilionObligationAttr.hasTag env ·)).qsort
+    (fun a b => a.toString < b.toString)
+  for name in names do
+    let some info := env.find? name | continue
+    let vacuous ← liftTermElabM do
+      let probe ← forallTelescope info.type fun xs _ =>
+        mkForallFVars xs (mkConst ``False)
+      let goal ← mkFreshExprMVar probe
+      let heartbeats ← IO.getNumHeartbeats
+      -- `tryCatchRuntimeEx`: running out of the probe's heartbeat budget is a
+      -- runtime exception, which a plain `try … catch` does not intercept.
+      -- A probe that times out simply did not find a contradiction.
+      tryCatchRuntimeEx
+        (withTheReader Core.Context (fun ctx =>
+            { ctx with initHeartbeats := heartbeats, maxHeartbeats := 40000 * 1000 }) do
+          let remaining ← Term.withoutErrToSorry <| Tactic.run goal.mvarId! do
+            evalTactic (← `(tactic|
+              (intros; vrml_norm; first | omega | (simp_all; done) | grind)))
+          pure remaining.isEmpty)
+        (fun _ => pure false)
+    if vacuous then
+      let hash := (← liftTermElabM (currentStatementHash? (some name))).getD "?"
+      logInfo m!"vrml vacuity: {name} {hash}"
+
 end Vermilion

@@ -171,7 +171,7 @@ def main():
     with concurrent.futures.ThreadPoolExecutor(max_workers=jobs) as pool:
         for stem, line, verdict, detail in pool.map(lambda m: run_mutant(tool, *m), mutants):
             counts[verdict] += 1
-            if verdict in ("VACUOUS", "dead"):
+            if verdict in ("VACUOUS", "dead", "skipped"):
                 print(f"{verdict:8} {stem} (assert(false) at line {line}) {detail}", flush=True)
             if verdict == "VACUOUS":
                 vacuous.append(stem)

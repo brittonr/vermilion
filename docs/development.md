@@ -106,6 +106,12 @@ prove any goal). `scripts/differential_vacuity.py` is the oracle for that:
 it inserts `assert(false);` at statement positions in every expect-pass case
 and runs both verifiers on each mutant. Lean proving a mutant that Verus
 rejects is a vacuity bug and fails the run; both proving it is dead code.
+The Lean side has a direct report too: `vrml_check <manifest> --vacuity`
+tries to prove `False` from each obligation's hypotheses (the `#vrml_vacuity`
+command, theorem types only) and lists the ones that succeed. With
+`--vacuity-allow FILE` any vacuous obligation whose statement hash is not
+listed fails the run; `scripts/test_vacuity.sh` checks the corpus against
+`tests/differential/vacuity-allowlist.txt`, the inspected dead code.
 
 For an interactive edit loop outside the editor, keep one source under
 watch. The watcher detects changed obligation hashes and rechecks all

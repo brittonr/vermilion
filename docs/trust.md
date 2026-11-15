@@ -561,6 +561,19 @@ identity — hints are not axioms).
   c152/c153 pin the concrete positive/negative semantics, and the generic
   refusal test pins the fail-closed side.
 
+## Vacuity checks
+
+Verdict parity cannot see an obligation whose hypotheses are contradictory:
+it verifies whatever its goal says. Two checks look for that (issue #16).
+`scripts/differential_vacuity.py` inserts `assert(false)` into expect-pass
+corpus cases and fails if Lean proves a mutant Verus rejects.
+`vrml_check --vacuity` (the `#vrml_vacuity` command) reports every
+obligation whose hypotheses alone prove `False`; `scripts/test_vacuity.sh`
+holds the corpus to an allowlist of inspected dead code. Neither is part of
+the trusted base: they are bug detectors, and a vacuous obligation they miss
+is still accepted. The probe tactics are bounded, so "not reported" means
+"no cheap contradiction found", not "satisfiable".
+
 ## Compute proof blocks
 
 `by (compute)`/`by (compute_only)` goals are evaluated by Verus's

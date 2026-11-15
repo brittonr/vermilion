@@ -769,6 +769,154 @@ fn units_of(manifest: &ModuleManifest, only: &[String]) -> Vec<Unit> {
 /// unit module modulo the rewritten `Specs` import — prove nothing new and
 /// are skipped. Lean's own output streams through; exit 0 = every twin
 /// checked.
+/// Replace every obligation's proof body with `sorry`: the vacuity probe
+/// reads theorem types only, so the bodies need not elaborate (or cost).
+fn sorry_bodies(source: &str) -> String {
+    let mut out = String::new();
+    let mut in_body = false;
+    for line in source.lines() {
+        if in_body {
+            if line.starts_with("  ") {
+                continue;
+            }
+            in_body = false;
+        }
+        out.push_str(line);
+        out.push('\n');
+        if line.trim_end().ends_with(":= by")
+            && !line.trim_start().starts_with("--")
+        {
+            out.push_str("  sorry\n");
+            in_body = true;
+        }
+    }
+    out
+}
+
+/// `--vacuity`: elaborate each unit's theorem statements (bodies replaced by
+/// `sorry`) followed by `#vrml_vacuity`, which tries to prove `False` from
+/// each obligation's hypotheses. Exit 0 unless a vacuous obligation is
+/// missing from the allowlist (or nothing could be checked).
+fn vacuity_check(
+    manifest: &ModuleManifest,
+    units: &[Unit],
+    lean_path: &Option<String>,
+    allow_path: Option<&str>,
+) -> i32 {
+    let allowed: BTreeSet<String> = match allow_path {
+        Some(path) => match std::fs::read_to_string(path) {
+            Ok(text) => text
+                .lines()
+                .map(|line| line.split('#').next().unwrap_or("").trim().to_owned())
+                .filter(|line| !line.is_empty())
+                .collect(),
+            Err(error) => {
+                eprintln!("vacuity: cannot read {path}: {error}");
+                return 2;
+            }
+        },
+        None => BTreeSet::new(),
+    };
+    let mut extra_root: Option<String> = None;
+    if manifest.is_per_function() {
+        if let (Some(specs_lean), Some(specs_module)) = (&manifest.specs_lean, &manifest.specs_module) {
+            match ensure_specs_olean(specs_lean, specs_module, lean_path, None) {
+                Ok(root) => extra_root = Some(root),
+                Err(error) => {
+                    eprintln!("vacuity: {error}");
+                    return 2;
+                }
+            }
+        }
+        if let Some((evidence_lean, evidence_module)) = evidence_module_of(manifest, "generated") {
+            match ensure_specs_olean(&evidence_lean, &evidence_module, lean_path, extra_root.as_deref()) {
+                Ok(root) => extra_root = Some(root),
+                Err(error) => {
+                    eprintln!("vacuity: {error}");
+                    return 2;
+                }
+            }
+        }
+    }
+    let dir = Path::new(".vermilion").join("vacuity-probe");
+    if std::fs::create_dir_all(&dir).is_err() {
+        eprintln!("vacuity: cannot create {}", dir.display());
+        return 2;
+    }
+    let mut files = Vec::new();
+    for unit in units {
+        let records: Vec<&ObligationRecord> = unit
+            .records
+            .iter()
+            .filter(|record| record.kind != "typeclass_evidence")
+            .collect();
+        if records.is_empty() {
+            continue;
+        }
+        let (delta, _) = delta_module(&unit.generated_source, &records);
+        let mut text = sorry_bodies(&delta);
+        text.push_str("\n#vrml_vacuity\n");
+        let path = dir.join(unit.lean_file.replace(['/', '\\'], "__"));
+        if std::fs::write(&path, text).is_err() {
+            eprintln!("vacuity: cannot write {}", path.display());
+            return 2;
+        }
+        files.push(path.to_string_lossy().into_owned());
+    }
+    let by_hash: std::collections::BTreeMap<&str, &str> = units
+        .iter()
+        .flat_map(|unit| unit.records.iter())
+        .map(|record| (record.statement_hash.as_str(), record.name.as_str()))
+        .collect();
+    let outputs = run_lean_parallel(&files, lean_path, true, extra_root.as_deref());
+    let mut vacuous: Vec<(String, String)> = Vec::new();
+    for (file, output) in files.iter().zip(outputs) {
+        let Some(output) = output else {
+            eprintln!("vacuity: cannot run lean on {file}");
+            return 2;
+        };
+        if !matches!(output.status.code(), Some(0) | Some(1)) {
+            eprintln!("vacuity: lean did not finish {file} ({})", output.status);
+            return 2;
+        }
+        for line in String::from_utf8_lossy(&output.stdout).lines() {
+            let Ok(message) = serde_json::from_str::<LeanMessage>(line) else { continue };
+            if message.severity == "error" {
+                eprintln!("vacuity: {file}:{}: {}", message.pos.line, message.data);
+                return 2;
+            }
+            if let Some(rest) = message.data.strip_prefix("vrml vacuity: ") {
+                let mut parts = rest.split_whitespace();
+                let _lean_name = parts.next();
+                let hash = parts.next().unwrap_or("?").to_owned();
+                let name = by_hash.get(hash.as_str()).copied().unwrap_or("?").to_owned();
+                vacuous.push((name, hash));
+            }
+        }
+    }
+    let mut unexpected = 0usize;
+    for (name, hash) in &vacuous {
+        let known = allowed.contains(hash);
+        unexpected += usize::from(!known);
+        println!(
+            "{}",
+            serde_json::json!({"$message_type": "vrml_vacuity", "obligation": name,
+                               "statement_hash": hash, "allowed": known})
+        );
+        eprintln!(
+            "{} `{name}` ({hash}): its hypotheses prove False{}",
+            if known { "vacuous (allowed)" } else { "VACUOUS" },
+            if known { "" } else { " -- dead code, or a lowering bug" }
+        );
+    }
+    let total: usize = units.iter().map(|unit| unit.records.len()).sum();
+    eprintln!(
+        "vacuity: {} of {total} obligation(s) have contradictory hypotheses; {unexpected} not on the allowlist",
+        vacuous.len()
+    );
+    i32::from(unexpected > 0 && allow_path.is_some())
+}
+
 fn twin_check(
     manifest: &ModuleManifest,
     units: &[Unit],
@@ -1204,6 +1352,8 @@ fn main() {
     let mut llm_output = false;
     let mut coverage_only = false;
     let mut twin_check_only = false;
+    let mut vacuity = false;
+    let mut vacuity_allow: Option<String> = None;
     let mut skip_identical = false;
     let mut only: Vec<String> = Vec::new();
     let mut manifest_path = None;
@@ -1218,6 +1368,18 @@ fn main() {
             // is the arbiter but the editor still needs these markers.
             "--twin-coverage-only" => coverage_only = true,
             "--twin-check" => twin_check_only = true,
+            // Vacuity report (issue #16): list obligations whose hypotheses
+            // alone prove `False`. With `--vacuity-allow FILE` (statement
+            // hashes, one per line, `#` comments), any vacuous obligation
+            // not on the list fails the run.
+            "--vacuity" => vacuity = true,
+            "--vacuity-allow" => match arguments.next() {
+                Some(path) => vacuity_allow = Some(path),
+                None => {
+                    eprintln!("--vacuity-allow requires a path");
+                    std::process::exit(2);
+                }
+            },
             "--skip-identical" => skip_identical = true,
             "--only" => match arguments.next() {
                 Some(name) => only.push(name),
@@ -1281,6 +1443,10 @@ fn main() {
     for refusal in &manifest.refused {
         println!("{}", refusal_diagnostic_json(refusal));
         eprint!("{}", refusal_human(refusal));
+    }
+
+    if vacuity {
+        std::process::exit(vacuity_check(&manifest, &units, &lean_path, vacuity_allow.as_deref()));
     }
 
     if twin_check_only {

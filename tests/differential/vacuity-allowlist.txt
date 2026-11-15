@@ -1,0 +1,20 @@
+# Statement hashes of corpus obligations whose hypotheses prove False, each
+# inspected and found to be legitimate dead code (issue #16). The mutation
+# oracle (scripts/differential_vacuity.py) agrees: Verus proves assert(false)
+# at these positions too. Anything vacuous that is NOT listed fails
+# scripts/test_vacuity.sh. Format: <hash>  # <obligation>: <why>
+
+afd8bf82457f2e45  # c119_for_range_empty_ok.empty_range.assert_0_decreases: empty range: the loop body is unreachable
+b96af68f783ca4d1  # c119_for_range_empty_ok.empty_range.invariant_preserve_0_4: empty range: the loop body is unreachable
+dcd57554c811b489  # c120_for_range_reversed_fail.reversed_range.assert_0_decreases: reversed range: the loop body is unreachable
+7c87403456fc760a  # c120_for_range_reversed_fail.reversed_range.invariant_preserve_0_4: reversed range: the loop body is unreachable
+52a522ccedbe9795  # c15_branch_early_return.saturating_dec.ensures_0_1: early return: the fall-through contradicts the branch
+3b4f9bc7f9526496  # c16_branch_assert_in_arm.arm_assert.assert_1: after an assert that fails
+a798aaa25a98ccea  # c172_while_condition_short_circuit_ok.checked_condition_short_circuits.assert_0: short-circuit condition: the loop body is unreachable
+2a99009f621c7513  # c172_while_condition_short_circuit_ok.checked_condition_short_circuits.assert_1: short-circuit condition: the loop body is unreachable
+f5b2ab30b0fbb9c1  # c172_while_condition_short_circuit_ok.checked_condition_short_circuits.assert_2: short-circuit condition: the loop body is unreachable
+408c541826bf7832  # c29_continue_decreases_violated.spin.assert_0: after `continue` with the s == 0 invariant
+ff3d14f331b5063c  # c29_continue_decreases_violated.spin.assert_0_decreases: after `continue` with the s == 0 invariant
+b1b578751716b825  # c29_continue_decreases_violated.spin.invariant_preserve_0_0: after `continue` with the s == 0 invariant
+978d1c337604f0c6  # c29_continue_decreases_violated.spin.invariant_preserve_0_1: after `continue` with the s == 0 invariant
+0ed8772f22a6c5c1  # c58_early_return_in_branch_ok.clamp100.ensures_0_1: early return in a branch: the fall-through contradicts it
