@@ -34,6 +34,7 @@ use std::process::Command;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Mutex;
 
+use vermilion_backend::twin::{has_hole, same_declaration, split_block};
 use vermilion_backend::project::{
     rewrite_specs_import, twin_of, ModuleManifest, ObligationRecord,
 };
@@ -111,8 +112,14 @@ fn resolve_lean_path() -> Option<String> {
 /// checks import (never Lake's own build dir, which stays Lake-owned so the
 /// editor's incremental builds see only artifacts with consistent traces).
 fn lean_command(lean_path: &Option<String>, extra_root: Option<&str>) -> Command {
+    lean_like_command("lean", lean_path, extra_root)
+}
+
+/// A command running `program` (`lean`, or the `vrml_worker` executable)
+/// with the checker's search path, plugin, and `-D` options.
+fn lean_like_command(program: &str, lean_path: &Option<String>, extra_root: Option<&str>) -> Command {
     let mut command = if let Some(lean_path) = lean_path {
-        let mut direct = Command::new("lean");
+        let mut direct = Command::new(program);
         let path = match extra_root {
             Some(root) => format!("{root}:{lean_path}"),
             None => lean_path.clone(),
@@ -121,7 +128,7 @@ fn lean_command(lean_path: &Option<String>, extra_root: Option<&str>) -> Command
         direct
     } else {
         let mut through_lake = Command::new("lake");
-        through_lake.args(["env", "lean"]);
+        through_lake.args(["env", program]);
         if let Some(root) = extra_root {
             through_lake.env("LEAN_PATH", root);
         }
@@ -129,6 +136,25 @@ fn lean_command(lean_path: &Option<String>, extra_root: Option<&str>) -> Command
     };
     if let Some(plugin) = find_cvc5_plugin() {
         command.arg(format!("--plugin={}", plugin.display()));
+    }
+    for (name, value) in checker_defines() {
+        command.arg(format!("-D{name}={value}"));
+    }
+    command
+}
+
+/// The `-D` options every checker-run elaboration carries.
+fn checker_defines() -> Vec<(String, String)> {
+    let mut defines = vec![
+        // Same as the lakefile's package `leanOptions`: generated modules
+        // and twins must bind every name they use (issue #6).
+        ("autoImplicit".to_owned(), "false".to_owned()),
+        ("relaxedAutoImplicit".to_owned(), "false".to_owned()),
+    ];
+    // Winning-rung hints from earlier runs (issue #9): the ladder tries the
+    // recorded rung first. Purely an ordering optimization.
+    if Path::new(RUNG_HINTS_PATH).exists() {
+        defines.push(("vermilion.rungHints".to_owned(), RUNG_HINTS_PATH.to_owned()));
     }
     // Ladder budget profile (sweep-scale runs): `--rung-budget` and
     // friends land here as env vars so every lean invocation — direct or
@@ -143,11 +169,33 @@ fn lean_command(lean_path: &Option<String>, extra_root: Option<&str>) -> Command
     ] {
         if let Ok(value) = std::env::var(variable) {
             if !value.is_empty() {
-                command.arg(format!("-D{option}={value}"));
+                defines.push((option.to_owned(), value));
             }
         }
     }
-    command
+    defines
+}
+
+/// Sidecar of `{statement_hash: rung}` hints, written after each generated
+/// check from the ladder's `discharged by <rung>` traces (issue #9).
+const RUNG_HINTS_PATH: &str = ".vermilion/rung-hints.json";
+
+/// Merge freshly observed winning rungs into the hint sidecar. Best effort:
+/// hints only reorder rungs, so a write failure changes nothing else.
+fn save_rung_hints(observed: &std::collections::BTreeMap<String, String>) {
+    if observed.is_empty() {
+        return;
+    }
+    let mut hints: std::collections::BTreeMap<String, String> =
+        std::fs::read_to_string(RUNG_HINTS_PATH)
+            .ok()
+            .and_then(|text| serde_json::from_str(&text).ok())
+            .unwrap_or_default();
+    hints.extend(observed.iter().map(|(hash, rung)| (hash.clone(), rung.clone())));
+    let _ = std::fs::create_dir_all(".vermilion");
+    if let Ok(text) = serde_json::to_string_pretty(&hints) {
+        let _ = std::fs::write(RUNG_HINTS_PATH, text + "\n");
+    }
 }
 
 /// FNV-1a (64-bit) of a string, for the specs-olean freshness stamp.
@@ -445,26 +493,6 @@ fn block_of(source: &str, name: &str) -> Option<String> {
     None
 }
 
-/// Split an obligation block at its `:= by`: (signature, proof body).
-fn split_block(block: &str) -> Option<(String, String)> {
-    let mut signature = String::new();
-    let mut body = String::new();
-    let mut in_body = false;
-    for line in block.lines() {
-        if in_body {
-            body.push_str(line);
-            body.push('\n');
-        } else {
-            signature.push_str(line);
-            signature.push('\n');
-            if line.trim_end().ends_with(":= by") {
-                in_body = true;
-            }
-        }
-    }
-    in_body.then_some((signature, body))
-}
-
 /// Does the twin carry a hand-written proof for this obligation? True only
 /// when the twin block has the same statement hash AND byte-identical
 /// theorem signature as the current generated block, with a different,
@@ -475,47 +503,17 @@ fn twin_covers(twin_source: &str, generated_source: &str, record: &ObligationRec
     let Some(twin_block) = block_of(twin_source, &record.name) else {
         return false;
     };
-    if !twin_block.starts_with(&marker) || twin_block.contains("sorry") {
+    if !twin_block.starts_with(&marker) || has_hole(&twin_block) {
         return false;
     }
     let Some(generated_block) = block_of(generated_source, &record.name) else {
         return false;
     };
-    match (split_block(&twin_block), split_block(&generated_block)) {
-        (Some((twin_signature, twin_body)), Some((generated_signature, generated_body))) => {
-            // Compare from the theorem declaration onward: doc comments and
-            // metadata above it may legitimately drift (e.g. new
-            // documentation lines in regenerated modules) without changing
-            // the obligation.
-            // Evidence declarations differ across emission layouts only by
-            // the `local` keyword (per-file: section-`local instance`;
-            // per-function: plain `instance` visible to importing units) —
-            // compare modulo it, so a proof migrating between layouts still
-            // covers its obligation.
-            let declaration_of = |signature: &str| {
-                ["@[vrml_obligation]", "@[vrml_evidence]"]
-                    .into_iter()
-                    .filter_map(|marker| signature.find(marker))
-                    .min()
-                    .map(|start| {
-                        signature[start..].replace(
-                            " noncomputable local instance ",
-                            " noncomputable instance ",
-                        )
-                    })
-            };
-            match (
-                declaration_of(&twin_signature),
-                declaration_of(&generated_signature),
-            ) {
-                (Some(twin_declaration), Some(generated_declaration)) => {
-                    twin_declaration == generated_declaration && twin_body != generated_body
-                }
-                _ => false,
-            }
-        }
+    let differs = match (split_block(&twin_block), split_block(&generated_block)) {
+        (Some((_, twin_body)), Some((_, generated_body))) => twin_body != generated_body,
         _ => false,
-    }
+    };
+    same_declaration(&twin_block, &generated_block) && differs
 }
 
 /// The human-facing failure report: colored, with clickable
@@ -620,62 +618,6 @@ fn llm_report(record: &ObligationRecord, lean_detail: &str, generated: &str, twi
     ));
     report.push_str("--------------------------------------\n");
     report
-}
-
-/// The verified-hash cache: statement hashes whose generated proof Lean has
-/// already kernel-checked in an earlier run. Keyed to the built Vermilion
-/// library so prelude/tactic changes invalidate it wholesale.
-#[derive(Default, serde::Serialize, serde::Deserialize)]
-struct VerifiedCache {
-    stamp: String,
-    hashes: BTreeSet<String>,
-}
-
-const CACHE_PATH: &str = ".vermilion/verified-hashes.json";
-
-fn library_stamp() -> String {
-    std::fs::metadata(".lake/build/lib/lean/Vermilion/Obligations.olean")
-        .and_then(|meta| meta.modified())
-        .map(|time| format!("{time:?}"))
-        .unwrap_or_default()
-}
-
-/// Incremental skipping of unchanged goals is DISABLED until the workflow
-/// is settled (it interacted confusingly with live editing). The plumbing
-/// stays behind an explicit opt-in for experiments only.
-fn cache_enabled() -> bool {
-    std::env::var_os("VERMILION_CHECK_CACHE").is_some()
-}
-
-fn load_cache() -> VerifiedCache {
-    if !cache_enabled() {
-        return VerifiedCache {
-            stamp: library_stamp(),
-            hashes: BTreeSet::new(),
-        };
-    }
-    let mut cache: VerifiedCache = std::fs::read_to_string(CACHE_PATH)
-        .ok()
-        .and_then(|text| serde_json::from_str(&text).ok())
-        .unwrap_or_default();
-    let stamp = library_stamp();
-    if cache.stamp != stamp {
-        cache = VerifiedCache {
-            stamp,
-            hashes: BTreeSet::new(),
-        };
-    }
-    cache
-}
-
-fn save_cache(cache: &VerifiedCache) {
-    if !cache_enabled() {
-        return;
-    }
-    let _ = std::fs::create_dir_all(".vermilion");
-    if let Ok(text) = serde_json::to_string(cache) {
-        let _ = std::fs::write(CACHE_PATH, text);
-    }
 }
 
 /// Assemble the blocks of `records` into a standalone module, returning the
@@ -911,15 +853,61 @@ fn twin_check(
         }
         return 0;
     }
-    let outputs = run_lean_parallel(&twins, lean_path, false, extra_root.as_deref());
+    // Check an audited copy of each twin: the twin's own text plus a
+    // trailing `#vrml_audit`, which fails unless every obligation and
+    // evidence declaration rests on Lean's standard axioms alone. A twin
+    // that merely compiles (with `sorry`/`admit`, a user `axiom`, or
+    // `native_decide`) is not a proof (issue #1). Line numbers are
+    // unchanged, and Lean's messages are mapped back to the twin's path.
+    let audit_dir = Path::new(".vermilion").join("audit");
+    if std::fs::create_dir_all(&audit_dir).is_err() {
+        eprintln!("twin check: cannot create {}", audit_dir.display());
+        return 2;
+    }
+    let mut audited: Vec<String> = Vec::new();
+    for twin in &twins {
+        let Ok(source) = std::fs::read_to_string(twin) else {
+            eprintln!("twin check: cannot read {twin}");
+            return 2;
+        };
+        let copy = audit_dir.join(twin.replace(['/', '\\'], "__"));
+        let mut text = source;
+        if !text.ends_with('\n') {
+            text.push('\n');
+        }
+        text.push_str("\n#vrml_audit\n");
+        if std::fs::write(&copy, text).is_err() {
+            eprintln!("twin check: cannot write {}", copy.display());
+            return 2;
+        }
+        audited.push(copy.to_string_lossy().into_owned());
+    }
+    // The Evidence twin is imported (as an olean) by the other unit twins,
+    // so it cannot share the worker's union environment with them: it is
+    // checked by its own `lean` process, concurrently with the batch.
+    let evidence_twin = evidence_module_of(manifest, "proofs").map(|(twin, _)| twin);
+    let (solo, batch): (Vec<usize>, Vec<usize>) = (0..twins.len())
+        .partition(|&index| Some(&twins[index]) == evidence_twin.as_ref());
+    let pick = |indices: &[usize]| indices.iter().map(|&i| audited[i].clone()).collect::<Vec<_>>();
+    let (solo_outputs, batch_outputs) = std::thread::scope(|scope| {
+        let solo_files = pick(&solo);
+        let root = extra_root.as_deref();
+        let solo_run = scope.spawn(move || run_lean_isolated(&solo_files, lean_path, false, root));
+        let batch_outputs = run_lean_parallel(&pick(&batch), lean_path, false, root);
+        (solo_run.join().expect("isolated twin check panicked"), batch_outputs)
+    });
+    let mut outputs: Vec<Option<std::process::Output>> = vec![None; twins.len()];
+    for (index, output) in solo.iter().zip(solo_outputs).chain(batch.iter().zip(batch_outputs)) {
+        outputs[*index] = output;
+    }
     let mut failed = false;
-    for (twin, output) in twins.iter().zip(outputs) {
+    for ((twin, copy), output) in twins.iter().zip(&audited).zip(outputs) {
         let Some(output) = output else {
             eprintln!("twin check: cannot run lean on {twin}");
             return 2;
         };
-        eprint!("{}", String::from_utf8_lossy(&output.stdout));
-        eprint!("{}", String::from_utf8_lossy(&output.stderr));
+        eprint!("{}", String::from_utf8_lossy(&output.stdout).replace(copy.as_str(), twin));
+        eprint!("{}", String::from_utf8_lossy(&output.stderr).replace(copy.as_str(), twin));
         if !output.status.success() {
             eprintln!("twin check failed: {twin}");
             failed = true;
@@ -935,9 +923,165 @@ fn twin_check(
     }
 }
 
+/// How many files a worker elaborates at once: the machine's parallelism,
+/// as the per-file `lean` processes used (`VRML_WORKER_JOBS` overrides).
+fn worker_jobs() -> usize {
+    std::env::var("VRML_WORKER_JOBS")
+        .ok()
+        .and_then(|value| value.parse().ok())
+        .unwrap_or_else(|| std::thread::available_parallelism().map(|n| n.get()).unwrap_or(1))
+        .max(1)
+}
+
+/// The batch elaborator built by Lake (`lean_exe vrml_worker`), if present.
+const WORKER_PATH: &str = ".lake/build/bin/vrml_worker";
+
+/// Elaborate files: through ONE `vrml_worker` process that imports the
+/// shared environment once (issue #11), or — when the worker is not built,
+/// `VRML_ISOLATED` is set, or the worker itself fails to run — through one
+/// `lean` process per file. Per-file outputs in input order either way.
+fn run_lean_parallel(
+    files: &[String],
+    lean_path: &Option<String>,
+    json: bool,
+    extra_root: Option<&str>,
+) -> Vec<Option<std::process::Output>> {
+    if std::env::var_os("VRML_ISOLATED").is_none() {
+        if let Some(dir) = std::env::var_os("VRML_WORKER_DIR") {
+            if let Some(outputs) = run_worker_server(Path::new(&dir), files, json) {
+                return outputs;
+            }
+            eprintln!("[vrml-check] persistent vrml_worker unavailable; starting a fresh one");
+        }
+    }
+    if std::env::var_os("VRML_ISOLATED").is_none() && Path::new(WORKER_PATH).exists() {
+        if let Some(outputs) = run_worker_batch(files, lean_path, json, extra_root) {
+            return outputs;
+        }
+        eprintln!("[vrml-check] vrml_worker failed to run; falling back to one lean per file");
+    }
+    run_lean_isolated(files, lean_path, json, extra_root)
+}
+
+/// Run every file through one `vrml_worker`, splitting its output at the
+/// `### vrml-worker <index> <status>` markers into per-file outputs shaped
+/// like `lean`'s (status 0/1). `None` if the worker could not run or its
+/// output does not account for every file (a crash): the caller then falls
+/// back to isolated processes, so a worker failure never reads as success.
+fn run_worker_batch(
+    files: &[String],
+    lean_path: &Option<String>,
+    json: bool,
+    extra_root: Option<&str>,
+) -> Option<Vec<Option<std::process::Output>>> {
+    let worker = std::fs::canonicalize(WORKER_PATH).ok()?;
+    let mut command = lean_like_command(&worker.to_string_lossy(), lean_path, extra_root);
+    if json {
+        command.arg("--json");
+        command.arg("-Dtrace.vrml.ladder=true");
+    }
+    command.arg(format!("--jobs={}", worker_jobs()));
+    command.args(files);
+    let started = std::time::Instant::now();
+    let output = command.output().ok()?;
+    eprintln!(
+        "[vrml-check] worker units={} elapsed_ms={}",
+        files.len(),
+        started.elapsed().as_millis()
+    );
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    let outputs = split_worker_output(&stdout, files.len());
+    if outputs.is_none() {
+        eprint!("{}", String::from_utf8_lossy(&output.stderr));
+    }
+    outputs
+}
+
+/// Hand the job to a persistent `vrml_worker --serve DIR` (issue #12),
+/// which keeps imported environments across runs. `None` when no server is
+/// listening (the request FIFO has no reader) or the reply is malformed;
+/// the caller then falls back to a fresh worker.
+fn run_worker_server(dir: &Path, files: &[String], json: bool) -> Option<Vec<Option<std::process::Output>>> {
+    use std::io::{Read, Write};
+    use std::os::unix::fs::OpenOptionsExt;
+    #[cfg(target_os = "linux")]
+    const O_NONBLOCK: i32 = 0o4000;
+    #[cfg(not(target_os = "linux"))]
+    const O_NONBLOCK: i32 = 0x0004;
+    let mut defines = checker_defines();
+    if json {
+        defines.push(("trace.vrml.ladder".to_owned(), "true".to_owned()));
+    }
+    let request = serde_json::json!({
+        "files": files, "json": json, "defines": defines, "jobs": worker_jobs()
+    });
+    // Non-blocking open: fails at once (ENXIO) when no server is reading.
+    let mut writer = std::fs::OpenOptions::new()
+        .write(true)
+        .custom_flags(O_NONBLOCK)
+        .open(dir.join("request"))
+        .ok()?;
+    let started = std::time::Instant::now();
+    writer.write_all(format!("{request}\n").as_bytes()).ok()?;
+    drop(writer);
+    let mut reply = String::new();
+    std::fs::File::open(dir.join("response")).ok()?.read_to_string(&mut reply).ok()?;
+    eprintln!(
+        "[vrml-check] persistent worker units={} elapsed_ms={}",
+        files.len(),
+        started.elapsed().as_millis()
+    );
+    if !reply.lines().any(|line| line.starts_with("### vrml-worker-end ")) {
+        return None;
+    }
+    split_worker_output(&reply, files.len())
+}
+
+/// Split worker output at the `### vrml-worker <index> <status>` markers
+/// into per-file outputs shaped like `lean`'s. `None` unless every file is
+/// accounted for.
+fn split_worker_output(stdout: &str, count: usize) -> Option<Vec<Option<std::process::Output>>> {
+    use std::os::unix::process::ExitStatusExt;
+    let mut sections: Vec<Option<(i32, String)>> = vec![None; count];
+    let mut current: Option<usize> = None;
+    for line in stdout.lines() {
+        if let Some(rest) = line.strip_prefix("### vrml-worker ") {
+            let mut parts = rest.split_whitespace();
+            let index: usize = parts.next()?.parse().ok()?;
+            let status: i32 = parts.next()?.parse().ok()?;
+            if index >= count {
+                return None;
+            }
+            sections[index] = Some((status, String::new()));
+            current = Some(index);
+        } else if let Some(index) = current {
+            if let Some((_, text)) = sections[index].as_mut() {
+                text.push_str(line);
+                text.push('\n');
+            }
+        }
+    }
+    if sections.iter().any(Option::is_none) {
+        return None;
+    }
+    Some(
+        sections
+            .into_iter()
+            .map(|section| {
+                let (status, text) = section.expect("checked above");
+                Some(std::process::Output {
+                    status: std::process::ExitStatus::from_raw(status << 8),
+                    stdout: text.into_bytes(),
+                    stderr: Vec::new(),
+                })
+            })
+            .collect(),
+    )
+}
+
 /// Run `lean` over each file concurrently (bounded by the machine's
 /// parallelism), returning per-file outputs in input order.
-fn run_lean_parallel(
+fn run_lean_isolated(
     files: &[String],
     lean_path: &Option<String>,
     json: bool,
@@ -961,6 +1105,8 @@ fn run_lean_parallel(
                 let mut command = lean_command(lean_path, extra_root);
                 if json {
                     command.arg("--json");
+                    // Record which rung closes each goal (rung hints).
+                    command.arg("-Dtrace.vrml.ladder=true");
                 }
                 command.arg(&files[index]);
                 let started = std::time::Instant::now();
@@ -1091,13 +1237,12 @@ fn main() {
         std::process::exit(if refused_count > 0 { 1 } else { 0 });
     }
 
-    // Unchanged obligations are not re-verified: hashes Lean already
-    // checked in an earlier run are skipped, and goals covered by a manual
-    // twin proof are recognized statically (the driver kernel-checks the
-    // twin itself). Only what remains is elaborated, as one delta module
-    // per generated file — in parallel across per-function units.
-    let mut cache = load_cache();
-    let mut skipped = 0usize;
+    // Goals covered by a manual twin proof are recognized statically (the
+    // driver kernel-checks the twin itself). Everything else is elaborated,
+    // as one delta module per generated file — in parallel across
+    // per-function units. There is deliberately no verdict cache keyed by
+    // statement hash: the statement text does not cover the spec-fn,
+    // datatype and evidence definitions a proof depends on (issue #5).
     let mut interactive: Vec<(String, String)> = Vec::new();
     // Evidence declarations are never goals for Lean: they count as failed
     // until the twin carries a kernel-checked dictionary. (unit twin, record)
@@ -1107,9 +1252,7 @@ fn main() {
     for (unit_index, unit) in units.iter().enumerate() {
         let mut to_check: Vec<&ObligationRecord> = Vec::new();
         for record in &unit.records {
-            if cache.hashes.contains(&record.statement_hash) {
-                skipped += 1;
-            } else if twin_covers(&unit.twin_source, &unit.generated_source, record) {
+            if twin_covers(&unit.twin_source, &unit.generated_source, record) {
                 let mut diagnostic =
                     diagnostic_json(record, &unit.twin, "covered by a manual twin proof");
                 diagnostic["vermilion"]["covered_by_twin"] = serde_json::json!(true);
@@ -1143,7 +1286,7 @@ fn main() {
             }
             std::process::exit(1);
         }
-        report_summary(&s, &manifest, total, skipped, &interactive, 0);
+        report_summary(&s, &manifest, total, &interactive, 0);
         exit_with_refusals(&s, refused_count);
     }
 
@@ -1220,6 +1363,8 @@ fn main() {
 
     let mut failed_names: BTreeSet<String> = BTreeSet::new();
     let mut any_unattributed = false;
+    let mut observed_rungs: std::collections::BTreeMap<String, String> =
+        std::collections::BTreeMap::new();
     for (((unit_index, to_check), remapped), (delta_file, output)) in pending
         .iter()
         .zip(&remapped_by_unit)
@@ -1237,6 +1382,21 @@ fn main() {
                 continue;
             };
             if message.severity != "error" {
+                // `[vrml.ladder] discharged by <rung>` (trace output): the
+                // winning rung of the obligation whose lines it sits in.
+                if let Some(rung) = message
+                    .data
+                    .split("discharged by ")
+                    .nth(1)
+                    .and_then(|rest| rest.split_whitespace().next())
+                {
+                    let line = message.pos.line;
+                    if let Some(record) = remapped.iter().find(|record| {
+                        record.lean_line_start <= line && line <= record.lean_line_end
+                    }) {
+                        observed_rungs.insert(record.statement_hash.clone(), rung.to_owned());
+                    }
+                }
                 continue;
             }
             let error_line = message.pos.line;
@@ -1280,21 +1440,12 @@ fn main() {
             );
             std::process::exit(2);
         }
-        // Everything elaborated and not failed is now known-verified — but
-        // only when the unit elaborated at all: an error OUTSIDE every
-        // obligation (e.g. a parse failure) means nothing after it was
-        // checked, so nothing may enter the verified cache.
-        if unattributed.is_empty() {
-            for record in to_check {
-                if !failed_names.contains(&record.name) {
-                    cache.hashes.insert(record.statement_hash.clone());
-                }
-            }
-        } else {
+        if !unattributed.is_empty() {
             any_unattributed = true;
         }
     }
-    save_cache(&cache);
+
+    save_rung_hints(&observed_rungs);
 
     // Unresolved evidence records count as failures regardless of what the
     // contingent machine attempts above proved.
@@ -1308,7 +1459,7 @@ fn main() {
     }
 
     if failed_names.is_empty() && !any_unattributed {
-        report_summary(&s, &manifest, total, skipped, &interactive, elaborating);
+        report_summary(&s, &manifest, total, &interactive, elaborating);
         exit_with_refusals(&s, refused_count);
     }
     std::process::exit(1);
@@ -1336,16 +1487,12 @@ fn report_summary(
     s: &Style,
     manifest: &ModuleManifest,
     total: usize,
-    skipped: usize,
     interactive: &[(String, String)],
     elaborated: usize,
 ) {
     let mut parts = Vec::new();
     if elaborated > 0 {
         parts.push(format!("{elaborated} newly checked"));
-    }
-    if skipped > 0 {
-        parts.push(format!("{skipped} unchanged (skipped)"));
     }
     if !interactive.is_empty() {
         parts.push(format!("{} discharged interactively", interactive.len()));

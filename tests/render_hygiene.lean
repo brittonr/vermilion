@@ -153,3 +153,47 @@ private def nestedTelescope : Obligation := obligation
   (forallInt "end_1" (lt (var "end_1") (var "end_")))
 #guard nestedTelescope.hygienic.goal == forallInt "end_1" (lt (var "end_1") (var "end__1"))
 #guard nestedTelescope.hygienic.hygieneViolations.isEmpty
+
+/-! ### `choose` facts stay in their binders' scope (issue #2) -/
+
+private def chooseUnder : Expr :=
+  -- ∀ i, i = (choose x. i < x)
+  forallInt "i" (eq (var "i") (.choose { name := "x", ty := .int } #[] (lt (var "i") (var "x"))))
+
+-- The enclosing `i` is recorded with the term …
+#guard (chooseUnder.collectChooseUnder #[]).map (·.1.map (·.name)) == #[#["i"]]
+
+-- … and a generated obligation over it has no unbound variable: the
+-- characterizing fact is closed over `i` instead of mentioning it free.
+private def chooseClause : Clause :=
+  { assertId := "0", span := default, proposition := chooseUnder, description := none }
+
+private def chooseView : FunctionView :=
+  { id := subject, typeParams := #[], binders := #[], requires := #[],
+    body := #[Stmt.ensures chooseClause] }
+
+#guard (generateObligations #[] chooseView).all (·.hygieneViolations.isEmpty)
+#guard (generateObligations #[] chooseView).size == 1
+
+-- A `choose` whose predicate does not mention the enclosing binder keeps
+-- the original, unquantified fact (statement hashes unchanged).
+#guard ((forallInt "i" (eq (var "i") (.choose { name := "x", ty := .int } #[]
+    (lt (.int 0) (var "x"))))).collectChooseUnder #[]).map (·.1.size) == #[1]
+
+/-! ### Unbound names fail closed (issue #6) -/
+
+#guard !(obligation #[] #[] (lt (var "dangling") (.int 0))).hygieneViolations.isEmpty
+#guard (obligation #[{ name := "n", ty := .int }] #[] (lt (var "n") (.int 0))).hygieneViolations.isEmpty
+
+/-! ### Equality decidability is type-directed (issue #3) -/
+
+private def dataTy : Ty := .data subject #[]
+-- Int-typed equality is constructive; equality at a datatype or a `Map`
+-- needs the module's `Decidable` evidence.
+#guard (eq (var "a") (.int 1)).constructivelyDecidable [("a", .int)]
+#guard !(eq (var "a") (var "b")).constructivelyDecidable [("a", dataTy), ("b", dataTy)]
+#guard !(eq (var "m") (var "m")).constructivelyDecidable [("m", .map .int .int)]
+#guard (eq (.seqIndex (var "s") (.int 0)) (var "y")).constructivelyDecidable
+  [("s", .seq .int), ("y", .int)]
+#guard (Expr.ite (eq (var "a") (var "b")) (.int 1) (.int 2)).needsDecidableEvidence
+  [("a", dataTy), ("b", dataTy)]

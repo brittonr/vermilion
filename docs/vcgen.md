@@ -122,12 +122,24 @@ Int-lowered scalar type; tuple `choose` and non-variable bodies fail
 closed (`lower.rs`).
 
 After `generateObligations` folds the statement list, a post-pass
-(`withChooseFacts`) prepends, for every distinct (binder, predicate) pair
-occurring in an obligation's hypotheses or goal, one hypothesis
+(`withChooseFacts`) prepends, for every distinct (scope, binder, predicate)
+triple occurring in an obligation's hypotheses or goal, one hypothesis
 
 ```
     choose_spec_i : (∃ x, p x) → (fun x => p x) (Vermilion.chooseSpec p)
 ```
+
+when the predicate mentions no enclosing binder, and otherwise its closure
+over the enclosing quantifier, lambda or `choose` binders ȳ it mentions
+(innermost occurrence of each name; issue #2):
+
+```
+    choose_spec_i : ∀ ȳ, (∃ x, p x ȳ) → (fun x => p x ȳ) (Vermilion.chooseSpec (p · ȳ))
+```
+
+A `choose` under `∀ i` with a predicate mentioning `i` thus yields a fact
+usable at every `i`, instead of one about a dangling `i`. The closed fact is
+still an instance of `Vermilion.chooseSpec_spec` for every ȳ.
 
 — the conditional characterizing fact, a ground instance of the proved
 theorem `Vermilion.chooseSpec_spec`, so assuming it adds nothing to the
@@ -201,7 +213,12 @@ rendering is injective on every scope.
 
 `vrml_gen` re-checks the property on every obligation it emits
 (`Obligation.hygieneViolations`) and fails closed, so a regression in
-either layer cannot reach `generated/`. Unit checks of the mechanism:
+either layer cannot reach `generated/`. The same check also requires every
+variable free in H or φ to be bound by Θ · Γ (issue #6): generated modules
+and twins are elaborated with `autoImplicit` off (lakefile package
+options; `vrml_check` passes the same `-D` options), so a dangling name is
+a generation error at its obligation rather than a silently auto-bound
+implicit of inferred type. Unit checks of the mechanism:
 `tests/render_hygiene.lean`; end to end: the `c_hygiene_*` differential
 cases and `scripts/test_render_hygiene.sh`.
 
@@ -234,10 +251,17 @@ The initial closure rule is:
         (p : Prop) : Decidable p
 ```
 
-The producer recognizes constants, integer comparisons, boolean connectives
+The producer recognizes constants, integer orderings, boolean connectives
 over constructively decidable operands, and generated datatype-variant
-predicates. A bare Prop-valued Rust boolean (or an unknown predicate-producing
-application) requests evidence. One universal proposition-decision dictionary
+predicates. Equality (`=`/`≠`) is recognized only when one operand's model
+type is statically known to have a `DecidableEq` instance (`Int`,
+`StrSlice`, and `Seq`/`Set`/`Multiset` of such types), inferred from the
+binder types in scope and the operand's shape (`Expr.inferTy`); equality
+at a user datatype (rendered `deriving Inhabited` only), a `Map`, a type
+parameter, or an operand whose type the shape does not reveal requests
+evidence (issue #3) — otherwise the statement would not elaborate at all.
+The walk also enters `choose` predicates. A bare Prop-valued Rust boolean
+(or an unknown predicate-producing application) requests evidence. One universal proposition-decision dictionary
 per module closes all such theorem-statement uses and keeps the generated
 artifact small.
 

@@ -183,14 +183,14 @@ def assert_5_meta : Vermilion.ObligationMeta := {
   vrml [primes_spec.divides, primes_spec.is_prime]
 -- vrml:end primes_spec.main.assert_5
 
--- vrml:begin primes_spec.main.assert_6 378a2325ba14f640
+-- vrml:begin primes_spec.main.assert_6 8aeccfaf5e1acc47
 /--
 Generated VC `primes_spec.main.assert_6`.
 
 - Rust source: `case-studies/primes/primes_spec.rs:37:20-37:42`
 - Rust/SST construct: Rust source assertion
 - AssertId: `6`
-- Statement hash: `378a2325ba14f640`
+- Statement hash: `8aeccfaf5e1acc47`
 -/
 def assert_6_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/primes/primes_spec.rs"
@@ -201,10 +201,11 @@ def assert_6_meta : Vermilion.ObligationMeta := {
   assertId := "6"
   functionName := "primes_spec.main"
   kind := "assert"
-  statementHash := "378a2325ba14f640"
+  statementHash := "8aeccfaf5e1acc47"
 }
 @[vrml_obligation] theorem assert_6
     (no_param : Int)
+    (factor : Int)
     (assert_0 : (¬ primes_spec.is_prime 0))
     (assert_1 : (¬ primes_spec.is_prime 1))
     (assert_2 : primes_spec.is_prime 2)
@@ -217,14 +218,14 @@ def assert_6_meta : Vermilion.ObligationMeta := {
   vrml [primes_spec.divides, primes_spec.is_prime]
 -- vrml:end primes_spec.main.assert_6
 
--- vrml:begin primes_spec.main.assert_7 b84996fddc250851
+-- vrml:begin primes_spec.main.assert_7 a154fbac6821e17e
 /--
 Generated VC `primes_spec.main.assert_7`.
 
 - Rust source: `case-studies/primes/primes_spec.rs:38:20-38:42`
 - Rust/SST construct: Rust source assertion
 - AssertId: `7`
-- Statement hash: `b84996fddc250851`
+- Statement hash: `a154fbac6821e17e`
 -/
 def assert_7_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/primes/primes_spec.rs"
@@ -235,10 +236,11 @@ def assert_7_meta : Vermilion.ObligationMeta := {
   assertId := "7"
   functionName := "primes_spec.main"
   kind := "assert"
-  statementHash := "b84996fddc250851"
+  statementHash := "a154fbac6821e17e"
 }
 @[vrml_obligation] theorem assert_7
     (no_param : Int)
+    (factor : Int)
     (assert_0 : (¬ primes_spec.is_prime 0))
     (assert_1 : (¬ primes_spec.is_prime 1))
     (assert_2 : primes_spec.is_prime 2)
@@ -252,14 +254,14 @@ def assert_7_meta : Vermilion.ObligationMeta := {
   vrml [primes_spec.divides, primes_spec.is_prime]
 -- vrml:end primes_spec.main.assert_7
 
--- vrml:begin primes_spec.main.assert_8 39b358e5afe8b1ca
+-- vrml:begin primes_spec.main.assert_8 eb55469cf0e41105
 /--
 Generated VC `primes_spec.main.assert_8`.
 
 - Rust source: `case-studies/primes/primes_spec.rs:39:20-39:42`
 - Rust/SST construct: Rust source assertion
 - AssertId: `8`
-- Statement hash: `39b358e5afe8b1ca`
+- Statement hash: `eb55469cf0e41105`
 -/
 def assert_8_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/primes/primes_spec.rs"
@@ -270,10 +272,11 @@ def assert_8_meta : Vermilion.ObligationMeta := {
   assertId := "8"
   functionName := "primes_spec.main"
   kind := "assert"
-  statementHash := "39b358e5afe8b1ca"
+  statementHash := "eb55469cf0e41105"
 }
 @[vrml_obligation] theorem assert_8
     (no_param : Int)
+    (factor : Int)
     (assert_0 : (¬ primes_spec.is_prime 0))
     (assert_1 : (¬ primes_spec.is_prime 1))
     (assert_2 : primes_spec.is_prime 2)
@@ -288,14 +291,14 @@ def assert_8_meta : Vermilion.ObligationMeta := {
   vrml [primes_spec.divides, primes_spec.is_prime]
 -- vrml:end primes_spec.main.assert_8
 
--- vrml:begin primes_spec.main.assert_9 a86aa001ade7b76f
+-- vrml:begin primes_spec.main.assert_9 370a506db1345128
 /--
 Generated VC `primes_spec.main.assert_9`.
 
 - Rust source: `case-studies/primes/primes_spec.rs:40:20-40:42`
 - Rust/SST construct: Rust source assertion
 - AssertId: `9`
-- Statement hash: `a86aa001ade7b76f`
+- Statement hash: `370a506db1345128`
 -/
 def assert_9_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/primes/primes_spec.rs"
@@ -306,10 +309,11 @@ def assert_9_meta : Vermilion.ObligationMeta := {
   assertId := "9"
   functionName := "primes_spec.main"
   kind := "assert"
-  statementHash := "a86aa001ade7b76f"
+  statementHash := "370a506db1345128"
 }
 @[vrml_obligation] theorem assert_9
     (no_param : Int)
+    (factor : Int)
     (assert_0 : (¬ primes_spec.is_prime 0))
     (assert_1 : (¬ primes_spec.is_prime 1))
     (assert_2 : primes_spec.is_prime 2)
@@ -325,14 +329,14 @@ def assert_9_meta : Vermilion.ObligationMeta := {
   vrml [primes_spec.divides, primes_spec.is_prime]
 -- vrml:end primes_spec.main.assert_9
 
--- vrml:begin primes_spec.main.assert_10 bce1e2393a9283fc
+-- vrml:begin primes_spec.main.assert_10 071f0e2852c4834b
 /--
 Generated VC `primes_spec.main.assert_10`.
 
 - Rust source: `case-studies/primes/primes_spec.rs:41:20-41:42`
 - Rust/SST construct: Rust source assertion
 - AssertId: `10`
-- Statement hash: `bce1e2393a9283fc`
+- Statement hash: `071f0e2852c4834b`
 -/
 def assert_10_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/primes/primes_spec.rs"
@@ -343,10 +347,11 @@ def assert_10_meta : Vermilion.ObligationMeta := {
   assertId := "10"
   functionName := "primes_spec.main"
   kind := "assert"
-  statementHash := "bce1e2393a9283fc"
+  statementHash := "071f0e2852c4834b"
 }
 @[vrml_obligation] theorem assert_10
     (no_param : Int)
+    (factor : Int)
     (assert_0 : (¬ primes_spec.is_prime 0))
     (assert_1 : (¬ primes_spec.is_prime 1))
     (assert_2 : primes_spec.is_prime 2)
@@ -363,14 +368,14 @@ def assert_10_meta : Vermilion.ObligationMeta := {
   vrml [primes_spec.divides, primes_spec.is_prime]
 -- vrml:end primes_spec.main.assert_10
 
--- vrml:begin primes_spec.main.assert_11 531faa50abd9067a
+-- vrml:begin primes_spec.main.assert_11 1ff375e8097fa0d9
 /--
 Generated VC `primes_spec.main.assert_11`.
 
 - Rust source: `case-studies/primes/primes_spec.rs:36:67-36:94`
 - Rust/SST construct: Rust source assertion
 - AssertId: `11`
-- Statement hash: `531faa50abd9067a`
+- Statement hash: `1ff375e8097fa0d9`
 -/
 def assert_11_meta : Vermilion.ObligationMeta := {
   rustFile := "case-studies/primes/primes_spec.rs"
@@ -381,10 +386,11 @@ def assert_11_meta : Vermilion.ObligationMeta := {
   assertId := "11"
   functionName := "primes_spec.main"
   kind := "assert"
-  statementHash := "531faa50abd9067a"
+  statementHash := "1ff375e8097fa0d9"
 }
 @[vrml_obligation] theorem assert_11
     (no_param : Int)
+    (factor : Int)
     (assert_0 : (¬ primes_spec.is_prime 0))
     (assert_1 : (¬ primes_spec.is_prime 1))
     (assert_2 : primes_spec.is_prime 2)

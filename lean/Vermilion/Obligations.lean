@@ -9,7 +9,6 @@ import Vermilion.Vstd.Bytes
 -- proofs use; `grind`, `omega`, `simp` are core.
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.LinearCombination
-import Mathlib.Tactic.Polyrith
 import Mathlib.Tactic.CasesM
 import Mathlib.Tactic.IntervalCases
 import Smt
@@ -57,6 +56,55 @@ register_option vermilion.smtTimeout : Nat := {
   descr := "vrml ladder: cvc5 wall-clock timeout in seconds (0 = none)"
 }
 
+open Lean in
+/-- Path of a JSON object `{statement_hash: rung}` recording which ladder
+rung last closed each obligation (`vrml_check` writes it from the
+`trace.vrml.ladder` output and passes this option). The ladder tries the
+recorded rung first and falls back to the full order. Every proof is still
+produced and kernel-checked on every run, so a stale or wrong hint costs
+one failed rung, never a verdict (issue #9). Empty = no hints. -/
+register_option vermilion.rungHints : String := {
+  defValue := ""
+  descr := "vrml ladder: JSON file of statement-hash → winning-rung hints"
+}
+
+open Lean in
+/-- The hint table, loaded once per process and path. -/
+initialize rungHintCache : IO.Ref (Option (String × Std.HashMap String String)) ←
+  IO.mkRef none
+
+open Lean in
+/-- Load the rung-hint table at `path` (empty on any read or parse error:
+hints are an optimization, never required). -/
+def loadRungHints (path : String) : IO (Std.HashMap String String) := do
+  if let some (cached, table) ← rungHintCache.get then
+    if cached == path then return table
+  let table : Std.HashMap String String ← try
+      let text ← IO.FS.readFile path
+      match Json.parse text with
+      | .ok (.obj entries) =>
+        pure <| entries.foldl (fun acc key value =>
+          match value with
+          | .str rung => acc.insert key rung
+          | _ => acc) {}
+      | _ => pure {}
+    catch _ => pure {}
+  rungHintCache.set (some (path, table))
+  return table
+
+open Lean Meta in
+/-- The statement hash of the generated obligation currently being
+elaborated: read from its companion `<leaf>_meta` definition (the last
+field of the `ObligationMeta` literal). `none` outside a generated
+obligation. -/
+def currentStatementHash? (declName? : Option Name) : MetaM (Option String) := do
+  let some declName := declName? | return none
+  let some info := (← getEnv).find? (declName.appendAfter "_meta") | return none
+  let some value := info.value? | return none
+  match value.getAppArgs.back? with
+  | some (.lit (.strVal hash)) => return some hash
+  | _ => return none
+
 def requiresVC (precondition : Prop) : Prop := precondition
 
 def ensuresVC (context postcondition : Prop) : Prop := context → postcondition
@@ -72,6 +120,18 @@ macro "vrml_norm" : tactic =>
     (try simp only [Vermilion.inUnsignedRange, Vermilion.inSignedRange,
       Vermilion.natClip, Vermilion.sclip, Vermilion.iteP,
       Int.reducePow, Nat.reducePow] at *))
+
+/-- `vrml_norm` extended with extra simp arguments (the revealed spec-fn
+definitions and broadcast hints of `vrml [ids]`). Both entry points share
+this one normalization list, so an obligation's goal shape no longer
+depends on whether its file defines a spec fn (issue #8). -/
+syntax "vrml_norm" "[" Lean.Parser.Tactic.simpLemma,* "]" : tactic
+macro_rules
+  | `(tactic| vrml_norm [$ids,*]) =>
+    `(tactic|
+      (try simp only [Vermilion.inUnsignedRange, Vermilion.inSignedRange,
+        Vermilion.natClip, Vermilion.sclip, Vermilion.iteP,
+        Int.reducePow, Nat.reducePow, $ids,*] at *))
 
 /-- Linear side-condition solver used by the collection simp rung. Unfold
 cardinality models only after plain `omega` fails, keeping main expressions
@@ -498,6 +558,20 @@ elab "vrml_ladder" : tactic => do
     -- reached only for goals the deterministic rungs above cannot close.
     ("smt", smtBudget, smtTactic)
   ]
+  -- Rung hint (issue #9): the rung that closed this statement last time
+  -- goes first; the rest keep their order.
+  let hintsPath := opts.get vermilion.rungHints.name vermilion.rungHints.defValue
+  let rungs ← if hintsPath.isEmpty then pure rungs else do
+    let table ← loadRungHints hintsPath
+    let hint ← match ← currentStatementHash? (← Term.getDeclName?) with
+      | some hash => pure table[hash]?
+      | none => pure none
+    match hint with
+    | some winner =>
+      match rungs.find? (·.1 == winner) with
+      | some rung => pure (rung :: rungs.filter (·.1 != winner))
+      | none => pure rungs
+    | none => pure rungs
   let goal ← try some <$> getMainGoal catch _ => pure none
   let some _ := goal | return  -- normalization already closed everything
   let mut failures : List String := []
@@ -556,8 +630,31 @@ normalization — the per-obligation visibility hook of the no-fuel
 spec-function design (a revealed function's name is listed; a hidden one
 is not). -/
 macro "vrml" "[" ids:Lean.Parser.Tactic.simpLemma,* "]" : tactic =>
-  `(tactic|
-    ((try simp only [Vermilion.inUnsignedRange, Vermilion.inSignedRange,
-      Vermilion.iteP, $ids,*] at *); all_goals vrml_ladder))
+  `(tactic| (vrml_norm [$ids,*]; all_goals vrml_ladder))
+
+open Lean Elab Command in
+/-- Audit every `@[vrml_obligation]` / `@[vrml_evidence]` declaration of the
+current module: each must depend on no axiom beyond Lean's standard three
+(`propext`, `Classical.choice`, `Quot.sound`). This rejects `sorry` and
+`admit` (`sorryAx`), `native_decide` (per-declaration compiler-trust
+axioms), and any user-declared `axiom` reached through helper lemmas.
+`vrml_check --twin-check` appends this command to the twin it checks, so a
+twin that merely *compiles* is not accepted as a proof (issue #1). Silent
+on success. -/
+elab "#vrml_audit" : command => do
+  let allowed : Array Name := #[``propext, ``Classical.choice, ``Quot.sound]
+  let env ← getEnv
+  let local_ := env.checked.get.constants.foldStage2 (fun names name _ => names.push name) #[]
+  let mut problems : Array MessageData := #[]
+  for name in local_ do
+    if vermilionObligationAttr.hasTag env name || vermilionEvidenceAttr.hasTag env name then
+      let axioms ← collectAxioms name
+      let extra := axioms.filter (!allowed.contains ·)
+      unless extra.isEmpty do
+        problems := problems.push m!"`{name}` depends on {extra.toList}"
+  unless problems.isEmpty do
+    throwError m!"vrml audit: {problems.size} obligation(s) are not proved from \
+      Lean's standard axioms alone (a `sorry`/`admit`, a user `axiom`, or \
+      `native_decide`):{indentD (MessageData.joinSep problems.toList Format.line)}"
 
 end Vermilion

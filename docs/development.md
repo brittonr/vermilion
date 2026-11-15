@@ -98,6 +98,12 @@ obligations in each affected function:
 ./scripts/vrml_watch.sh examples/m1-pipeline simple.rs
 ```
 
+The watcher keeps one persistent Lean worker (`vrml_worker --serve`) for
+the session, so a re-check pays elaboration only, not the Mathlib import.
+Outside watch mode, `vrml_check` elaborates all files of a run in one
+`vrml_worker` process; set `VRML_ISOLATED=1` to fall back to one `lean`
+process per file.
+
 
 ## Editor and proof libraries
 

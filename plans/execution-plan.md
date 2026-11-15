@@ -224,6 +224,13 @@ Execute the measured startup plan in order:
 3. build a persistent Lean worker that imports the environment once and
    isolates successive file elaborations.
 
+Status (2026-11-15): stage 1's `Polyrith` import is removed (issue #10);
+stage 2 is `vrml_worker`, which `vrml_check` uses for every run (issue #11);
+stage 3 is `vrml_worker --serve`, which watch mode keeps for its session
+(issue #12). Timings are in `docs/reports/performance-ledger.md`. Remaining:
+the `smt` gating decision, the VS Code extension's use of a persistent
+worker, and cancellation.
+
 Acceptance: publish cold and warm timings, editor save-to-diagnostic latency,
 and any regression over 20%. The target is amortized post-first-file latency
 near the measured ~0.9 seconds of actual elaboration/tactics, not an impossible

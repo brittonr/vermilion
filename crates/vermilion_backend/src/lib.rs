@@ -6,6 +6,7 @@
 pub mod ir;
 pub mod model;
 pub mod project;
+pub mod twin;
 
 pub use ir::write_ir;
 pub use model::*;

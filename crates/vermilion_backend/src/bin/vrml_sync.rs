@@ -38,6 +38,7 @@
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
 
+use vermilion_backend::twin::{has_hole, same_declaration, split_block};
 use vermilion_backend::project::{
     rewrite_specs_import, twin_of, ModuleManifest, ObligationRecord,
 };
@@ -220,19 +221,27 @@ fn units_of(manifest: &ModuleManifest) -> Vec<Unit> {
 /// Is this twin file already a complete, up-to-date proof of exactly these
 /// obligations? True iff the twin exists and its obligation blocks are, as a
 /// set, exactly the given obligations, every block's statement hash matches,
-/// and no block holds a `sorry`.
-fn twin_file_current(twin_path: &Path, records: &[ObligationRecord]) -> bool {
+/// every block still states the generated declaration verbatim (a matching
+/// marker hash says nothing about the theorem text under it — issue #1),
+/// and no block holds a hole (`sorry`/`admit`).
+fn twin_file_current(twin_path: &Path, generated_path: &Path, records: &[ObligationRecord]) -> bool {
     let Ok(twin) = std::fs::read_to_string(twin_path) else {
         return false;
     };
+    let Ok(generated) = std::fs::read_to_string(generated_path) else {
+        return false;
+    };
     let (_, blocks) = parse_blocks(&twin);
+    let (_, generated_blocks) = parse_blocks(&generated);
     if blocks.len() != records.len() {
         return false;
     }
     for record in records {
-        match blocks.get(&record.name) {
-            Some(block)
-                if block.hash == record.statement_hash && !block.text.contains("sorry") => {}
+        match (blocks.get(&record.name), generated_blocks.get(&record.name)) {
+            (Some(block), Some(generated_block))
+                if block.hash == record.statement_hash
+                    && !has_hole(&block.text)
+                    && same_declaration(&block.text, &generated_block.text) => {}
             _ => return false,
         }
     }
@@ -260,12 +269,17 @@ fn twin_is_current(manifest: &ModuleManifest) -> bool {
             }
         }
         let units = units_of(manifest);
-        units
-            .iter()
-            .all(|unit| twin_file_current(Path::new(&twin_of(&unit.lean_file)), &unit.records))
+        units.iter().all(|unit| {
+            twin_file_current(
+                Path::new(&twin_of(&unit.lean_file)),
+                Path::new(&unit.lean_file),
+                &unit.records,
+            )
+        })
     } else {
         twin_file_current(
             Path::new(&twin_of(&manifest.lean_file)),
+            Path::new(&manifest.lean_file),
             &manifest.obligations,
         )
     }
@@ -384,9 +398,32 @@ fn reconcile_module(
                     }
                 })
         });
+        // A kept block must still state the generated declaration: the
+        // marker hash alone does not cover the theorem text under it. An
+        // edited statement is restored (the proof body is kept, and is
+        // re-checked against the restored statement) — issue #1.
+        let previous = previous.map(|previous| {
+            if previous.hash == generated_block.hash
+                && !same_declaration(&previous.text, &generated_block.text)
+            {
+                warner.warn(&format!(
+                    "the statement of `{name}` was edited in the twin; restored the generated statement (your proof body was kept)"
+                ));
+                let body = split_block(&previous.text).map(|(_, body)| body).unwrap_or_default();
+                let signature = split_block(&generated_block.text)
+                    .map(|(signature, _)| signature)
+                    .unwrap_or_default();
+                Block {
+                    hash: previous.hash,
+                    text: signature + &body,
+                }
+            } else {
+                previous
+            }
+        });
         match previous {
             Some(previous) if previous.hash == generated_block.hash => {
-                if previous.text.contains("sorry") && !failing.contains(&name) {
+                if has_hole(&previous.text) && !failing.contains(&name) {
                     // The twin held an automation-failure placeholder, not a
                     // user proof — and automation has since caught up (e.g.
                     // the ladder or the emitted definitions improved).
@@ -395,7 +432,7 @@ fn reconcile_module(
                         "`{name}` is now proven automatically; its `sorry` placeholder was replaced"
                     ));
                     output.push_str(&generated_block.text);
-                } else if previous.text.contains("sorry") {
+                } else if has_hole(&previous.text) {
                     sorries += 1;
                     if previous.text.contains("@[vrml_evidence]") {
                         warner.warn(&format!(

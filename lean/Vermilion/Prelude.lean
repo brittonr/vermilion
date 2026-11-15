@@ -26,9 +26,16 @@ opaque divZero : Int → Int
 noncomputable def ediv (x y : Int) : Int :=
   if y = 0 then divZero x else x / y
 
-/-- Euclidean integer remainder, coupled to `ediv` away from zero. -/
+/-- An opaque value used to preserve Verus's underspecified remainder by
+zero. Separate from `divZero`: SMT-LIB constrains neither `div` nor `mod`
+at a zero divisor, so `x % 0 = x` must not be provable here either
+(issue #4). -/
+opaque modZero : Int → Int
+
+/-- Euclidean integer remainder, deliberately opaque when the divisor is
+zero; coupled to `ediv` (`x = y * ediv x y + emod x y`) away from zero. -/
 noncomputable def emod (x y : Int) : Int :=
-  if y = 0 then x - y * ediv x y else x % y
+  if y = 0 then modZero x else x % y
 
 @[simp] theorem ediv_of_ne_zero (x : Int) {y : Int} (h : y ≠ 0) :
     ediv x y = x / y := by

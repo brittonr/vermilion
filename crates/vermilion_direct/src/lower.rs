@@ -2941,7 +2941,21 @@ fn collect_assigned(stm: &Stm, out: &mut Vec<VarIdent>) {
         StmX::AssertQuery { body, .. } | StmX::ClosureInner { body, .. } => {
             collect_assigned(body, out);
         }
-        _ => {}
+        // Statements that assign no program variable. Listed exhaustively,
+        // with no catch-all: this walk is the loop havoc set, so a variant
+        // that writes a variable but is silently skipped here would let the
+        // continuation keep a stale pre-loop value (unsound). A Verus bump
+        // that adds or reshapes a `StmX` variant must fail to compile here
+        // until it is classified (issue #7).
+        StmX::Assert(..)
+        | StmX::AssertBitVector { .. }
+        | StmX::AssertCompute(..)
+        | StmX::Assume(_)
+        | StmX::Fuel(..)
+        | StmX::RevealString(_)
+        | StmX::Return { .. }
+        | StmX::BreakOrContinue { .. }
+        | StmX::Air(_) => {}
     }
 }
 
@@ -3548,7 +3562,18 @@ fn stm_contains_break(stm: &Stm) -> bool {
             StmX::AssertQuery { body, .. } | StmX::ClosureInner { body, .. } => {
                 walk(body, loop_depth, found);
             }
-            _ => {}
+            // Leaf statements: no nested statement can hide a `break`
+            // here. Exhaustive for the same reason as `collect_assigned`.
+            StmX::Call { .. }
+            | StmX::Assert(..)
+            | StmX::AssertBitVector { .. }
+            | StmX::AssertCompute(..)
+            | StmX::Assume(_)
+            | StmX::Assign { .. }
+            | StmX::Fuel(..)
+            | StmX::RevealString(_)
+            | StmX::Return { .. }
+            | StmX::Air(_) => {}
         }
     }
     let mut found = false;
@@ -3663,6 +3688,11 @@ struct Lowering<'a> {
     bitvector_ids: HashMap<String, usize>,
     /// Enclosing loops, innermost last, for `break`/`continue` targets.
     loop_frames: Vec<LoopFrame>,
+    /// The function's declared locals and their types (`FuncCheckSst::
+    /// local_decls`). A local read before any assignment is havocked: it
+    /// gets a fresh binder at its first `assume` (see
+    /// `declare_havocked_locals`) instead of escaping into the IR unbound.
+    local_decls: HashMap<VarIdent, Typ>,
 }
 
 /// What a `break`/`continue` site needs to know about an enclosing loop:
@@ -3685,6 +3715,42 @@ struct LoopFrame {
 impl Lowering<'_> {
     /// Pick a fresh Lean binder name for a call result, keeping the Rust
     /// variable name when it is free.
+    /// Bind every declared local that `exp` reads before any assignment.
+    /// Verus havocs such locals at their declaration — the bound variables
+    /// of `assert forall|x| … by { … }` arrive as plain locals constrained
+    /// only by the block's `assume`s — so each gets a fresh universally
+    /// quantified binder in the current scope (a `DeadEnd` scope discards
+    /// it again). Previously the raw name reached the IR unbound and the
+    /// emitted theorem auto-bound it (issue #6). Parameters, already-bound
+    /// locals and `&mut` temporaries (defined by their phase-1 `assume`)
+    /// are left alone.
+    fn declare_havocked_locals(&mut self, exp: &Exp) -> Result<(), String> {
+        let mut unbound: Vec<VarIdent> = Vec::new();
+        exp_visit_vars(exp, &mut |ident| {
+            if !unbound.contains(ident) {
+                unbound.push(ident.clone());
+            }
+        });
+        let params = self.ctx.registry.current_params.borrow().clone();
+        for ident in unbound {
+            if self.env.contains_key(&ident) || params.contains(&ident) {
+                continue;
+            }
+            let Some(typ) = self.local_decls.get(&ident).cloned() else {
+                continue;
+            };
+            if matches!(undecorate(&typ), TypX::MutRef(_)) {
+                continue;
+            }
+            let name = self.fresh_binder_name(&ident.0.to_string());
+            let binder = Binder::new(name.clone(), binder_type(self.ctx, &typ)?);
+            self.statements.push(Statement::Fresh(binder));
+            self.env.insert(ident.clone(), Expr::Var(name));
+            self.var_types.insert(ident, typ);
+        }
+        Ok(())
+    }
+
     fn fresh_binder_name(&mut self, base: &str) -> String {
         let base: String = base
             .chars()
@@ -5992,6 +6058,7 @@ impl Lowering<'_> {
                         return Ok(());
                     }
                 }
+                self.declare_havocked_locals(exp)?;
                 self.ensure_futures(exp)?;
                 let expression = lower_exp(self.ctx, &self.env, exp)?;
                 if self.last_assertion.as_ref() != Some(&expression) {
@@ -6316,6 +6383,11 @@ fn function_view_impl(
         anonymous_ordinal: 0,
         bitvector_ids: HashMap::new(),
         loop_frames: Vec::new(),
+        local_decls: check
+            .local_decls
+            .iter()
+            .map(|decl| (decl.ident.clone(), decl.typ.clone()))
+            .collect(),
     };
     let mut binders = Vec::new();
     let mut requires = Vec::new();

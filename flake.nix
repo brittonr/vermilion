@@ -153,6 +153,8 @@
               pkgs.unzip
               pkgs.gh
               pkgs.nixfmt
+              # The VS Code extension's unit tests (run_suite.sh step 1).
+              pkgs.nodejs
             ]
             # lean-cvc5 compiles its FFI with `clang -stdlib=libc++`. Expose
             # only clang/clang++ so `cc` stays the stdenv compiler that cargo

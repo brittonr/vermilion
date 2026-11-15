@@ -62,6 +62,21 @@ regen() {
 
 manifest="$workdir/generated/incr.json"
 
+# In-place literal edit, portable across GNU and BSD userlands (`sed -i ''`
+# is BSD-only and fails on Linux/NixOS; GNU and BSD also disagree on `\n`
+# in replacements). Replaces every occurrence of OLD with NEW in FILE and
+# fails if OLD is absent, so a drifted fixture cannot pass vacuously.
+edit_in_place() {
+  python3 - "$1" "$2" "$3" <<'PY'
+import sys
+path, old, new = sys.argv[1:]
+text = open(path).read()
+if old not in text:
+    sys.exit(f"edit_in_place: {old!r} not found in {path}")
+open(path, "w").write(text.replace(old, new))
+PY
+}
+
 echo "== base generation =="
 regen | tee "$workdir/base.out"
 cp "$manifest" "$workdir/base.json"
@@ -73,18 +88,18 @@ grep -q unchanged "$workdir/a.out"
 cmp -s "$manifest" "$workdir/base.json"
 
 echo "== B: moving code changes locations but not semantics =="
-sed -i '' 's|^verus! {$|verus! {\n\n// pushed everything two lines down|' "$workdir/incr.rs"
+edit_in_place "$workdir/incr.rs" $'verus! {\n' $'verus! {\n\n// pushed everything two lines down\n'
 regen > "$workdir/b.out"
 grep -q updated "$workdir/b.out"
 cp "$manifest" "$workdir/b.json"
 
 echo "== C: callee body-only edit touches only the callee =="
-sed -i '' 's|assert(y > 0)|assert(y > 0 \&\& y < 2000)|' "$workdir/incr.rs"
+edit_in_place "$workdir/incr.rs" 'assert(y > 0)' 'assert(y > 0 && y < 2000)'
 regen > /dev/null
 cp "$manifest" "$workdir/c.json"
 
 echo "== D: callee contract edit invalidates the caller too =="
-sed -i '' 's|y == x + 1,|y == x + 1 \&\& y <= 1000,|' "$workdir/incr.rs"
+edit_in_place "$workdir/incr.rs" 'y == x + 1,' 'y == x + 1 && y <= 1000,'
 regen > /dev/null
 cp "$manifest" "$workdir/d.json"
 

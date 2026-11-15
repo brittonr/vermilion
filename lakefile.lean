@@ -44,10 +44,18 @@ package vermilion where
   -- batch builder loads this plugin through per-module setup JSON; the language
   -- server needs it from process startup so `smt` does not crash the server.
   moreGlobalServerArgs := #[s!"--plugin=.lake/packages/cvc5/.lake/build/lib/{nameToSharedLib "cvc5_cvc5"}"]
+  -- Generated modules and proof twins must bind every name they use: with
+  -- auto-bound implicits on, a dangling IR name silently became an implicit
+  -- binder of inferred type instead of an error (issue #6). `vrml_check`
+  -- passes the same options to the `lean` processes it starts. The
+  -- Vermilion library itself keeps Lean's defaults (it relies on
+  -- auto-bound universe variables).
+  leanOptions := #[⟨`autoImplicit, false⟩, ⟨`relaxedAutoImplicit, false⟩]
 
 @[default_target]
 lean_lib Vermilion where
   srcDir := "lean"
+  leanOptions := #[⟨`autoImplicit, true⟩, ⟨`relaxedAutoImplicit, true⟩]
 
 -- The Lean half of the pipeline (docs/ir.md): parse the textual IR from
 -- vermilion_direct, generate VCs, emit generated/ modules and manifests.
@@ -55,6 +63,17 @@ lean_lib Vermilion where
 lean_exe vrml_gen where
   srcDir := "lean"
   root := `VrmlGen
+  leanOptions := #[⟨`autoImplicit, true⟩, ⟨`relaxedAutoImplicit, true⟩]
+
+-- Elaborates many generated units / proof twins against ONE imported
+-- environment (issue #11): `vrml_check` hands it every file of a run
+-- instead of starting one `lean` (and one Mathlib import) per file.
+-- `supportInterpreter` lets imported modules' initializers (attributes,
+-- options, the ladder's tactics) run in this process.
+lean_exe vrml_worker where
+  srcDir := "lean"
+  root := `VrmlWorker
+  supportInterpreter := true
 
 -- Generated modules are written beside each example/case study, but every
 -- unit consistently imports `generated.<stem>.Specs`. The editor shim builds

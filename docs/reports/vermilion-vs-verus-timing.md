@@ -34,9 +34,13 @@ Mathlib `.olean`s the kernel check imports — which barely grows with
 problem size (m2-collections, the largest, adds only ~0.1s). Verus's Z3
 finishes in roughly the ~0.3s after its own front end. So the ~4×
 end-to-end gap is a near-constant Lean/Mathlib startup cost, not an
-algorithmic one: it is paid per file, amortized by the incremental
-`vrml_check` (only hash-changed obligations re-judged) and the
-watch-mode edit loop.
+algorithmic one. It is paid per `lean` process, and is not amortized yet:
+watch mode narrows re-checks to functions whose statement hashes changed,
+but still starts a fresh `lean` (and re-imports Mathlib) for each unit.
+Amortizing it is tracked as issues #11 (one process per run) and #12
+(a persistent Lean worker). *(Corrected 2026-11-15: this paragraph
+originally credited an incremental `vrml_check` cache that was disabled by
+default and has since been removed — issue #5.)*
 
 ## Capability — the other side of the ledger
 

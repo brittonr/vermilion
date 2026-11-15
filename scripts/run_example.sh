@@ -203,7 +203,7 @@ fi
 # `lean` the cached LEAN_PATH (scripts/lean_env.sh).
 status "preparing the Lean environment (cached unless the library changed)"
 source "$repository/scripts/lean_env.sh"
-vrml_lake_build_if_stale vrml_gen Vermilion
+vrml_lake_build_if_stale vrml_gen vrml_worker Vermilion
 status "generating Lean obligations from the IR"
 # Without an explicit --per-file/--per-function, vrml_gen keeps whatever
 # mode the existing manifest records (sticky), defaulting to per-function.

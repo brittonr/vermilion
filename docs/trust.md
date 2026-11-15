@@ -46,6 +46,21 @@ smaller trust surface (kept in step with
    proof twins, reject unresolved evidence and proof holes, and propagate
    failures. These components cannot change the kernel's logical rules, but
    a bug can skip a check or report success without an accepted proof.
+   Proof twins are therefore not accepted because they *compile*: the twin
+   check (`vrml_check --twin-check`, which the fast path also uses) runs
+   each twin with a trailing `#vrml_audit`, which fails unless every
+   `@[vrml_obligation]`/`@[vrml_evidence]` declaration depends only on
+   `propext`, `Classical.choice` and `Quot.sound` — rejecting `sorry` and
+   `admit`, user `axiom`s reached through helper lemmas, and
+   `native_decide`. `vrml_sync` additionally refuses a twin block whose
+   theorem text differs from the generated declaration (restoring the
+   generated statement), so a matching marker hash is never taken as
+   evidence for an edited statement (issue #1). `vrml_worker`, which
+   elaborates a run's files against one imported environment, belongs to
+   this layer: it runs Lean's ordinary frontend (each declaration is
+   kernel-checked as under `lean <file>`), and any file it fails to account
+   for makes `vrml_check` fall back to one `lean` process per file rather
+   than report success.
 
 The kernel checks a proof of the particular statement it receives, under
 that proof's axioms. It does not establish that the statement corresponds to
@@ -122,8 +137,9 @@ Lean obligations and proof twins pass without `sorry`.
   clips fail closed rather than approximating the Unicode scalar-value gap.
 - `ediv`/`emod` agree with Verus's Euclidean division and are **opaque at
   divisor zero** (an arbitrary, unconstrained value — mirroring SMT's
-  underspecification, so nothing can be proved about `x / 0` on either
-  side).
+  underspecification, so nothing can be proved about `x / 0` or `x % 0` on
+  either side). They use separate opaque functions (`divZero`, `modZero`),
+  so even `x % 0 = x` is unprovable (issue #4).
 - Spec conditionals over values use `iteP`, which takes explicit
   `[Decidable guard]` evidence; `Seq` is a Lean `List`, `Set` a `Finset`,
   `Multiset` a Mathlib `Multiset` — all with

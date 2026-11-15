@@ -22,13 +22,12 @@ extensions. For commands, see the [development guide](../docs/development.md).
 
 ## Existing caches and their boundaries
 
-The checker contains an experimental verified-hash cache, disabled by default.
-Setting `VERMILION_CHECK_CACHE` enables it. Its implementation keys entries by
-statement hash and stamps the cache with the modification time of
-`Vermilion/Obligations.olean`; it does not implement the comprehensive
-source, imported-definition, toolchain, and proof-dependency key proposed
-below. It is not the default watch-mode mechanism. See
-[`vrml_check.rs`](../crates/vermilion_backend/src/bin/vrml_check.rs).
+The checker no longer contains a verdict cache. The experimental
+verified-hash cache (opt-in via `VERMILION_CHECK_CACHE`) keyed entries by
+statement hash alone and was stamped only by the modification time of
+`Vermilion/Obligations.olean`, so an edit to a spec-fn body, datatype or
+evidence term could have replayed a stale verdict; it was removed in issue #5.
+Any successor must implement the comprehensive key proposed below.
 
 The [differential harness](../scripts/run_differential.py) has a separate
 whole-case verdict cache. It checks source/environment keys and the presence

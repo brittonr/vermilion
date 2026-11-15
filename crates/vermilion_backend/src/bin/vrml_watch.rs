@@ -159,6 +159,42 @@ fn iteration(
     Ok(manifest)
 }
 
+/// Start a persistent `vrml_worker --serve` for this watch session
+/// (issue #12) and point every `vrml_check` child at it through
+/// `VRML_WORKER_DIR`: re-checks then pay elaboration only, not the Mathlib
+/// import. Best effort — without the worker binary (or `mkfifo`), or with
+/// `VRML_ISOLATED` set, `vrml_check` simply starts its own processes.
+fn start_persistent_worker() -> Option<std::process::Child> {
+    let worker = Path::new(".lake/build/bin/vrml_worker");
+    if std::env::var_os("VRML_ISOLATED").is_some() || !worker.exists() {
+        return None;
+    }
+    let dir = PathBuf::from(format!(".vermilion/worker-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).ok()?;
+    for fifo in ["request", "response"] {
+        let path = dir.join(fifo);
+        let _ = std::fs::remove_file(&path);
+        let made = Command::new("mkfifo").arg(&path).status().ok()?;
+        if !made.success() {
+            return None;
+        }
+    }
+    let mut command = Command::new("lake");
+    command.args(["env", ".lake/build/bin/vrml_worker", "--serve"]).arg(&dir);
+    let lib_dir = Path::new(".lake/packages/cvc5/.lake/build/lib");
+    if let Some(plugin) = ["libcvc5_cvc5.dylib", "libcvc5_cvc5.so", "cvc5_cvc5.dll"]
+        .into_iter()
+        .map(|name| lib_dir.join(name))
+        .find(|path| path.exists())
+    {
+        command.arg(format!("--plugin={}", plugin.display()));
+    }
+    let child = command.spawn().ok()?;
+    std::env::set_var("VRML_WORKER_DIR", &dir);
+    println!("[vermilion watch] persistent Lean worker started ({})", dir.display());
+    Some(child)
+}
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut arguments = std::env::args().skip(1);
     let rust_file = arguments
@@ -189,6 +225,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .ok_or("cannot derive stem")?
         .to_owned();
 
+    // Kept alive for the whole session; killed with this process group.
+    let _worker = if once { None } else { start_persistent_worker() };
     println!("[vermilion watch] initial run for {rust_file}");
     let mut manifest = iteration(&tools, &rust_file, &stem, None)?;
     if once {

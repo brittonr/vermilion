@@ -19,7 +19,7 @@ source "$repository/scripts/verus_env.sh"
 
 (cd crates/vermilion_direct && rustup run "$verus_toolchain" cargo build --release --quiet)
 cargo build --quiet -p vermilion_backend --bins
-lake build vrml_gen >/dev/null
+lake build vrml_gen vrml_worker >/dev/null
 lake build Vermilion >/dev/null
 
 exec ./target/debug/vrml_watch "$relative_dir/$source_file" \

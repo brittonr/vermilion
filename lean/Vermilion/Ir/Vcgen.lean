@@ -111,16 +111,80 @@ structure EvidenceObligation where
   consumers : Array String := #[]
   deriving Repr, BEq, Inhabited
 
+/-- Does Lean derive a `DecidableEq` instance for the model of this IR
+type without extra assumptions? `Int`, `StrSlice`, and `Seq`/`Set`/
+`Multiset` (`List`/`Finset`/Mathlib `Multiset`) of such types. Not `Prop`,
+`Map` (it holds a function), spec-fn values, type parameters (bound with
+`[Inhabited T]` only), or user datatypes (rendered `deriving Inhabited`
+only). -/
+partial def Ty.hasDecidableEq : Ty → Bool
+  | .int | .strSlice => true
+  | .seq elem | .set elem | .multiset elem => elem.hasDecidableEq
+  | _ => false
+
+/-- The IR type of an expression when its shape and the binder types in
+`env` determine it; `none` otherwise (conservative). -/
+partial def Expr.inferTy (env : List (String × Ty)) : Expr → Option Ty
+  | .var name => (env.find? (·.1 == name)).map (·.2)
+  | .int _ | .natClip _ | .sclip .. | .seqLen _ | .bitOp .. => some .int
+  | .strLit _ => some .strSlice
+  | .binary op lhs rhs =>
+    match op with
+    | .add | .sub | .mul | .ediv | .emod => some .int
+    | _ => none
+  | .seqIndex s _ =>
+    match s.inferTy env with
+    | some (.seq elem) => some elem
+    | _ => none
+  | .seqPush s _ | .seqUpdate s _ _ | .seqSubrange s _ _ | .seqAdd s _ => s.inferTy env
+  | .seqToMultiset s =>
+    match s.inferTy env with
+    | some (.seq elem) => some (.multiset elem)
+    | _ => none
+  | .seqEmpty elem => some (.seq elem)
+  | .setEmpty elem => some (.set elem)
+  | .multisetEmpty elem => some (.multiset elem)
+  | .mapEmpty key value => some (.map key value)
+  | .coll op args =>
+    match op, args[0]? with
+    | .setLen, _ | .multisetLen, _ | .multisetCount, _ => some .int
+    | .setInsert, some s | .setRemove, some s | .multisetInsert, some s
+    | .mapInsert, some s => s.inferTy env
+    | .mapIndex, some m =>
+      match m.inferTy env with
+      | some (.map _ value) => some value
+      | _ => none
+    | _, _ => none
+  | .ite _ a b => (a.inferTy env).orElse fun _ => b.inferTy env
+  | _ => none
+
+/-- Is this expression's model type statically known to have decidable
+equality? Conservative: `false` whenever `Expr.inferTy` cannot tell. -/
+def Expr.hasKnownDecidableEq (env : List (String × Ty)) (e : Expr) : Bool :=
+  ((e.inferTy env).map Ty.hasDecidableEq).getD false
+
+/-- Bind a telescope's names to their types, innermost first. -/
+def extendTypeEnv (env : List (String × Ty)) (binders : Array Binder) :
+    List (String × Ty) :=
+  binders.foldl (fun acc binder => (binder.name, binder.ty) :: acc) env
+
 partial def Expr.constructivelyDecidable
-    (propVariables : List String) : Expr → Bool
+    (env : List (String × Ty)) : Expr → Bool
   | .tt | .ff => true
-  | .var name => !propVariables.contains name
-  | .not value => value.constructivelyDecidable propVariables
+  -- A Rust-`bool` binder is an opaque `Prop`: no instance.
+  | .var name => ((env.find? (·.1 == name)).map (·.2 != .prop)).getD true
+  | .not value => value.constructivelyDecidable env
   | .binary op lhs rhs =>
     match op with
     | .and | .or | .implies | .iff | .niff =>
-      lhs.constructivelyDecidable propVariables &&
-        rhs.constructivelyDecidable propVariables
+      lhs.constructivelyDecidable env && rhs.constructivelyDecidable env
+    -- Equality is decidable only at a type with a `DecidableEq` instance;
+    -- one operand with a statically known such type fixes the type of
+    -- both. Otherwise (a datatype, a `Map`, a type parameter, or a type the
+    -- shape does not reveal) the module-wide evidence supplies the decision
+    -- instead of leaving a statement that cannot elaborate (issue #3).
+    | .eq | .ne => lhs.hasKnownDecidableEq env || rhs.hasKnownDecidableEq env
+    -- Orderings and arithmetic are over `Int` only.
     | _ => true
   -- Variant predicates have generated `Decidable` instances.
   | .isVariant .. => true
@@ -129,58 +193,58 @@ partial def Expr.constructivelyDecidable
   | _ => false
 
 /-- Does an expression contain an `iteP` whose proposition decision cannot be
-synthesized constructively from the current telescope? Nested Prop binders
-from quantifiers/lambdas are tracked as Rust-bool values too. Two consumers:
-the theorem layer collects module-wide `Decidable` evidence from it
+synthesized constructively from the current telescope? `env` gives the
+types of the binders in scope (obligation telescope, then quantifier,
+lambda and `choose` binders as they are entered). Two consumers: the
+theorem layer collects module-wide `Decidable` evidence from it
 (`collectEvidenceObligations`), and `renderSpecFn` — whose definitions
 PRECEDE the evidence — renders an affected definition with
 `open Classical in` and `noncomputable` instead (dalek-lite DL8:
 `iteP (is_negative a) …` in a spec-fn body). -/
 partial def Expr.needsDecidableEvidence
-    (propVariables : List String) : Expr → Bool
+    (env : List (String × Ty)) : Expr → Bool
   | .ite condition thenValue elseValue =>
-    !condition.constructivelyDecidable propVariables ||
-      condition.needsDecidableEvidence propVariables ||
-      thenValue.needsDecidableEvidence propVariables ||
-      elseValue.needsDecidableEvidence propVariables
+    !condition.constructivelyDecidable env ||
+      condition.needsDecidableEvidence env ||
+      thenValue.needsDecidableEvidence env ||
+      elseValue.needsDecidableEvidence env
   | .binary _ lhs rhs =>
-    lhs.needsDecidableEvidence propVariables ||
-      rhs.needsDecidableEvidence propVariables
-  | .not value => value.needsDecidableEvidence propVariables
+    lhs.needsDecidableEvidence env || rhs.needsDecidableEvidence env
+  | .not value => value.needsDecidableEvidence env
   | .urange _ value | .srange _ value | .natClip value | .sclip _ value
   | .seqLen value
   | .seqToMultiset value | .fieldOf _ _ _ value | .isVariant _ _ value =>
-    value.needsDecidableEvidence propVariables
+    value.needsDecidableEvidence env
   | .seqPush lhs rhs | .seqIndex lhs rhs | .seqAdd lhs rhs
   | .seqNew lhs rhs | .bitOp _ _ _ lhs rhs =>
-    lhs.needsDecidableEvidence propVariables ||
-      rhs.needsDecidableEvidence propVariables
+    lhs.needsDecidableEvidence env || rhs.needsDecidableEvidence env
   | .seqUpdate first second third | .seqSubrange first second third =>
-    first.needsDecidableEvidence propVariables ||
-      second.needsDecidableEvidence propVariables ||
-      third.needsDecidableEvidence propVariables
+    first.needsDecidableEvidence env ||
+      second.needsDecidableEvidence env ||
+      third.needsDecidableEvidence env
   | .vstdApply _ _ args | .coll _ args | .apply _ _ args
-  | .ctor _ _ _ args => args.any (Expr.needsDecidableEvidence propVariables)
+  | .ctor _ _ _ args => args.any (Expr.needsDecidableEvidence env)
   | .quant _ binders triggers body =>
-    let nested := binders.foldl (fun names binder =>
-      if binder.ty == .prop then binder.name :: names else names) propVariables
+    let nested := extendTypeEnv env binders
     triggers.any (fun group => group.any (Expr.needsDecidableEvidence nested)) ||
       body.needsDecidableEvidence nested
   | .lambda binders body =>
-    let nested := binders.foldl (fun names binder =>
-      if binder.ty == .prop then binder.name :: names else names) propVariables
-    body.needsDecidableEvidence nested
+    body.needsDecidableEvidence (extendTypeEnv env binders)
+  -- A `choose` predicate can hold conditionals too (issue #3).
+  | .choose binder triggers body =>
+    let nested := extendTypeEnv env #[binder]
+    triggers.any (fun group => group.any (Expr.needsDecidableEvidence nested)) ||
+      body.needsDecidableEvidence nested
   | .callFn callee args =>
-    callee.needsDecidableEvidence propVariables ||
-      args.any (Expr.needsDecidableEvidence propVariables)
+    callee.needsDecidableEvidence env ||
+      args.any (Expr.needsDecidableEvidence env)
   | _ => false
 
 private def Obligation.needsDecidableEvidence (obligation : Obligation) : Bool :=
-  let propVariables := obligation.binders.foldl (fun names binder =>
-    if binder.ty == .prop then binder.name :: names else names) []
-  obligation.goal.needsDecidableEvidence propVariables ||
+  let env := extendTypeEnv [] obligation.binders
+  obligation.goal.needsDecidableEvidence env ||
     obligation.hypotheses.any fun hypothesis =>
-      hypothesis.proposition.needsDecidableEvidence propVariables
+      hypothesis.proposition.needsDecidableEvidence env
 
 /-- Collect and deduplicate class evidence demanded by the rendered theorem
 layer. The first producer is deliberately module-wide `Decidable p`: it
@@ -392,56 +456,78 @@ private partial def processStmts
 
 end
 
-/-- Collect the distinct `choose` terms of an expression as
-(binder, guarded predicate) pairs, pre-order, deduplicated — triggers are
-dropped (metadata) so two occurrences differing only in triggers coincide.
-The generator injects one conditional characterizing hypothesis per pair
-(docs/vcgen.md). -/
-partial def Expr.collectChoose : Expr → Array (Binder × Expr)
+/-- Collect the distinct `choose` terms of an expression, pre-order, as
+(enclosing binders, binder, guarded predicate) triples. `outer` is the
+stack of quantifier/lambda/choose binders the term sits under: a predicate
+mentioning one of them is meaningful only inside that scope, so the
+characterizing fact must be closed over it (issue #2). Triggers are dropped
+(metadata) so two occurrences differing only in triggers coincide. -/
+partial def Expr.collectChooseUnder (outer : Array Binder) :
+    Expr → Array (Array Binder × Binder × Expr)
   | .choose binder _ body =>
-    #[(binder, body)] ++ body.collectChoose
-  | .quant _ _ _ body | .lambda _ body => body.collectChoose
+    #[(outer, binder, body)] ++ body.collectChooseUnder (outer.push binder)
+  | .quant _ binders _ body | .lambda binders body =>
+    body.collectChooseUnder (outer ++ binders)
   | .callFn callee args =>
-    args.foldl (fun acc arg => acc ++ arg.collectChoose) callee.collectChoose
-  | .binary _ lhs rhs => lhs.collectChoose ++ rhs.collectChoose
-  | .not e => e.collectChoose
-  | .ite c t f => c.collectChoose ++ t.collectChoose ++ f.collectChoose
-  | .urange _ e | .srange _ e | .natClip e | .sclip _ e => e.collectChoose
-  | .seqLen e | .seqToMultiset e => e.collectChoose
+    args.foldl (fun acc arg => acc ++ arg.collectChooseUnder outer)
+      (callee.collectChooseUnder outer)
+  | .binary _ lhs rhs => lhs.collectChooseUnder outer ++ rhs.collectChooseUnder outer
+  | .not e => e.collectChooseUnder outer
+  | .ite c t f =>
+    c.collectChooseUnder outer ++ t.collectChooseUnder outer ++ f.collectChooseUnder outer
+  | .urange _ e | .srange _ e | .natClip e | .sclip _ e => e.collectChooseUnder outer
+  | .seqLen e | .seqToMultiset e => e.collectChooseUnder outer
   | .seqPush a b | .seqIndex a b | .seqNew a b | .seqAdd a b =>
-    a.collectChoose ++ b.collectChoose
+    a.collectChooseUnder outer ++ b.collectChooseUnder outer
   | .seqUpdate a b c | .seqSubrange a b c =>
-    a.collectChoose ++ b.collectChoose ++ c.collectChoose
-  | .vstdApply _ _ args =>
-    args.foldl (fun acc arg => acc ++ arg.collectChoose) #[]
-  | .bitOp _ _ _ a b => a.collectChoose ++ b.collectChoose
-  | .coll _ args | .apply _ _ args | .ctor _ _ _ args =>
-    args.foldl (fun acc arg => acc ++ arg.collectChoose) #[]
-  | .fieldOf _ _ _ e | .isVariant _ _ e => e.collectChoose
+    a.collectChooseUnder outer ++ b.collectChooseUnder outer ++ c.collectChooseUnder outer
+  | .vstdApply _ _ args | .coll _ args | .apply _ _ args | .ctor _ _ _ args =>
+    args.foldl (fun acc arg => acc ++ arg.collectChooseUnder outer) #[]
+  | .bitOp _ _ _ a b => a.collectChooseUnder outer ++ b.collectChooseUnder outer
+  | .fieldOf _ _ _ e | .isVariant _ _ e => e.collectChooseUnder outer
   | _ => #[]
 
+/-- The enclosing binders a `choose` predicate actually mentions, innermost
+occurrence of each name only (an outer binder shadowed by an inner one of
+the same name is not referenced), in their original order. -/
+private def chooseScope (outer : Array Binder) (binder : Binder) (body : Expr) :
+    Array Binder := Id.run do
+  let free := body.freeVars.filter (· != binder.name)
+  let mut kept : Array Binder := #[]
+  for i in [0:outer.size] do
+    let candidate := outer[i]!
+    let shadowed := (outer.extract (i + 1) outer.size).any (·.name == candidate.name)
+    if free.contains candidate.name && !shadowed then
+      kept := kept.push candidate
+  return kept
 
 /-- The conditional characterizing hypothesis for one `choose` term
 (docs/vcgen.md `(CHOOSE)`): `(∃ x, p x) → (fun x => p x) (chooseSpec p)` —
 a ground instance of the proved `Vermilion.chooseSpec_spec`, so assuming it
-adds nothing to the trusted base. The consequent is a beta-redex on purpose:
-no expression substitution is needed and `simp`'s beta reduction exposes the
-fact to the ladder. -/
-private def chooseHypothesis (index : Nat) (term : Binder × Expr) : Hypothesis :=
-  let (binder, body) := term
+adds nothing to the trusted base. When the predicate mentions enclosing
+binders `ȳ`, the fact is closed over them: `∀ ȳ, (∃ x, p x ȳ) → …`, still
+an instance of the same theorem for every `ȳ`. The consequent is a
+beta-redex on purpose: no expression substitution is needed and `simp`'s
+beta reduction exposes the fact to the ladder. -/
+private def chooseHypothesis (index : Nat) (term : Array Binder × Binder × Expr) :
+    Hypothesis :=
+  let (scope, binder, body) := term
+  let fact := Expr.binary .implies
+    (.quant false #[binder] #[] body)
+    (.callFn (.lambda #[binder] body) #[.choose binder #[] body])
   { name := s!"choose_spec_{index}"
-    proposition := .binary .implies
-      (.quant false #[binder] #[] body)
-      (.callFn (.lambda #[binder] body) #[.choose binder #[] body]) }
+    proposition := if scope.isEmpty then fact else .quant true scope #[] fact }
 
 /-- Prepend the per-occurrence `choose` characterizing facts to an
-obligation: one hypothesis per distinct (binder, predicate) pair occurring
-in its hypotheses or goal. -/
+obligation: one hypothesis per distinct (scope, binder, predicate) triple
+occurring in its hypotheses or goal. -/
 private def withChooseFacts (obligation : Obligation) : Obligation :=
   let terms := obligation.hypotheses.foldl
-    (fun acc h => acc ++ h.proposition.collectChoose)
-    obligation.goal.collectChoose
-  let distinct := terms.foldl
+    (fun acc h => acc ++ h.proposition.collectChooseUnder #[])
+    (obligation.goal.collectChooseUnder #[])
+  let closed := terms.map fun (outer, binder, body) =>
+    (chooseScope outer binder body, binder, body)
+  let distinct := closed.foldl
     (fun acc term => if acc.contains term then acc else acc.push term) #[]
   if distinct.isEmpty then obligation
   else { obligation with
@@ -514,7 +600,20 @@ def Obligation.hygieneViolations (obligation : Obligation) : Array String := Id.
     seen := seen.push (name, role)
   for hypothesis in obligation.hypotheses do
     out := out ++ hypothesis.proposition.hygieneViolations.map (s!"{hypothesis.name}: " ++ ·)
-  return out ++ obligation.goal.hygieneViolations
+  out := out ++ obligation.goal.hygieneViolations
+  -- Scope: every variable free in a hypothesis or the goal must be bound by
+  -- the telescope. Generated modules are elaborated without auto-bound
+  -- implicits (issue #6), so a dangling name would be an elaboration error;
+  -- reporting it here fails `vrml_gen` closed at the right obligation.
+  let bound := obligation.typeParams ++ obligation.binders.map (·.name)
+  let unbound (e : Expr) := (e.freeVars.filter (!bound.contains ·)).foldl
+    (fun acc name => if acc.contains name then acc else acc.push name) #[]
+  for hypothesis in obligation.hypotheses do
+    for name in unbound hypothesis.proposition do
+      out := out.push s!"{hypothesis.name}: variable `{name}` is not bound by the obligation telescope"
+  for name in unbound obligation.goal do
+    out := out.push s!"goal: variable `{name}` is not bound by the obligation telescope"
+  return out
 
 /-- Generate VCs from a normalized, SSA-like statement list. `specFns`
 seeds the reveal-visibility defaults (ordinary spec fns visible, opaque

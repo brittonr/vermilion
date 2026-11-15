@@ -57,7 +57,7 @@ namespace SequenceMath
 
 open Vermilion.Seq
 
-@[simp, grind =] theorem toMultiset_add (s1 s2 : Vermilion.Seq α) :
+@[simp, grind =] theorem toMultiset_add {α : Type _} (s1 s2 : Vermilion.Seq α) :
     (s1.add s2).toMultiset = s1.toMultiset + s2.toMultiset := by
   simp [toMultiset, add]
 

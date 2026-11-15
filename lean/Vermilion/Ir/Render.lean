@@ -351,9 +351,7 @@ instance, so an affected one is rendered under `open Classical in` and
 goes `noncomputable` instead. The fn's own Prop-typed (Rust `bool`)
 parameters seed the opaque-variable telescope. -/
 def SpecFn.needsPropDecidable (specFn : SpecFn) : Bool :=
-  let propVariables := specFn.binders.foldl (fun names binder =>
-    if binder.ty == .prop then binder.name :: names else names) []
-  specFn.body.needsDecidableEvidence propVariables
+  specFn.body.needsDecidableEvidence (extendTypeEnv [] specFn.binders)
 
 /-- The qualified names of the spec fns whose emitted definitions must be
 `noncomputable`: uninterpreted ones (rendered `opaque`), bodies that are
