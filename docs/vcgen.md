@@ -743,7 +743,11 @@ the target theorems are:
    an injective naming — so the emitted text proves exactly `∀ Θ, ∀ Γ_σ,
    (⋀ H_σ) → φ` and nothing weaker. Together with the lowering's
    capture-free substitution this is the whole naming trust: nothing else
-   about identifiers is assumed.
+   about identifiers is assumed. Rendering is also type-faithful: every IR
+   integer is a Lean `Int`, and a comparison whose operands are both
+   literal-only and can differ over `Nat` (a subtraction or a negative
+   literal) is ascribed `: Int` (`needsIntAnchor` in `Print.lean`), since
+   unanchored numerals default to `Nat` where `0 - 1 = 0` (c204).
 5. **Coherence (differential).** The mechanized policy keeps the differential
    parity the `tests/differential/` corpus measures: same accept/reject
    verdict as Verus, including the `reveal`/`hide`/fuel behavior encoded in V.

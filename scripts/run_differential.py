@@ -24,7 +24,7 @@ import threading
 import time
 from pathlib import Path
 
-from differential_outcomes import classify_verus, classify_lean
+from differential_outcomes import Outcome, classify_verus, classify_lean
 
 ROOT = Path(__file__).resolve().parent.parent
 CASES = ROOT / "tests" / "differential"
@@ -142,23 +142,40 @@ def main() -> int:
     # (Verus binary, Vermilion tools, Lean library) changed AND the generated
     # editor artifacts still exist, both verdicts are replayed from the
     # previous run — no Verus, no Lean.
-    def stamp(path):
-        try:
-            return str(Path(path).stat().st_mtime_ns)
-        except OSError:
-            return "?"
     # The Lean side is stamped by SOURCE content, not build-artifact mtime:
     # Lake does not necessarily rewrite a given .olean when the library
     # changes (and may rewrite content while preserving mtimes), so an
     # artifact stamp can silently replay verdicts from a superseded library.
     lean_digest = hashlib.sha256()
-    for source in sorted([ROOT / "lakefile.lean",
+    # Everything the Lean verdict depends on besides our own sources: the
+    # toolchain version and the pinned Mathlib/lean-smt/cvc5 revisions
+    # (issue #15).
+    for source in sorted([ROOT / "lakefile.lean", ROOT / "lean-toolchain",
+                          ROOT / "lake-manifest.json",
                           *(ROOT / "lean").rglob("*.lean")]):
         lean_digest.update(str(source.relative_to(ROOT)).encode())
         lean_digest.update(source.read_bytes())
+
+    def content(path):
+        """Content hash of a file (tool binaries, plugins): mtimes move on
+        `touch` and survive content changes across checkouts."""
+        try:
+            return hashlib.sha256(Path(path).read_bytes()).hexdigest()[:16]
+        except OSError:
+            return "?"
+
+    release = checkout / "source/target-verus/release"
+    z3_version = subprocess.run([str(checkout / "source/z3"), "--version"],
+                                capture_output=True, text=True).stdout.strip()
+    cvc5_plugins = sorted((ROOT / ".lake/packages/cvc5/.lake/build/lib").glob("*cvc5_cvc5*"))
     environment = "|".join([
-        stamp(verus), stamp(direct), stamp(vrml_gen), stamp(check),
-        lean_digest.hexdigest(), emit_mode, "classified-outcomes-v3",
+        content(verus), content(release / "libvstd.rlib"),
+        content(release / "vstd.vir"), (release / "version.txt").read_text().strip()
+        if (release / "version.txt").exists() else "?",
+        toolchain, z3_version,
+        content(direct), content(vrml_gen), content(check),
+        content(cvc5_plugins[0]) if cvc5_plugins else "no-cvc5",
+        lean_digest.hexdigest(), emit_mode, "classified-outcomes-v4",
     ])
     cache_path = ROOT / ".vermilion" / "differential-cache.json"
     try:
@@ -201,6 +218,7 @@ def main() -> int:
         return not imports_specs or (generated_root / "Specs.lean").is_file()
 
     rows, verdict_hits, span_hits, span_total = [], 0, 0, 0
+    divergences, false_acceptances, span_mismatches = 0, [], []
     cases = sorted(CASES.glob("*.rs"))
     progress = Progress(len(cases))
 
@@ -248,17 +266,36 @@ def main() -> int:
         vermilion_seconds = time.monotonic() - started
         lean_outcome = classify_lean(
             check_run.returncode, check_run.stdout, check_run.stderr)
+        diagnostics = [json.loads(line) for line in check_run.stdout.splitlines()
+                       if line.startswith("{")]
+
+        def covered(message):
+            return (message.get("vermilion") or {}).get("covered_by_twin") is True
+        # Failure lines: real failures only. A twin-covered obligation's
+        # receipt carries a span too, but it is not a failure.
         lean_lines = sorted({
             span["line_start"]
-            for line in check_run.stdout.splitlines()
-            if line.startswith("{")
-            for message in [json.loads(line)]
+            for message in diagnostics if not covered(message)
             for span in message.get("spans", [])
             if isinstance(span, dict) and isinstance(span.get("line_start"), int)})
+        # A twin-covered obligation is only as good as the twin: kernel-check
+        # it (with the #vrml_audit of issue #1) before counting the case as a
+        # Lean pass. A twin that does not check is a Lean rejection (#14).
+        twin_covered = sum(1 for message in diagnostics if covered(message))
+        if twin_covered:
+            progress.show(case.stem, "kernel-checking the proofs twin")
+            twin_run = sh([str(check), str(manifest), "--twin-check"])
+            vermilion_seconds = time.monotonic() - started
+            if twin_run.returncode != 0:
+                lean_outcome = Outcome(
+                    "rejected",
+                    f"{twin_covered} twin-covered obligation(s), but the twin "
+                    "does not kernel-check")
         progress.advance(case.stem)
         return {
             "verus_pass": verus_pass, "verus_lines": verus_lines,
             "lean_pass": lean_outcome.passed, "lean_lines": lean_lines,
+            "twin_covered": twin_covered,
             "verus_outcome": verus_outcome.status,
             "lean_outcome": lean_outcome.status,
             "outcome_detail": f"{verus_outcome.reason}; {lean_outcome.reason}",
@@ -275,12 +312,18 @@ def main() -> int:
         rel = case.relative_to(ROOT)
         source = case.read_text()
         header = source.splitlines()[0]
-        match = re.match(r"// expect: (pass|fail)(?: @ (\d+))?", header)
+        # `lean-only pass`: a documented divergence where Lean proves what
+        # Verus cannot (exact `as` casts, nat clips, shifts without
+        # `bit_vector` — docs/trust.md, issue #17). Expected: Verus fails,
+        # Lean passes. Every other Verus-fail/Lean-pass is a false
+        # acceptance.
+        match = re.match(r"// expect: (pass|fail|lean-only pass)(?: @ (\d+))?", header)
         assert match, f"{case} lacks an expectation header"
-        expect_pass = match.group(1) == "pass"
+        expect_pass = match.group(1) in ("pass", "lean-only pass")
+        lean_only = match.group(1) == "lean-only pass"
         expect_line = int(match.group(2)) if match.group(2) else None
         key = hashlib.sha256(source.encode()).hexdigest()
-        prepared.append((case, expect_pass, expect_line, key))
+        prepared.append((case, expect_pass, lean_only, expect_line, key))
         cached = cache["cases"].get(case.stem)
         if (cached and cached.get("key") == key
                 and generated_artifacts_ready(case.stem)):
@@ -296,18 +339,18 @@ def main() -> int:
     # Infrastructure failures must fail independently of the parity gate.
     infrastructure_failures = []
     # Verdicts, in deterministic case order.
-    for case, expect_pass, expect_line, key in prepared:
+    for case, expect_pass, lean_only, expect_line, key in prepared:
         result = results[case.stem]
         if result.get("translation_failed"):
             infrastructure_failures.append((case.stem, "translation failed"))
             rows.append((case.stem, result["verus_pass"], None,
-                         "translation failed", False, ""))
+                         "translation failed", False, "", "-"))
             continue
         if (result.get("verus_outcome") not in ("verified", "rejected")
                 or result.get("lean_outcome") not in ("verified", "rejected")):
             infrastructure_failures.append((case.stem, result.get("outcome_detail", "unclassified")))
             rows.append((case.stem, None, None, "infrastructure failure", False,
-                         result.get("outcome_detail", "unclassified")))
+                         result.get("outcome_detail", "unclassified"), "-"))
             continue
         verus_pass = result["verus_pass"]
         verus_lines = result["verus_lines"]
@@ -316,6 +359,7 @@ def main() -> int:
         cache["cases"][case.stem] = {
             "key": key, "verus_pass": verus_pass, "verus_lines": verus_lines,
             "lean_pass": lean_pass, "lean_lines": lean_lines,
+            "twin_covered": result.get("twin_covered", 0),
             "verus_outcome": result["verus_outcome"],
             "lean_outcome": result["lean_outcome"],
             "outcome_detail": result.get("outcome_detail", ""),
@@ -323,18 +367,34 @@ def main() -> int:
             "vermilion_seconds": result.get("vermilion_seconds"),
         }
 
-        verdict_ok = verus_pass == lean_pass and verus_pass == expect_pass
+        if lean_only:
+            verdict_ok = not verus_pass and lean_pass
+            divergences += verdict_ok
+        else:
+            verdict_ok = verus_pass == lean_pass and verus_pass == expect_pass
         verdict_hits += verdict_ok
+        # The soundness-relevant direction: Lean accepts what Verus rejects,
+        # outside the documented `lean-only pass` cases. Never tolerated.
+        if lean_pass and not verus_pass and not lean_only:
+            false_acceptances.append(case.stem)
         span_note = ""
         if not expect_pass:
             span_total += 1
-            span_ok = bool(lean_lines) and (
-                lean_lines[0] in verus_lines or lean_lines[0] == expect_line)
+            # Every Lean failure line must be a Verus failure line (or the
+            # declared one), and there must be at least one: an extra,
+            # spurious Lean failure is a mismatch too (#13).
+            allowed = set(verus_lines) | ({expect_line} if expect_line else set())
+            span_ok = bool(lean_lines) and set(lean_lines) <= allowed
             span_hits += span_ok
+            if not span_ok:
+                span_mismatches.append(case.stem)
             span_note = f"verus {verus_lines} / lean {lean_lines}" + (
                 "" if span_ok else "  <-- MISMATCH")
+        covered_count = result.get("twin_covered", 0)
+        how = "-" if lean_pass is None else (
+            "fail" if not lean_pass else (f"twin ({covered_count})" if covered_count else "auto"))
         rows.append((case.stem, verus_pass, lean_pass, "ok" if verdict_ok else "MISMATCH",
-                     verdict_ok, span_note))
+                     verdict_ok, span_note, how))
 
     progress.finish()
     cache_path.write_text(json.dumps(cache))
@@ -360,16 +420,18 @@ def main() -> int:
         "",
         "Generated by `scripts/run_differential.py`. Do not edit.",
         "",
-        "| Case | Verus | Lean | Verdict | Failure lines |",
-        "|---|---|---|---|---|",
+        "| Case | Verus | Lean | Lean pass via | Verdict | Failure lines |",
+        "|---|---|---|---|---|---|",
     ]
-    for stem, verus_ok, lean_ok, note, _, span_note in rows:
+    for stem, verus_ok, lean_ok, note, _, span_note, how in rows:
         show = lambda value: "-" if value is None else ("pass" if value else "fail")
-        lines.append(f"| {stem} | {show(verus_ok)} | {show(lean_ok)} | {note} | {span_note} |")
+        lines.append(f"| {stem} | {show(verus_ok)} | {show(lean_ok)} | {how} | {note} | {span_note} |")
     lines += [
         "",
-        f"Verdict parity: **{verdict_hits}/{len(cases)}** ({parity:.0%}); "
-        f"failure-span agreement: **{span_hits}/{span_total}**.",
+        f"Verdict parity: **{verdict_hits}/{len(cases)}** ({parity:.0%}), "
+        f"including {divergences} documented `lean-only pass` divergence(s); "
+        f"failure-span agreement: **{span_hits}/{span_total}**; "
+        f"false acceptances: **{len(false_acceptances)}**.",
         "",
     ]
     (OUT / "differential-m1-results.md").write_text("\n".join(lines))
@@ -378,6 +440,15 @@ def main() -> int:
         for name, detail in infrastructure_failures:
             print(f"infrastructure failure in {name}: {detail}", file=sys.stderr)
         return 2
+    # The percentage gate tolerates Lean-side incompleteness only (Verus
+    # passes, Lean fails: an interactive twin can close it). A false
+    # acceptance or a failure-span mismatch always fails the run (#13).
+    for name in false_acceptances:
+        print(f"FALSE ACCEPTANCE: {name} (Verus rejects, Lean accepts)", file=sys.stderr)
+    for name in span_mismatches:
+        print(f"SPAN MISMATCH: {name}", file=sys.stderr)
+    if false_acceptances or span_mismatches:
+        return 1
     return 0 if parity >= GATE else 1
 
 

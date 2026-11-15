@@ -197,3 +197,20 @@ private def dataTy : Ty := .data subject #[]
   [("s", .seq .int), ("y", .int)]
 #guard (Expr.ite (eq (var "a") (var "b")) (.int 1) (.int 2)).needsDecidableEvidence
   [("a", dataTy), ("b", dataTy)]
+
+/-! Literal-only comparisons are anchored at `Int` (c204): unanchored
+numerals default to `Nat`, where `0 - 1 = 0`. Comparisons that cannot
+differ between `Nat` and `Int`, or that contain a typed leaf, are left
+unannotated so their statement hashes are stable. -/
+
+private def minusOneMod256 : Expr :=
+  .binary .emod (.binary .sub (.int 0) (.int 1)) (.int 256)
+
+#guard (eq minusOneMod256 (.int 0)).renderTop == "(((0 - 1) % 256) : Int) = 0"
+#guard (eq minusOneMod256 (.int 0)).render == "((((0 - 1) % 256) : Int) = 0)"
+#guard (lt (.int (-1)) (.int 0)).renderTop == "((-1) : Int) < 0"
+#guard (lt (.int 10) (.int 100)).renderTop == "10 < 100"
+#guard (eq (var "x") minusOneMod256).renderTop == "x = ((0 - 1) % 256)"
+
+-- The anchored statement is false over `Int`, as Verus says.
+example : ¬ ((((0 - 1) % 256) : Int) = 0) := by decide

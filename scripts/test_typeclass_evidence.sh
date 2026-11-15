@@ -58,6 +58,25 @@ assert old in text
 path.write_text(text.replace(old, "  exact Classical.propDecidable p\n", 1))
 ' "$twin"
 
+# A twin-covered obligation is only as good as the twin: the static
+# coverage check accepts an ill-typed body, so `--twin-check` (what the
+# differential harness runs for twin-covered cases, #14) must reject it.
+cp "$twin" "$workdir/good-twin.lean"
+python3 -c '
+from pathlib import Path
+import sys
+path = Path(sys.argv[1])
+text = path.read_text()
+old = "  exact Classical.propDecidable p\n"
+assert old in text
+path.write_text(text.replace(old, "  exact (42 : Nat)\n", 1))
+' "$twin"
+if ./target/debug/vrml_check "$manifest" --twin-check >/dev/null 2>&1; then
+  echo "an ill-typed evidence twin unexpectedly kernel-checked" >&2
+  exit 1
+fi
+cp "$workdir/good-twin.lean" "$twin"
+
 # Kernel-check the twins mode-agnostically (compiles the shared Specs/
 # Evidence twin oleans itself, no Lake lib needed for this ad-hoc dir).
 ./target/debug/vrml_check "$manifest" --twin-check

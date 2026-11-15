@@ -6,7 +6,7 @@ from pathlib import Path
 
 def gate(report: str, corpus: Path) -> tuple[int, str]:
     rows = report.splitlines()
-    header = "| Case | Verus | Lean | Verdict | Failure lines |"
+    header = "| Case | Verus | Lean | Lean pass via | Verdict | Failure lines |"
     if rows.count(header) != 1:
         return 2, "missing or ambiguous verdict table"
     idx = rows.index(header)
@@ -17,9 +17,9 @@ def gate(report: str, corpus: Path) -> tuple[int, str]:
         if not line.startswith("|"):
             break
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
-        if len(cells) != 5:
+        if len(cells) != 6:
             return 2, "malformed table row"
-        name, verus, lean, note, _ = cells
+        name, verus, lean, _, note, _ = cells
         if not name or name in got:
             return 2, "duplicate or missing name"
         if verus not in ("pass", "fail") or lean not in ("pass", "fail"):
@@ -30,16 +30,23 @@ def gate(report: str, corpus: Path) -> tuple[int, str]:
     expected = {}
     for path in corpus.glob("*.rs"):
         first = path.read_text(encoding="utf-8").splitlines()[0]
-        match = re.fullmatch(r"// expect: (pass|fail)(?: @ \d+)?", first)
+        match = re.fullmatch(r"// expect: (pass|fail|lean-only pass)(?: @ \d+)?", first)
         if not match:
             return 2, f"invalid expectation: {path.name}"
-        expected[path.stem] = match.group(1) == "pass"
+        expected[path.stem] = match.group(1)
     if not expected or got.keys() != expected.keys():
         return 2, f"coverage mismatch: missing={sorted(expected.keys()-got.keys())}"
     for case, (verus, lean) in got.items():
+        # `lean-only pass` is the one documented direction where Lean may
+        # accept what Verus rejects (docs/trust.md, issue #17); it is exempted
+        # here and nowhere else.
+        if expected[case] == "lean-only pass":
+            if verus or not lean:
+                return 1, f"lean-only pass case no longer diverges: {case}"
+            continue
         if not verus and lean:
             return 1, f"FALSE ACCEPTANCE: {case}"
-        if verus != lean or verus != expected[case]:
+        if verus != lean or verus != (expected[case] == "pass"):
             return 1, f"mismatch: {case}"
     return 0, f"all {len(got)} differential cases agreed with Verus and expectations"
 

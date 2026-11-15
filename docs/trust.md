@@ -125,6 +125,11 @@ Lean obligations and proof twins pass without `sorry`.
 
 ## Embedding conventions (prelude)
 
+- Every IR integer is a Lean `Int`. A comparison whose operands are both
+  literal-only (no typed leaf, e.g. a constant-folded `(-1i64) as u8 == 0`
+  rendered as `(0 - 1) % 256 = 0`) is ascribed `: Int` by the renderer
+  (`Expr.closedNumeric`, `Print.lean`): unanchored numerals default to
+  `Nat`, where `0 - 1 = 0`, and such a goal was a false acceptance (c204).
 - Machine integers of every width embed as Lean `Int` with **explicit
   range facts** (`inUnsignedRange`/`inSignedRange`); `bool` embeds as
   `Prop`. Overflow is a proof obligation at the producing site; ranges
@@ -135,6 +140,18 @@ Lean obligations and proof twins pass without `sorry`.
   assertion: explicit `verus_builtin::{add,sub,mul}` operations can be
   wrapping. c144/c145 pin `u32` multiplication in both directions. `char`
   clips fail closed rather than approximating the Unicode scalar-value gap.
+  **Deliberate divergence from Verus (issue #17):** Verus constrains the
+  value of an `as` cast only for in-range operands, so it cannot prove the
+  value of an out-of-range cast (`(-1i64) as u8 == 255`, `0xffff_ffffu64 as
+  i32 == -1`) or of a negative `int as nat` (Vermilion: `0`). Vermilion
+  lowers every `Clip` exactly, which is Rust's actual semantics for exec
+  casts and one fixed model of the value Verus leaves free for ghost
+  `as nat`. Likewise, shifts close without `by (bit_vector)` because the
+  prelude defines them arithmetically. These are the only places Lean may
+  accept what Verus rejects; the differential corpus pins each one with the
+  `// expect: lean-only pass` header (c200-c203, plus the false-cast
+  control c204), which `scripts/differential_soundness.py` exempts and
+  nothing else does.
 - `ediv`/`emod` agree with Verus's Euclidean division and are **opaque at
   divisor zero** (an arbitrary, unconstrained value — mirroring SMT's
   underspecification, so nothing can be proved about `x / 0` or `x % 0` on

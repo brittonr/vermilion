@@ -90,6 +90,17 @@ progress bar:
 ./scripts/run_suite.sh --differential
 ```
 
+Each corpus case starts with an expectation header: `// expect: pass`,
+`// expect: fail @ LINE`, or `// expect: lean-only pass` for the documented
+divergences where Lean proves what Verus cannot (exact casts and shifts;
+see `docs/trust.md`). The harness fails on any false acceptance (Lean
+passes, Verus rejects, outside `lean-only pass`) and on any failure-span
+mismatch, whatever the parity percentage; `scripts/differential_soundness.py`
+then demands exact agreement. Cases with twin-covered obligations count as
+Lean passes only after `vrml_check --twin-check` kernel-checks the twin, and
+the results table says which passes came from automation and which from a
+twin.
+
 For an interactive edit loop outside the editor, keep one source under
 watch. The watcher detects changed obligation hashes and rechecks all
 obligations in each affected function:

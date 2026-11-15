@@ -785,7 +785,24 @@ fn twin_check(
     };
     let mut twins: Vec<String> = Vec::new();
     let mut skipped = 0usize;
+    // Coverage detection falls back to the legacy per-file twin when a
+    // per-function manifest's unit twins do not exist yet
+    // (`twin_source_with_fallback`). The kernel check must check the text
+    // coverage was claimed from, so it falls back the same way, provided
+    // every unit does (the per-file twin is self-contained: no Specs or
+    // Evidence oleans). Otherwise a covered verdict would rest on a twin
+    // nothing ever elaborated (issue #14).
+    let legacy = format!("{}.lean", twin_of(&manifest.lean_file));
+    let legacy_only = per_function
+        && Path::new(&legacy).exists()
+        && units.iter().all(|unit| !Path::new(&unit.twin).exists());
+    if legacy_only {
+        twins.push(legacy.clone());
+    }
     for unit in units {
+        if legacy_only {
+            break;
+        }
         if !Path::new(&unit.twin).exists() {
             eprintln!("twin check: {} does not exist — run vrml_sync first", unit.twin);
             return 2;
@@ -799,7 +816,7 @@ fn twin_check(
         }
     }
     let mut extra_root: Option<String> = None;
-    if per_function {
+    if per_function && !legacy_only {
         if let (Some(specs_lean), Some(specs_module)) =
             (&manifest.specs_lean, &manifest.specs_module)
         {
@@ -885,7 +902,11 @@ fn twin_check(
     // The Evidence twin is imported (as an olean) by the other unit twins,
     // so it cannot share the worker's union environment with them: it is
     // checked by its own `lean` process, concurrently with the batch.
-    let evidence_twin = evidence_module_of(manifest, "proofs").map(|(twin, _)| twin);
+    let evidence_twin = if legacy_only {
+        None
+    } else {
+        evidence_module_of(manifest, "proofs").map(|(twin, _)| twin)
+    };
     let (solo, batch): (Vec<usize>, Vec<usize>) = (0..twins.len())
         .partition(|&index| Some(&twins[index]) == evidence_twin.as_ref());
     let pick = |indices: &[usize]| indices.iter().map(|&i| audited[i].clone()).collect::<Vec<_>>();

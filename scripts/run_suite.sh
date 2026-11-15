@@ -91,6 +91,11 @@ if [[ "$scope" == differential ]]; then
   banner "differential" "corpus (Verus as oracle)"
   ./scripts/setup_verus.sh
   python3 scripts/run_differential.py
+  # Exact gate: the harness's percentage gate tolerates Lean-side
+  # incompleteness; this one fails on any disagreement and on any false
+  # acceptance outside the documented `lean-only pass` cases (#13).
+  python3 scripts/differential_soundness.py \
+    docs/reports/generated/differential-m1-results.md tests/differential
   ./scripts/test_differential_editor.sh
   echo "differential corpus passed: verdict and failure-span parity hold."
   exit 0
@@ -185,6 +190,8 @@ lake build $(grep '^lean_lib ' lakefile.lean | awk '{print $2}' \
 echo "all twin libraries lake-build"
 banner "6/$phases" "differential corpus (Verus as oracle)"
 python3 scripts/run_differential.py
+python3 scripts/differential_soundness.py \
+  docs/reports/generated/differential-m1-results.md tests/differential
 ./scripts/test_differential_editor.sh
 
 echo "Vermilion suite passed: every example and case study verified by Lean" \

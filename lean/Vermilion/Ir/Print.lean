@@ -30,6 +30,41 @@ private def BinOp.leanSymbol : BinOp → Option String
   | .implies => some "→"
   | .ediv | .emod | .niff => none
 
+/-- An integer-valued expression with no typed leaf: only literals, combined
+by arithmetic and (type-polymorphic) `iteP` branches. Lean elaborates such a
+term with no type anchor, so its numerals default to `Nat` -- where
+`0 - 1 = 0` -- unless the renderer ascribes `Int` (the IR's only integer
+type). -/
+def Expr.closedNumeric : Expr → Bool
+  | .int _ => true
+  | .binary .add l r | .binary .sub l r | .binary .mul l r
+  | .binary .ediv l r | .binary .emod l r => l.closedNumeric && r.closedNumeric
+  | .ite _ t e => t.closedNumeric && e.closedNumeric
+  | _ => false
+
+/-- Whether a literal-only term can differ between `Nat` and `Int`: only
+through a subtraction or a negative literal (without them every
+subterm is a nonnegative integer, where `+ * / %` agree). Plain literal
+comparisons (`10 < 100`) stay unannotated, so existing statements and
+their hashes are unchanged. -/
+def Expr.natHazard : Expr → Bool
+  | .int v => v < 0
+  | .binary .sub _ _ => true
+  | .binary _ l r => l.natHazard || r.natHazard
+  | .ite _ t e => t.natHazard || e.natHazard
+  | _ => false
+
+/-- Comparison operators: `binrel%` elaborates both operands together, so one
+`Int` ascription on the left anchors the whole comparison. -/
+def BinOp.isComparison : BinOp → Bool
+  | .lt | .le | .gt | .ge | .eq | .ne => true
+  | _ => false
+
+/-- A comparison that needs an explicit `Int` anchor. -/
+def needsIntAnchor (op : BinOp) (lhs rhs : Expr) : Bool :=
+  op.isComparison && lhs.closedNumeric && rhs.closedNumeric
+    && (lhs.natHazard || rhs.natHazard)
+
 mutual
 
 /-- Render an expression. Self-delimiting forms come out wrapped in
@@ -61,7 +96,13 @@ partial def Expr.renderD (dite : Bool) : Expr → String
     s!"({lhs.renderD dite} ↔ ¬ {rhs.renderD dite})"
   | .binary op lhs rhs =>
     let symbol := (op.leanSymbol).getD "?"
-    s!"({lhs.renderD dite} {symbol} {rhs.renderD dite})"
+    -- A comparison between two literal-only terms has no typed leaf: anchor
+    -- it at `Int`, or Lean reads `(0 - 1) % 256 = 0` over `Nat` and proves
+    -- it (a false acceptance; c204).
+    if needsIntAnchor op lhs rhs then
+      s!"(({lhs.renderD dite} : Int) {symbol} {rhs.renderD dite})"
+    else
+      s!"({lhs.renderD dite} {symbol} {rhs.renderD dite})"
   | .not e => s!"(¬ {e.renderD dite})"
   | .ite cond thenValue elseValue =>
     if dite then
@@ -191,7 +232,11 @@ def Expr.renderTop (e : Expr) : String :=
   | .binary .niff lhs rhs => s!"{lhs.render} ↔ ¬ {rhs.render}"
   | .binary op lhs rhs =>
     let symbol := (BinOp.leanSymbol op).getD "?"
-    s!"{lhs.render} {symbol} {rhs.render}"
+    -- Same `Int` anchor as `renderD` (literal-only comparisons, c204).
+    if needsIntAnchor op lhs rhs then
+      s!"({lhs.render} : Int) {symbol} {rhs.render}"
+    else
+      s!"{lhs.render} {symbol} {rhs.render}"
   | other => other.render
 
 /-- Recursive spec-function body rendering: dependent conditionals so the
