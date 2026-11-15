@@ -35,3 +35,17 @@ m2-recursion; backend unit tests. Not run: per-file corpus mode,
 `run_suite.sh`, the dalek-lite runners, `test_emission_modes.sh`, issue
 sync (`sync_issues.py` needs GitHub GraphQL, which this session lacks; new
 files carry `github: null`).
+
+## Follow-up: kernel fully proved in Lean
+
+The kernel now carries its own `proofs/` twin (forecast-kernel
+`vermilion/proofs/`, synced in and out by its `run.sh`, which runs with
+`--lib ForecastKernel --manual-proofs`). Against 4f8f0bf: 123 obligations,
+98 by automation, 25 by hand-written twin proofs over helper lemmas in the
+Specs twin's user section; twin kernel-checked, 0 `sorry`, standard axioms
+only. Most of the 25 trace to the recursive-unfold preamble issue and to the
+u64/u128 cast chain in `spread`.
+
+A negative control (one twin proof corrupted) failed correctly, but exposed
+a misleading summary line: filed as
+`generated-check-summary-counts-a-broken-twin-proof-as-discharged`.
