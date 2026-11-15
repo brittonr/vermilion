@@ -13,7 +13,8 @@ expect-pass corpus case and runs both verifiers on each mutant:
   a false acceptance by construction and fails the run.
 
 Mutants Verus cannot even elaborate (an insertion point that is not a
-statement position) are skipped and counted.
+statement position) are skipped and counted. A mutant Verus judged but the
+Lean pipeline could not (translation failure, crash, timeout) fails the run.
 
 Usage: differential_vacuity.py [--per-case N] [--jobs N] [CASE ...]
 """
@@ -113,7 +114,7 @@ def run_mutant(tool, mutant: Path, line: int):
         emit = subprocess.run([str(tool["gen"]), str(ir)],
                               capture_output=True, text=True, cwd=ROOT)
     if emit.returncode != 0:
-        return mutant.stem, line, "skipped", "translation failed"
+        return mutant.stem, line, "INFRA", "translation failed"
     manifest = mutant.parent / "generated" / f"{mutant.stem}.json"
     # Sweep budgets: a mutant's goal is `False`, so the ladder has nothing
     # to find on live paths and an uncapped rung (e.g. e-matching broadcast
@@ -127,10 +128,10 @@ def run_mutant(tool, mutant: Path, line: int):
                                capture_output=True, text=True, cwd=ROOT,
                                env=os.environ | budgets, timeout=300)
     except subprocess.TimeoutExpired:
-        return mutant.stem, line, "skipped", "Lean check timed out"
+        return mutant.stem, line, "INFRA", "Lean check timed out"
     lean_outcome = classify_lean(check.returncode, check.stdout, check.stderr)
     if lean_outcome.status == "infrastructure":
-        return mutant.stem, line, "skipped", lean_outcome.reason
+        return mutant.stem, line, "INFRA", lean_outcome.reason
     if lean_outcome.passed and not verus_outcome.passed:
         return mutant.stem, line, "VACUOUS", "Lean proves assert(false); Verus rejects"
     if verus_outcome.passed:
@@ -166,12 +167,12 @@ def main():
             mutant.write_text("\n".join(mutated) + "\n")
             mutants.append((mutant, index + 2))
     print(f"{len(mutants)} mutants from {len(cases)} cases", flush=True)
-    counts = {"VACUOUS": 0, "dead": 0, "live": 0, "skipped": 0}
+    counts = {"VACUOUS": 0, "dead": 0, "live": 0, "skipped": 0, "INFRA": 0}
     vacuous = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=jobs) as pool:
         for stem, line, verdict, detail in pool.map(lambda m: run_mutant(tool, *m), mutants):
             counts[verdict] += 1
-            if verdict in ("VACUOUS", "dead", "skipped"):
+            if verdict in ("VACUOUS", "dead", "skipped", "INFRA"):
                 print(f"{verdict:8} {stem} (assert(false) at line {line}) {detail}", flush=True)
             if verdict == "VACUOUS":
                 vacuous.append(stem)
@@ -180,6 +181,14 @@ def main():
         print(f"{len(vacuous)} vacuity bug(s): Lean proves assert(false) where Verus does not",
               file=sys.stderr)
         return 1
+    # Fail closed: a mutant Verus judged but our pipeline could not (a
+    # translation failure, a Lean crash or timeout) was not checked. Only
+    # mutants Verus itself cannot elaborate (an insertion point that is not
+    # a statement position) are legitimately skipped.
+    if counts["INFRA"]:
+        print(f"{counts['INFRA']} mutant(s) Verus judged but the Lean pipeline did not",
+              file=sys.stderr)
+        return 2
     print("no vacuity bugs: Lean proves assert(false) only where Verus does")
     return 0
 

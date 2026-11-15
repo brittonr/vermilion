@@ -125,13 +125,18 @@ Lean obligations and proof twins pass without `sorry`.
 
 ## Embedding conventions (prelude)
 
-- Every IR integer is a Lean `Int`. Every maximal literal-only subterm
-  containing a subtraction (no typed leaf, e.g. a constant-folded
-  `(-1i64) as u8` rendered as `(0 - 1) % 256`) is ascribed `: Int` by the
-  renderer (`Expr.closedNumeric`/`natHazard`, `Print.lean`), wherever it
-  occurs. Unanchored numerals default to `Nat`, where `0 - 1 = 0`; as a
-  comparison operand, a constructor field or a generic function argument
-  such a term was a false acceptance (c204-c208, issue #22).
+- Every IR integer is a Lean `Int`, but a term with no `Int`-typed leaf is
+  elaborated at Lean's default numeral type, `Nat`, where `0 - 1 = 0`. The
+  renderer (`Print.lean`, issue #22) therefore ascribes `: Int` (a) to every
+  maximal literal-only subterm containing a subtraction, wherever it occurs,
+  and (b) to the left operand of every subtraction neither of whose operands
+  is certainly `Int` (`Expr.surelyInt`: a variable, a negative literal, an
+  `Int`-typed prelude function, or arithmetic over
+  one). Without them, literal-only comparisons, constructor fields,
+  generic-struct fields and generic spec-fn results were false acceptances
+  (c204-c213), and dalek-lite's `lemma_p_is_odd` had a vacuous obligation.
+  Statement hashes are computed without these anchors, so moving them never
+  orphans a twin proof.
 - Machine integers of every width embed as Lean `Int` with **explicit
   range facts** (`inUnsignedRange`/`inSignedRange`); `bool` embeds as
   `Prop`. Overflow is a proof obligation at the producing site; ranges

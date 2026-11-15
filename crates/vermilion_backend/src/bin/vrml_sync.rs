@@ -487,7 +487,7 @@ fn reconcile_module(
                 && !same_declaration(&previous.text, &generated_block.text)
             {
                 warner.warn(&format!(
-                    "the statement of `{name}` was edited in the twin; restored the generated statement (your proof body was kept)"
+                    "the statement of `{name}` in the twin differs from the generated one (edited by hand, or re-rendered by a newer generator); restored the generated statement and kept your proof body, which is re-checked against it"
                 ));
                 let body = split_block(&previous.text).map(|(_, body)| body).unwrap_or_default();
                 let signature = split_block(&generated_block.text)

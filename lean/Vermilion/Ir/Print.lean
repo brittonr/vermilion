@@ -53,6 +53,38 @@ def Expr.natHazard : Expr → Bool
   | .ite _ t e => t.natHazard || e.natHazard
   | _ => false
 
+/-- Whether the rendered term is certainly elaborated at `Int` on its own,
+whatever its context: a variable (arithmetic operands are `Int` binders),
+a negative literal (`Neg` defaults to `Int`), an `Int`-typed prelude
+function, or arithmetic over such a term. A generic application, a
+constructor field or an `iteP` of literals is NOT: `idd 0 - 1` with
+`idd : T → T` elaborates over `Nat` (issue #22). Every subtraction is
+rendered at `Int` (below), so it counts too. -/
+def Expr.surelyInt : Expr → Bool
+  | .var _ => true
+  | .int v => v < 0
+  | .natClip _ | .sclip .. | .seqLen _ => true
+  | .binary .sub _ _ => true
+  | .binary .ediv l (.int v) | .binary .emod l (.int v) =>
+    -- `Vermilion.ediv`/`emod` (divisor zero) are `Int` functions; a native
+    -- `/`/`%` takes the dividend's type.
+    v == 0 || l.surelyInt
+  | .binary .ediv _ _ | .binary .emod _ _ => true
+  | .binary .add l r | .binary .mul l r => l.surelyInt || r.surelyInt
+  | _ => false
+
+/-- How an expression is rendered. `dite`: dependent conditionals (recursive
+spec-fn bodies). `anchor`: emit the `Int` ascriptions of issue #22. The
+statement hash is computed over the anchor-free rendering, so refining where
+anchors go never changes a hash and never orphans a twin proof: the twin's
+statement is restored to the generated one and its proof body is re-checked
+against it. -/
+structure RenderMode where
+  dite : Bool
+  anchor : Bool := true
+
+instance : Coe Bool RenderMode := ⟨fun dite => { dite }⟩
+
 mutual
 
 /-- Render an expression. Self-delimiting forms come out wrapped in
@@ -60,19 +92,19 @@ parentheses; atoms come out bare. `dite` switches spec-level conditionals
 from `Vermilion.iteP` to dependent `if _h : c then … else …` — used only
 inside recursive spec-function bodies, where the equation compiler needs
 the branch hypothesis for the termination goals. -/
-partial def Expr.renderD (dite : Bool) (e : Expr) : String :=
+partial def Expr.renderD (dite : RenderMode) (e : Expr) : String :=
   -- A maximal literal-only subterm that can differ over `Nat` is ascribed
   -- `Int` wherever it occurs: as a comparison operand, a constructor field,
   -- or the argument of a generic function, it has no type anchor and Lean
   -- would read it over `Nat`, where `0 - 1 = 0` (false acceptances c204,
   -- and generic tuples/structs/spec fns). Its subterms render unanchored.
-  if e.closedNumeric && e.natHazard then s!"({e.renderClosed dite} : Int)"
+  if dite.anchor && e.closedNumeric && e.natHazard then s!"({e.renderClosed dite} : Int)"
   else e.renderCore dite
 
 /-- The body of a literal-only term, with no `Int` anchors inside (the
 enclosing `renderD` adds exactly one, at the root). Identical text to
 `renderCore` on these forms. -/
-partial def Expr.renderClosed (dite : Bool) : Expr → String
+partial def Expr.renderClosed (dite : RenderMode) : Expr → String
   | .int value => if value < 0 then s!"({value})" else s!"{value}"
   | .binary .ediv lhs (.int v) =>
     if v != 0 then s!"({lhs.renderClosed dite} / {(Expr.int v).renderClosed dite})"
@@ -88,7 +120,7 @@ partial def Expr.renderClosed (dite : Bool) : Expr → String
     let symbol := (op.leanSymbol).getD "?"
     s!"({lhs.renderClosed dite} {symbol} {rhs.renderClosed dite})"
   | .ite cond thenValue elseValue =>
-    if dite then
+    if dite.dite then
       s!"(if _h : {cond.renderD dite} then {thenValue.renderClosed dite} \
 else {elseValue.renderClosed dite})"
     else
@@ -96,7 +128,7 @@ else {elseValue.renderClosed dite})"
 {elseValue.renderClosed dite})"
   | other => other.renderCore dite
 
-partial def Expr.renderCore (dite : Bool) : Expr → String
+partial def Expr.renderCore (dite : RenderMode) : Expr → String
   | .var name => leanSegment name
   | .int value => if value < 0 then s!"({value})" else s!"{value}"
   | .tt => "True"
@@ -118,12 +150,20 @@ partial def Expr.renderCore (dite : Bool) : Expr → String
     s!"(Vermilion.emod {lhs.renderAtomD dite} {rhs.renderAtomD dite})"
   | .binary .niff lhs rhs =>
     s!"({lhs.renderD dite} ↔ ¬ {rhs.renderD dite})"
+  -- A subtraction neither of whose operands is certainly `Int` (a generic
+  -- application or field of literals) would be elaborated over `Nat`, where
+  -- it truncates at zero: anchor its left operand (issue #22).
+  | .binary .sub lhs rhs =>
+    if !dite.anchor || lhs.surelyInt || rhs.surelyInt then
+      s!"({lhs.renderD dite} - {rhs.renderD dite})"
+    else
+      s!"(({lhs.renderD dite} : Int) - {rhs.renderD dite})"
   | .binary op lhs rhs =>
     let symbol := (op.leanSymbol).getD "?"
     s!"({lhs.renderD dite} {symbol} {rhs.renderD dite})"
   | .not e => s!"(¬ {e.renderD dite})"
   | .ite cond thenValue elseValue =>
-    if dite then
+    if dite.dite then
       s!"(if _h : {cond.renderD dite} then {thenValue.renderD dite} \
 else {elseValue.renderD dite})"
     else
@@ -210,7 +250,7 @@ else {elseValue.renderD dite})"
 
 /-- Render an expression in argument position: parenthesized unless it is
 already self-delimiting. -/
-partial def Expr.renderAtomD (dite : Bool) (e : Expr) : String :=
+partial def Expr.renderAtomD (dite : RenderMode) (e : Expr) : String :=
   match e with
   | .var _ | .tt | .ff => e.renderD dite
   | .strLit _ => s!"({e.renderD dite})"
@@ -244,14 +284,19 @@ def Expr.renderAtom (e : Expr) : String := e.renderAtomD false
 
 /-- Top-level rendering for hypotheses/goals: like `render`, but without the
 outermost parentheses on binary forms, matching the M1 output style. -/
-def Expr.renderTop (e : Expr) : String :=
+def Expr.renderTopWith (mode : RenderMode) (e : Expr) : String :=
   match e with
-  | .binary .ediv .. | .binary .emod .. => e.render
-  | .binary .niff lhs rhs => s!"{lhs.render} ↔ ¬ {rhs.render}"
+  | .binary .ediv .. | .binary .emod .. => e.renderD mode
+  | .binary .niff lhs rhs => s!"{lhs.renderD mode} ↔ ¬ {rhs.renderD mode}"
   | .binary op lhs rhs =>
     let symbol := (BinOp.leanSymbol op).getD "?"
-    s!"{lhs.render} {symbol} {rhs.render}"
-  | other => other.render
+    s!"{lhs.renderD mode} {symbol} {rhs.renderD mode}"
+  | other => other.renderD mode
+
+def Expr.renderTop (e : Expr) : String := e.renderTopWith false
+
+/-- The anchor-free top-level rendering: the input of statement hashes. -/
+def Expr.renderTopPlain (e : Expr) : String := e.renderTopWith { dite := false, anchor := false }
 
 /-- Recursive spec-function body rendering: dependent conditionals so the
 equation compiler sees the branch hypotheses in termination goals. -/

@@ -45,3 +45,37 @@ live vacuous acceptance: `lemma_p_is_odd.assert_5` had the hypothesis
 `((0 - 1) % 2) = 1` (the `by (compute)` fact `(-1int) % 2 == 1`), which
 over `Nat` reads `0 = 1`. Over `Int` the function's 8 obligations all
 pass for real.
+
+### Follow-up: generic applications and fields (reopened and fixed again)
+
+The first fix only anchored literal-only subterms. A subtraction whose
+operand is a generic application or field *of literals* is still elaborated
+over `Nat`. Three more false acceptances (Verus rejects all three):
+
+| Program | Before |
+|---|---|
+| `assert(id(0int) - 1 == 0)` (generic `id`) | accepted |
+| `assert((5int, 3int).0 - 6 == 0)` | accepted |
+| `assert(G { v: 0int }.v - 1 == 0)` (generic `G<T>`) | accepted |
+
+Fix: the left operand of every subtraction neither of whose operands is
+certainly `Int` (`Expr.surelyInt`) is ascribed `: Int`. Corpus c210-c214
+(c210 is the dalek-lite shape: a `by (compute)` fact with a negative
+constant, followed by a false assertion).
+
+That rule anchors many statements whose elaboration it does not change
+(`pow2 e - 1` with a monomorphic `pow2`), so it would have changed their
+statement hashes and orphaned user proofs (power-of-2's
+`lemma_pow2_make_div` lost its proof on the first try). Statement hashes
+are now computed over the anchor-free rendering (`renderTopPlain`), so
+anchor placement is not part of a statement's identity: `vrml_sync`
+restores the anchored statement in the twin and keeps the proof body,
+which is re-checked against it. This also reverts the hash churn of the
+first fix. The dalek-lite twins are back at their pre-#22 hashes with
+anchored statements, and the 30 `sorry` placeholders from the first
+re-sync are gone again (see #24 for why those blocks hold failing
+attempts).
+
+Checked: corpus 222/222 (115/115 spans) in both emission modes, 0 false acceptances; all
+37 examples and 11 non-aeneas, non-dalek case-study runners pass with no
+proof lost; vacuity gates pass.

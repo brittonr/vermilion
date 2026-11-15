@@ -95,8 +95,8 @@ def ensures_1_meta : Vermilion.ObligationMeta := {
     (requires_0 : 0 ≤ e)
     (requires_1 : e > 0)
     (else_0_assert_anonymous_0 : (¬ (e = 1)) → (((0 ≤ Vermilion.natClip (e - 1)) ∧ (Vermilion.natClip (e - 1) < e)) ∨ ((Vermilion.natClip (e - 1) = e) ∧ False)))
-    (else_0_call_lemma_pow2_make_div_ensures_0 : (¬ (e = 1)) → (((power_of_2.pow2 (Vermilion.natClip (e - 1)) - 1) / 2) = (power_of_2.pow2 (Vermilion.natClip (Vermilion.natClip (e - 1) - 1)) - 1))) :
-    ((power_of_2.pow2 e - 1) / 2) = (power_of_2.pow2 (Vermilion.natClip (e - 1)) - 1) := by
+    (else_0_call_lemma_pow2_make_div_ensures_0 : (¬ (e = 1)) → ((((power_of_2.pow2 (Vermilion.natClip (e - 1)) : Int) - 1) / 2) = ((power_of_2.pow2 (Vermilion.natClip (Vermilion.natClip (e - 1) - 1)) : Int) - 1))) :
+    (((power_of_2.pow2 e : Int) - 1) / 2) = ((power_of_2.pow2 (Vermilion.natClip (e - 1)) : Int) - 1) := by
   -- DL8 clip-form port: restore the iteP shapes this proof
   -- was written against (natClip/sclip are their named forms).
   simp only [Vermilion.natClip, Vermilion.sclip] at *

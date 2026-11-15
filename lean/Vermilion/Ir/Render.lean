@@ -27,7 +27,9 @@ def Obligation.qualifiedName (obligation : Obligation) : String :=
   s!"{obligation.function.qualified}.{obligation.leaf}"
 
 /-- The span-free canonical statement text; its FNV-1a hash keys proof-block
-reconciliation and the semantic fingerprint. -/
+reconciliation and the semantic fingerprint. Rendered without the `Int`
+anchors of issue #22 (`renderTopPlain`), so anchor placement is not part of
+a statement's identity. -/
 def Obligation.canonicalStatement (obligation : Obligation) : String := Id.run do
   let mut text := ""
   for param in obligation.typeParams do
@@ -35,8 +37,8 @@ def Obligation.canonicalStatement (obligation : Obligation) : String := Id.run d
   for binder in obligation.binders do
     text := text ++ s!"({leanSegment binder.name} : {binder.ty.render}) "
   for hypothesis in obligation.hypotheses do
-    text := text ++ s!"({leanSegment hypothesis.name} : {hypothesis.proposition.renderTop}) "
-  return text ++ s!": {obligation.goal.renderTop}"
+    text := text ++ s!"({leanSegment hypothesis.name} : {hypothesis.proposition.renderTopPlain}) "
+  return text ++ s!": {obligation.goal.renderTopPlain}"
 
 def Obligation.statementHash (obligation : Obligation) : String :=
   fnv1a obligation.canonicalStatement

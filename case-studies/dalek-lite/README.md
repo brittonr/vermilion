@@ -117,18 +117,17 @@ proof units**:
 - [`lemma_mul_boundary`](proofs/field_lemmas_mul_lemmas/layer_a_lemmas_field_lemmas_mul_lemmas_lemma_mul_boundary.lean): two;
 - [`lemma_or_bit`](proofs/bit_lemmas/layer_a_lemmas_common_lemmas_bit_lemmas_lemma_or_bit.lean): two.
 
-On 2026-11-15, re-syncing the twins after the `Int`-anchoring fix (issue #22)
-turned 30 more blocks into `sorry`: 16 in
-[`sub`](proofs/field_u64/layer_a_backend_serial_u64_field_impl__9_sub.lean),
-one in each of ten `pow_lemmas` `lemma_*_times_pow2_fits_*` units, and one in
-each of the four `shift_lemmas` `lemma_*_max_shifting` units. These are not
-new failures. Their generated obligations already failed under default
-budgets before the fix (the same failures reproduce with the old statements),
-but the twins still held the machine attempt, which `vrml_sync` keeps for an
-unchanged statement (issue #24). The twins therefore did not kernel-check
-there. Total now: **38 `sorry` bodies**. The `limbs_to_bytes_lemmas` twins
-(196 re-rendered blocks) were not re-synced and still carry the previous
-statement text until the next full run.
+On 2026-11-15 the renderer started ascribing `: Int` to literal-only and
+generically-typed subtractions (issue #22). Statement hashes ignore those
+anchors, so no proof was orphaned; `vrml_sync` restored the anchored
+statements in the twins and kept every proof body. One machine-proved
+obligation had been vacuous before the fix: `lemma_p_is_odd.assert_5`
+carried the `by (compute)` fact `(-1int) % 2 == 1` as `((0 - 1) % 2) = 1`,
+which over `Nat` is `0 = 1`. Over `Int` that function's 8 obligations pass
+for real. Separately, about 30 unchanged machine blocks in `field_u64`
+`sub`, `pow_lemmas` and `shift_lemmas` hold attempts that no longer prove
+their obligations under default budgets; `vrml_sync` keeps them because
+their statements did not change (issue #24).
 
 This count is a source inspection, not a fresh kernel-check or automation-rate
 measurement. The previous zero-`sorry` / 99.4%-automatic claim is withdrawn:

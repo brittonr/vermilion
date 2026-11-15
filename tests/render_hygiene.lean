@@ -223,3 +223,12 @@ private def genericId : FunctionId := { crateName := "g", modules := #[], name :
 
 -- The anchored statement is false over `Int`, as Verus says.
 example : ¬ ((((0 - 1) % 256) : Int) = 0) := by decide
+
+/-! A subtraction whose operands are not certainly `Int` (a generic
+application or field of literals) is anchored at its left operand;
+`idd 0 - 1` would otherwise be read over `Nat` (#22, c211-c213). -/
+#guard (eq (.binary .sub (.apply genericId #[] #[.int 0]) (.int 1)) (.int 0)).renderTop
+  == "((g.id 0 : Int) - 1) = 0"
+-- A variable operand already fixes the type: no anchor.
+#guard (Expr.binary .sub (var "x") (.apply genericId #[] #[.int 0])).render
+  == "(x - g.id 0)"
