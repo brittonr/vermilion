@@ -1,7 +1,7 @@
 ---
 title: "A killed or crashed vrml_check leaves a truncated failures file that vrml_sync reads as success"
 labels: [bug, foundations]
-state: open
+state: closed
 github: 23
 ---
 
@@ -41,3 +41,8 @@ This is the same failure class as #21, reached through a different input.
   `sorry`.
 - `test_typeclass_evidence.sh` pins both directions: a truncated stream
   keeps the placeholder, and a complete stream with no failures reclaims it.
+
+### Resolution (2f84116)
+
+Implemented as described. `test_typeclass_evidence.sh` covers both the
+truncated and the complete stream.
