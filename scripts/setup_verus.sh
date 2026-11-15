@@ -45,7 +45,7 @@ if [[ ! -d "$checkout_target/source" ]]; then
   git clone "$verus_git" "$checkout_target"
   git -C "$checkout_target" checkout --quiet "$pin"
 fi
-/bin/ln -sfn "$checkout_target" "$link"
+ln -sfn "$checkout_target" "$link"
 
 verus_checkout="$(cd "$link" && pwd -P)"
 
@@ -69,9 +69,22 @@ if [[ "$actual" != "$pin" ]]; then
   fi
 fi
 
-if [[ ! -x "$verus_checkout/source/z3" ]]; then
+# VERMILION_Z3 (set by the Nix dev shell, flake.nix) names a Z3 of the pinned
+# release to use instead of Verus's tools/get-z3.sh download, whose
+# dynamically linked binary does not run on NixOS. Unset, nothing changes.
+if [[ -n "${VERMILION_Z3:-}" ]]; then
+  if [[ ! -x "$VERMILION_Z3" ]]; then
+    echo "error: VERMILION_Z3=$VERMILION_Z3 is not an executable" >&2
+    false
+  fi
+  if [[ "$(readlink "$verus_checkout/source/z3" 2>/dev/null || true)" != "$VERMILION_Z3" ]]; then
+    echo "linking Z3 from VERMILION_Z3"
+    ln -sfn "$VERMILION_Z3" "$verus_checkout/source/z3"
+  fi
+elif [[ ! -x "$verus_checkout/source/z3" ]]; then
   echo "fetching the pinned Z3 solver"
-  (cd "$verus_checkout/source" && ./tools/get-z3.sh)
+  # Through bash: the script's `#!/bin/bash` shebang does not resolve on NixOS.
+  (cd "$verus_checkout/source" && bash ./tools/get-z3.sh)
 fi
 
 if ! grep -q VERUS_VIR_EXPORT "$verus_checkout/source/rust_verify/src/verifier.rs"; then

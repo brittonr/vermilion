@@ -1195,7 +1195,11 @@ function activate(context) {
     updateStatus();
     output.appendLine(`[vermilion] verifying ${documentPath}`);
     let log = '';
-    const child = childProcess.spawn('/bin/zsh', ['-lc', command], {
+    // A login shell picks up the user's PATH (cargo, elan). macOS keeps its
+    // stock zsh; elsewhere /bin/zsh is often absent (Linux distributions,
+    // NixOS), so resolve bash from PATH.
+    const shell = process.platform === 'darwin' ? '/bin/zsh' : 'bash';
+    const child = childProcess.spawn(shell, ['-lc', command], {
       cwd: root,
     });
     // Record this run so an explicit re-verify can cancel it (see the

@@ -31,3 +31,8 @@ case-studies/aeneas/probes/generated/
 case-studies/aeneas/probes/.probe-logs/
 case-studies/aeneas/*/generated/
 tests/lowering_isolation/generated/
+
+# Nix
+.direnv/
+result
+result-*

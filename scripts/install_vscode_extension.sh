@@ -15,6 +15,6 @@ mkdir -p "$HOME/.vscode/extensions"
 for old in "$HOME/.vscode/extensions"/vermilion.vscode-vermilion-*; do
   [[ -L "$old" && "$old" != "$target" ]] && rm "$old"
 done
-/bin/ln -sfn "$source" "$target"
+ln -sfn "$source" "$target"
 echo "Linked $target -> $source"
 echo "Restart VS Code (or run 'Developer: Reload Window') to activate."
