@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Lake shim for the Lean language server.
 #
 # Why: every `lake` invocation re-materializes the Lake workspace — one
