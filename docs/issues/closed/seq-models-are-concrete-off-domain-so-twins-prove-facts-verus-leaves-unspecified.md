@@ -1,7 +1,7 @@
 ---
 title: Seq models are concrete off-domain, so twins prove facts Verus leaves unspecified
 labels: [bug, foundations]
-state: open
+state: closed
 github: 19
 ---
 
@@ -58,3 +58,20 @@ Verus does not make, against what `trust.md` states.
 Either way, add a twin-level check to `tests/` that tries the four
 `example`s above, and expects them to fail under option 1 or to be listed
 under option 2.
+
+### Resolution: option 2 (document)
+
+The off-domain values are load-bearing in the prelude: 18 lemma proofs in
+`lean/Vermilion/Vstd/` unfold `index`/`update`/`subrange` (for example
+`Seq.ext`, `index_update_other`), so the opaque route is a model redesign,
+not a local change.
+
+- `docs/trust.md` now lists every fixed off-domain value as a deliberate
+  strengthening ("Concrete off-domain values"): `Seq.index`, `subrange`,
+  `update`, `Map.index` of constructed maps, wrong-variant accessors and
+  out-of-range recursive spec fns. The incorrect "unspecified (as in
+  Verus)" wording for `subrange` and "unconstrained off-domain" for `Map`
+  is gone.
+- `tests/off_domain_models.lean` (run by `test_render_hygiene.sh`) pins the
+  four examples above plus `Map.empty`, so making one opaque later is a
+  visible change made together with the doc entry.

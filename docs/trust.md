@@ -154,7 +154,7 @@ Lean obligations and proof twins pass without `sorry`.
   false-cast control c204); `run_differential.py` and
   `differential_soundness.py` exempt exactly those cases from the
   false-acceptance check. The other known accepting-direction divergence is
-  the concrete off-domain `Seq` model (issue #19).
+  the concrete off-domain collection models (issue #19, below).
 - `ediv`/`emod` agree with Verus's Euclidean division and are **opaque at
   divisor zero** (an arbitrary, unconstrained value — mirroring SMT's
   underspecification, so nothing can be proved about `x / 0` or `x % 0` on
@@ -164,8 +164,26 @@ Lean obligations and proof twins pass without `sorry`.
   `[Decidable guard]` evidence; `Seq` is a Lean `List`, `Set` a `Finset`,
   `Multiset` a Mathlib `Multiset` — all with
   genuinely extensional equality. `Map` is a finite domain plus a
-  **total** lookup that is unconstrained off-domain; see "Equality"
-  below for the one place this bites.
+  **total** lookup; see "Equality" below for the one place this bites.
+- **Concrete off-domain values (deliberate strengthening, issue #19).**
+  Verus leaves these values unspecified; the models are ordinary
+  computable definitions that fix them:
+  - `Seq.index s i` out of range is `default` (`0` for `Int`);
+  - `Seq.subrange s i j` off range is the `List` slice
+    `(s.drop i).take (j - i)`, so a reversed range is `[]`;
+  - `Seq.update s i x` with `i < 0` is `s`;
+  - `Map.index m k` off the domain is whatever the constructing operations
+    stored (`default` for `Map.empty`, the old value under `Map.insert`);
+  - wrong-variant field accessors and out-of-range recursive spec fns
+    return `default` (below).
+
+  The automated ladder does not unfold the models, so differential
+  verdicts agree; but an interactive twin proof can establish such a fact
+  (`index s (-1) = 0`), and Verus cannot. Nothing executable is affected:
+  exec indexing checks bounds. `tests/off_domain_models.lean` pins each
+  fact, so making one opaque (the route `emod` took for `x % 0`, #4) is a
+  visible, deliberate change. These, the exact casts and shifts above, are
+  the places Lean can accept what Verus rejects.
 
 ## Lean typeclass evidence at the Verus boundary
 
@@ -326,8 +344,10 @@ returned element to `old@[len-1]`. `Seq::subrange(s, i, j)` is modeled as the
 by the in-range side conditions `0 ≤ i ≤ j ≤ len` / `0 ≤ k < j-i` that Verus
 also requires.
 
-- **Assumptions:** the `List`-slice model is `subrange`'s meaning only in
-  range; off-range it is unspecified (as in Verus). `Option`/`Some`/`None`
+- **Assumptions:** the `List`-slice model agrees with Verus's `subrange`
+  in range. Off range Verus leaves the result unspecified, and the model
+  fixes it (a reversed range is `[]`): see "Concrete off-domain values"
+  below. `Option`/`Some`/`None`
   are the ordinary lowered `core::option::Option` inductive; the returned
   element and the `None` branch carry no extra trust.
 - **Automation note:** the side conditions are arithmetic, which simp's own

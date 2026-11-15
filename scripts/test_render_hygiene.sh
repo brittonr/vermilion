@@ -18,6 +18,8 @@ lake build vrml_gen >/dev/null
 # rendered names of their scope's free variables, telescope entries from
 # earlier entries, nothing else changes (hash stability), idempotent.
 lake env lean tests/render_hygiene.lean
+# Documented off-domain model values (issue #19, docs/trust.md).
+lake env lean tests/off_domain_models.lean
 
 ./scripts/setup_verus.sh
 source "$repository/scripts/verus_env.sh"
