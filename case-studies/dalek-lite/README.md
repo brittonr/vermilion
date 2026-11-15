@@ -117,6 +117,19 @@ proof units**:
 - [`lemma_mul_boundary`](proofs/field_lemmas_mul_lemmas/layer_a_lemmas_field_lemmas_mul_lemmas_lemma_mul_boundary.lean): two;
 - [`lemma_or_bit`](proofs/bit_lemmas/layer_a_lemmas_common_lemmas_bit_lemmas_lemma_or_bit.lean): two.
 
+On 2026-11-15, re-syncing the twins after the `Int`-anchoring fix (issue #22)
+turned 30 more blocks into `sorry`: 16 in
+[`sub`](proofs/field_u64/layer_a_backend_serial_u64_field_impl__9_sub.lean),
+one in each of ten `pow_lemmas` `lemma_*_times_pow2_fits_*` units, and one in
+each of the four `shift_lemmas` `lemma_*_max_shifting` units. These are not
+new failures. Their generated obligations already failed under default
+budgets before the fix (the same failures reproduce with the old statements),
+but the twins still held the machine attempt, which `vrml_sync` keeps for an
+unchanged statement (issue #24). The twins therefore did not kernel-check
+there. Total now: **38 `sorry` bodies**. The `limbs_to_bytes_lemmas` twins
+(196 re-rendered blocks) were not re-synced and still carry the previous
+statement text until the next full run.
+
 This count is a source inspection, not a fresh kernel-check or automation-rate
 measurement. The previous zero-`sorry` / 99.4%-automatic claim is withdrawn:
 [the migration log](../../logs/2026-08-19-lean-4.33-veil-removal.md#5b-a-false-green-in-the-acquisition-path-and-its-blast-radius)

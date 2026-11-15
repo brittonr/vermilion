@@ -46,3 +46,17 @@ This is the same failure class as #21, reached through a different input.
 
 Implemented as described. `test_typeclass_evidence.sh` covers both the
 truncated and the complete stream.
+
+### Follow-up: crashes inside the checker
+
+The first fix covered a killed `vrml_check`. Two more ways to lose
+obligations silently are now closed as well:
+
+- A `lean` child that crashes mid-unit (signal, OOM kill, stack overflow:
+  any exit code other than 0 or 1) is an infrastructure failure: exit 2 and
+  no completion record. Verified by `SIGKILL`ing the isolated `lean` during
+  a dalek-lite `reduce_lemmas` check.
+- An error Lean cannot attribute to an obligation also withholds the
+  record, since nothing after it may have been judged.
+- If `vrml_worker` dies, the checker already falls back to one `lean` per
+  file (verified by killing the worker mid-check).

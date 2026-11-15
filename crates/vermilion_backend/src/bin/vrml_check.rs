@@ -1448,6 +1448,18 @@ fn main() {
             eprintln!("cannot run lean on {delta_file}");
             std::process::exit(2);
         };
+        // Lean exits 0 (all elaborated) or 1 (errors reported). A signal or
+        // any other code is a crash (OOM kill, stack overflow, panic) that
+        // may have stopped before later obligations were judged: their
+        // silence is not success, so the run is an infrastructure failure
+        // and gets no completion record (issue #23).
+        if !matches!(output.status.code(), Some(0) | Some(1)) {
+            eprintln!(
+                "lean did not finish {delta_file} ({}); the obligations after the crash were not judged",
+                output.status
+            );
+            std::process::exit(2);
+        }
         let stdout = String::from_utf8_lossy(&output.stdout);
         let mut unattributed = Vec::new();
         for line in stdout.lines() {
@@ -1535,7 +1547,12 @@ fn main() {
         report_summary(&s, &manifest, total, &interactive, elaborating);
         exit_with_refusals(&s, refused_count);
     }
-    judged_complete();
+    // An error Lean could not attribute to an obligation (a broken preamble,
+    // a bad import) can mean nothing after it was judged: no completion
+    // record, so vrml_sync keeps placeholders (issue #23).
+    if !any_unattributed {
+        judged_complete();
+    }
     std::process::exit(1);
 }
 

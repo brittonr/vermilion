@@ -63,5 +63,6 @@ sources are one-liners; they are reproduced in the table.
   control c204 (`(-1i64) as u8 == 0`, expected fail).
 - c204 was **accepted** by Lean at first: the obligation
   `((0 - 1) % 256) = 0` had no typed leaf, so its numerals defaulted to
-  `Nat`. The renderer now ascribes `: Int` to such comparisons (see
-  `needsIntAnchor` in `Print.lean`, `docs/vcgen.md`).
+  `Nat`. The renderer now ascribes `: Int` to every maximal literal-only
+  subterm containing a subtraction (`Expr.closedNumeric`/`natHazard` in
+  `Print.lean`, `docs/vcgen.md`; generalized in #22).

@@ -744,10 +744,11 @@ the target theorems are:
    (⋀ H_σ) → φ` and nothing weaker. Together with the lowering's
    capture-free substitution this is the whole naming trust: nothing else
    about identifiers is assumed. Rendering is also type-faithful: every IR
-   integer is a Lean `Int`, and a comparison whose operands are both
-   literal-only and can differ over `Nat` (a subtraction or a negative
-   literal) is ascribed `: Int` (`needsIntAnchor` in `Print.lean`), since
-   unanchored numerals default to `Nat` where `0 - 1 = 0` (c204).
+   integer is a Lean `Int`, and every maximal literal-only subterm that
+   contains a subtraction is ascribed `: Int` wherever it occurs
+   (`Expr.closedNumeric` and `Expr.natHazard` in `Print.lean`), since
+   unanchored numerals default to `Nat`, where `0 - 1 = 0` (c204-c208,
+   issue #22). Negative literals need no anchor: `Neg` defaults to `Int`.
 5. **Coherence (differential).** The mechanized policy keeps the differential
    parity the `tests/differential/` corpus measures: same accept/reject
    verdict as Verus, including the `reveal`/`hide`/fuel behavior encoded in V.
