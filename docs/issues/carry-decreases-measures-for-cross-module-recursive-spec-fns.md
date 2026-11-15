@@ -37,6 +37,15 @@ span-mapped per-function disposition that fails exactly the function's
 consumers (in Layer Set A: the two load8 lemmas and `load8_at` — 37 of
 the 38 DL8 refusals are this issue's transitive footprint).
 
+**Single-file repro (forecast-kernel).** Inline modules in one file hit
+the same refusal, and it depends on item order: with `mod ledger`
+(whose `ensures` call `crate::spread::prefix_sum`) before `mod spread`,
+`prefix_sum` is refused with *no termination check*; with `spread`
+first, the same program lowers and its termination is proved. So a
+single-file probe *can* expose this when the consumer module comes
+first. forecast-kernel's `vermilion/run.sh` orders modules
+definition-before-use as a workaround.
+
 **Same class, second artifact (DL8): `closed` spec-fn bodies.** The
 export carries `spec_axioms` (the body) only when `public_body` holds
 for the verified bucket (`ast_to_sst_func.rs`, the same
