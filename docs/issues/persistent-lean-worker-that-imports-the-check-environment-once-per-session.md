@@ -50,3 +50,35 @@ Related: #11
 (stage 2, a stepping stone that shares the Frontend-per-unit code), and
 #9
 (complementary: it cuts proof-search time, while this cuts import time).
+
+## Progress
+
+Commit `66e0615`.
+
+The persistent worker exists and watch mode uses it:
+
+- **Server mode.** `vrml_worker --serve DIR` answers JSON-line jobs over
+  the FIFOs `DIR/request`/`DIR/response`. It caches imported environments
+  by import set, and re-imports when a direct import's `.olean`
+  modification time (to the nanosecond) changes
+  (a regenerated `Specs`, a rebuilt library). Initializers run at most
+  once per process, and plugins load once. The `smt` rung (cvc5 plugin)
+  works through the worker, and its reconstructed proofs pass
+  `#vrml_audit`.
+- **Client.** When `VRML_WORKER_DIR` is set, `vrml_check` uses the
+  server. The request FIFO is opened non-blocking, so a dead server
+  falls back to a fresh worker instead of hanging.
+- **Watch mode.** `vrml_watch` starts one server per session and exports
+  `VRML_WORKER_DIR` to its `vrml_check` children.
+
+Measured on `examples/m2-loops` (3 units, 2-core VM): the first check
+through the server took 1.9–2.3 s (the import); warm re-checks took
+0.53–0.97 s, against 3.4–5.9 s with one `lean` per unit. This is the
+plan's ~0.9 s target. Recorded in `docs/reports/performance-ledger.md`.
+
+Still open:
+- the VS Code extension still runs `run_example.sh` per verify, so it
+  should start (or reuse) a server and set `VRML_WORKER_DIR`;
+- cancellation of an in-flight job when a newer save arrives;
+- a timeout on the client's response read (a server that dies mid-job
+  currently blocks that `vrml_check`).

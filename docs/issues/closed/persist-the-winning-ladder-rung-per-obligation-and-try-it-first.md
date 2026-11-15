@@ -1,7 +1,7 @@
 ---
 title: Persist the winning ladder rung per obligation and try it first
 labels: [enhancement]
-state: open
+state: closed
 github: 9
 ---
 
@@ -53,3 +53,28 @@ to `docs/reports/performance-ledger.md`.
 Related: ilyasergey/vermilion#6 proof caching; `plans/incremental-computation.md` (item 3,
 persistent workers, is complementary: it removes the import cost, while
 this removes repeated rung failures).
+
+## Resolution
+
+Commit `66e0615`.
+
+Implemented as specified, with no change to the generated Lean text.
+
+- **Recording.** In its JSON (generated-module) runs, `vrml_check` enables
+  `trace.vrml.ladder`. It attributes each `discharged by <rung>` message
+  to its obligation by line range, and merges `{statement_hash: rung}`
+  into `.vermilion/rung-hints.json`.
+- **Using the hints.** When that file exists, `vrml_check` passes
+  `-Dvermilion.rungHints=<path>` (new option). The ladder loads the table
+  once per process. It reads the current obligation's statement hash from
+  its `<leaf>_meta` companion, moves the recorded rung to the front, and
+  keeps the rest in order.
+- **Why it is sound.** Every proof is still produced and kernel-checked
+  on every run, so a stale hint costs one failed rung, never a verdict.
+
+Measured on this environment's runs (217 obligations): grind 165,
+omega 33, simp_all 9, simp_disch_omega 4, clip_nlinarith 3,
+scalar_saturate 2, split_clip_ifs 1. On the small examples there is no
+measurable wall-time change, because they are dominated by import cost.
+The gain is for late-rung obligations; the dalek-lite measurement needs a
+full sweep (hours on the 2-core machine used here) and was not run.

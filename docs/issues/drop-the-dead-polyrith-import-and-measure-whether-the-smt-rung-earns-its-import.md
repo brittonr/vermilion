@@ -40,3 +40,22 @@ import (`docs/reports/vermilion-vs-verus-timing.md`).
 
 Also refresh the trusted-base note in `trust.md` item 5 if `smt` leaves the
 default path.
+
+## Resolution
+
+Commit `66e0615`.
+
+- **Task 1 done.** `import Mathlib.Tactic.Polyrith` is removed from
+  `Vermilion/Obligations.lean`. Every example, the case studies run here,
+  and an elaboration pass over the dalek-lite twins build without it.
+  Re-adding it does not change the outcome of the hard `add_lemmas` goals.
+- **Task 2, partial.** With rung hints recording winners (#9), `smt`
+  closed 0 of 217 obligations: all examples, `primes`, and the dalek-lite
+  manifests judged before the sweep was stopped.
+- **Task 3 (gating `smt` behind an opt-in module) is deliberately not
+  done.** The data do not cover the full dalek-lite sweep, which is where
+  `smt` would earn its place.
+
+Remaining before closing: a full dalek-lite sweep with
+`.vermilion/rung-hints.json` (the winners are now recorded automatically),
+then the gate decision, and a startup measurement for the ledger.

@@ -1,7 +1,7 @@
 ---
 title: Judge generated units and kernel-check twins in one Lean process per run
 labels: [enhancement]
-state: open
+state: closed
 github: 11
 ---
 
@@ -49,3 +49,34 @@ Related: #12
 (stage 3), and #1.
 The audit that issue needs (declaration-type comparison plus
 `collectAxioms`) fits naturally into the same in-process pass.
+
+## Resolution
+
+Commit `66e0615`.
+
+Implemented. `lean/VrmlWorker.lean` adds a new `lean_exe vrml_worker`.
+
+- **How it works.** It imports the union of the given files' headers
+  once. It elaborates each file through Lean's ordinary frontend
+  (`IO.processCommands`, so declarations are kernel-checked as under
+  `lean <file>`), each with its own command state and main-module name.
+  It prints `lean --json`-compatible messages per file between
+  `### vrml-worker <i> <status>` markers. Concurrency is bounded by
+  `--jobs`: an unbounded fan-out exhausted memory on dalek-lite.
+- **`vrml_check` integration.** `vrml_check` sends every elaboration of a
+  run (generated-module checks and audited twin checks) through one
+  worker.
+- **One exception.** The twin `Evidence` module is imported by the other
+  unit twins, so it must not see itself. It gets its own `lean`,
+  concurrently.
+- **Fallbacks.** `VRML_ISOLATED=1`, a missing worker binary, or a worker
+  that fails to account for every file fall back to one `lean` per file.
+  A worker failure therefore never reads as success.
+- **Build.** `run_example.sh` and `vrml_watch.sh` build the worker.
+
+Measured, on `examples/m2-loops` (3 units, 2-core VM): one `lean` per
+unit took 3.4–5.9 s; one worker took 2.2–3.0 s. Diagnostics are
+byte-identical to the isolated path. The smoke suite passes through the
+worker. Entries are in `docs/reports/performance-ledger.md`, and
+`docs/development.md` and `docs/trust.md` (TCB item 6) describe the
+worker.

@@ -1,7 +1,7 @@
 ---
 title: "`vrml [ids]` skips part of the shared `vrml_norm` normalization"
 labels: [enhancement, vcgen]
-state: open
+state: closed
 github: 8
 ---
 
@@ -34,3 +34,20 @@ Define `vrml [ids]` as `vrml_norm` extended with `ids`. For example,
 source of truth. Then re-run the differential corpus and the dalek-lite
 scoreboard to record any rung-distribution change. Expect equal or better
 proof rates, and possibly faster closes because fewer rungs are needed.
+
+## Resolution
+
+Commit `66e0615`.
+
+Fixed.
+
+- `vrml_norm` gained a bracket form, `vrml_norm [ids]`. `vrml [ids]` is
+  now `vrml_norm [ids]; all_goals vrml_ladder`, so both entry points share
+  one normalization list. `natClip`, `sclip` and the `reducePow` simprocs
+  now apply to the 94% of obligations that use the bracket form.
+- The smoke suite (all 37 examples) and the case studies run here stay
+  green.
+- The obligations that failed in dalek-lite's `add_lemmas` fail
+  identically with the old macro and the old library; that is checked
+  against a worktree at the previous `main`. So it is pre-existing, not
+  caused by this change.

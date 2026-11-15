@@ -1,7 +1,7 @@
 ---
 title: Experimental verified-hash cache is unsound if enabled; the timing report overstates incrementality
 labels: [bug, foundations]
-state: open
+state: closed
 github: 5
 ---
 
@@ -48,3 +48,18 @@ re-judged)". That is not the default behaviour:
 
 Please correct the sentence, or annotate the dated report, so the 4.2× gap
 is not presented as already amortized.
+
+## Resolution
+
+Commit `66e0615`.
+
+Fixed.
+
+- The experimental cache (`VerifiedCache`, `load_cache`, `save_cache`,
+  `.vermilion/verified-hashes.json`, `VERMILION_CHECK_CACHE`) is deleted
+  from `vrml_check`. A comment at the old call site explains why a
+  statement-hash verdict cache is unsound.
+- `plans/incremental-computation.md` records the removal.
+- `docs/reports/vermilion-vs-verus-timing.md` now says the startup cost
+  is not yet amortized, with a dated correction note, and points at
+  #11/#12.

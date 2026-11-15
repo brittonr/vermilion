@@ -1,7 +1,7 @@
 ---
 title: choose characterizing facts are hoisted out of their enclosing binders
 labels: [bug, vcgen]
-state: open
+state: closed
 github: 2
 ---
 
@@ -56,3 +56,24 @@ Add a differential case with a choose under `forall`.
 Related: hardening for unbound names in generated modules
 (#6) and
 `docs/issues/closed/support-choose-in-spec-expressions.md`.
+
+## Resolution
+
+Commit `66e0615`.
+
+Fixed. `Expr.collectChooseUnder` (`lean/Vermilion/Ir/Vcgen.lean`) records
+the enclosing quantifier, lambda and `choose` binders of each `choose`
+term. `withChooseFacts` closes the characterizing fact over the ones its
+predicate mentions (innermost occurrence of each name):
+`∀ ȳ, (∃ x, p x ȳ) → (fun x => p x ȳ) (chooseSpec …)`. That is still an
+instance of `chooseSpec_spec` for every ȳ. A `choose` whose predicate
+mentions no enclosing binder keeps exactly the old hypothesis, so
+statement hashes are unchanged for every existing program. The examples
+and case-study twins are byte-identical after regeneration.
+
+- `docs/vcgen.md` `(CHOOSE)` is updated.
+- `tests/render_hygiene.lean` pins it: the scope is recorded, the
+  obligation for `∀ i, i = choose x. i < x` has no unbound variable, and
+  the unscoped case is unchanged.
+- The new scope check (#6) would now also reject any regression here at
+  generation time.

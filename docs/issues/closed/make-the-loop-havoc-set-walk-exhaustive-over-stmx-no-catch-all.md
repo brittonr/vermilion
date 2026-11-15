@@ -1,7 +1,7 @@
 ---
 title: Make the loop havoc-set walk exhaustive over StmX (no catch-all)
 labels: [enhancement, foundations, verus]
-state: open
+state: closed
 github: 7
 ---
 
@@ -46,3 +46,20 @@ dropped from the havoc set.
   through each supported destination shape (`x = …`, `x.f = …`,
   `x[i] = …`, `&mut` call argument, `*r = …`), each followed by an
   assertion that must fail if the variable were not havocked.
+
+## Resolution
+
+Commit `66e0615`.
+
+Done. `collect_assigned` (the loop havoc set) and the sibling loop-depth
+`walk` in `lower.rs` now list every `StmX` variant of the pinned fork
+(`vir/src/sst.rs`, checked against the pin):
+
+- the ones that cannot assign or nest a statement are spelled out;
+- each match has no catch-all.
+
+A Verus bump that adds or reshapes a variant now fails to compile there.
+The `&mut`-through-call writeback is already covered: the committed
+`vermilion_blog/extend_from_idx` twin havocs `r` to `r_2`. The suggested
+per-destination regression case in `tests/lowering_isolation` was not
+added.

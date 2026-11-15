@@ -1,7 +1,7 @@
 ---
 title: emod x 0 reduces to x, contradicting trust.md's "opaque at divisor zero"
 labels: [bug, foundations]
-state: open
+state: closed
 github: 4
 ---
 
@@ -45,3 +45,18 @@ embedding in the trust document.
 Either way, add a differential case `proof fn mod_zero(x: int) ensures x % 0 == x {}`
 and record both verdicts in the corpus. The expected outcome is Verus
 fails; Vermilion should fail too if the opaque option is chosen.
+
+## Resolution
+
+Commit `66e0615`.
+
+Fixed by making `emod` opaque at zero, like `ediv`. A separate
+`opaque modZero : Int → Int` is used, so `x % 0 = x` is no longer
+provable; `emod_of_ne_zero` is unchanged. `docs/trust.md` now says both
+`x / 0` and `x % 0` are unconstrained, with separate opaque functions.
+
+No committed twin relied on the old definition: all examples, the case
+studies run here, and an elaboration pass over the dalek-lite twins build
+under the new prelude. The suggested differential case
+(`proof fn mod_zero(x: int) ensures x % 0 == x`) was not added. The Verus
+verdict was not run here, so add it with both verdicts recorded.

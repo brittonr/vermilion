@@ -1,7 +1,7 @@
 ---
 title: Evidence pass assumes equality is always decidable; datatypes derive only Inhabited
 labels: [bug, vcgen]
-state: open
+state: closed
 github: 3
 ---
 
@@ -58,3 +58,31 @@ Related: ilyasergey/vermilion#48 (Bool-parameter conditionals). Note that ilyase
 `∀ p, Decidable p` instance "unprovable", but the committed percolator twin
 discharges it with `Classical.propDecidable p`. The real issue there is
 that the evidence is not instantiated at the concrete condition.
+
+## Resolution
+
+Commit `66e0615`.
+
+Fixed through the evidence path. `DecidableEq` is not derived on rendered
+datatypes; that would change every `Specs` module, and type parameters and
+`Map` would still lack it.
+
+- `Expr.constructivelyDecidable` now treats `=`/`≠` as constructive only
+  when one operand's model type is statically known to have `DecidableEq`:
+  `Int`, `StrSlice`, and `Seq`/`Set`/`Multiset` of such types.
+- The type comes from a new conservative `Expr.inferTy`, over the binder
+  types in scope (the obligation telescope, then quantifier, lambda and
+  `choose` binders as they are entered) and the operand's shape (literals,
+  arithmetic, `Seq.index` of a typed sequence, `Map.index` of a typed map,
+  and so on).
+- Equality at a user datatype, a `Map`, a type parameter, or an operand
+  whose type is not evident now requests the module's `Decidable`
+  evidence. Before, it produced a statement that could not elaborate.
+- `needsDecidableEvidence` gained the missing `.choose` arm.
+- Spec-fn bodies (`SpecFn.needsPropDecidable`) use the same typed walk.
+
+No example or case-study twin changed. Every equality guard there is
+recognized as `Int`-typed, so no new evidence modules appear.
+`docs/vcgen.md` `(EVIDENCE-DECIDABLE-PROP)` is updated.
+`tests/render_hygiene.lean` pins `Int` equality (constructive), and
+datatype/`Map` equality (needs evidence).

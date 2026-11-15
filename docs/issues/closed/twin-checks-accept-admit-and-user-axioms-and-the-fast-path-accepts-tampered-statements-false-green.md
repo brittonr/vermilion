@@ -1,7 +1,7 @@
 ---
 title: Twin checks accept admit and user axioms, and the fast path accepts tampered statements (false green)
 labels: [bug, foundations]
-state: open
+state: closed
 github: 1
 ---
 
@@ -117,3 +117,38 @@ Make the twin's *elaborated* theorems the evidence, not its text.
 Related: the August false green recorded in `trust.md`, and
 `docs/issues/proof-caching.md` (ilyasergey/vermilion#6). Any proof cache must key on the
 audited declaration, not on the marker.
+
+## Resolution
+
+Commit `66e0615`.
+
+Fixed. Two layers:
+
+- **Lean-side audit (authoritative).** A new `#vrml_audit` command
+  (`lean/Vermilion/Obligations.lean`) checks every
+  `@[vrml_obligation]`/`@[vrml_evidence]` declaration of the module with
+  `collectAxioms` and fails unless the axioms are within `propext`,
+  `Classical.choice` and `Quot.sound`. That rejects `sorry`/`admit`
+  (`sorryAx`), user `axiom`s reached through helper lemmas, and
+  `native_decide` (per-declaration compiler-trust axioms). `bv_decide` in
+  4.33 needs nothing beyond the three, so the committed dalek-lite
+  `bv_decide` helper still passes. `vrml_check --twin-check`, which the
+  fast path also uses, now checks a copy of each twin with `#vrml_audit`
+  appended. Lean's messages are mapped back to the twin's own path.
+- **Text checks (pre-filter).** `vrml_sync --probe` (`twin_file_current`)
+  now requires each block's theorem declaration to equal the generated
+  one, not just its marker hash. `reconcile_module` restores the generated
+  statement when a twin edited it, keeps the proof body, and warns.
+  Hole detection (`twin::has_hole`) also catches the `admit` tactic, in
+  probe, sync and `twin_covers`.
+
+Verified:
+- The repro from this issue: an edited goal under an intact marker now
+  makes `--probe` exit 1, and sync restores the statement. With `admit`,
+  probe exits 1 and the block is no longer "covered by twin".
+- The audit rejects `admit`, a user `axiom`, a `sorry`'d helper and
+  `native_decide`, and accepts `Classical.em`. Shown on a scratch module,
+  and on `primes` with an `admit` injected: the twin check fails both
+  through `vrml_worker` and through `VRML_ISOLATED=1` per-file `lean`.
+- Unit tests in `crates/vermilion_backend/src/twin.rs`.
+- `docs/trust.md` (TCB item 6) describes the audit.
