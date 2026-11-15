@@ -208,15 +208,6 @@ fn fnv1a(text: &str) -> String {
     format!("{hash:016x}")
 }
 
-/// Make sure the shadow olean of the shared `Specs` module is a fresh
-/// compile of `source_lean` (repo-relative), returning the shadow root to
-/// prepend to LEAN_PATH so `import <module>` resolves in our own Lean
-/// invocations. The shadow lives under `.vermilion/olean/<example dir>` —
-/// deliberately NOT Lake's build dir: Lake owns its artifacts (traces,
-/// multi-part oleans) and the editor's Lean server rebuilds twin modules
-/// through Lake itself (see editor/bin/lake). A sibling `.vrml-src` stamp
-/// (source path + content hash) keys the freshness check, so a foreign
-/// example claiming the same module name can never be picked up silently.
 /// The shared `Evidence` unit of a per-function manifest, as (lean file,
 /// module name). `side` is "generated" for the machine module; anything
 /// else means the proofs twin, whose module root is the bare stem (each
@@ -242,6 +233,68 @@ fn evidence_module_of(manifest: &ModuleManifest, side: &str) -> Option<(String, 
     }
 }
 
+/// What a compiled shared module depends on beyond its own text, one line
+/// per `import`: Lake's transitive `depHash` from the imported module's
+/// `.trace` (library modules such as `Vermilion.Obligations`), or the
+/// `.vrml-src` stamp of a module this checker compiled itself (a twin
+/// `Evidence` importing its `Specs`). Unresolved imports are recorded as
+/// such, so they still pin the key to the import list.
+fn imports_fingerprint(
+    source: &str,
+    lean_path: &Option<String>,
+    extra_root: Option<&str>,
+    shadow_root: &str,
+) -> String {
+    let mut roots: Vec<String> = Vec::new();
+    if let Some(root) = extra_root {
+        roots.push(root.to_owned());
+    }
+    roots.push(shadow_root.to_owned());
+    if let Some(path) = lean_path {
+        roots.extend(path.split(':').filter(|entry| !entry.is_empty()).map(str::to_owned));
+    }
+    roots.push(".lake/build/lib/lean".to_owned());
+    let mut fingerprint = String::new();
+    for line in source.lines() {
+        let Some(module) = line.strip_prefix("import ") else {
+            continue;
+        };
+        let module = module.trim();
+        let relative = module.replace('.', "/");
+        let mut dependency = "unresolved".to_owned();
+        for root in &roots {
+            let base = Path::new(root).join(&relative);
+            let dep_hash = std::fs::read_to_string(base.with_extension("trace"))
+                .ok()
+                .and_then(|text| serde_json::from_str::<serde_json::Value>(&text).ok())
+                .and_then(|trace| trace.get("depHash")?.as_str().map(str::to_owned));
+            if let Some(hash) = dep_hash {
+                dependency = hash;
+                break;
+            }
+            if let Ok(stamp) = std::fs::read_to_string(base.with_extension("olean.vrml-src")) {
+                dependency = fnv1a(&stamp);
+                break;
+            }
+        }
+        fingerprint.push_str(&format!("{module} {dependency}\n"));
+    }
+    fingerprint
+}
+
+/// Make sure the shadow olean of the shared `Specs` module is a fresh
+/// compile of `source_lean` (repo-relative), returning the shadow root to
+/// prepend to LEAN_PATH so `import <module>` resolves in our own Lean
+/// invocations. The shadow lives under `.vermilion/olean/<example dir>` —
+/// deliberately NOT Lake's build dir: Lake owns its artifacts (traces,
+/// multi-part oleans) and the editor's Lean server rebuilds twin modules
+/// through Lake itself (see editor/bin/lake). A sibling `.vrml-src` stamp
+/// keys the freshness check: the source path and content hash, so a
+/// foreign example claiming the same module name can never be picked up
+/// silently, plus the imports' fingerprint, so a rebuilt Vermilion library
+/// recompiles the module instead of reusing an olean that elaborated
+/// against the old one (a termination proof the new library no longer
+/// closes would otherwise keep reading as verified).
 fn ensure_specs_olean(
     source_lean: &str,
     module: &str,
@@ -275,7 +328,11 @@ fn ensure_specs_olean(
     let stamp = olean.with_extension("olean.vrml-src");
     let source = std::fs::read_to_string(source_lean)
         .map_err(|error| format!("cannot read {source_lean}: {error}"))?;
-    let fingerprint = format!("{source_lean}\n{}\n", fnv1a(&source));
+    let fingerprint = format!(
+        "{source_lean}\n{}\n{}",
+        fnv1a(&source),
+        imports_fingerprint(&source, lean_path, extra_root, &shadow_root)
+    );
     if olean.exists() && std::fs::read_to_string(&stamp).ok().as_deref() == Some(&fingerprint) {
         return Ok(shadow_root);
     }
