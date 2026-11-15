@@ -174,6 +174,10 @@ lean_lib CasePrimes where
   srcDir := "case-studies/primes/proofs"
   globs := proofGlobs (run_io discoverProofRoots "case-studies/primes/proofs")
 
+lean_lib CaseTerraneReclaimPlan where
+  srcDir := "case-studies/terrane-reclaim-plan/proofs"
+  globs := proofGlobs (run_io discoverProofRoots "case-studies/terrane-reclaim-plan/proofs")
+
 lean_lib CaseSorting where
   srcDir := "case-studies/sorting/proofs"
   globs := proofGlobs (run_io discoverProofRoots "case-studies/sorting/proofs")
