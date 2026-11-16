@@ -2587,10 +2587,25 @@ fn lower_exp_impl(ctx: ExpCtx<'_>, env: &Env, exp: &Exp) -> Result<Expr, String>
                     // carries its resolved concrete impl, whose definition
                     // is the one emitted and applied.
                     let static_impl;
+                    // The type arguments of the function actually applied:
+                    // a statically resolved impl method takes the IMPL's
+                    // type parameters (`resolved`'s typs), not the trait
+                    // method's `[Self, trait params…]` the call site
+                    // carries. Zipping the impl's parameters with the trait
+                    // call's typs instantiated `T := Self` (the `vec![]`
+                    // literal's `MaybeUninit<T>::mem_contents` came out as
+                    // `T := MaybeUninit<Seq Int>` and failed to elaborate).
+                    let mut target_typs: &[Typ] = typs;
                     let target = match resolved {
-                        Some((impl_fun, _)) if ctx.declarations.contains_key(impl_fun) => impl_fun,
+                        Some((impl_fun, impl_typs)) if ctx.declarations.contains_key(impl_fun) => {
+                            target_typs = impl_typs;
+                            impl_fun
+                        }
                         _ => match resolve_trait_method(ctx, fun, typs) {
                             Some(impl_fun) => {
+                                // Matched by exact type equality, so the impl
+                                // has no type parameters left to instantiate.
+                                target_typs = &[];
                                 static_impl = impl_fun;
                                 &static_impl
                             }
@@ -2618,7 +2633,7 @@ fn lower_exp_impl(ctx: ExpCtx<'_>, env: &Env, exp: &Exp) -> Result<Expr, String>
                                 })
                                 .collect();
                             let mut lowered = Vec::new();
-                            for (param, typ) in callee.x.typ_params.iter().zip(typs.iter()) {
+                            for (param, typ) in callee.x.typ_params.iter().zip(target_typs.iter()) {
                                 if !const_names.contains(&param.to_string()) {
                                     continue;
                                 }
@@ -2704,7 +2719,7 @@ fn lower_exp_impl(ctx: ExpCtx<'_>, env: &Env, exp: &Exp) -> Result<Expr, String>
                             let mut type_args = Vec::new();
                             let mut lowered = Vec::new();
                             for (param, typ) in
-                                callee.x.typ_params.iter().zip(typs.iter())
+                                callee.x.typ_params.iter().zip(target_typs.iter())
                             {
                                 let name = param.to_string();
                                 let resolved = resolve_typ(ctx, typ);
