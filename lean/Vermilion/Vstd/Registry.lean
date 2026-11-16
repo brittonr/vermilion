@@ -79,6 +79,7 @@ def specFns : List (String × String) := [
   ("vstd::seq_lib::Seq::drop_first", "Vermilion.Seq.dropFirst"),
   ("vstd::seq_lib::Seq::remove", "Vermilion.Seq.remove"),
   ("vstd::seq_lib::Seq::insert", "Vermilion.Seq.insert"),
+  ("vstd::seq_lib::Seq::map", "Vermilion.Seq.map"),
   ("vstd::seq_lib::Seq::sort_by", "Vermilion.Seq.sortBy")
 ]
 

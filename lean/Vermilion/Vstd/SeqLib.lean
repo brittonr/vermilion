@@ -43,6 +43,20 @@ def remove (s : Seq α) (i : Int) : Seq α :=
 def insert (s : Seq α) (i : Int) (a : α) : Seq α :=
   ((s.subrange 0 i).push a).add (s.subrange i s.len)
 
+/-- vstd `Seq::map f` = `Seq::new(len, |i| f(i, self[i]))` (an `open` spec
+fn; `f` takes the index and the element). -/
+def map [Inhabited α] [Inhabited β] (s : Seq α) (f : Int → α → β) : Seq β :=
+  Seq.new s.len (fun i => f i (s.index i))
+
+@[simp, grind =] theorem len_map [Inhabited α] [Inhabited β] (s : Seq α)
+    (f : Int → α → β) : (s.map f).len = s.len := by
+  simp only [map]; exact len_new _ _ (len_nonneg s)
+
+@[simp, grind =] theorem index_map [Inhabited α] [Inhabited β] (s : Seq α)
+    (f : Int → α → β) (i : Int) (low : 0 ≤ i) (high : i < s.len) :
+    (s.map f).index i = f i (s.index i) := by
+  simp only [map]; exact index_new _ _ i low high
+
 /-- vstd `Seq::contains needle` = `∃ i, 0 ≤ i < len ∧ self[i] = needle`. -/
 @[grind] def contains [Inhabited α] (s : Seq α) (x : α) : Prop :=
   ∃ i : Int, (0 ≤ i ∧ i < s.len) ∧ s.index i = x
