@@ -151,6 +151,9 @@ def specFns : List (String × String) := [
   ("vstd::set::Set::contains", "Vermilion.Set.contains"),
   ("vstd::set::Set::spec_has", "Vermilion.Set.contains"),
   ("vstd::set::Set::len", "Vermilion.Set.len"),
+  ("vstd::set::Set::union", "Vermilion.Set.union"),
+  ("vstd::set::Set::intersect", "Vermilion.Set.intersect"),
+  ("vstd::set::Set::difference", "Vermilion.Set.difference"),
   -- The finite `Set`'s `contains` is `#[verifier::inline]` for
   -- `to_iset().contains(…)`; the adapter collapses `to_iset`, so the
   -- surviving application is ISet's — same model predicate.
@@ -171,7 +174,8 @@ def specFns : List (String × String) := [
   ("vstd::map::Map::index", "Vermilion.Map.index"),
   ("vstd::map::Map::spec_index", "Vermilion.Map.index"),
   ("vstd::map::Map::dom", "Vermilion.Map.dom"),
-  ("vstd::map::Map::contains_key", "Vermilion.Map.containsKey")
+  ("vstd::map::Map::contains_key", "Vermilion.Map.containsKey"),
+  ("vstd::map::Map::remove", "Vermilion.Map.remove")
 ]
 
 def lemmas : List (String × List String) := []

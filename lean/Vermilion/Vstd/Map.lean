@@ -56,5 +56,20 @@ def containsKey (m : Map κ ν) (k : κ) : Prop := k ∈ m.keys
 @[simp] theorem contains_dom (m : Map κ ν) (k : κ) :
     m.dom.contains k ↔ m.containsKey k := Iff.rfl
 
+/-- vstd `Map::remove k`: `k` leaves the domain; every other key keeps its
+value (vstd's `axiom_map_remove_domain` / `axiom_map_remove_different`). -/
+def remove [DecidableEq κ] (m : Map κ ν) (k : κ) : Map κ ν :=
+  ⟨m.keys.erase k, m.get⟩
+
+@[simp] theorem dom_remove [DecidableEq κ] (m : Map κ ν) (k : κ) :
+    (m.remove k).dom = m.dom.remove k := rfl
+
+@[simp] theorem containsKey_remove [DecidableEq κ] (m : Map κ ν) (k k' : κ) :
+    (m.remove k).containsKey k' ↔ k' ≠ k ∧ m.containsKey k' := by
+  simp [containsKey, remove]
+
+@[simp] theorem index_remove_other [DecidableEq κ] (m : Map κ ν) (k k' : κ)
+    (ne : k' ≠ k) : (m.remove k).index k' = m.index k' := rfl
+
 end Map
 end Vermilion

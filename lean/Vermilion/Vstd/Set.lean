@@ -63,5 +63,26 @@ theorem len_insert [DecidableEq α] (s : Set α) (x : α) :
   simp only [len, remove, Finset.card_erase_of_mem present]
   omega
 
+/-- vstd `Set::union`/`intersect`/`difference` (closed in vstd; their
+meaning reaches Verus through the membership axioms, which are these
+`contains_*` lemmas here, proved). -/
+def union [DecidableEq α] (s t : Set α) : Set α := s ∪ t
+
+def intersect [DecidableEq α] (s t : Set α) : Set α := s ∩ t
+
+def difference [DecidableEq α] (s t : Set α) : Set α := s \ t
+
+@[simp] theorem contains_union [DecidableEq α] (s t : Set α) (x : α) :
+    (s.union t).contains x ↔ s.contains x ∨ t.contains x := by
+  simp [contains, union]
+
+@[simp] theorem contains_intersect [DecidableEq α] (s t : Set α) (x : α) :
+    (s.intersect t).contains x ↔ s.contains x ∧ t.contains x := by
+  simp [contains, intersect]
+
+@[simp] theorem contains_difference [DecidableEq α] (s t : Set α) (x : α) :
+    (s.difference t).contains x ↔ s.contains x ∧ ¬ t.contains x := by
+  simp [contains, difference]
+
 end Set
 end Vermilion

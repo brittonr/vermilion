@@ -21,11 +21,12 @@ each faithful to the vstd body (which is itself defined over subrange/
 index/add). Twins reference these as `Vermilion.Seq.*`; the vstd mirror
 registry (`Vermilion/Vstd/Registry.lean`) maps the vstd paths here. -/
 
-/-- vstd `Seq::first` = `self[0]`. -/
-def first [Inhabited α] (s : Seq α) : α := s.index 0
+/-- vstd `Seq::first` = `self[0]`. An `open` spec fn in vstd, so Verus
+unfolds it everywhere; `@[grind]` lets the ladder do the same. -/
+@[grind] def first [Inhabited α] (s : Seq α) : α := s.index 0
 
-/-- vstd `Seq::last` = `self[len - 1]`. -/
-def last [Inhabited α] (s : Seq α) : α := s.index (s.len - 1)
+/-- vstd `Seq::last` = `self[len - 1]` (`open`, unfolded by `grind`). -/
+@[grind] def last [Inhabited α] (s : Seq α) : α := s.index (s.len - 1)
 
 /-- vstd `Seq::drop_last` = `subrange(0, len - 1)`. -/
 def dropLast (s : Seq α) : Seq α := s.subrange 0 (s.len - 1)
@@ -43,7 +44,7 @@ def insert (s : Seq α) (i : Int) (a : α) : Seq α :=
   ((s.subrange 0 i).push a).add (s.subrange i s.len)
 
 /-- vstd `Seq::contains needle` = `∃ i, 0 ≤ i < len ∧ self[i] = needle`. -/
-def contains [Inhabited α] (s : Seq α) (x : α) : Prop :=
+@[grind] def contains [Inhabited α] (s : Seq α) (x : α) : Prop :=
   ∃ i : Int, (0 ≤ i ∧ i < s.len) ∧ s.index i = x
 
 /-- vstd `Seq::sort_by leq`: the sequence sorted by the comparator `leq`.
