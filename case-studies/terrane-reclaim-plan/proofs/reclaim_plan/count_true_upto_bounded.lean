@@ -8,6 +8,16 @@ set_option linter.dupNamespace false
 set_option linter.unusedTactic false
 set_option linter.unreachableTactic false
 
+-- vrml:user:begin
+theorem ctu_nonneg (s : Vermilion.Seq Prop) (k : Int) : 0 ≤ reclaim_plan.count_true_upto s k := by
+  unfold reclaim_plan.count_true_upto
+  split_ifs
+  all_goals first
+    | omega
+    | (simp only [Vermilion.natClip, Vermilion.iteP]; split_ifs <;> omega)
+    | (show (0 : Int) ≤ (default : Int); decide)
+-- vrml:user:end
+
 namespace reclaim_plan.count_true_upto_bounded
 
 -- vrml:begin reclaim_plan.count_true_upto_bounded.assert_anonymous_0 f7458795f1ab468e
@@ -98,8 +108,15 @@ def ensures_1_meta : Vermilion.ObligationMeta := {
     (then_0_assert_anonymous_0 : (k > 0) → (((0 ≤ (k - 1)) ∧ ((k - 1) < k)) ∨ (((k - 1) = k) ∧ False)))
     (then_0_call_count_true_upto_bounded_ensures_0 : (k > 0) → (reclaim_plan.count_true_upto s (k - 1) ≤ (k - 1))) :
     reclaim_plan.count_true_upto s k ≤ k := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hnn := ctu_nonneg s (k - 1)
+  unfold reclaim_plan.count_true_upto
+  rw [dif_pos requires_0.1]
+  by_cases hk : k ≤ 0
+  · rw [dif_pos hk]; omega
+  · rw [dif_neg hk]
+    have ih := then_0_call_count_true_upto_bounded_ensures_0 (by omega)
+    simp only [Vermilion.natClip, Vermilion.iteP]
+    split_ifs <;> omega
 -- vrml:end reclaim_plan.count_true_upto_bounded.ensures_1
 
 end reclaim_plan.count_true_upto_bounded

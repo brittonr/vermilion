@@ -29,7 +29,6 @@ def reclaim_plan_key_lt_evidence_decidable_prop_meta : Vermilion.ObligationMeta 
 @[vrml_evidence] noncomputable instance reclaim_plan_key_lt_evidence_decidable_prop
     (p : Prop) :
     Decidable p := by
-  -- TODO(vermilion): provide this class dictionary interactively.
-  sorry
+  exact Classical.propDecidable p
 -- vrml:end reclaim_plan.key_lt.evidence_decidable_prop
 

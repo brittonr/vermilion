@@ -86,8 +86,9 @@ def call_requires_0_1_meta : Vermilion.ObligationMeta := {
     (requires_5 : reclaim_plan.roots_subset_spec roots roots2)
     (requires_6 : reclaim_plan.live_spec edges roots v) :
     reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots (Vermilion.chooseSpec (fun (r : Int) => (((0 ≤ r) ∧ (r < Vermilion.Seq.len roots)) ∧ (∃ (fuel : Int), ((0 ≤ fuel) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots r) v fuel)))))) v (Vermilion.chooseSpec (fun (fuel_vrml_0 : Int) => ((0 ≤ fuel_vrml_0) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots (Vermilion.chooseSpec (fun (r : Int) => (((0 ≤ r) ∧ (r < Vermilion.Seq.len roots)) ∧ (∃ (fuel : Int), ((0 ≤ fuel) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots r) v fuel)))))) v fuel_vrml_0))) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  obtain ⟨r0, f0, hf0, hr0, hreach⟩ := requires_6
+  have hR := choose_spec_0 ⟨r0, hr0, f0, hf0, hreach⟩
+  exact (choose_spec_1 hR.2).2
 -- vrml:end reclaim_plan.live_mono.call_requires_0_1
 
 -- vrml:begin reclaim_plan.live_mono.assert_1 ca76657d4bb000e5
@@ -129,8 +130,12 @@ def assert_1_meta : Vermilion.ObligationMeta := {
     (requires_6 : reclaim_plan.live_spec edges roots v)
     (call_reachable_edges_mono_ensures_0 : reclaim_plan.reachable_fuel edges2 (Vermilion.Seq.index roots (Vermilion.chooseSpec (fun (r : Int) => (((0 ≤ r) ∧ (r < Vermilion.Seq.len roots)) ∧ (∃ (fuel : Int), ((0 ≤ fuel) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots r) v fuel)))))) v (Vermilion.chooseSpec (fun (fuel_vrml_0 : Int) => ((0 ≤ fuel_vrml_0) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots (Vermilion.chooseSpec (fun (r : Int) => (((0 ≤ r) ∧ (r < Vermilion.Seq.len roots)) ∧ (∃ (fuel : Int), ((0 ≤ fuel) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots r) v fuel)))))) v fuel_vrml_0)))) :
     ((0 ≤ Vermilion.chooseSpec (fun (s : Int) => (((0 ≤ s) ∧ (s < Vermilion.Seq.len roots2)) ∧ (Vermilion.Seq.index roots2 s = Vermilion.Seq.index roots (Vermilion.chooseSpec (fun (r : Int) => (((0 ≤ r) ∧ (r < Vermilion.Seq.len roots)) ∧ (∃ (fuel : Int), ((0 ≤ fuel) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots r) v fuel))))))))) ∧ (Vermilion.chooseSpec (fun (s : Int) => (((0 ≤ s) ∧ (s < Vermilion.Seq.len roots2)) ∧ (Vermilion.Seq.index roots2 s = Vermilion.Seq.index roots (Vermilion.chooseSpec (fun (r : Int) => (((0 ≤ r) ∧ (r < Vermilion.Seq.len roots)) ∧ (∃ (fuel : Int), ((0 ≤ fuel) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots r) v fuel)))))))) < Vermilion.Seq.len roots2)) ∧ reclaim_plan.reachable_fuel edges2 (Vermilion.Seq.index roots2 (Vermilion.chooseSpec (fun (s : Int) => (((0 ≤ s) ∧ (s < Vermilion.Seq.len roots2)) ∧ (Vermilion.Seq.index roots2 s = Vermilion.Seq.index roots (Vermilion.chooseSpec (fun (r : Int) => (((0 ≤ r) ∧ (r < Vermilion.Seq.len roots)) ∧ (∃ (fuel : Int), ((0 ≤ fuel) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots r) v fuel)))))))))) v (Vermilion.chooseSpec (fun (fuel_vrml_0 : Int) => ((0 ≤ fuel_vrml_0) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots (Vermilion.chooseSpec (fun (r : Int) => (((0 ≤ r) ∧ (r < Vermilion.Seq.len roots)) ∧ (∃ (fuel : Int), ((0 ≤ fuel) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots r) v fuel)))))) v fuel_vrml_0))) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  obtain ⟨r0, f0, hf0, hr0, hreach⟩ := requires_6
+  have hR := choose_spec_1 ⟨r0, hr0, f0, hf0, hreach⟩
+  have hS := choose_spec_0 (requires_5 _ hR.1)
+  first
+    | exact ⟨hS.1, by rw [hS.2]; exact call_reachable_edges_mono_ensures_0⟩
+    | exact hS.1
 -- vrml:end reclaim_plan.live_mono.assert_1
 
 -- vrml:begin reclaim_plan.live_mono.ensures_2 91b0121933086c92
@@ -173,8 +178,13 @@ def ensures_2_meta : Vermilion.ObligationMeta := {
     (call_reachable_edges_mono_ensures_0 : reclaim_plan.reachable_fuel edges2 (Vermilion.Seq.index roots (Vermilion.chooseSpec (fun (r : Int) => (((0 ≤ r) ∧ (r < Vermilion.Seq.len roots)) ∧ (∃ (fuel : Int), ((0 ≤ fuel) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots r) v fuel)))))) v (Vermilion.chooseSpec (fun (fuel_vrml_0 : Int) => ((0 ≤ fuel_vrml_0) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots (Vermilion.chooseSpec (fun (r : Int) => (((0 ≤ r) ∧ (r < Vermilion.Seq.len roots)) ∧ (∃ (fuel : Int), ((0 ≤ fuel) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots r) v fuel)))))) v fuel_vrml_0))))
     (assert_1 : ((0 ≤ Vermilion.chooseSpec (fun (s : Int) => (((0 ≤ s) ∧ (s < Vermilion.Seq.len roots2)) ∧ (Vermilion.Seq.index roots2 s = Vermilion.Seq.index roots (Vermilion.chooseSpec (fun (r : Int) => (((0 ≤ r) ∧ (r < Vermilion.Seq.len roots)) ∧ (∃ (fuel : Int), ((0 ≤ fuel) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots r) v fuel))))))))) ∧ (Vermilion.chooseSpec (fun (s : Int) => (((0 ≤ s) ∧ (s < Vermilion.Seq.len roots2)) ∧ (Vermilion.Seq.index roots2 s = Vermilion.Seq.index roots (Vermilion.chooseSpec (fun (r : Int) => (((0 ≤ r) ∧ (r < Vermilion.Seq.len roots)) ∧ (∃ (fuel : Int), ((0 ≤ fuel) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots r) v fuel)))))))) < Vermilion.Seq.len roots2)) ∧ reclaim_plan.reachable_fuel edges2 (Vermilion.Seq.index roots2 (Vermilion.chooseSpec (fun (s : Int) => (((0 ≤ s) ∧ (s < Vermilion.Seq.len roots2)) ∧ (Vermilion.Seq.index roots2 s = Vermilion.Seq.index roots (Vermilion.chooseSpec (fun (r : Int) => (((0 ≤ r) ∧ (r < Vermilion.Seq.len roots)) ∧ (∃ (fuel : Int), ((0 ≤ fuel) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots r) v fuel)))))))))) v (Vermilion.chooseSpec (fun (fuel_vrml_0 : Int) => ((0 ≤ fuel_vrml_0) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots (Vermilion.chooseSpec (fun (r : Int) => (((0 ≤ r) ∧ (r < Vermilion.Seq.len roots)) ∧ (∃ (fuel : Int), ((0 ≤ fuel) ∧ reclaim_plan.reachable_fuel edges (Vermilion.Seq.index roots r) v fuel)))))) v fuel_vrml_0)))) :
     reclaim_plan.live_spec edges2 roots2 v := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  obtain ⟨r0, f0, hf0, hr0, hreach⟩ := requires_6
+  have hR := choose_spec_0 ⟨r0, hr0, f0, hf0, hreach⟩
+  have hF := choose_spec_1 hR.2
+  have hS := choose_spec_2 (requires_5 _ hR.1)
+  refine ⟨_, _, hF.1, hS.1, ?_⟩
+  rw [hS.2]
+  exact call_reachable_edges_mono_ensures_0
 -- vrml:end reclaim_plan.live_mono.ensures_2
 
 end reclaim_plan.live_mono

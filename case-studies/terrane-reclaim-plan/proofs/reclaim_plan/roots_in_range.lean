@@ -276,8 +276,19 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
     (then_0_assume_11 : (tmp_ ≥ n) → False)
     (assert_3 : Vermilion.inUnsignedRange 64 (r + 1)) :
     (∀ (j : Int), (((0 ≤ j) ∧ (j < ((r + 1) % 18446744073709551616))) → (Vermilion.Seq.index roots j < n))) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  intro j hj
+  obtain ⟨hj0, hj1⟩ := hj
+  have hr : (r + 1) % 18446744073709551616 = r + 1 := by
+    unfold Vermilion.inUnsignedRange at assert_3
+    norm_num at assert_3
+    omega
+  rw [hr] at hj1
+  by_cases hjr : j < r
+  · exact loop_0_iteration_5 j ⟨hj0, hjr⟩
+  · have hj : j = r := by omega
+    rw [hj, ← call_vec_index_ensures_1]
+    by_contra h
+    exact then_0_assume_10 (by omega)
 -- vrml:end reclaim_plan.roots_in_range.invariant_preserve_0_1
 
 -- vrml:begin reclaim_plan.roots_in_range.assert_0_decreases b01ff4aa5cbd53c2

@@ -280,8 +280,7 @@ def ensures_2_meta : Vermilion.ObligationMeta := {
     (call_no_live_candidate_ensures_0 : (¬ reclaim_plan.live_spec edges roots v))
     (call_key_live_matches_index_live_ensures_0 : reclaim_plan.live_spec edges roots v ↔ reclaim_plan.key_live_spec keys refs root_keys (Vermilion.Seq.index keys v)) :
     (¬ reclaim_plan.key_live_spec keys refs root_keys (Vermilion.Seq.index keys v)) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  exact fun h => call_no_live_candidate_ensures_0 (call_key_live_matches_index_live_ensures_0.mpr h)
 -- vrml:end reclaim_plan.no_live_key_is_candidate.ensures_2
 
 end reclaim_plan.no_live_key_is_candidate

@@ -8,6 +8,39 @@ set_option linter.dupNamespace false
 set_option linter.unusedTactic false
 set_option linter.unreachableTactic false
 
+-- vrml:user:begin
+theorem klt_at_trans (a b c : Vermilion.Seq Int) (p q : Int)
+    (hp : reclaim_plan.key_lt_at_spec a b p) (hq : reclaim_plan.key_lt_at_spec b c q) :
+    (p ≤ q → reclaim_plan.key_lt_at_spec a c p) ∧ (q < p → reclaim_plan.key_lt_at_spec a c q) := by
+  unfold reclaim_plan.key_lt_at_spec reclaim_plan.prefix_eq_spec at *
+  obtain ⟨⟨⟨⟨hp0, hpa⟩, hpb⟩, hpre⟩, hpc⟩ := hp
+  obtain ⟨⟨⟨⟨hq0, hqb⟩, hqc⟩, hqre⟩, hqd⟩ := hq
+  constructor
+  · intro hpq
+    have hplb : p < Vermilion.Seq.len b := by
+      rcases hpc with ⟨_, h⟩ | ⟨⟨_, h⟩, _⟩ <;> exact h
+    refine ⟨⟨⟨⟨hp0, hpa⟩, by omega⟩, fun k hk => ?_⟩, ?_⟩
+    · rw [hpre k hk, hqre k ⟨hk.1, by omega⟩]
+    · rcases lt_or_eq_of_le hpq with hlt | heq
+      · have e := hqre p ⟨hp0, hlt⟩
+        rcases hpc with ⟨h1, _⟩ | ⟨⟨h1, _⟩, h3⟩
+        · exact Or.inl ⟨h1, by omega⟩
+        · exact Or.inr ⟨⟨h1, by omega⟩, by rw [← e]; exact h3⟩
+      · subst heq
+        rcases hqd with ⟨h1, _⟩ | ⟨⟨_, h2⟩, h3⟩
+        · omega
+        · rcases hpc with ⟨h4, _⟩ | ⟨⟨h4, _⟩, h5⟩
+          · exact Or.inl ⟨h4, h2⟩
+          · exact Or.inr ⟨⟨h4, h2⟩, lt_trans h5 h3⟩
+  · intro hqp
+    have e := hpre q ⟨hq0, hqp⟩
+    refine ⟨⟨⟨⟨hq0, by omega⟩, hqc⟩, fun k hk => ?_⟩, ?_⟩
+    · rw [hpre k ⟨hk.1, by omega⟩, hqre k hk]
+    · rcases hqd with ⟨h1, _⟩ | ⟨⟨_, h2⟩, h3⟩
+      · omega
+      · exact Or.inr ⟨⟨by omega, h2⟩, by rw [e]; exact h3⟩
+-- vrml:user:end
+
 namespace reclaim_plan.key_lt_transitive
 
 -- vrml:begin reclaim_plan.key_lt_transitive.assert_0 49093674ffbf1fb2
@@ -124,8 +157,7 @@ def assert_2_meta : Vermilion.ObligationMeta := {
     (assert_0 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.chooseSpec (fun (p : Int) => reclaim_plan.key_lt_at_spec a b p))) → ((Vermilion.Seq.index a k = Vermilion.Seq.index b k) ∧ (Vermilion.Seq.index b k = Vermilion.Seq.index c k)))))
     (then_1_assert_1 : (Vermilion.chooseSpec (fun (p : Int) => reclaim_plan.key_lt_at_spec a b p) < Vermilion.Seq.len a) → (Vermilion.Seq.index b (Vermilion.chooseSpec (fun (p : Int) => reclaim_plan.key_lt_at_spec a b p)) = Vermilion.Seq.index c (Vermilion.chooseSpec (fun (p : Int) => reclaim_plan.key_lt_at_spec a b p)))) :
     reclaim_plan.key_lt_at_spec a c (Vermilion.chooseSpec (fun (p : Int) => reclaim_plan.key_lt_at_spec a b p)) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  exact (klt_at_trans a b c _ _ (choose_spec_0 requires_3) (choose_spec_1 requires_4)).1 (le_of_lt branch_0)
 -- vrml:end reclaim_plan.key_lt_transitive.assert_2
 
 -- vrml:begin reclaim_plan.key_lt_transitive.assert_3 a66e04cc6c5479fa
@@ -244,8 +276,7 @@ def assert_5_meta : Vermilion.ObligationMeta := {
     (assert_3 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.chooseSpec (fun (q : Int) => reclaim_plan.key_lt_at_spec b c q))) → ((Vermilion.Seq.index a k = Vermilion.Seq.index b k) ∧ (Vermilion.Seq.index b k = Vermilion.Seq.index c k)))))
     (assert_4 : Vermilion.Seq.index a (Vermilion.chooseSpec (fun (q : Int) => reclaim_plan.key_lt_at_spec b c q)) = Vermilion.Seq.index b (Vermilion.chooseSpec (fun (q : Int) => reclaim_plan.key_lt_at_spec b c q))) :
     reclaim_plan.key_lt_at_spec a c (Vermilion.chooseSpec (fun (q : Int) => reclaim_plan.key_lt_at_spec b c q)) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  exact (klt_at_trans a b c _ _ (choose_spec_1 requires_3) (choose_spec_0 requires_4)).2 branch_2
 -- vrml:end reclaim_plan.key_lt_transitive.assert_5
 
 -- vrml:begin reclaim_plan.key_lt_transitive.assert_6 ff9a8c1447da7122
@@ -323,8 +354,7 @@ def assert_7_meta : Vermilion.ObligationMeta := {
     (branch_2 : (¬ (Vermilion.chooseSpec (fun (q : Int) => reclaim_plan.key_lt_at_spec b c q) < Vermilion.chooseSpec (fun (p : Int) => reclaim_plan.key_lt_at_spec a b p))))
     (assert_6 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.chooseSpec (fun (p : Int) => reclaim_plan.key_lt_at_spec a b p))) → ((Vermilion.Seq.index a k = Vermilion.Seq.index b k) ∧ (Vermilion.Seq.index b k = Vermilion.Seq.index c k))))) :
     reclaim_plan.key_lt_at_spec a c (Vermilion.chooseSpec (fun (p : Int) => reclaim_plan.key_lt_at_spec a b p)) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  exact (klt_at_trans a b c _ _ (choose_spec_0 requires_3) (choose_spec_1 requires_4)).1 (by omega)
 -- vrml:end reclaim_plan.key_lt_transitive.assert_7
 
 -- vrml:begin reclaim_plan.key_lt_transitive.ensures_8 0152664fa90c8185

@@ -538,8 +538,18 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
     (then_1_assume_18 : (tmp_ ≠ tmp__2) → False)
     (assert_8 : Vermilion.inUnsignedRange 64 (i + 1)) :
     reclaim_plan.prefix_eq_spec a b ((i + 1) % 18446744073709551616) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hr : (i + 1) % 18446744073709551616 = i + 1 := by
+    unfold Vermilion.inUnsignedRange at assert_8
+    norm_num at assert_8
+    omega
+  rw [hr]
+  intro k hk
+  by_cases hki : k < i
+  · exact loop_0_iteration_9 k ⟨hk.1, hki⟩
+  · have : k = i := by omega
+    rw [this]
+    by_contra hne
+    exact then_1_assume_17 (by rw [call_vec_index_ensures_1, call_vec_index_1_ensures_1]; exact hne)
 -- vrml:end reclaim_plan.key_eq.invariant_preserve_0_2
 
 -- vrml:begin reclaim_plan.key_eq.assert_0_decreases b2b971e70494e97b
@@ -632,8 +642,9 @@ def assert_9_meta : Vermilion.ObligationMeta := {
     (loop_0_exit_3 : reclaim_plan.prefix_eq_spec a b i)
     (loop_0_exit_4 : (¬ (i < Vermilion.Seq.len a))) :
     a = b := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  apply Vermilion.Seq.ext loop_0_exit_2
+  intro k hk0 hk1
+  exact loop_0_exit_3 k ⟨hk0, by omega⟩
 -- vrml:end reclaim_plan.key_eq.assert_9
 
 -- vrml:begin reclaim_plan.key_eq.ensures_10 24a0cc908724ff02

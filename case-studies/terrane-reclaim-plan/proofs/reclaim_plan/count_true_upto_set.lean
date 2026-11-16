@@ -8,6 +8,16 @@ set_option linter.dupNamespace false
 set_option linter.unusedTactic false
 set_option linter.unreachableTactic false
 
+-- vrml:user:begin
+theorem ctu_nonneg (s : Vermilion.Seq Prop) (k : Int) : 0 ≤ reclaim_plan.count_true_upto s k := by
+  unfold reclaim_plan.count_true_upto
+  split_ifs
+  all_goals first
+    | omega
+    | (simp only [Vermilion.natClip, Vermilion.iteP]; split_ifs <;> omega)
+    | (show (0 : Int) ≤ (default : Int); decide)
+-- vrml:user:end
+
 namespace reclaim_plan.count_true_upto_set
 
 -- vrml:begin reclaim_plan.count_true_upto_set.assert_anonymous_0 602e578be04be7f9
@@ -175,8 +185,37 @@ def ensures_1_meta : Vermilion.ObligationMeta := {
     (then_0_assert_anonymous_0 : (k > 0) → (((0 ≤ (k - 1)) ∧ ((k - 1) < k)) ∨ (((k - 1) = k) ∧ False)))
     (then_0_call_count_true_upto_set_ensures_0 : (k > 0) → (reclaim_plan.count_true_upto (Vermilion.Seq.update s i True) (k - 1) = Vermilion.natClip (reclaim_plan.count_true_upto s (k - 1) + (Vermilion.iteP (i < (k - 1)) 1 0)))) :
     reclaim_plan.count_true_upto (Vermilion.Seq.update s i True) k = Vermilion.natClip (reclaim_plan.count_true_upto s k + (Vermilion.iteP (i < k) 1 0)) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have n2 := ctu_nonneg s (k - 1)
+  have n3 := ctu_nonneg (Vermilion.Seq.update s i True) (k - 1)
+  by_cases hk : k ≤ 0
+  · have hl : reclaim_plan.count_true_upto (Vermilion.Seq.update s i True) k = 0 := by
+      unfold reclaim_plan.count_true_upto; rw [dif_pos requires_2.1, dif_pos hk]
+    have hr : reclaim_plan.count_true_upto s k = 0 := by
+      unfold reclaim_plan.count_true_upto; rw [dif_pos requires_2.1, dif_pos hk]
+    rw [hl, hr]
+    have : ¬ (i < k) := by omega
+    simp only [Vermilion.natClip, Vermilion.iteP, if_neg this]
+    decide
+  · have ih := then_0_call_count_true_upto_set_ensures_0 (by omega)
+    have hl : reclaim_plan.count_true_upto (Vermilion.Seq.update s i True) k
+        = Vermilion.natClip ((if _h : Vermilion.Seq.index (Vermilion.Seq.update s i True) (k - 1) then 1 else 0)
+            + reclaim_plan.count_true_upto (Vermilion.Seq.update s i True) (k - 1)) := by
+      conv_lhs => unfold reclaim_plan.count_true_upto
+      rw [dif_pos requires_2.1, dif_neg hk]
+    have hr : reclaim_plan.count_true_upto s k
+        = Vermilion.natClip ((if _h : Vermilion.Seq.index s (k - 1) then 1 else 0)
+            + reclaim_plan.count_true_upto s (k - 1)) := by
+      conv_lhs => unfold reclaim_plan.count_true_upto
+      rw [dif_pos requires_2.1, dif_neg hk]
+    rw [hl, hr, ih]
+    by_cases hik : i = k - 1
+    · subst hik
+      rw [Vermilion.Seq.index_update_same _ _ _ requires_0.1 requires_0.2]
+      simp only [Vermilion.natClip, Vermilion.iteP, dif_pos trivial, dif_neg requires_1]
+      split_ifs <;> omega
+    · rw [Vermilion.Seq.index_update_other _ _ _ _ hik]
+      simp only [Vermilion.natClip, Vermilion.iteP]
+      split_ifs <;> omega
 -- vrml:end reclaim_plan.count_true_upto_set.ensures_1
 
 end reclaim_plan.count_true_upto_set

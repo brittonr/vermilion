@@ -351,8 +351,25 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
     (then_1_assume_17 : tmp__3 → False)
     (assert_4 : Vermilion.inUnsignedRange 64 (i + 1)) :
     (∀ (j : Int), (((0 ≤ j) ∧ (j < ((i + 1) % 18446744073709551616))) → ((vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j) < n) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j) < n)))) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  intro j hj
+  obtain ⟨hj0, hj1⟩ := hj
+  have hr : (i + 1) % 18446744073709551616 = i + 1 := by
+    unfold Vermilion.inUnsignedRange at assert_4
+    norm_num at assert_4
+    omega
+  rw [hr] at hj1
+  by_cases hji : j < i
+  · exact loop_0_iteration_5 j ⟨hj0, hji⟩
+  · have hj : j = i := by omega
+    rw [hj]
+    have h3 : ¬ tmp__3 := fun h => then_1_assume_16 h
+    by_cases hc : vermilion.tuple_2.get_tuple_2__0 tmp_ ≥ n
+    · exact absurd ((then_0_assume_11 hc).mpr trivial) h3
+    · have e2 := else_0_call_vec_index_1_ensures_2 hc
+      have e3 := else_0_assume_14 hc
+      rw [← call_vec_index_ensures_2]
+      rw [e2, ← call_vec_index_ensures_2] at e3
+      exact ⟨by omega, by by_contra h; exact h3 (e3.mpr (by omega))⟩
 -- vrml:end reclaim_plan.edges_in_range.invariant_preserve_0_1
 
 -- vrml:begin reclaim_plan.edges_in_range.assert_0_decreases b4a86fe0c8c2948e

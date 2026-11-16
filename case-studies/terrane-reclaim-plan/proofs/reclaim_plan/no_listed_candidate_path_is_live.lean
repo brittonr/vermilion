@@ -53,8 +53,10 @@ def assert_0_meta : Vermilion.ObligationMeta := {
     (requires_8 : reclaim_plan.mask_matches_paths_spec keys candidate_paths candidate)
     (requires_9 : (0 ≤ s) ∧ (s < Vermilion.Seq.len candidate_paths)) :
     reclaim_plan.key_marked_spec keys candidate (Vermilion.Seq.index candidate_paths s) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  unfold reclaim_plan.mask_matches_paths_spec at requires_8
+  first
+    | exact requires_8.2.2 s requires_9
+    | exact requires_8.2 s requires_9
 -- vrml:end reclaim_plan.no_listed_candidate_path_is_live.assert_0
 
 -- vrml:begin reclaim_plan.no_listed_candidate_path_is_live.call_requires_1_0 a598144f5224a335

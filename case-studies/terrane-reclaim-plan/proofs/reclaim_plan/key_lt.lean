@@ -8,6 +8,36 @@ set_option linter.dupNamespace false
 set_option linter.unusedTactic false
 set_option linter.unreachableTactic false
 
+-- vrml:user:begin
+theorem klt_iff (a b : Vermilion.Seq Int) (i : Int) (hi : 0 ≤ i)
+    (hia : i ≤ Vermilion.Seq.len a) (hib : i ≤ Vermilion.Seq.len b)
+    (hpre : reclaim_plan.prefix_eq_spec a b i)
+    (hstop : i = Vermilion.Seq.len a ∨ i = Vermilion.Seq.len b ∨
+      Vermilion.Seq.index a i ≠ Vermilion.Seq.index b i) :
+    reclaim_plan.key_lt_spec a b ↔
+      ((i = Vermilion.Seq.len a ∧ i < Vermilion.Seq.len b) ∨
+        ((i < Vermilion.Seq.len a ∧ i < Vermilion.Seq.len b) ∧
+          Vermilion.Seq.index a i < Vermilion.Seq.index b i)) := by
+  unfold reclaim_plan.key_lt_spec reclaim_plan.key_lt_at_spec
+  constructor
+  · rintro ⟨p, ⟨⟨⟨hp0, hpa⟩, hpb⟩, hpp⟩, hc⟩
+    unfold reclaim_plan.prefix_eq_spec at hpre hpp
+    rcases lt_trichotomy p i with h | h | h
+    · have e := hpre p ⟨hp0, h⟩
+      rcases hc with ⟨hpa', _⟩ | ⟨_, hlt⟩
+      · omega
+      · rw [e] at hlt; exact absurd hlt (lt_irrefl _)
+    · subst h; exact hc
+    · have e := hpp i ⟨hi, h⟩
+      rcases hstop with h1 | h1 | h1
+      · omega
+      · omega
+      · exact absurd e h1
+  · rintro (⟨h1, h2⟩ | ⟨⟨h1, h2⟩, h3⟩)
+    · exact ⟨i, ⟨⟨⟨hi, hia⟩, hib⟩, hpre⟩, Or.inl ⟨h1, h2⟩⟩
+    · exact ⟨i, ⟨⟨⟨hi, hia⟩, hib⟩, hpre⟩, Or.inr ⟨⟨h1, h2⟩, h3⟩⟩
+-- vrml:user:end
+
 namespace reclaim_plan.key_lt
 
 -- vrml:begin reclaim_plan.key_lt.invariant_entry_0_0 e9bf6d2ba41bfabc
@@ -438,8 +468,23 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
     (else_0_assume_16 : (¬ (tmp_ = tmp__2)) → (same_2 ↔ False))
     (assume_19 : Vermilion.inUnsignedRange 64 i_2) :
     reclaim_plan.prefix_eq_spec a b i_2 := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  by_cases he : tmp_ = tmp__2
+  · have hia : i < Vermilion.Seq.len a ∧ i < Vermilion.Seq.len b := by
+      by_contra hc
+      simp only [Vermilion.iteP] at loop_0_iteration_9
+      split_ifs at loop_0_iteration_9 <;> omega
+    have r := then_0_assert_4 he
+    unfold Vermilion.inUnsignedRange at r
+    norm_num at r
+    rw [then_0_assume_16 he, show (i + 1) % 18446744073709551616 = i + 1 by omega]
+    intro k hk
+    by_cases hki : k < i
+    · exact loop_0_iteration_7 k ⟨hk.1, hki⟩
+    · have : k = i := by omega
+      rw [this, ← call_vec_index_ensures_1, ← call_vec_index_1_ensures_1]
+      exact he
+  · rw [else_0_assume_15 he]
+    exact loop_0_iteration_7
 -- vrml:end reclaim_plan.key_lt.invariant_preserve_0_2
 
 -- vrml:begin reclaim_plan.key_lt.invariant_preserve_0_3 5decebb17b28a4cb
@@ -927,8 +972,50 @@ def ensures_14_meta : Vermilion.ObligationMeta := {
     (then_6_then_7_assert_12 : reclaim_plan.key_lt_spec a b → ((Vermilion.chooseSpec (fun (p : Int) => reclaim_plan.key_lt_at_spec a b p) < i) → (Vermilion.Seq.index a (Vermilion.chooseSpec (fun (p : Int) => reclaim_plan.key_lt_at_spec a b p)) = Vermilion.Seq.index b (Vermilion.chooseSpec (fun (p : Int) => reclaim_plan.key_lt_at_spec a b p)))))
     (then_6_else_7_then_8_assert_13 : reclaim_plan.key_lt_spec a b → ((¬ (Vermilion.chooseSpec (fun (p : Int) => reclaim_plan.key_lt_at_spec a b p) < i)) → ((Vermilion.chooseSpec (fun (p : Int) => reclaim_plan.key_lt_at_spec a b p) > i) → (Vermilion.Seq.index a i = Vermilion.Seq.index b i)))) :
     tmp__8 ↔ reclaim_plan.key_lt_spec a b := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have stop : i = Vermilion.Seq.len a ∨ i = Vermilion.Seq.len b ∨
+      Vermilion.Seq.index a i ≠ Vermilion.Seq.index b i := by
+    by_cases hs : same
+    · by_contra hcon
+      push_neg at hcon
+      apply loop_0_exit_5
+      have h1 : i < Vermilion.Seq.len a := by omega
+      have h2 : i < Vermilion.Seq.len b := by omega
+      simp [Vermilion.iteP, hs, h1, h2]
+    · exact Or.inr (Or.inr (loop_0_exit_4 hs).2)
+  rw [klt_iff a b i loop_0_exit_1.1 loop_0_exit_1.2 loop_0_exit_2 loop_0_exit_3 stop]
+  by_cases h1 : i = Vermilion.Seq.len a
+  · have t3 := then_1_assume_13 h1
+    by_cases h2 : i < Vermilion.Seq.len b
+    · have h3 : tmp__3 := t3.mpr h2
+      have h8 : tmp__8 := (then_2_assume_15 h3).mpr trivial
+      exact ⟨fun _ => Or.inl ⟨h1, h2⟩, fun _ => h8⟩
+    · have n3 : ¬ tmp__3 := fun h => h2 (t3.mp h)
+      have n4 : ¬ tmp__4 := fun h => (else_2_else_3_assume_17 n3 (by omega)).mp h
+      have n7 : ¬ tmp__7 := fun h => (else_2_else_4_assume_20 n3 n4).mp h
+      have n8 : ¬ tmp__8 := fun h => n7 ((else_2_assume_25 n3).mp h)
+      constructor
+      · intro h; exact absurd h n8
+      · rintro (⟨_, h⟩ | ⟨⟨_, h⟩, _⟩) <;> omega
+  · have n3 : ¬ tmp__3 := fun h => (else_1_assume_12 h1).mp h
+    have hla : i < Vermilion.Seq.len a := by omega
+    have t4 := else_2_then_3_assume_18 n3 hla
+    by_cases h2 : i < Vermilion.Seq.len b
+    · have h4 : tmp__4 := t4.mpr h2
+      rw [else_2_assume_25 n3, else_2_then_4_assume_24 n3 h4,
+        else_2_then_4_call_vec_index_2_ensures_1 n3 h4, else_2_then_4_call_vec_index_3_ensures_1 n3 h4]
+      constructor
+      · intro h; exact Or.inr ⟨⟨hla, h2⟩, h⟩
+      · rintro (⟨h, _⟩ | ⟨_, h⟩)
+        · exact absurd h h1
+        · exact h
+    · have n4 : ¬ tmp__4 := fun h => h2 (t4.mp h)
+      have n7 : ¬ tmp__7 := fun h => (else_2_else_4_assume_20 n3 n4).mp h
+      have n8 : ¬ tmp__8 := fun h => n7 ((else_2_assume_25 n3).mp h)
+      constructor
+      · intro h; exact absurd h n8
+      · rintro (⟨h, _⟩ | ⟨⟨_, h⟩, _⟩)
+        · exact absurd h h1
+        · exact absurd h h2
 -- vrml:end reclaim_plan.key_lt.ensures_14
 
 end reclaim_plan.key_lt

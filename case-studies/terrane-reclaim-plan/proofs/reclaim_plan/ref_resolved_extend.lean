@@ -132,8 +132,11 @@ def ensures_2_meta : Vermilion.ObligationMeta := {
     (assert_0 : Vermilion.Seq.index b (Vermilion.chooseSpec (fun (k : Int) => ((((0 ≤ k) ∧ (k < Vermilion.Seq.len a)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index a k) = i)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index a k) = Vermilion.chooseSpec (fun (t : Int) => ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ (Vermilion.Seq.index keys t = Vermilion.Seq.index (Vermilion.Seq.index refs i) j)) ∧ reclaim_plan.has_edge_spec a i t)))))) = Vermilion.Seq.index a (Vermilion.chooseSpec (fun (k : Int) => ((((0 ≤ k) ∧ (k < Vermilion.Seq.len a)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index a k) = i)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index a k) = Vermilion.chooseSpec (fun (t : Int) => ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ (Vermilion.Seq.index keys t = Vermilion.Seq.index (Vermilion.Seq.index refs i) j)) ∧ reclaim_plan.has_edge_spec a i t)))))))
     (assert_1 : reclaim_plan.has_edge_spec b i (Vermilion.chooseSpec (fun (t : Int) => ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ (Vermilion.Seq.index keys t = Vermilion.Seq.index (Vermilion.Seq.index refs i) j)) ∧ reclaim_plan.has_edge_spec a i t)))) :
     reclaim_plan.ref_resolved_spec keys refs b i j := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  obtain ⟨t, ⟨⟨ht0, ht1⟩, hkey⟩, e, ⟨⟨he0, he1⟩, hu⟩, hv⟩ := requires_4
+  obtain ⟨hlen, hpre⟩ := requires_5
+  refine ⟨t, ⟨⟨ht0, ht1⟩, hkey⟩, e, ⟨⟨he0, by omega⟩, ?_⟩, ?_⟩
+  · rw [hpre e ⟨he0, he1⟩]; exact hu
+  · rw [hpre e ⟨he0, he1⟩]; exact hv
 -- vrml:end reclaim_plan.ref_resolved_extend.ensures_2
 
 end reclaim_plan.ref_resolved_extend

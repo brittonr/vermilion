@@ -79,8 +79,7 @@ def call_requires_1_meta : Vermilion.ObligationMeta := {
     (branch_0 : (¬ (i < j)))
     (branch_1 : j < i) :
     reclaim_plan.key_lt_spec (Vermilion.Seq.index keys j) (Vermilion.Seq.index keys i) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  exact requires_1 j i ⟨⟨requires_3.1, branch_1⟩, requires_2.2⟩
 -- vrml:end reclaim_plan.sorted_keys_distinct.call_requires_1
 
 -- vrml:begin reclaim_plan.sorted_keys_distinct.ensures_2 65b06853b07e1e23

@@ -8,6 +8,37 @@ set_option linter.dupNamespace false
 set_option linter.unusedTactic false
 set_option linter.unreachableTactic false
 
+-- vrml:user:begin
+theorem rf_eq (e : Vermilion.Seq (vermilion.tuple_2 Int Int)) (s d f : Int) (hf : 0 ≤ f) :
+    reclaim_plan.reachable_fuel e s d f ↔
+      (s = d ∨ (f ≠ 0 ∧ ∃ mid, reclaim_plan.has_edge_spec e s mid ∧
+        reclaim_plan.reachable_fuel e mid d (f - 1))) := by
+  conv_lhs => unfold reclaim_plan.reachable_fuel
+  rw [dif_pos hf]
+  by_cases hsd : s = d
+  · simp [hsd]
+  · by_cases hf0 : f = 0
+    · simp [hsd, hf0]
+    · have hc : Vermilion.natClip (f - 1) = f - 1 := Vermilion.natClip_of_nonneg (by omega)
+      rw [hc]
+      constructor
+      · intro h
+        exact Or.inr ⟨hf0, (h.2 hsd).2 hf0⟩
+      · rintro (h | ⟨_, h⟩)
+        · exact absurd h hsd
+        · exact ⟨fun _ => trivial, fun _ => ⟨fun h0 => hf0 h0, fun _ => h⟩⟩
+
+theorem rf_step (e : Vermilion.Seq (vermilion.tuple_2 Int Int)) (s m d f : Int) (hf : 0 ≤ f)
+    (h1 : reclaim_plan.has_edge_spec e s m) (h2 : reclaim_plan.reachable_fuel e m d f) :
+    reclaim_plan.reachable_fuel e s d (f + 1) :=
+  (rf_eq e s d (f + 1) (by omega)).mpr
+    (Or.inr ⟨by omega, m, h1, by rw [show f + 1 - 1 = f by omega]; exact h2⟩)
+
+theorem rf_refl (e : Vermilion.Seq (vermilion.tuple_2 Int Int)) (s f : Int) (hf : 0 ≤ f) :
+    reclaim_plan.reachable_fuel e s s f :=
+  (rf_eq e s s f hf).mpr (Or.inl rfl)
+-- vrml:user:end
+
 namespace reclaim_plan.reachable_edges_mono
 
 -- vrml:begin reclaim_plan.reachable_edges_mono.assert_0 4608736810d30b2c
@@ -46,8 +77,19 @@ def assert_0_meta : Vermilion.ObligationMeta := {
     (requires_4 : reclaim_plan.reachable_fuel edges src dst fuel)
     (branch_0 : (¬ (src = dst))) :
     reclaim_plan.has_edge_spec edges2 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges (Vermilion.chooseSpec (fun (i : Int) => ((((0 ≤ i) ∧ (i < Vermilion.Seq.len edges)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges i) = src)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges i) = Vermilion.chooseSpec (fun (mid : Int) => (reclaim_plan.has_edge_spec edges src mid ∧ reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1)))))))))) (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges (Vermilion.chooseSpec (fun (i : Int) => ((((0 ≤ i) ∧ (i < Vermilion.Seq.len edges)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges i) = src)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges i) = Vermilion.chooseSpec (fun (mid : Int) => (reclaim_plan.has_edge_spec edges src mid ∧ reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1)))))))))) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hf0 : fuel ≠ 0 := by
+    intro h; subst h
+    rcases (rf_eq edges src dst 0 (le_refl _)).mp requires_4 with h | ⟨h, _⟩
+    · exact branch_0 h
+    · exact h rfl
+  have hc : Vermilion.natClip (fuel - 1) = fuel - 1 := Vermilion.natClip_of_nonneg (by omega)
+  obtain ⟨mid0, hm1, hm2⟩ : ∃ mid, reclaim_plan.has_edge_spec edges src mid ∧
+      reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1)) := by
+    rcases (rf_eq edges src dst fuel requires_2).mp requires_4 with h | ⟨_, mid, h1, h2⟩
+    · exact absurd h branch_0
+    · exact ⟨mid, h1, by rw [hc]; exact h2⟩
+  obtain ⟨hMe, hMr⟩ := choose_spec_1 ⟨mid0, hm1, hm2⟩
+  exact requires_3 _ (choose_spec_0 hMe).1.1
 -- vrml:end reclaim_plan.reachable_edges_mono.assert_0
 
 -- vrml:begin reclaim_plan.reachable_edges_mono.assert_anonymous_0 d334ee68ed2b65c9
@@ -87,8 +129,18 @@ def assert_anonymous_0_meta : Vermilion.ObligationMeta := {
     (branch_0 : (¬ (src = dst)))
     (assert_0 : reclaim_plan.has_edge_spec edges2 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges (Vermilion.chooseSpec (fun (i : Int) => ((((0 ≤ i) ∧ (i < Vermilion.Seq.len edges)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges i) = src)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges i) = Vermilion.chooseSpec (fun (mid : Int) => (reclaim_plan.has_edge_spec edges src mid ∧ reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1)))))))))) (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges (Vermilion.chooseSpec (fun (i : Int) => ((((0 ≤ i) ∧ (i < Vermilion.Seq.len edges)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges i) = src)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges i) = Vermilion.chooseSpec (fun (mid : Int) => (reclaim_plan.has_edge_spec edges src mid ∧ reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1))))))))))) :
     ((0 ≤ Vermilion.natClip (fuel - 1)) ∧ (Vermilion.natClip (fuel - 1) < fuel)) ∨ ((Vermilion.natClip (fuel - 1) = fuel) ∧ False) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hf0 : fuel ≠ 0 := by
+    intro h; subst h
+    rcases (rf_eq edges src dst 0 (le_refl _)).mp requires_4 with h | ⟨h, _⟩
+    · exact branch_0 h
+    · exact h rfl
+  have hc : Vermilion.natClip (fuel - 1) = fuel - 1 := Vermilion.natClip_of_nonneg (by omega)
+  obtain ⟨mid0, hm1, hm2⟩ : ∃ mid, reclaim_plan.has_edge_spec edges src mid ∧
+      reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1)) := by
+    rcases (rf_eq edges src dst fuel requires_2).mp requires_4 with h | ⟨_, mid, h1, h2⟩
+    · exact absurd h branch_0
+    · exact ⟨mid, h1, by rw [hc]; exact h2⟩
+  left; rw [hc]; omega
 -- vrml:end reclaim_plan.reachable_edges_mono.assert_anonymous_0
 
 -- vrml:begin reclaim_plan.reachable_edges_mono.call_requires_1_0 0ab47d178d47e1ef
@@ -171,8 +223,20 @@ def call_requires_1_1_meta : Vermilion.ObligationMeta := {
     (assert_0 : reclaim_plan.has_edge_spec edges2 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges (Vermilion.chooseSpec (fun (i : Int) => ((((0 ≤ i) ∧ (i < Vermilion.Seq.len edges)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges i) = src)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges i) = Vermilion.chooseSpec (fun (mid : Int) => (reclaim_plan.has_edge_spec edges src mid ∧ reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1)))))))))) (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges (Vermilion.chooseSpec (fun (i : Int) => ((((0 ≤ i) ∧ (i < Vermilion.Seq.len edges)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges i) = src)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges i) = Vermilion.chooseSpec (fun (mid : Int) => (reclaim_plan.has_edge_spec edges src mid ∧ reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1)))))))))))
     (assert_anonymous_0 : ((0 ≤ Vermilion.natClip (fuel - 1)) ∧ (Vermilion.natClip (fuel - 1) < fuel)) ∨ ((Vermilion.natClip (fuel - 1) = fuel) ∧ False)) :
     reclaim_plan.reachable_fuel edges (Vermilion.chooseSpec (fun (mid : Int) => (reclaim_plan.has_edge_spec edges src mid ∧ reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1))))) dst (Vermilion.natClip (fuel - 1)) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hf0 : fuel ≠ 0 := by
+    intro h; subst h
+    rcases (rf_eq edges src dst 0 (le_refl _)).mp requires_4 with h | ⟨h, _⟩
+    · exact branch_0 h
+    · exact h rfl
+  have hc : Vermilion.natClip (fuel - 1) = fuel - 1 := Vermilion.natClip_of_nonneg (by omega)
+  obtain ⟨mid0, hm1, hm2⟩ : ∃ mid, reclaim_plan.has_edge_spec edges src mid ∧
+      reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1)) := by
+    rcases (rf_eq edges src dst fuel requires_2).mp requires_4 with h | ⟨_, mid, h1, h2⟩
+    · exact absurd h branch_0
+    · exact ⟨mid, h1, by rw [hc]; exact h2⟩
+  first
+    | exact (choose_spec_0 ⟨mid0, hm1, hm2⟩).2
+    | exact (choose_spec_1 ⟨mid0, hm1, hm2⟩).2
 -- vrml:end reclaim_plan.reachable_edges_mono.call_requires_1_1
 
 -- vrml:begin reclaim_plan.reachable_edges_mono.assert_2 6da555bd88a7e1d2
@@ -214,8 +278,26 @@ def assert_2_meta : Vermilion.ObligationMeta := {
     (assert_anonymous_0 : ((0 ≤ Vermilion.natClip (fuel - 1)) ∧ (Vermilion.natClip (fuel - 1) < fuel)) ∨ ((Vermilion.natClip (fuel - 1) = fuel) ∧ False))
     (call_reachable_edges_mono_ensures_0 : reclaim_plan.reachable_fuel edges2 (Vermilion.chooseSpec (fun (mid : Int) => (reclaim_plan.has_edge_spec edges src mid ∧ reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1))))) dst (Vermilion.natClip (fuel - 1))) :
     reclaim_plan.has_edge_spec edges2 src (Vermilion.chooseSpec (fun (mid : Int) => (reclaim_plan.has_edge_spec edges src mid ∧ reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1))))) ∧ reclaim_plan.reachable_fuel edges2 (Vermilion.chooseSpec (fun (mid : Int) => (reclaim_plan.has_edge_spec edges src mid ∧ reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1))))) dst (Vermilion.natClip (fuel - 1)) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hf0 : fuel ≠ 0 := by
+    intro h; subst h
+    rcases (rf_eq edges src dst 0 (le_refl _)).mp requires_4 with h | ⟨h, _⟩
+    · exact branch_0 h
+    · exact h rfl
+  have hc : Vermilion.natClip (fuel - 1) = fuel - 1 := Vermilion.natClip_of_nonneg (by omega)
+  obtain ⟨mid0, hm1, hm2⟩ : ∃ mid, reclaim_plan.has_edge_spec edges src mid ∧
+      reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1)) := by
+    rcases (rf_eq edges src dst fuel requires_2).mp requires_4 with h | ⟨_, mid, h1, h2⟩
+    · exact absurd h branch_0
+    · exact ⟨mid, h1, by rw [hc]; exact h2⟩
+  first
+    | (obtain ⟨hMe, hMr⟩ := choose_spec_1 ⟨mid0, hm1, hm2⟩
+       obtain ⟨⟨_, hs⟩, hm⟩ := choose_spec_0 hMe
+       rw [hs, hm] at assert_0
+       exact ⟨assert_0, call_reachable_edges_mono_ensures_0⟩)
+    | (obtain ⟨hMe, hMr⟩ := choose_spec_0 ⟨mid0, hm1, hm2⟩
+       obtain ⟨⟨_, hs⟩, hm⟩ := choose_spec_1 hMe
+       rw [hs, hm] at assert_0
+       exact ⟨assert_0, call_reachable_edges_mono_ensures_0⟩)
 -- vrml:end reclaim_plan.reachable_edges_mono.assert_2
 
 -- vrml:begin reclaim_plan.reachable_edges_mono.ensures_3 c8114efd9915a0de
@@ -257,8 +339,17 @@ def ensures_3_meta : Vermilion.ObligationMeta := {
     (then_0_call_reachable_edges_mono_ensures_0 : (¬ (src = dst)) → reclaim_plan.reachable_fuel edges2 (Vermilion.chooseSpec (fun (mid : Int) => (reclaim_plan.has_edge_spec edges src mid ∧ reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1))))) dst (Vermilion.natClip (fuel - 1)))
     (then_0_assert_2 : (¬ (src = dst)) → (reclaim_plan.has_edge_spec edges2 src (Vermilion.chooseSpec (fun (mid : Int) => (reclaim_plan.has_edge_spec edges src mid ∧ reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1))))) ∧ reclaim_plan.reachable_fuel edges2 (Vermilion.chooseSpec (fun (mid : Int) => (reclaim_plan.has_edge_spec edges src mid ∧ reclaim_plan.reachable_fuel edges mid dst (Vermilion.natClip (fuel - 1))))) dst (Vermilion.natClip (fuel - 1)))) :
     reclaim_plan.reachable_fuel edges2 src dst fuel := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  by_cases h : src = dst
+  · rw [h]; exact rf_refl edges2 dst fuel requires_2
+  · obtain ⟨he, hr⟩ := then_0_assert_2 h
+    have hf0 : fuel ≠ 0 := by
+      intro h0; subst h0
+      rcases (rf_eq edges src dst 0 (le_refl _)).mp requires_4 with h' | ⟨h', _⟩
+      · exact h h'
+      · exact h' rfl
+    refine (rf_eq edges2 src dst fuel requires_2).mpr (Or.inr ⟨hf0, _, he, ?_⟩)
+    convert hr using 1
+    exact (Vermilion.natClip_of_nonneg (by omega)).symm
 -- vrml:end reclaim_plan.reachable_edges_mono.ensures_3
 
 end reclaim_plan.reachable_edges_mono

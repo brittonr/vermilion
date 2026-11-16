@@ -488,8 +488,21 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
     (then_1_assume_17 : tmp__4 → False)
     (assert_5 : Vermilion.inUnsignedRange 64 (i + 1)) :
     (∀ (j : Int), (((0 ≤ j) ∧ (j < ((i + 1) % 18446744073709551616))) → ((¬ Vermilion.Seq.index reclaimable (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j))) → (¬ Vermilion.Seq.index reclaimable (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j)))))) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  intro j hj
+  obtain ⟨hj0, hj1⟩ := hj
+  have hr : (i + 1) % 18446744073709551616 = i + 1 := by
+    unfold Vermilion.inUnsignedRange at assert_5
+    norm_num at assert_5
+    omega
+  rw [hr] at hj1
+  by_cases hji : j < i
+  · exact loop_0_iteration_6 j ⟨hj0, hji⟩
+  · have hj : j = i := by omega
+    rw [hj, ← call_vec_index_ensures_2]
+    intro hu hv
+    have h2 : ¬ tmp__2 := fun h => hu (call_vec_index_1_ensures_0.mp h)
+    have h3 : tmp__3 := (then_0_call_vec_index_2_ensures_0 h2).mpr hv
+    exact then_1_assume_16 ((then_0_assume_14 h2).mpr h3)
 -- vrml:end reclaim_plan.protected_closed.invariant_preserve_0_2
 
 -- vrml:begin reclaim_plan.protected_closed.assert_0_decreases f75b60cb7b0cb300

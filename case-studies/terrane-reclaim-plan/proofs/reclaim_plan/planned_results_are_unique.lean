@@ -456,8 +456,11 @@ def ensures_3_0_meta : Vermilion.ObligationMeta := {
     (requires_5 : reclaim_plan.retained_sound_spec edges roots other_retained)
     (assume_6 : (∀ (v : Int), (((0 ≤ v) ∧ (v < n)) → ((Vermilion.Seq.index retained v ↔ Vermilion.Seq.index other_retained v) ∧ (Vermilion.Seq.index candidate v ↔ Vermilion.Seq.index other_candidate v))))) :
     retained = other_retained := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  obtain ⟨⟨⟨⟨⟨_, hl1⟩, _⟩, _⟩, _⟩, _⟩ := requires_2
+  obtain ⟨⟨⟨⟨⟨_, hl2⟩, _⟩, _⟩, _⟩, _⟩ := requires_4
+  apply Vermilion.Seq.ext (by rw [hl1, hl2])
+  intro v hv0 hv1
+  exact propext (assume_6 v ⟨hv0, by omega⟩).1
 -- vrml:end reclaim_plan.planned_results_are_unique.ensures_3_0
 
 -- vrml:begin reclaim_plan.planned_results_are_unique.ensures_3_1 63080cdfb8ea00ce
@@ -498,8 +501,11 @@ def ensures_3_1_meta : Vermilion.ObligationMeta := {
     (requires_5 : reclaim_plan.retained_sound_spec edges roots other_retained)
     (assume_6 : (∀ (v : Int), (((0 ≤ v) ∧ (v < n)) → ((Vermilion.Seq.index retained v ↔ Vermilion.Seq.index other_retained v) ∧ (Vermilion.Seq.index candidate v ↔ Vermilion.Seq.index other_candidate v))))) :
     candidate = other_candidate := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  obtain ⟨⟨⟨⟨_, hl1⟩, _⟩, _⟩, _⟩ := requires_2
+  obtain ⟨⟨⟨⟨_, hl2⟩, _⟩, _⟩, _⟩ := requires_4
+  apply Vermilion.Seq.ext (by rw [hl1, hl2])
+  intro v hv0 hv1
+  exact propext (assume_6 v ⟨hv0, by omega⟩).2
 -- vrml:end reclaim_plan.planned_results_are_unique.ensures_3_1
 
 end reclaim_plan.planned_results_are_unique
