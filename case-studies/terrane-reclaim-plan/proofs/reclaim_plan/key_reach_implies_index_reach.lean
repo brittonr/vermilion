@@ -8,6 +8,107 @@ set_option linter.dupNamespace false
 set_option linter.unusedTactic false
 set_option linter.unreachableTactic false
 
+-- vrml:user:begin
+theorem rf_eq (e : Vermilion.Seq (vermilion.tuple_2 Int Int)) (s d f : Int) (hf : 0 ≤ f) :
+    reclaim_plan.reachable_fuel e s d f ↔
+      (s = d ∨ (f ≠ 0 ∧ ∃ mid, reclaim_plan.has_edge_spec e s mid ∧
+        reclaim_plan.reachable_fuel e mid d (f - 1))) := by
+  conv_lhs => unfold reclaim_plan.reachable_fuel
+  rw [dif_pos hf]
+  by_cases hsd : s = d
+  · simp [hsd]
+  · by_cases hf0 : f = 0
+    · simp [hsd, hf0]
+    · have hc : Vermilion.natClip (f - 1) = f - 1 := Vermilion.natClip_of_nonneg (by omega)
+      rw [hc]
+      constructor
+      · intro h
+        exact Or.inr ⟨hf0, (h.2 hsd).2 hf0⟩
+      · rintro (h | ⟨_, h⟩)
+        · exact absurd h hsd
+        · exact ⟨fun _ => trivial, fun _ => ⟨fun h0 => hf0 h0, fun _ => h⟩⟩
+
+theorem rf_step (e : Vermilion.Seq (vermilion.tuple_2 Int Int)) (s m d f : Int) (hf : 0 ≤ f)
+    (h1 : reclaim_plan.has_edge_spec e s m) (h2 : reclaim_plan.reachable_fuel e m d f) :
+    reclaim_plan.reachable_fuel e s d (f + 1) :=
+  (rf_eq e s d (f + 1) (by omega)).mpr
+    (Or.inr ⟨by omega, m, h1, by rw [show f + 1 - 1 = f by omega]; exact h2⟩)
+
+theorem rf_refl (e : Vermilion.Seq (vermilion.tuple_2 Int Int)) (s f : Int) (hf : 0 ≤ f) :
+    reclaim_plan.reachable_fuel e s s f :=
+  (rf_eq e s s f hf).mpr (Or.inl rfl)
+
+theorem kr_eq (keys : Vermilion.Seq (Vermilion.Seq Int)) (refs : Vermilion.Seq (Vermilion.Seq (Vermilion.Seq Int)))
+    (a b : Vermilion.Seq Int) (f : Int) (hf : 0 ≤ f) :
+    reclaim_plan.key_reach_fuel keys refs a b f ↔
+      (a = b ∨ (f ≠ 0 ∧ ∃ i j, (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧
+        (Vermilion.Seq.index keys i = a)) ∧ ((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i)))) ∧
+        reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (f - 1))) := by
+  conv_lhs => unfold reclaim_plan.key_reach_fuel
+  rw [dif_pos hf]
+  by_cases hab : a = b
+  · simp [hab]
+  · by_cases hf0 : f = 0
+    · simp [hab, hf0]
+    · have hc : Vermilion.natClip (f - 1) = f - 1 := Vermilion.natClip_of_nonneg (by omega)
+      rw [hc]
+      constructor
+      · intro h
+        exact Or.inr ⟨hf0, (h.2 hab).2 hf0⟩
+      · rintro (h | ⟨_, h⟩)
+        · exact absurd h hab
+        · exact ⟨fun _ => trivial, fun _ => ⟨fun h0 => hf0 h0, fun _ => h⟩⟩
+
+theorem irkr (keys : Vermilion.Seq (Vermilion.Seq Int)) (refs : Vermilion.Seq (Vermilion.Seq (Vermilion.Seq Int)))
+    (edges : Vermilion.Seq (vermilion.tuple_2 Int Int))
+    (h2 : ∀ (k : Int), ((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) →
+      (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges k)) ∧
+        Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges k))))
+    (h4 : reclaim_plan.edges_match_refs_spec keys refs edges) :
+    ∀ (n : Nat) (s t : Int), 0 ≤ s → s < Vermilion.Seq.len keys → t < Vermilion.Seq.len keys →
+      reclaim_plan.reachable_fuel edges s t n →
+      reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index keys s) (Vermilion.Seq.index keys t) n := by
+  intro n
+  induction n with
+  | zero =>
+    intro s t _ _ _ h
+    rcases (rf_eq edges s t 0 (le_refl _)).mp h with h | ⟨h, _⟩
+    · rw [h]; exact (kr_eq keys refs _ _ 0 (le_refl _)).mpr (Or.inl rfl)
+    · exact absurd rfl h
+  | succ m ih =>
+    intro s t hs0 hs1 ht1 h
+    have hf : (0 : Int) ≤ ((m + 1 : Nat) : Int) := by omega
+    by_cases hk : Vermilion.Seq.index keys s = Vermilion.Seq.index keys t
+    · exact (kr_eq keys refs _ _ _ hf).mpr (Or.inl hk)
+    · rcases (rf_eq edges s t _ hf).mp h with h | ⟨_, mid, ⟨k, ⟨⟨hk0, hk1⟩, he0⟩, he1⟩, hr⟩
+      · exact absurd (by rw [h]) hk
+      · obtain ⟨⟨⟨hb0, hb1⟩, hb2⟩, q, ⟨hq0, hq1⟩, hq⟩ := h4.1.2 k ⟨hk0, hk1⟩
+        have hr2 := (h2 k ⟨hk0, hk1⟩).2
+        unfold Vermilion.inUnsignedRange at hr2
+        rw [he0] at hb2 hq hq1
+        rw [he1] at hq hr2 hb1
+        have ih' := ih mid t hr2.1 hb1 ht1 (by
+          have : ((m + 1 : Nat) : Int) - 1 = (m : Int) := by omega
+          rw [this] at hr; exact hr)
+        refine (kr_eq keys refs _ _ _ hf).mpr (Or.inr ⟨by omega, s, q, ⟨⟨⟨⟨hs0, hs1⟩, hb2⟩, rfl⟩, ⟨hq0, hq1⟩⟩, ?_⟩)
+        rw [hq]
+        have : ((m + 1 : Nat) : Int) - 1 = (m : Int) := by omega
+        rw [this]; exact ih'
+
+theorem step3 (keys : Vermilion.Seq (Vermilion.Seq Int)) (refs : Vermilion.Seq (Vermilion.Seq (Vermilion.Seq Int)))
+    (edges : Vermilion.Seq (vermilion.tuple_2 Int Int)) (s t K J M f : Int)
+    (e0 : vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges K) = s)
+    (e1 : vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges K) = M)
+    (hJ : Vermilion.Seq.index (Vermilion.Seq.index refs (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges K))) J =
+      Vermilion.Seq.index keys (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges K)))
+    (hrec : reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index keys M) (Vermilion.Seq.index keys t) f) :
+    Vermilion.Seq.index (Vermilion.Seq.index refs s) J = Vermilion.Seq.index keys M ∧
+      reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs s) J) (Vermilion.Seq.index keys t) f := by
+  rw [e0, e1] at hJ
+  rw [hJ]
+  exact ⟨rfl, hrec⟩
+-- vrml:user:end
+
 namespace reclaim_plan.key_reach_implies_index_reach
 
 -- vrml:begin reclaim_plan.key_reach_implies_index_reach.assert_0 9227d215baaa389c
@@ -139,8 +240,21 @@ def call_requires_1_1_meta : Vermilion.ObligationMeta := {
     (requires_8 : reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index keys s) b fuel)
     (branch_0 : (¬ (Vermilion.Seq.index keys s = b))) :
     (0 ≤ Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1))))))) ∧ (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))) < Vermilion.Seq.len keys) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hf0 : fuel ≠ 0 := by
+    intro h; subst h
+    rcases (kr_eq keys refs _ b 0 (le_refl _)).mp requires_8 with h | ⟨h, _⟩
+    · exact branch_0 h
+    · exact h rfl
+  have hc : Vermilion.natClip (fuel - 1) = fuel - 1 := Vermilion.natClip_of_nonneg (by omega)
+  obtain ⟨i0, j0, ⟨⟨⟨⟨hi0, hi1⟩, hi2⟩, hik⟩, hj⟩, hr⟩ : ∃ i j, (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧
+      (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧
+      ((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i)))) ∧
+      reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (fuel - 1) := by
+    rcases (kr_eq keys refs _ b fuel requires_4).mp requires_8 with h | ⟨_, h⟩
+    · exact absurd h branch_0
+    · exact h
+  have hI := choose_spec_0 ⟨i0, ⟨⟨⟨hi0, hi1⟩, hi2⟩, hik⟩, j0, hj, by rw [hc]; exact hr⟩
+  exact hI.1.1.1
 -- vrml:end reclaim_plan.key_reach_implies_index_reach.call_requires_1_1
 
 -- vrml:begin reclaim_plan.key_reach_implies_index_reach.call_requires_1_2 620c6aae30d0af3e
@@ -228,8 +342,21 @@ def call_requires_1_3_meta : Vermilion.ObligationMeta := {
     (requires_8 : reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index keys s) b fuel)
     (branch_0 : (¬ (Vermilion.Seq.index keys s = b))) :
     Vermilion.Seq.index keys (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1))))))) = Vermilion.Seq.index keys s := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hf0 : fuel ≠ 0 := by
+    intro h; subst h
+    rcases (kr_eq keys refs _ b 0 (le_refl _)).mp requires_8 with h | ⟨h, _⟩
+    · exact branch_0 h
+    · exact h rfl
+  have hc : Vermilion.natClip (fuel - 1) = fuel - 1 := Vermilion.natClip_of_nonneg (by omega)
+  obtain ⟨i0, j0, ⟨⟨⟨⟨hi0, hi1⟩, hi2⟩, hik⟩, hj⟩, hr⟩ : ∃ i j, (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧
+      (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧
+      ((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i)))) ∧
+      reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (fuel - 1) := by
+    rcases (kr_eq keys refs _ b fuel requires_4).mp requires_8 with h | ⟨_, h⟩
+    · exact absurd h branch_0
+    · exact h
+  have hI := choose_spec_0 ⟨i0, ⟨⟨⟨hi0, hi1⟩, hi2⟩, hik⟩, j0, hj, by rw [hc]; exact hr⟩
+  exact hI.1.2
 -- vrml:end reclaim_plan.key_reach_implies_index_reach.call_requires_1_3
 
 -- vrml:begin reclaim_plan.key_reach_implies_index_reach.assert_2 f9d4b8f6346d4401
@@ -275,8 +402,22 @@ def assert_2_meta : Vermilion.ObligationMeta := {
     (branch_0 : (¬ (Vermilion.Seq.index keys s = b)))
     (call_sorted_keys_distinct_ensures_0 : Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))) = s) :
     reclaim_plan.ref_resolved_spec keys refs edges (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1))))))) (Vermilion.chooseSpec (fun (j_vrml_0 : Int) => (((0 ≤ j_vrml_0) ∧ (j_vrml_0 < Vermilion.Seq.len (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) j_vrml_0) b (Vermilion.natClip (fuel - 1))))) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hf0 : fuel ≠ 0 := by
+    intro h; subst h
+    rcases (kr_eq keys refs _ b 0 (le_refl _)).mp requires_8 with h | ⟨h, _⟩
+    · exact branch_0 h
+    · exact h rfl
+  have hc : Vermilion.natClip (fuel - 1) = fuel - 1 := Vermilion.natClip_of_nonneg (by omega)
+  obtain ⟨i0, j0, ⟨⟨⟨⟨hi0, hi1⟩, hi2⟩, hik⟩, hj⟩, hr⟩ : ∃ i j, (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧
+      (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧
+      ((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i)))) ∧
+      reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (fuel - 1) := by
+    rcases (kr_eq keys refs _ b fuel requires_4).mp requires_8 with h | ⟨_, h⟩
+    · exact absurd h branch_0
+    · exact h
+  have hI := choose_spec_0 ⟨i0, ⟨⟨⟨hi0, hi1⟩, hi2⟩, hik⟩, j0, hj, by rw [hc]; exact hr⟩
+  have hJ := choose_spec_1 hI.2
+  exact requires_6.2 _ _ ⟨⟨hI.1.1.1.1, hI.1.1.2⟩, hJ.1⟩
 -- vrml:end reclaim_plan.key_reach_implies_index_reach.assert_2
 
 -- vrml:begin reclaim_plan.key_reach_implies_index_reach.assert_anonymous_0 6ce00a5186ae4e1a
@@ -323,8 +464,21 @@ def assert_anonymous_0_meta : Vermilion.ObligationMeta := {
     (call_sorted_keys_distinct_ensures_0 : Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))) = s)
     (assert_2 : reclaim_plan.ref_resolved_spec keys refs edges (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1))))))) (Vermilion.chooseSpec (fun (j_vrml_0 : Int) => (((0 ≤ j_vrml_0) ∧ (j_vrml_0 < Vermilion.Seq.len (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) j_vrml_0) b (Vermilion.natClip (fuel - 1)))))) :
     ((0 ≤ Vermilion.natClip (fuel - 1)) ∧ (Vermilion.natClip (fuel - 1) < fuel)) ∨ ((Vermilion.natClip (fuel - 1) = fuel) ∧ False) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hf0 : fuel ≠ 0 := by
+    intro h; subst h
+    rcases (kr_eq keys refs _ b 0 (le_refl _)).mp requires_8 with h | ⟨h, _⟩
+    · exact branch_0 h
+    · exact h rfl
+  have hc : Vermilion.natClip (fuel - 1) = fuel - 1 := Vermilion.natClip_of_nonneg (by omega)
+  obtain ⟨i0, j0, ⟨⟨⟨⟨hi0, hi1⟩, hi2⟩, hik⟩, hj⟩, hr⟩ : ∃ i j, (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧
+      (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧
+      ((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i)))) ∧
+      reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (fuel - 1) := by
+    rcases (kr_eq keys refs _ b fuel requires_4).mp requires_8 with h | ⟨_, h⟩
+    · exact absurd h branch_0
+    · exact h
+  have hI := choose_spec_0 ⟨i0, ⟨⟨⟨hi0, hi1⟩, hi2⟩, hik⟩, j0, hj, by rw [hc]; exact hr⟩
+  left; rw [hc]; omega
 -- vrml:end reclaim_plan.key_reach_implies_index_reach.assert_anonymous_0
 
 -- vrml:begin reclaim_plan.key_reach_implies_index_reach.call_requires_3_0 923c21f055059857
@@ -521,8 +675,24 @@ def call_requires_3_3_meta : Vermilion.ObligationMeta := {
     (assert_2 : reclaim_plan.ref_resolved_spec keys refs edges (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1))))))) (Vermilion.chooseSpec (fun (j_vrml_0 : Int) => (((0 ≤ j_vrml_0) ∧ (j_vrml_0 < Vermilion.Seq.len (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) j_vrml_0) b (Vermilion.natClip (fuel - 1))))))
     (assert_anonymous_0 : ((0 ≤ Vermilion.natClip (fuel - 1)) ∧ (Vermilion.natClip (fuel - 1) < fuel)) ∨ ((Vermilion.natClip (fuel - 1) = fuel) ∧ False)) :
     reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index keys (Vermilion.chooseSpec (fun (t : Int) => ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ (Vermilion.Seq.index keys t = Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) (Vermilion.chooseSpec (fun (j_vrml_0 : Int) => (((0 ≤ j_vrml_0) ∧ (j_vrml_0 < Vermilion.Seq.len (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) j_vrml_0) b (Vermilion.natClip (fuel - 1))))))) ∧ reclaim_plan.has_edge_spec edges (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1))))))) t)))) b (Vermilion.natClip (fuel - 1)) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hf0 : fuel ≠ 0 := by
+    intro h; subst h
+    rcases (kr_eq keys refs _ b 0 (le_refl _)).mp requires_8 with h | ⟨h, _⟩
+    · exact branch_0 h
+    · exact h rfl
+  have hc : Vermilion.natClip (fuel - 1) = fuel - 1 := Vermilion.natClip_of_nonneg (by omega)
+  obtain ⟨i0, j0, ⟨⟨⟨⟨hi0, hi1⟩, hi2⟩, hik⟩, hj⟩, hr⟩ : ∃ i j, (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧
+      (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧
+      ((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i)))) ∧
+      reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (fuel - 1) := by
+    rcases (kr_eq keys refs _ b fuel requires_4).mp requires_8 with h | ⟨_, h⟩
+    · exact absurd h branch_0
+    · exact h
+  have hI := choose_spec_1 ⟨i0, ⟨⟨⟨hi0, hi1⟩, hi2⟩, hik⟩, j0, hj, by rw [hc]; exact hr⟩
+  have hJ := choose_spec_2 hI.2
+  have hT := choose_spec_0 assert_2
+  rw [hT.1.2]
+  exact hJ.2
 -- vrml:end reclaim_plan.key_reach_implies_index_reach.call_requires_3_3
 
 -- vrml:begin reclaim_plan.key_reach_implies_index_reach.assert_4 ed0f975f6ccb98f5
@@ -575,8 +745,16 @@ def assert_4_meta : Vermilion.ObligationMeta := {
     (call_key_reach_implies_index_reach_ensures_1 : Vermilion.Seq.index keys t = b)
     (call_key_reach_implies_index_reach_ensures_2 : reclaim_plan.reachable_fuel edges (Vermilion.chooseSpec (fun (t : Int) => ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ (Vermilion.Seq.index keys t = Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) (Vermilion.chooseSpec (fun (j_vrml_0 : Int) => (((0 ≤ j_vrml_0) ∧ (j_vrml_0 < Vermilion.Seq.len (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) j_vrml_0) b (Vermilion.natClip (fuel - 1))))))) ∧ reclaim_plan.has_edge_spec edges (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1))))))) t))) t (Vermilion.natClip (fuel - 1))) :
     reclaim_plan.has_edge_spec edges s (Vermilion.chooseSpec (fun (t : Int) => ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ (Vermilion.Seq.index keys t = Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) (Vermilion.chooseSpec (fun (j_vrml_0 : Int) => (((0 ≤ j_vrml_0) ∧ (j_vrml_0 < Vermilion.Seq.len (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) j_vrml_0) b (Vermilion.natClip (fuel - 1))))))) ∧ reclaim_plan.has_edge_spec edges (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1))))))) t))) ∧ reclaim_plan.reachable_fuel edges (Vermilion.chooseSpec (fun (t : Int) => ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ (Vermilion.Seq.index keys t = Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) (Vermilion.chooseSpec (fun (j_vrml_0 : Int) => (((0 ≤ j_vrml_0) ∧ (j_vrml_0 < Vermilion.Seq.len (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) j_vrml_0) b (Vermilion.natClip (fuel - 1))))))) ∧ reclaim_plan.has_edge_spec edges (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1))))))) t))) t (Vermilion.natClip (fuel - 1)) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hf0 : fuel ≠ 0 := by
+    intro h; subst h
+    rcases (kr_eq keys refs _ b 0 (le_refl _)).mp requires_8 with h | ⟨h, _⟩
+    · exact branch_0 h
+    · exact h rfl
+  have hc : Vermilion.natClip (fuel - 1) = fuel - 1 := Vermilion.natClip_of_nonneg (by omega)
+  have hT := choose_spec_0 assert_2
+  have key : ∀ (I T : Int), I = s → reclaim_plan.has_edge_spec edges I T → reclaim_plan.has_edge_spec edges s T := by
+    intro I T h1 h2; rw [← h1]; exact h2
+  exact ⟨key _ _ call_sorted_keys_distinct_ensures_0 hT.2, call_key_reach_implies_index_reach_ensures_2⟩
 -- vrml:end reclaim_plan.key_reach_implies_index_reach.assert_4
 
 -- vrml:begin reclaim_plan.key_reach_implies_index_reach.ensures_5_0 732f24f1c5dfc595
@@ -632,8 +810,9 @@ def ensures_5_0_meta : Vermilion.ObligationMeta := {
     (else_0_assert_4 : (¬ (Vermilion.Seq.index keys s = b)) → (reclaim_plan.has_edge_spec edges s (Vermilion.chooseSpec (fun (t : Int) => ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ (Vermilion.Seq.index keys t = Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) (Vermilion.chooseSpec (fun (j_vrml_0 : Int) => (((0 ≤ j_vrml_0) ∧ (j_vrml_0 < Vermilion.Seq.len (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) j_vrml_0) b (Vermilion.natClip (fuel - 1))))))) ∧ reclaim_plan.has_edge_spec edges (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1))))))) t))) ∧ reclaim_plan.reachable_fuel edges (Vermilion.chooseSpec (fun (t : Int) => ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ (Vermilion.Seq.index keys t = Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) (Vermilion.chooseSpec (fun (j_vrml_0 : Int) => (((0 ≤ j_vrml_0) ∧ (j_vrml_0 < Vermilion.Seq.len (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) j_vrml_0) b (Vermilion.natClip (fuel - 1))))))) ∧ reclaim_plan.has_edge_spec edges (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1))))))) t))) t (Vermilion.natClip (fuel - 1))))
     (else_0_assume_17 : (¬ (Vermilion.Seq.index keys s = b)) → (tmp_ = t)) :
     (0 ≤ tmp_) ∧ (tmp_ < Vermilion.Seq.len keys) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  by_cases h : Vermilion.Seq.index keys s = b
+  · rw [then_0_assume_11 h]; exact requires_7
+  · rw [else_0_assume_17 h]; exact else_0_call_key_reach_implies_index_reach_ensures_0 h
 -- vrml:end reclaim_plan.key_reach_implies_index_reach.ensures_5_0
 
 -- vrml:begin reclaim_plan.key_reach_implies_index_reach.ensures_5_1 6eaac96b9d80d7ad
@@ -689,8 +868,9 @@ def ensures_5_1_meta : Vermilion.ObligationMeta := {
     (else_0_assert_4 : (¬ (Vermilion.Seq.index keys s = b)) → (reclaim_plan.has_edge_spec edges s (Vermilion.chooseSpec (fun (t : Int) => ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ (Vermilion.Seq.index keys t = Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) (Vermilion.chooseSpec (fun (j_vrml_0 : Int) => (((0 ≤ j_vrml_0) ∧ (j_vrml_0 < Vermilion.Seq.len (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) j_vrml_0) b (Vermilion.natClip (fuel - 1))))))) ∧ reclaim_plan.has_edge_spec edges (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1))))))) t))) ∧ reclaim_plan.reachable_fuel edges (Vermilion.chooseSpec (fun (t : Int) => ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ (Vermilion.Seq.index keys t = Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) (Vermilion.chooseSpec (fun (j_vrml_0 : Int) => (((0 ≤ j_vrml_0) ∧ (j_vrml_0 < Vermilion.Seq.len (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) j_vrml_0) b (Vermilion.natClip (fuel - 1))))))) ∧ reclaim_plan.has_edge_spec edges (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1))))))) t))) t (Vermilion.natClip (fuel - 1))))
     (else_0_assume_17 : (¬ (Vermilion.Seq.index keys s = b)) → (tmp_ = t)) :
     Vermilion.Seq.index keys tmp_ = b := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  by_cases h : Vermilion.Seq.index keys s = b
+  · rw [then_0_assume_11 h]; exact h
+  · rw [else_0_assume_17 h]; exact else_0_call_key_reach_implies_index_reach_ensures_1 h
 -- vrml:end reclaim_plan.key_reach_implies_index_reach.ensures_5_1
 
 -- vrml:begin reclaim_plan.key_reach_implies_index_reach.ensures_5_2 9aae526778c228ea
@@ -746,8 +926,18 @@ def ensures_5_2_meta : Vermilion.ObligationMeta := {
     (else_0_assert_4 : (¬ (Vermilion.Seq.index keys s = b)) → (reclaim_plan.has_edge_spec edges s (Vermilion.chooseSpec (fun (t : Int) => ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ (Vermilion.Seq.index keys t = Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) (Vermilion.chooseSpec (fun (j_vrml_0 : Int) => (((0 ≤ j_vrml_0) ∧ (j_vrml_0 < Vermilion.Seq.len (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) j_vrml_0) b (Vermilion.natClip (fuel - 1))))))) ∧ reclaim_plan.has_edge_spec edges (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1))))))) t))) ∧ reclaim_plan.reachable_fuel edges (Vermilion.chooseSpec (fun (t : Int) => ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ (Vermilion.Seq.index keys t = Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) (Vermilion.chooseSpec (fun (j_vrml_0 : Int) => (((0 ≤ j_vrml_0) ∧ (j_vrml_0 < Vermilion.Seq.len (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1)))))))) j_vrml_0) b (Vermilion.natClip (fuel - 1))))))) ∧ reclaim_plan.has_edge_spec edges (Vermilion.chooseSpec (fun (i : Int) => (((((0 ≤ i) ∧ (i < Vermilion.Seq.len keys)) ∧ (i < Vermilion.Seq.len refs)) ∧ (Vermilion.Seq.index keys i = Vermilion.Seq.index keys s)) ∧ (∃ (j : Int), (((0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index refs i))) ∧ reclaim_plan.key_reach_fuel keys refs (Vermilion.Seq.index (Vermilion.Seq.index refs i) j) b (Vermilion.natClip (fuel - 1))))))) t))) t (Vermilion.natClip (fuel - 1))))
     (else_0_assume_17 : (¬ (Vermilion.Seq.index keys s = b)) → (tmp_ = t)) :
     reclaim_plan.reachable_fuel edges s tmp_ fuel := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  by_cases h : Vermilion.Seq.index keys s = b
+  · rw [then_0_assume_11 h]; exact then_0_assert_0 h
+  · rw [else_0_assume_17 h]
+    obtain ⟨he, hr⟩ := else_0_assert_4 h
+    have hb := else_0_assert_anonymous_0 h
+    have hf0 : fuel ≠ 0 := by
+      rcases hb with ⟨h1, h2⟩ | ⟨_, h2⟩
+      · intro h0; rw [h0] at h1 h2; simp [Vermilion.natClip, Vermilion.iteP] at h2
+      · exact h2.elim
+    refine (rf_eq edges s t fuel requires_4).mpr (Or.inr ⟨hf0, _, he, ?_⟩)
+    convert hr using 1
+    exact (Vermilion.natClip_of_nonneg (by omega)).symm
 -- vrml:end reclaim_plan.key_reach_implies_index_reach.ensures_5_2
 
 end reclaim_plan.key_reach_implies_index_reach
