@@ -263,11 +263,11 @@ def reclaim_plan.key_live_spec (keys : (Vermilion.Seq (Vermilion.Seq Int))) (ref
 def reclaim_plan.prefix_of_spec (a : (Vermilion.Seq (vermilion.tuple_2 Int Int))) (b : (Vermilion.Seq (vermilion.tuple_2 Int Int))) : Prop :=
   (Vermilion.Seq.len a ≤ Vermilion.Seq.len b) ∧ (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len a)) → (Vermilion.Seq.index b k = Vermilion.Seq.index a k)))
 
--- vrml:spec reclaim_plan.key_marked_spec case-studies/terrane-reclaim-plan/reclaim_plan.rs:1251:1
+-- vrml:spec reclaim_plan.key_marked_spec case-studies/terrane-reclaim-plan/reclaim_plan.rs:1254:1
 def reclaim_plan.key_marked_spec (keys : (Vermilion.Seq (Vermilion.Seq Int))) (mask : (Vermilion.Seq Prop)) (p : (Vermilion.Seq Int)) : Prop :=
   (∃ (t : Int), (((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ (t < Vermilion.Seq.len mask)) ∧ Vermilion.Seq.index mask t) ∧ (Vermilion.Seq.index keys t = p)))
 
--- vrml:spec reclaim_plan.mask_matches_paths_spec case-studies/terrane-reclaim-plan/reclaim_plan.rs:1243:1
+-- vrml:spec reclaim_plan.mask_matches_paths_spec case-studies/terrane-reclaim-plan/reclaim_plan.rs:1246:1
 def reclaim_plan.mask_matches_paths_spec (keys : (Vermilion.Seq (Vermilion.Seq Int))) (paths : (Vermilion.Seq (Vermilion.Seq Int))) (mask : (Vermilion.Seq Prop)) : Prop :=
   ((Vermilion.Seq.len mask = Vermilion.Seq.len keys) ∧ (∀ (t : Int), ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ Vermilion.Seq.index mask t) → (∃ (s : Int), (((0 ≤ s) ∧ (s < Vermilion.Seq.len paths)) ∧ (Vermilion.Seq.index paths s = Vermilion.Seq.index keys t)))))) ∧ (∀ (s : Int), (((0 ≤ s) ∧ (s < Vermilion.Seq.len paths)) → reclaim_plan.key_marked_spec keys mask (Vermilion.Seq.index paths s)))
 

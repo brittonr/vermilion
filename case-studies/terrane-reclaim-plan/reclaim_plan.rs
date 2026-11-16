@@ -1138,8 +1138,11 @@ fn project_row(keys: &Vec<Vec<u8>>, references: &Vec<Vec<Vec<u8>>>, i: usize, in
         edges.push((i, t));
         proof {
             assert(prefix_of_spec(prev, edges@));
-            assert(references@[i as int][j as int]@ == keys@[t as int]@);
-            assert(edge_names_ref_spec(keys@, references@, edges@[prev.len() as int]));
+            let e = edges@[prev.len() as int];
+            assert(e == (i, t));
+            assert(references@[e.0 as int][j as int]@ == keys@[e.1 as int]@);
+            assert(0 <= j < references@[e.0 as int].len());
+            assert(edge_names_ref_spec(keys@, references@, e));
             assert forall|k: int| #![trigger edges@[k]] 0 <= k < edges@.len() implies edge_names_ref_spec(keys@, references@, edges@[k]) by {
                 if k < prev.len() {
                     assert(edges@[k] == prev[k]);
