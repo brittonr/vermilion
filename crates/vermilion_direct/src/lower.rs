@@ -6586,6 +6586,19 @@ fn function_view_impl(
     for statement in check.local_decls_decreases_init.iter() {
         lowering.statement(statement)?;
     }
+    // `hide(f)` is not a statement in SST: rust_verify turns it into the
+    // function attribute `hidden`, which Verus applies to the whole body.
+    // Hide each such spec fn from the start, exactly as `hide` at the top of
+    // the body would (rounds 0). Without this the generator kept the
+    // definition visible and proved what Verus, with `f` opaque, cannot.
+    for hidden in function.x.attrs.hidden.iter() {
+        if let Some(callee) = declarations.get(hidden) {
+            if let Some(spec) = &callee.x.axioms.spec_axioms {
+                let id = register_spec_fn(ctx, hidden, spec)?;
+                lowering.statements.push(Statement::Reveal { id, rounds: 0 });
+            }
+        }
+    }
     lowering.statement(&check.body)?;
 
     // Const generics (`const N: usize`) are value parameters: they leave
