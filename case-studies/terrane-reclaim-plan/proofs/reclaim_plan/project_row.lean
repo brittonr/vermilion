@@ -1095,8 +1095,21 @@ def assert_11_meta : Vermilion.ObligationMeta := {
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index (Vermilion.Seq.index references i) j = Vermilion.Seq.index keys tmp__2) :
     reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges)) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have n5 : ¬ tmp__5 := fun h => then_1_assume_35 h
+  have hlt : ¬ (tmp__2 ≥ Vermilion.Seq.len keys) := fun h => n5 ((then_0_assume_27 h).mpr trivial)
+  have h0 : 0 ≤ tmp__2 := by
+    unfold Vermilion.inUnsignedRange at call_vec_index_1_ensures_0; exact call_vec_index_1_ensures_0.1
+  have hlast : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2 := by
+    rw [call_push_ensures_0, Vermilion.Seq.index_push_last]
+  rw [hlast]
+  have hi0 : 0 ≤ i := by
+    unfold Vermilion.inUnsignedRange at loop_0_iteration_4; exact loop_0_iteration_4.1
+  refine ⟨⟨⟨?_, ?_⟩, ?_⟩, j, ⟨loop_0_iteration_14.1, ?_⟩, ?_⟩
+  · show i < Vermilion.Seq.len keys; exact loop_0_iteration_15
+  · show tmp__2 < Vermilion.Seq.len keys; omega
+  · show i < Vermilion.Seq.len references; rw [loop_0_iteration_16]; exact loop_0_iteration_15
+  · show j < Vermilion.Seq.len (Vermilion.Seq.index references i); rw [← loop_0_iteration_17]; exact loop_0_iteration_22
+  · show Vermilion.Seq.index (Vermilion.Seq.index references i) j = Vermilion.Seq.index keys tmp__2; exact assert_10
 -- vrml:end reclaim_plan.project_row.assert_11
 
 -- vrml:begin reclaim_plan.project_row.assert_12 a50b0609a3803eff
@@ -1267,8 +1280,12 @@ def assert_13_meta : Vermilion.ObligationMeta := {
     (assume_43 : (0 ≤ k) ∧ (k < Vermilion.Seq.len tmp__post))
     (then_2_assert_12 : (k < Vermilion.Seq.len edges) → (Vermilion.Seq.index tmp__post k = Vermilion.Seq.index edges k)) :
     reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index tmp__post k) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hlen : Vermilion.Seq.len tmp__post = Vermilion.Seq.len edges + 1 := by
+    rw [call_push_ensures_0, Vermilion.Seq.len_push]
+  by_cases hk : k < Vermilion.Seq.len edges
+  · rw [then_2_assert_12 hk]; exact loop_0_iteration_20 k ⟨assume_43.1, hk⟩
+  · have : k = Vermilion.Seq.len edges := by have := assume_43.2; omega
+    rw [this]; exact assert_11
 -- vrml:end reclaim_plan.project_row.assert_13
 
 -- vrml:begin reclaim_plan.project_row.assert_14 3cfbdbe74a648271
@@ -1705,8 +1722,13 @@ def assert_17_meta : Vermilion.ObligationMeta := {
     (branch_3 : (¬ (q < j)))
     (assert_16 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2) :
     reclaim_plan.has_edge_spec tmp__post i tmp__2 := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hlen : Vermilion.Seq.len tmp__post = Vermilion.Seq.len edges + 1 := by
+    rw [call_push_ensures_0, Vermilion.Seq.len_push]
+  have hl0 : 0 ≤ Vermilion.Seq.len edges := by
+    unfold Vermilion.Seq.len; omega
+  refine ⟨Vermilion.Seq.len edges, ⟨⟨hl0, by omega⟩, ?_⟩, ?_⟩
+  · rw [assert_16]; rfl
+  · rw [assert_16]; rfl
 -- vrml:end reclaim_plan.project_row.assert_17
 
 -- vrml:begin reclaim_plan.project_row.assert_18 52ba00dc83669963
@@ -1795,8 +1817,16 @@ def assert_18_meta : Vermilion.ObligationMeta := {
     (else_3_assert_16 : (¬ (q < j)) → (Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2))
     (else_3_assert_17 : (¬ (q < j)) → reclaim_plan.has_edge_spec tmp__post i tmp__2) :
     reclaim_plan.ref_resolved_spec keys references tmp__post i q := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  by_cases hq : q < j
+  · exact then_3_call_ref_resolved_extend_ensures_0 hq
+  · have hqj : q = j := by have := assume_44.2; omega
+    have he := else_3_assert_17 hq
+    have hlt : ¬ (tmp__2 ≥ Vermilion.Seq.len keys) := by
+      intro h; exact then_1_assume_35 ((then_0_assume_27 h).mpr trivial)
+    have h0 : 0 ≤ tmp__2 := by
+      unfold Vermilion.inUnsignedRange at call_vec_index_1_ensures_0; exact call_vec_index_1_ensures_0.1
+    refine ⟨tmp__2, ⟨⟨h0, by omega⟩, ?_⟩, he⟩
+    rw [hqj]; exact assert_10.symm
 -- vrml:end reclaim_plan.project_row.assert_18
 
 -- vrml:begin reclaim_plan.project_row.assert_19 2b8a537718f0ca8e
@@ -2743,8 +2773,9 @@ def invariant_preserve_0_7_meta : Vermilion.ObligationMeta := {
     (assume_44 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → (Vermilion.Seq.index tmp__post k = Vermilion.Seq.index input k))))
     (assert_21 : Vermilion.inUnsignedRange 64 (j + 1)) :
     (∀ (q : Int), (((0 ≤ q) ∧ (q < ((j + 1) % 18446744073709551616))) → reclaim_plan.ref_resolved_spec keys references tmp__post i q)) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hr : (j + 1) % 18446744073709551616 = j + 1 := by
+    unfold Vermilion.inUnsignedRange at assert_21; norm_num at assert_21; omega
+  rw [hr]; exact assume_43
 -- vrml:end reclaim_plan.project_row.invariant_preserve_0_7
 
 -- vrml:begin reclaim_plan.project_row.assert_0_decreases 2f82158d589c189f
@@ -3018,8 +3049,8 @@ def ensures_22_2_meta : Vermilion.ObligationMeta := {
     (loop_0_exit_10 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_exit_11 : (¬ (j < Vermilion.Seq.len tmp_))) :
     reclaim_plan.RowProjection.get_RowProjection_ok (reclaim_plan.RowProjection.RowProjection True edges) → (∀ (q : Int), (((0 ≤ q) ∧ (q < Vermilion.Seq.len (Vermilion.Seq.index references i))) → reclaim_plan.ref_resolved_spec keys references (reclaim_plan.RowProjection.get_RowProjection_edges (reclaim_plan.RowProjection.RowProjection True edges)) i q)) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  intro _ q hq
+  exact loop_0_exit_10 q ⟨hq.1, by rw [loop_0_exit_6] at loop_0_exit_11; omega⟩
 -- vrml:end reclaim_plan.project_row.ensures_22_2
 
 end reclaim_plan.project_row
