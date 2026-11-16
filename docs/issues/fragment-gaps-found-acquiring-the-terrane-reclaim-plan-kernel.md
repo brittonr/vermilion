@@ -33,7 +33,7 @@ verified. Each is a construct Vermilion should eventually accept as written:
    (`key_reach_fuel`) was restated over entry indices instead of a
    byte-string witness.
 
-Separately, 135 of the 617 obligations (counting one `Decidable` evidence
+Separately, 137 of the 617 obligations (counting one `Decidable` evidence
 instance) needed interactive proofs in the
 `proofs/` twin. Most of them are loop invariants over `Seq.update` /
 `Seq.push` with a case split on the updated index, and wraparound side

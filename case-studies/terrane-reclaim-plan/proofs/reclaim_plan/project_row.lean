@@ -10,14 +10,14 @@ set_option linter.unreachableTactic false
 
 namespace reclaim_plan.project_row
 
--- vrml:begin reclaim_plan.project_row.call_requires_0 7312e083dbb613ba
+-- vrml:begin reclaim_plan.project_row.call_requires_0 87144eafb0df3e0c
 /--
 Generated VC `reclaim_plan.project_row.call_requires_0`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1123:16-1123:29`
 - Rust/SST construct: call vec_index
 - AssertId: `0`
-- Statement hash: `7312e083dbb613ba`
+- Statement hash: `87144eafb0df3e0c`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index input k⟩
 -/
 def call_requires_0_meta : Vermilion.ObligationMeta := {
@@ -29,7 +29,7 @@ def call_requires_0_meta : Vermilion.ObligationMeta := {
   assertId := "0"
   functionName := "reclaim_plan.project_row"
   kind := "call_requires"
-  statementHash := "7312e083dbb613ba"
+  statementHash := "87144eafb0df3e0c"
 }
 @[vrml_obligation] theorem call_requires_0
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -37,32 +37,35 @@ def call_requires_0_meta : Vermilion.ObligationMeta := {
     (i : Int)
     (index_row : (Vermilion.Seq Int))
     (input : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (requires_4 : Vermilion.inUnsignedRange 64 i)
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
+    (requires_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (requires_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (requires_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (requires_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (requires_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
     (requires_9 : i < Vermilion.Seq.len keys)
     (requires_10 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
     (requires_11 : Vermilion.Seq.len index_row = Vermilion.Seq.len (Vermilion.Seq.index references i))
     (requires_12 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index input k)))) :
     i < Vermilion.Seq.len references := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.call_requires_0
 
--- vrml:begin reclaim_plan.project_row.invariant_entry_0_0 9935303c3b2f5af7
+-- vrml:begin reclaim_plan.project_row.invariant_entry_0_0 4bb5974889cd3800
 /--
 Generated VC `reclaim_plan.project_row.invariant_entry_0_0`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1126:19-1126:38`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_0`
-- Statement hash: `9935303c3b2f5af7`
+- Statement hash: `4bb5974889cd3800`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index input k⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩
 -/
 def invariant_entry_0_0_meta : Vermilion.ObligationMeta := {
@@ -74,7 +77,7 @@ def invariant_entry_0_0_meta : Vermilion.ObligationMeta := {
   assertId := "0_0"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_entry"
-  statementHash := "9935303c3b2f5af7"
+  statementHash := "4bb5974889cd3800"
 }
 @[vrml_obligation] theorem invariant_entry_0_0
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -83,35 +86,38 @@ def invariant_entry_0_0_meta : Vermilion.ObligationMeta := {
     (index_row : (Vermilion.Seq Int))
     (input : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (tmp_ : (Vermilion.Seq (Vermilion.Seq Int)))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (requires_4 : Vermilion.inUnsignedRange 64 i)
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
+    (requires_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (requires_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (requires_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (requires_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (requires_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
     (requires_9 : i < Vermilion.Seq.len keys)
     (requires_10 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
     (requires_11 : Vermilion.Seq.len index_row = Vermilion.Seq.len (Vermilion.Seq.index references i))
     (requires_12 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index input k))))
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (call_vec_index_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
     (call_vec_index_ensures_2 : tmp_ = Vermilion.Seq.index references i) :
     (0 ≤ 0) ∧ (0 ≤ Vermilion.Seq.len tmp_) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.invariant_entry_0_0
 
--- vrml:begin reclaim_plan.project_row.invariant_entry_0_1 16491efbeb3a2e7d
+-- vrml:begin reclaim_plan.project_row.invariant_entry_0_1 1eeb072ab134ae56
 /--
 Generated VC `reclaim_plan.project_row.invariant_entry_0_1`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1126:40-1126:54`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_1`
-- Statement hash: `16491efbeb3a2e7d`
+- Statement hash: `1eeb072ab134ae56`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index input k⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩
 -/
 def invariant_entry_0_1_meta : Vermilion.ObligationMeta := {
@@ -123,7 +129,7 @@ def invariant_entry_0_1_meta : Vermilion.ObligationMeta := {
   assertId := "0_1"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_entry"
-  statementHash := "16491efbeb3a2e7d"
+  statementHash := "1eeb072ab134ae56"
 }
 @[vrml_obligation] theorem invariant_entry_0_1
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -132,35 +138,38 @@ def invariant_entry_0_1_meta : Vermilion.ObligationMeta := {
     (index_row : (Vermilion.Seq Int))
     (input : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (tmp_ : (Vermilion.Seq (Vermilion.Seq Int)))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (requires_4 : Vermilion.inUnsignedRange 64 i)
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
+    (requires_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (requires_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (requires_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (requires_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (requires_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
     (requires_9 : i < Vermilion.Seq.len keys)
     (requires_10 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
     (requires_11 : Vermilion.Seq.len index_row = Vermilion.Seq.len (Vermilion.Seq.index references i))
     (requires_12 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index input k))))
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (call_vec_index_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
     (call_vec_index_ensures_2 : tmp_ = Vermilion.Seq.index references i) :
     i < Vermilion.Seq.len keys := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.invariant_entry_0_1
 
--- vrml:begin reclaim_plan.project_row.invariant_entry_0_2 665535931b29e0f0
+-- vrml:begin reclaim_plan.project_row.invariant_entry_0_2 b9a7aeaa1a967bc5
 /--
 Generated VC `reclaim_plan.project_row.invariant_entry_0_2`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1126:56-1126:86`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_2`
-- Statement hash: `665535931b29e0f0`
+- Statement hash: `b9a7aeaa1a967bc5`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index input k⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩
 -/
 def invariant_entry_0_2_meta : Vermilion.ObligationMeta := {
@@ -172,7 +181,7 @@ def invariant_entry_0_2_meta : Vermilion.ObligationMeta := {
   assertId := "0_2"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_entry"
-  statementHash := "665535931b29e0f0"
+  statementHash := "b9a7aeaa1a967bc5"
 }
 @[vrml_obligation] theorem invariant_entry_0_2
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -181,35 +190,38 @@ def invariant_entry_0_2_meta : Vermilion.ObligationMeta := {
     (index_row : (Vermilion.Seq Int))
     (input : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (tmp_ : (Vermilion.Seq (Vermilion.Seq Int)))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (requires_4 : Vermilion.inUnsignedRange 64 i)
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
+    (requires_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (requires_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (requires_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (requires_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (requires_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
     (requires_9 : i < Vermilion.Seq.len keys)
     (requires_10 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
     (requires_11 : Vermilion.Seq.len index_row = Vermilion.Seq.len (Vermilion.Seq.index references i))
     (requires_12 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index input k))))
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (call_vec_index_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
     (call_vec_index_ensures_2 : tmp_ = Vermilion.Seq.index references i) :
     Vermilion.Seq.len references = Vermilion.Seq.len keys := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.invariant_entry_0_2
 
--- vrml:begin reclaim_plan.project_row.invariant_entry_0_3 39d3c09841960115
+-- vrml:begin reclaim_plan.project_row.invariant_entry_0_3 8186ad4ab9bca418
 /--
 Generated VC `reclaim_plan.project_row.invariant_entry_0_3`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1127:13-1127:41`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_3`
-- Statement hash: `39d3c09841960115`
+- Statement hash: `8186ad4ab9bca418`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index input k⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩
 -/
 def invariant_entry_0_3_meta : Vermilion.ObligationMeta := {
@@ -221,7 +233,7 @@ def invariant_entry_0_3_meta : Vermilion.ObligationMeta := {
   assertId := "0_3"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_entry"
-  statementHash := "39d3c09841960115"
+  statementHash := "8186ad4ab9bca418"
 }
 @[vrml_obligation] theorem invariant_entry_0_3
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -230,35 +242,38 @@ def invariant_entry_0_3_meta : Vermilion.ObligationMeta := {
     (index_row : (Vermilion.Seq Int))
     (input : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (tmp_ : (Vermilion.Seq (Vermilion.Seq Int)))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (requires_4 : Vermilion.inUnsignedRange 64 i)
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
+    (requires_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (requires_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (requires_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (requires_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (requires_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
     (requires_9 : i < Vermilion.Seq.len keys)
     (requires_10 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
     (requires_11 : Vermilion.Seq.len index_row = Vermilion.Seq.len (Vermilion.Seq.index references i))
     (requires_12 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index input k))))
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (call_vec_index_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
     (call_vec_index_ensures_2 : tmp_ = Vermilion.Seq.index references i) :
     tmp_ = Vermilion.Seq.index references i := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.invariant_entry_0_3
 
--- vrml:begin reclaim_plan.project_row.invariant_entry_0_4 4411e922864308f5
+-- vrml:begin reclaim_plan.project_row.invariant_entry_0_4 d8de0ce2e67f43a6
 /--
 Generated VC `reclaim_plan.project_row.invariant_entry_0_4`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1127:43-1127:71`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_4`
-- Statement hash: `4411e922864308f5`
+- Statement hash: `d8de0ce2e67f43a6`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index input k⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩
 -/
 def invariant_entry_0_4_meta : Vermilion.ObligationMeta := {
@@ -270,7 +285,7 @@ def invariant_entry_0_4_meta : Vermilion.ObligationMeta := {
   assertId := "0_4"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_entry"
-  statementHash := "4411e922864308f5"
+  statementHash := "d8de0ce2e67f43a6"
 }
 @[vrml_obligation] theorem invariant_entry_0_4
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -279,35 +294,38 @@ def invariant_entry_0_4_meta : Vermilion.ObligationMeta := {
     (index_row : (Vermilion.Seq Int))
     (input : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (tmp_ : (Vermilion.Seq (Vermilion.Seq Int)))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (requires_4 : Vermilion.inUnsignedRange 64 i)
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
+    (requires_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (requires_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (requires_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (requires_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (requires_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
     (requires_9 : i < Vermilion.Seq.len keys)
     (requires_10 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
     (requires_11 : Vermilion.Seq.len index_row = Vermilion.Seq.len (Vermilion.Seq.index references i))
     (requires_12 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index input k))))
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (call_vec_index_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
     (call_vec_index_ensures_2 : tmp_ = Vermilion.Seq.index references i) :
     Vermilion.Seq.len index_row = Vermilion.Seq.len tmp_ := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.invariant_entry_0_4
 
--- vrml:begin reclaim_plan.project_row.invariant_entry_0_5 53053c2736889e9c
+-- vrml:begin reclaim_plan.project_row.invariant_entry_0_5 fce3739f264b5491
 /--
 Generated VC `reclaim_plan.project_row.invariant_entry_0_5`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1128:13-1128:43`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_5`
-- Statement hash: `53053c2736889e9c`
+- Statement hash: `fce3739f264b5491`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index input k⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩
 -/
 def invariant_entry_0_5_meta : Vermilion.ObligationMeta := {
@@ -319,7 +337,7 @@ def invariant_entry_0_5_meta : Vermilion.ObligationMeta := {
   assertId := "0_5"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_entry"
-  statementHash := "53053c2736889e9c"
+  statementHash := "fce3739f264b5491"
 }
 @[vrml_obligation] theorem invariant_entry_0_5
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -328,35 +346,38 @@ def invariant_entry_0_5_meta : Vermilion.ObligationMeta := {
     (index_row : (Vermilion.Seq Int))
     (input : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (tmp_ : (Vermilion.Seq (Vermilion.Seq Int)))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (requires_4 : Vermilion.inUnsignedRange 64 i)
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
+    (requires_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (requires_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (requires_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (requires_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (requires_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
     (requires_9 : i < Vermilion.Seq.len keys)
     (requires_10 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
     (requires_11 : Vermilion.Seq.len index_row = Vermilion.Seq.len (Vermilion.Seq.index references i))
     (requires_12 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index input k))))
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (call_vec_index_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
     (call_vec_index_ensures_2 : tmp_ = Vermilion.Seq.index references i) :
     reclaim_plan.prefix_of_spec input input := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.invariant_entry_0_5
 
--- vrml:begin reclaim_plan.project_row.invariant_entry_0_6 ccd6fa7cddc3d02f
+-- vrml:begin reclaim_plan.project_row.invariant_entry_0_6 f5039a8492ad15ca
 /--
 Generated VC `reclaim_plan.project_row.invariant_entry_0_6`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1129:13-1129:126`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_6`
-- Statement hash: `ccd6fa7cddc3d02f`
+- Statement hash: `f5039a8492ad15ca`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index input k⟩ ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index input k⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩
 -/
 def invariant_entry_0_6_meta : Vermilion.ObligationMeta := {
@@ -368,7 +389,7 @@ def invariant_entry_0_6_meta : Vermilion.ObligationMeta := {
   assertId := "0_6"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_entry"
-  statementHash := "ccd6fa7cddc3d02f"
+  statementHash := "f5039a8492ad15ca"
 }
 @[vrml_obligation] theorem invariant_entry_0_6
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -377,35 +398,38 @@ def invariant_entry_0_6_meta : Vermilion.ObligationMeta := {
     (index_row : (Vermilion.Seq Int))
     (input : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (tmp_ : (Vermilion.Seq (Vermilion.Seq Int)))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (requires_4 : Vermilion.inUnsignedRange 64 i)
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
+    (requires_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (requires_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (requires_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (requires_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (requires_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
     (requires_9 : i < Vermilion.Seq.len keys)
     (requires_10 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
     (requires_11 : Vermilion.Seq.len index_row = Vermilion.Seq.len (Vermilion.Seq.index references i))
     (requires_12 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index input k))))
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (call_vec_index_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
     (call_vec_index_ensures_2 : tmp_ = Vermilion.Seq.index references i) :
     (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index input k))) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.invariant_entry_0_6
 
--- vrml:begin reclaim_plan.project_row.invariant_entry_0_7 4024dc747ebd02fe
+-- vrml:begin reclaim_plan.project_row.invariant_entry_0_7 9ce4998cb3eccd33
 /--
 Generated VC `reclaim_plan.project_row.invariant_entry_0_7`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1130:13-1130:172`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_7`
-- Statement hash: `4024dc747ebd02fe`
+- Statement hash: `9ce4998cb3eccd33`
 - Triggers (Verus, for future e-matching): ⟨reclaim_plan.ref_resolved_spec keys references input i q⟩ ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index input k⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩
 -/
 def invariant_entry_0_7_meta : Vermilion.ObligationMeta := {
@@ -417,7 +441,7 @@ def invariant_entry_0_7_meta : Vermilion.ObligationMeta := {
   assertId := "0_7"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_entry"
-  statementHash := "4024dc747ebd02fe"
+  statementHash := "9ce4998cb3eccd33"
 }
 @[vrml_obligation] theorem invariant_entry_0_7
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -426,35 +450,38 @@ def invariant_entry_0_7_meta : Vermilion.ObligationMeta := {
     (index_row : (Vermilion.Seq Int))
     (input : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (tmp_ : (Vermilion.Seq (Vermilion.Seq Int)))
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (requires_4 : Vermilion.inUnsignedRange 64 i)
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
+    (requires_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (requires_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (requires_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (requires_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (requires_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
     (requires_9 : i < Vermilion.Seq.len keys)
     (requires_10 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
     (requires_11 : Vermilion.Seq.len index_row = Vermilion.Seq.len (Vermilion.Seq.index references i))
     (requires_12 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index input k))))
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (call_vec_index_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
     (call_vec_index_ensures_2 : tmp_ = Vermilion.Seq.index references i) :
     (∀ (q : Int), (((0 ≤ q) ∧ (q < 0)) → reclaim_plan.ref_resolved_spec keys references input i q)) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.invariant_entry_0_7
 
--- vrml:begin reclaim_plan.project_row.call_requires_2 f58f8302756634d3
+-- vrml:begin reclaim_plan.project_row.call_requires_2 f12388fbba179367
 /--
 Generated VC `reclaim_plan.project_row.call_requires_2`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1133:17-1133:29`
 - Rust/SST construct: call vec_index
 - AssertId: `2`
-- Statement hash: `f58f8302756634d3`
+- Statement hash: `f12388fbba179367`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩
 -/
 def call_requires_2_meta : Vermilion.ObligationMeta := {
@@ -466,7 +493,7 @@ def call_requires_2_meta : Vermilion.ObligationMeta := {
   assertId := "2"
   functionName := "reclaim_plan.project_row"
   kind := "call_requires"
-  statementHash := "f58f8302756634d3"
+  statementHash := "f12388fbba179367"
 }
 @[vrml_obligation] theorem call_requires_2
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -477,20 +504,20 @@ def call_requires_2_meta : Vermilion.ObligationMeta := {
     (tmp_ : (Vermilion.Seq (Vermilion.Seq Int)))
     (edges : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (j : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -501,18 +528,21 @@ def call_requires_2_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_) :
     j < Vermilion.Seq.len index_row := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.call_requires_2
 
--- vrml:begin reclaim_plan.project_row.call_requires_4 bc902b9d6ee86770
+-- vrml:begin reclaim_plan.project_row.call_requires_4 68232a2d00d2ccf9
 /--
 Generated VC `reclaim_plan.project_row.call_requires_4`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1134:40-1134:47`
 - Rust/SST construct: call vec_index
 - AssertId: `4`
-- Statement hash: `bc902b9d6ee86770`
+- Statement hash: `68232a2d00d2ccf9`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩
 -/
 def call_requires_4_meta : Vermilion.ObligationMeta := {
@@ -524,7 +554,7 @@ def call_requires_4_meta : Vermilion.ObligationMeta := {
   assertId := "4"
   functionName := "reclaim_plan.project_row"
   kind := "call_requires"
-  statementHash := "bc902b9d6ee86770"
+  statementHash := "68232a2d00d2ccf9"
 }
 @[vrml_obligation] theorem call_requires_4
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -537,20 +567,20 @@ def call_requires_4_meta : Vermilion.ObligationMeta := {
     (j : Int)
     (tmp__2 : Int)
     (tmp__5 : Prop)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -560,23 +590,26 @@ def call_requires_4_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (branch_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys))) :
     tmp__2 < Vermilion.Seq.len keys := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.call_requires_4
 
--- vrml:begin reclaim_plan.project_row.call_requires_5 c49a1b3551956545
+-- vrml:begin reclaim_plan.project_row.call_requires_5 80c04aaa442b1d93
 /--
 Generated VC `reclaim_plan.project_row.call_requires_5`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1134:50-1134:56`
 - Rust/SST construct: call vec_index
 - AssertId: `5`
-- Statement hash: `c49a1b3551956545`
+- Statement hash: `80c04aaa442b1d93`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩
 -/
 def call_requires_5_meta : Vermilion.ObligationMeta := {
@@ -588,7 +621,7 @@ def call_requires_5_meta : Vermilion.ObligationMeta := {
   assertId := "5"
   functionName := "reclaim_plan.project_row"
   kind := "call_requires"
-  statementHash := "c49a1b3551956545"
+  statementHash := "80c04aaa442b1d93"
 }
 @[vrml_obligation] theorem call_requires_5
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -602,20 +635,20 @@ def call_requires_5_meta : Vermilion.ObligationMeta := {
     (tmp__2 : Int)
     (tmp__5 : Prop)
     (tmp__3 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -625,26 +658,29 @@ def call_requires_5_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (branch_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)))
-    (call_vec_index_2_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (call_vec_index_2_ensures_0 : (0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod))
     (call_vec_index_2_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (call_vec_index_2_ensures_2 : tmp__3 = Vermilion.Seq.index keys tmp__2) :
     j < Vermilion.Seq.len tmp_ := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.call_requires_5
 
--- vrml:begin reclaim_plan.project_row.ensures_7_0 cb34616e8aa6c580
+-- vrml:begin reclaim_plan.project_row.ensures_7_0 9cbaf417ae4b14d2
 /--
 Generated VC `reclaim_plan.project_row.ensures_7_0`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1117:9-1117:46`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `7_0`
-- Statement hash: `cb34616e8aa6c580`
+- Statement hash: `9cbaf417ae4b14d2`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩
 -/
 def ensures_7_0_meta : Vermilion.ObligationMeta := {
@@ -656,7 +692,7 @@ def ensures_7_0_meta : Vermilion.ObligationMeta := {
   assertId := "7_0"
   functionName := "reclaim_plan.project_row"
   kind := "ensures"
-  statementHash := "cb34616e8aa6c580"
+  statementHash := "9cbaf417ae4b14d2"
 }
 @[vrml_obligation] theorem ensures_7_0
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -671,20 +707,20 @@ def ensures_7_0_meta : Vermilion.ObligationMeta := {
     (tmp__5 : Prop)
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -694,31 +730,34 @@ def ensures_7_0_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (branch_1 : tmp__5) :
     reclaim_plan.prefix_of_spec input (reclaim_plan.RowProjection.get_RowProjection_edges (reclaim_plan.RowProjection.RowProjection False edges)) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.ensures_7_0
 
--- vrml:begin reclaim_plan.project_row.ensures_7_1 f10ec9b0136da6f6
+-- vrml:begin reclaim_plan.project_row.ensures_7_1 ccb8d4420019fbe4
 /--
 Generated VC `reclaim_plan.project_row.ensures_7_1`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1118:9-1118:143`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `7_1`
-- Statement hash: `f10ec9b0136da6f6`
+- Statement hash: `ccb8d4420019fbe4`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index (reclaim_plan.RowProjection.get_RowProjection_edges (reclaim_plan.RowProjection.RowProjection False edges)) k⟩ ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩
 -/
 def ensures_7_1_meta : Vermilion.ObligationMeta := {
@@ -730,7 +769,7 @@ def ensures_7_1_meta : Vermilion.ObligationMeta := {
   assertId := "7_1"
   functionName := "reclaim_plan.project_row"
   kind := "ensures"
-  statementHash := "f10ec9b0136da6f6"
+  statementHash := "ccb8d4420019fbe4"
 }
 @[vrml_obligation] theorem ensures_7_1
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -745,20 +784,20 @@ def ensures_7_1_meta : Vermilion.ObligationMeta := {
     (tmp__5 : Prop)
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -768,31 +807,34 @@ def ensures_7_1_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (branch_1 : tmp__5) :
     (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len (reclaim_plan.RowProjection.get_RowProjection_edges (reclaim_plan.RowProjection.RowProjection False edges)))) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index (reclaim_plan.RowProjection.get_RowProjection_edges (reclaim_plan.RowProjection.RowProjection False edges)) k))) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.ensures_7_1
 
--- vrml:begin reclaim_plan.project_row.ensures_7_2 eb3135b6fd03f34b
+-- vrml:begin reclaim_plan.project_row.ensures_7_2 da342db18150ec25
 /--
 Generated VC `reclaim_plan.project_row.ensures_7_2`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1119:9-1120:119`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `7_2`
-- Statement hash: `eb3135b6fd03f34b`
+- Statement hash: `da342db18150ec25`
 - Triggers (Verus, for future e-matching): ⟨reclaim_plan.ref_resolved_spec keys references (reclaim_plan.RowProjection.get_RowProjection_edges (reclaim_plan.RowProjection.RowProjection False edges)) i q⟩ ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩
 -/
 def ensures_7_2_meta : Vermilion.ObligationMeta := {
@@ -804,7 +846,7 @@ def ensures_7_2_meta : Vermilion.ObligationMeta := {
   assertId := "7_2"
   functionName := "reclaim_plan.project_row"
   kind := "ensures"
-  statementHash := "eb3135b6fd03f34b"
+  statementHash := "da342db18150ec25"
 }
 @[vrml_obligation] theorem ensures_7_2
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -819,20 +861,20 @@ def ensures_7_2_meta : Vermilion.ObligationMeta := {
     (tmp__5 : Prop)
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -842,31 +884,34 @@ def ensures_7_2_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (branch_1 : tmp__5) :
     reclaim_plan.RowProjection.get_RowProjection_ok (reclaim_plan.RowProjection.RowProjection False edges) → (∀ (q : Int), (((0 ≤ q) ∧ (q < Vermilion.Seq.len (Vermilion.Seq.index references i))) → reclaim_plan.ref_resolved_spec keys references (reclaim_plan.RowProjection.get_RowProjection_edges (reclaim_plan.RowProjection.RowProjection False edges)) i q)) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.ensures_7_2
 
--- vrml:begin reclaim_plan.project_row.assert_9 5b8f33bdd3a0cca4
+-- vrml:begin reclaim_plan.project_row.assert_9 165728f23ae52d65
 /--
 Generated VC `reclaim_plan.project_row.assert_9`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1140:20-1140:48`
 - Rust/SST construct: Rust source assertion
 - AssertId: `9`
-- Statement hash: `5b8f33bdd3a0cca4`
+- Statement hash: `165728f23ae52d65`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def assert_9_meta : Vermilion.ObligationMeta := {
@@ -878,7 +923,7 @@ def assert_9_meta : Vermilion.ObligationMeta := {
   assertId := "9"
   functionName := "reclaim_plan.project_row"
   kind := "assert"
-  statementHash := "5b8f33bdd3a0cca4"
+  statementHash := "165728f23ae52d65"
 }
 @[vrml_obligation] theorem assert_9
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -894,20 +939,20 @@ def assert_9_meta : Vermilion.ObligationMeta := {
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -917,35 +962,38 @@ def assert_9_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2)) :
     reclaim_plan.prefix_of_spec edges tmp__post := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.assert_9
 
--- vrml:begin reclaim_plan.project_row.assert_10 e84ecb8406614b6e
+-- vrml:begin reclaim_plan.project_row.assert_10 4c8078affa342f87
 /--
 Generated VC `reclaim_plan.project_row.assert_10`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1142:20-1142:31`
 - Rust/SST construct: Rust source assertion
 - AssertId: `10`
-- Statement hash: `e84ecb8406614b6e`
+- Statement hash: `4c8078affa342f87`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def assert_10_meta : Vermilion.ObligationMeta := {
@@ -957,7 +1005,7 @@ def assert_10_meta : Vermilion.ObligationMeta := {
   assertId := "10"
   functionName := "reclaim_plan.project_row"
   kind := "assert"
-  statementHash := "e84ecb8406614b6e"
+  statementHash := "4c8078affa342f87"
 }
 @[vrml_obligation] theorem assert_10
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -973,20 +1021,20 @@ def assert_10_meta : Vermilion.ObligationMeta := {
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -996,36 +1044,39 @@ def assert_10_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post) :
     Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2 := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.assert_10
 
--- vrml:begin reclaim_plan.project_row.assert_11 10941415ec616412
+-- vrml:begin reclaim_plan.project_row.assert_11 a2f27208077e89b3
 /--
 Generated VC `reclaim_plan.project_row.assert_11`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1143:20-1143:76`
 - Rust/SST construct: Rust source assertion
 - AssertId: `11`
-- Statement hash: `10941415ec616412`
+- Statement hash: `a2f27208077e89b3`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def assert_11_meta : Vermilion.ObligationMeta := {
@@ -1037,7 +1088,7 @@ def assert_11_meta : Vermilion.ObligationMeta := {
   assertId := "11"
   functionName := "reclaim_plan.project_row"
   kind := "assert"
-  statementHash := "10941415ec616412"
+  statementHash := "a2f27208077e89b3"
 }
 @[vrml_obligation] theorem assert_11
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -1053,20 +1104,20 @@ def assert_11_meta : Vermilion.ObligationMeta := {
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -1076,37 +1127,40 @@ def assert_11_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2) :
     Vermilion.Seq.index (Vermilion.Seq.index references (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges)))) j = Vermilion.Seq.index keys (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges))) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.assert_11
 
--- vrml:begin reclaim_plan.project_row.assert_12 f6b8a4cc29bdef49
+-- vrml:begin reclaim_plan.project_row.assert_12 4aa7bfdfa1e59110
 /--
 Generated VC `reclaim_plan.project_row.assert_12`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1144:20-1144:58`
 - Rust/SST construct: Rust source assertion
 - AssertId: `12`
-- Statement hash: `f6b8a4cc29bdef49`
+- Statement hash: `4aa7bfdfa1e59110`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def assert_12_meta : Vermilion.ObligationMeta := {
@@ -1118,7 +1172,7 @@ def assert_12_meta : Vermilion.ObligationMeta := {
   assertId := "12"
   functionName := "reclaim_plan.project_row"
   kind := "assert"
-  statementHash := "f6b8a4cc29bdef49"
+  statementHash := "4aa7bfdfa1e59110"
 }
 @[vrml_obligation] theorem assert_12
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -1134,20 +1188,20 @@ def assert_12_meta : Vermilion.ObligationMeta := {
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -1157,38 +1211,41 @@ def assert_12_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
     (assert_11 : Vermilion.Seq.index (Vermilion.Seq.index references (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges)))) j = Vermilion.Seq.index keys (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges)))) :
     (0 ≤ j) ∧ (j < Vermilion.Seq.len (Vermilion.Seq.index references (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges))))) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.assert_12
 
--- vrml:begin reclaim_plan.project_row.assert_13 af6c73d1c0c31eb7
+-- vrml:begin reclaim_plan.project_row.assert_13 49ec84c1290a50c8
 /--
 Generated VC `reclaim_plan.project_row.assert_13`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1145:20-1145:62`
 - Rust/SST construct: Rust source assertion
 - AssertId: `13`
-- Statement hash: `af6c73d1c0c31eb7`
+- Statement hash: `49ec84c1290a50c8`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def assert_13_meta : Vermilion.ObligationMeta := {
@@ -1200,7 +1257,7 @@ def assert_13_meta : Vermilion.ObligationMeta := {
   assertId := "13"
   functionName := "reclaim_plan.project_row"
   kind := "assert"
-  statementHash := "af6c73d1c0c31eb7"
+  statementHash := "49ec84c1290a50c8"
 }
 @[vrml_obligation] theorem assert_13
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -1216,20 +1273,20 @@ def assert_13_meta : Vermilion.ObligationMeta := {
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -1239,21 +1296,21 @@ def assert_13_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -1272,14 +1329,14 @@ def assert_13_meta : Vermilion.ObligationMeta := {
   · rw [e0, loop_0_iteration_16]; exact loop_0_iteration_15
 -- vrml:end reclaim_plan.project_row.assert_13
 
--- vrml:begin reclaim_plan.project_row.assert_14 cba274e55e26b0cd
+-- vrml:begin reclaim_plan.project_row.assert_14 1ca0c23db915e490
 /--
 Generated VC `reclaim_plan.project_row.assert_14`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1148:28-1148:48`
 - Rust/SST construct: Rust source assertion
 - AssertId: `14`
-- Statement hash: `cba274e55e26b0cd`
+- Statement hash: `1ca0c23db915e490`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def assert_14_meta : Vermilion.ObligationMeta := {
@@ -1291,7 +1348,7 @@ def assert_14_meta : Vermilion.ObligationMeta := {
   assertId := "14"
   functionName := "reclaim_plan.project_row"
   kind := "assert"
-  statementHash := "cba274e55e26b0cd"
+  statementHash := "1ca0c23db915e490"
 }
 @[vrml_obligation] theorem assert_14
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -1308,20 +1365,20 @@ def assert_14_meta : Vermilion.ObligationMeta := {
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (k : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -1331,21 +1388,21 @@ def assert_14_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -1356,18 +1413,21 @@ def assert_14_meta : Vermilion.ObligationMeta := {
     (assume_45 : (0 ≤ k) ∧ (k < Vermilion.Seq.len tmp__post))
     (branch_2 : k < Vermilion.Seq.len edges) :
     Vermilion.Seq.index tmp__post k = Vermilion.Seq.index edges k := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.assert_14
 
--- vrml:begin reclaim_plan.project_row.assert_15 ee89dd20dbb7bc9b
+-- vrml:begin reclaim_plan.project_row.assert_15 7fd8c6731f51ae48
 /--
 Generated VC `reclaim_plan.project_row.assert_15`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1146:87-1146:137`
 - Rust/SST construct: Rust source assertion
 - AssertId: `15`
-- Statement hash: `ee89dd20dbb7bc9b`
+- Statement hash: `7fd8c6731f51ae48`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩
 -/
 def assert_15_meta : Vermilion.ObligationMeta := {
@@ -1379,7 +1439,7 @@ def assert_15_meta : Vermilion.ObligationMeta := {
   assertId := "15"
   functionName := "reclaim_plan.project_row"
   kind := "assert"
-  statementHash := "ee89dd20dbb7bc9b"
+  statementHash := "7fd8c6731f51ae48"
 }
 @[vrml_obligation] theorem assert_15
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -1396,20 +1456,20 @@ def assert_15_meta : Vermilion.ObligationMeta := {
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (k : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -1419,21 +1479,21 @@ def assert_15_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -1452,14 +1512,14 @@ def assert_15_meta : Vermilion.ObligationMeta := {
     rw [this]; exact assert_13
 -- vrml:end reclaim_plan.project_row.assert_15
 
--- vrml:begin reclaim_plan.project_row.assert_16 8f73a7dbd09cd995
+-- vrml:begin reclaim_plan.project_row.assert_16 79e05be886303c3a
 /--
 Generated VC `reclaim_plan.project_row.assert_16`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1154:28-1154:84`
 - Rust/SST construct: Rust source assertion
 - AssertId: `16`
-- Statement hash: `8f73a7dbd09cd995`
+- Statement hash: `79e05be886303c3a`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩
 -/
 def assert_16_meta : Vermilion.ObligationMeta := {
@@ -1471,7 +1531,7 @@ def assert_16_meta : Vermilion.ObligationMeta := {
   assertId := "16"
   functionName := "reclaim_plan.project_row"
   kind := "assert"
-  statementHash := "8f73a7dbd09cd995"
+  statementHash := "79e05be886303c3a"
 }
 @[vrml_obligation] theorem assert_16
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -1488,20 +1548,20 @@ def assert_16_meta : Vermilion.ObligationMeta := {
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (q : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -1511,21 +1571,21 @@ def assert_16_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -1537,18 +1597,21 @@ def assert_16_meta : Vermilion.ObligationMeta := {
     (assume_46 : (0 ≤ q) ∧ (q < (j + 1)))
     (branch_3 : q < j) :
     reclaim_plan.ref_resolved_spec keys references edges i q := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.assert_16
 
--- vrml:begin reclaim_plan.project_row.call_requires_17_0 4d57cecf81ec8077
+-- vrml:begin reclaim_plan.project_row.call_requires_17_0 3feaad1c369bc93a
 /--
 Generated VC `reclaim_plan.project_row.call_requires_17_0`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1155:21-1155:87`
 - Rust/SST construct: call ref_resolved_extend
 - AssertId: `17_0`
-- Statement hash: `4d57cecf81ec8077`
+- Statement hash: `3feaad1c369bc93a`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩
 -/
 def call_requires_17_0_meta : Vermilion.ObligationMeta := {
@@ -1560,7 +1623,7 @@ def call_requires_17_0_meta : Vermilion.ObligationMeta := {
   assertId := "17_0"
   functionName := "reclaim_plan.project_row"
   kind := "call_requires"
-  statementHash := "4d57cecf81ec8077"
+  statementHash := "3feaad1c369bc93a"
 }
 @[vrml_obligation] theorem call_requires_17_0
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -1577,20 +1640,20 @@ def call_requires_17_0_meta : Vermilion.ObligationMeta := {
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (q : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -1600,21 +1663,21 @@ def call_requires_17_0_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -1627,18 +1690,21 @@ def call_requires_17_0_meta : Vermilion.ObligationMeta := {
     (branch_3 : q < j)
     (assert_16 : reclaim_plan.ref_resolved_spec keys references edges i q) :
     reclaim_plan.ref_resolved_spec keys references edges i q := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.call_requires_17_0
 
--- vrml:begin reclaim_plan.project_row.call_requires_17_1 2db694317a576ddc
+-- vrml:begin reclaim_plan.project_row.call_requires_17_1 bd42f863a5c947a7
 /--
 Generated VC `reclaim_plan.project_row.call_requires_17_1`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1155:21-1155:87`
 - Rust/SST construct: call ref_resolved_extend
 - AssertId: `17_1`
-- Statement hash: `2db694317a576ddc`
+- Statement hash: `bd42f863a5c947a7`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩
 -/
 def call_requires_17_1_meta : Vermilion.ObligationMeta := {
@@ -1650,7 +1716,7 @@ def call_requires_17_1_meta : Vermilion.ObligationMeta := {
   assertId := "17_1"
   functionName := "reclaim_plan.project_row"
   kind := "call_requires"
-  statementHash := "2db694317a576ddc"
+  statementHash := "bd42f863a5c947a7"
 }
 @[vrml_obligation] theorem call_requires_17_1
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -1667,20 +1733,20 @@ def call_requires_17_1_meta : Vermilion.ObligationMeta := {
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (q : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -1690,21 +1756,21 @@ def call_requires_17_1_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -1717,18 +1783,21 @@ def call_requires_17_1_meta : Vermilion.ObligationMeta := {
     (branch_3 : q < j)
     (assert_16 : reclaim_plan.ref_resolved_spec keys references edges i q) :
     reclaim_plan.prefix_of_spec edges tmp__post := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.call_requires_17_1
 
--- vrml:begin reclaim_plan.project_row.assert_18 1426375a6a30989f
+-- vrml:begin reclaim_plan.project_row.assert_18 11651b998664952e
 /--
 Generated VC `reclaim_plan.project_row.assert_18`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1157:28-1157:63`
 - Rust/SST construct: Rust source assertion
 - AssertId: `18`
-- Statement hash: `1426375a6a30989f`
+- Statement hash: `11651b998664952e`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩
 -/
 def assert_18_meta : Vermilion.ObligationMeta := {
@@ -1740,7 +1809,7 @@ def assert_18_meta : Vermilion.ObligationMeta := {
   assertId := "18"
   functionName := "reclaim_plan.project_row"
   kind := "assert"
-  statementHash := "1426375a6a30989f"
+  statementHash := "11651b998664952e"
 }
 @[vrml_obligation] theorem assert_18
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -1757,20 +1826,20 @@ def assert_18_meta : Vermilion.ObligationMeta := {
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (q : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -1780,21 +1849,21 @@ def assert_18_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -1806,18 +1875,21 @@ def assert_18_meta : Vermilion.ObligationMeta := {
     (assume_46 : (0 ≤ q) ∧ (q < (j + 1)))
     (branch_3 : (¬ (q < j))) :
     Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2 := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.assert_18
 
--- vrml:begin reclaim_plan.project_row.assert_19 2d586d9e8dd3b75e
+-- vrml:begin reclaim_plan.project_row.assert_19 659797cabc812dbf
 /--
 Generated VC `reclaim_plan.project_row.assert_19`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1158:28-1158:69`
 - Rust/SST construct: Rust source assertion
 - AssertId: `19`
-- Statement hash: `2d586d9e8dd3b75e`
+- Statement hash: `659797cabc812dbf`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩
 -/
 def assert_19_meta : Vermilion.ObligationMeta := {
@@ -1829,7 +1901,7 @@ def assert_19_meta : Vermilion.ObligationMeta := {
   assertId := "19"
   functionName := "reclaim_plan.project_row"
   kind := "assert"
-  statementHash := "2d586d9e8dd3b75e"
+  statementHash := "659797cabc812dbf"
 }
 @[vrml_obligation] theorem assert_19
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -1846,20 +1918,20 @@ def assert_19_meta : Vermilion.ObligationMeta := {
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (q : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -1869,21 +1941,21 @@ def assert_19_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -1905,14 +1977,14 @@ def assert_19_meta : Vermilion.ObligationMeta := {
   · rw [assert_18]; rfl
 -- vrml:end reclaim_plan.project_row.assert_19
 
--- vrml:begin reclaim_plan.project_row.assert_20 cc1aa62814d5d1b1
+-- vrml:begin reclaim_plan.project_row.assert_20 6a98ef59159b06e8
 /--
 Generated VC `reclaim_plan.project_row.assert_20`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1152:17-1152:75`
 - Rust/SST construct: Rust source assertion
 - AssertId: `20`
-- Statement hash: `cc1aa62814d5d1b1`
+- Statement hash: `6a98ef59159b06e8`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩
 -/
 def assert_20_meta : Vermilion.ObligationMeta := {
@@ -1924,7 +1996,7 @@ def assert_20_meta : Vermilion.ObligationMeta := {
   assertId := "20"
   functionName := "reclaim_plan.project_row"
   kind := "assert"
-  statementHash := "cc1aa62814d5d1b1"
+  statementHash := "6a98ef59159b06e8"
 }
 @[vrml_obligation] theorem assert_20
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -1941,20 +2013,20 @@ def assert_20_meta : Vermilion.ObligationMeta := {
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (q : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -1964,21 +2036,21 @@ def assert_20_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -2000,7 +2072,7 @@ def assert_20_meta : Vermilion.ObligationMeta := {
     have hlt : ¬ (tmp__2 ≥ Vermilion.Seq.len keys) := by
       intro h; exact then_1_assume_35 ((then_0_assume_27 h).mpr trivial)
     have h0 : 0 ≤ tmp__2 := by
-      unfold Vermilion.inUnsignedRange at call_vec_index_1_ensures_0; exact call_vec_index_1_ensures_0.1
+      exact call_vec_index_1_ensures_0.1
     have e0 : vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges)) = i := by
       rw [assert_10]; rfl
     have e1 : vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges)) = tmp__2 := by
@@ -2011,14 +2083,14 @@ def assert_20_meta : Vermilion.ObligationMeta := {
     rw [hqj]; exact hk.symm
 -- vrml:end reclaim_plan.project_row.assert_20
 
--- vrml:begin reclaim_plan.project_row.assert_21 7b458fe706c90280
+-- vrml:begin reclaim_plan.project_row.assert_21 9a36eada1c435aad
 /--
 Generated VC `reclaim_plan.project_row.assert_21`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1162:24-1162:44`
 - Rust/SST construct: Rust source assertion
 - AssertId: `21`
-- Statement hash: `7b458fe706c90280`
+- Statement hash: `9a36eada1c435aad`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩ ⟨reclaim_plan.ref_resolved_spec keys references tmp__post i q⟩
 -/
 def assert_21_meta : Vermilion.ObligationMeta := {
@@ -2030,7 +2102,7 @@ def assert_21_meta : Vermilion.ObligationMeta := {
   assertId := "21"
   functionName := "reclaim_plan.project_row"
   kind := "assert"
-  statementHash := "7b458fe706c90280"
+  statementHash := "9a36eada1c435aad"
 }
 @[vrml_obligation] theorem assert_21
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -2047,20 +2119,20 @@ def assert_21_meta : Vermilion.ObligationMeta := {
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (k_2 : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -2070,21 +2142,21 @@ def assert_21_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -2096,18 +2168,21 @@ def assert_21_meta : Vermilion.ObligationMeta := {
     (assume_46 : True)
     (assume_47 : (0 ≤ k_2) ∧ (k_2 < Vermilion.Seq.len input)) :
     Vermilion.Seq.index edges k_2 = Vermilion.Seq.index input k_2 := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.assert_21
 
--- vrml:begin reclaim_plan.project_row.assert_22 45eea6d7b406464f
+-- vrml:begin reclaim_plan.project_row.assert_22 c3729e9a00fa4296
 /--
 Generated VC `reclaim_plan.project_row.assert_22`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1161:87-1161:109`
 - Rust/SST construct: Rust source assertion
 - AssertId: `22`
-- Statement hash: `45eea6d7b406464f`
+- Statement hash: `c3729e9a00fa4296`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩ ⟨reclaim_plan.ref_resolved_spec keys references tmp__post i q⟩
 -/
 def assert_22_meta : Vermilion.ObligationMeta := {
@@ -2119,7 +2194,7 @@ def assert_22_meta : Vermilion.ObligationMeta := {
   assertId := "22"
   functionName := "reclaim_plan.project_row"
   kind := "assert"
-  statementHash := "45eea6d7b406464f"
+  statementHash := "c3729e9a00fa4296"
 }
 @[vrml_obligation] theorem assert_22
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -2136,20 +2211,20 @@ def assert_22_meta : Vermilion.ObligationMeta := {
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (k_2 : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -2159,21 +2234,21 @@ def assert_22_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -2186,18 +2261,21 @@ def assert_22_meta : Vermilion.ObligationMeta := {
     (assume_47 : (0 ≤ k_2) ∧ (k_2 < Vermilion.Seq.len input))
     (assert_21 : Vermilion.Seq.index edges k_2 = Vermilion.Seq.index input k_2) :
     Vermilion.Seq.index tmp__post k_2 = Vermilion.Seq.index input k_2 := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.assert_22
 
--- vrml:begin reclaim_plan.project_row.assert_23 e1cfef361cfab5fc
+-- vrml:begin reclaim_plan.project_row.assert_23 ee53bd00621af721
 /--
 Generated VC `reclaim_plan.project_row.assert_23`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1165:13-1165:18`
 - Rust/SST construct: possible arithmetic underflow/overflow
 - AssertId: `23`
-- Statement hash: `e1cfef361cfab5fc`
+- Statement hash: `ee53bd00621af721`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩ ⟨reclaim_plan.ref_resolved_spec keys references tmp__post i q⟩ ⟨Vermilion.Seq.index input k⟩
 -/
 def assert_23_meta : Vermilion.ObligationMeta := {
@@ -2209,7 +2287,7 @@ def assert_23_meta : Vermilion.ObligationMeta := {
   assertId := "23"
   functionName := "reclaim_plan.project_row"
   kind := "assert"
-  statementHash := "e1cfef361cfab5fc"
+  statementHash := "ee53bd00621af721"
 }
 @[vrml_obligation] theorem assert_23
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -2225,20 +2303,20 @@ def assert_23_meta : Vermilion.ObligationMeta := {
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -2248,21 +2326,21 @@ def assert_23_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -2272,19 +2350,22 @@ def assert_23_meta : Vermilion.ObligationMeta := {
     (assume_44 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len tmp__post)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index tmp__post k))))
     (assume_45 : (∀ (q : Int), (((0 ≤ q) ∧ (q < (j + 1))) → reclaim_plan.ref_resolved_spec keys references tmp__post i q)))
     (assume_46 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → (Vermilion.Seq.index tmp__post k = Vermilion.Seq.index input k)))) :
-    Vermilion.inUnsignedRange 64 (j + 1) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+    (0 ≤ (j + 1)) ∧ ((j + 1) < Vermilion.usizeMod) := by
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.assert_23
 
--- vrml:begin reclaim_plan.project_row.invariant_preserve_0_0 81e3fba7751c855b
+-- vrml:begin reclaim_plan.project_row.invariant_preserve_0_0 070923d4577cb172
 /--
 Generated VC `reclaim_plan.project_row.invariant_preserve_0_0`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1126:19-1126:38`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_0`
-- Statement hash: `81e3fba7751c855b`
+- Statement hash: `070923d4577cb172`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩ ⟨reclaim_plan.ref_resolved_spec keys references tmp__post i q⟩ ⟨Vermilion.Seq.index input k⟩
 -/
 def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
@@ -2296,7 +2377,7 @@ def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
   assertId := "0_0"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_preserve"
-  statementHash := "81e3fba7751c855b"
+  statementHash := "070923d4577cb172"
 }
 @[vrml_obligation] theorem invariant_preserve_0_0
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -2312,20 +2393,20 @@ def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -2335,21 +2416,21 @@ def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -2359,20 +2440,23 @@ def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
     (assume_44 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len tmp__post)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index tmp__post k))))
     (assume_45 : (∀ (q : Int), (((0 ≤ q) ∧ (q < (j + 1))) → reclaim_plan.ref_resolved_spec keys references tmp__post i q)))
     (assume_46 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → (Vermilion.Seq.index tmp__post k = Vermilion.Seq.index input k))))
-    (assert_23 : Vermilion.inUnsignedRange 64 (j + 1)) :
-    (0 ≤ ((j + 1) % 18446744073709551616)) ∧ (((j + 1) % 18446744073709551616) ≤ Vermilion.Seq.len tmp_) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+    (assert_23 : (0 ≤ (j + 1)) ∧ ((j + 1) < Vermilion.usizeMod)) :
+    (0 ≤ (Vermilion.emod (j + 1) Vermilion.usizeMod)) ∧ ((Vermilion.emod (j + 1) Vermilion.usizeMod) ≤ Vermilion.Seq.len tmp_) := by
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.invariant_preserve_0_0
 
--- vrml:begin reclaim_plan.project_row.invariant_preserve_0_1 759768dd8b19b5ab
+-- vrml:begin reclaim_plan.project_row.invariant_preserve_0_1 ce90c78e7c9145ac
 /--
 Generated VC `reclaim_plan.project_row.invariant_preserve_0_1`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1126:40-1126:54`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_1`
-- Statement hash: `759768dd8b19b5ab`
+- Statement hash: `ce90c78e7c9145ac`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩ ⟨reclaim_plan.ref_resolved_spec keys references tmp__post i q⟩ ⟨Vermilion.Seq.index input k⟩
 -/
 def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
@@ -2384,7 +2468,7 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
   assertId := "0_1"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_preserve"
-  statementHash := "759768dd8b19b5ab"
+  statementHash := "ce90c78e7c9145ac"
 }
 @[vrml_obligation] theorem invariant_preserve_0_1
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -2400,20 +2484,20 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -2423,21 +2507,21 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -2447,20 +2531,23 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
     (assume_44 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len tmp__post)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index tmp__post k))))
     (assume_45 : (∀ (q : Int), (((0 ≤ q) ∧ (q < (j + 1))) → reclaim_plan.ref_resolved_spec keys references tmp__post i q)))
     (assume_46 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → (Vermilion.Seq.index tmp__post k = Vermilion.Seq.index input k))))
-    (assert_23 : Vermilion.inUnsignedRange 64 (j + 1)) :
+    (assert_23 : (0 ≤ (j + 1)) ∧ ((j + 1) < Vermilion.usizeMod)) :
     i < Vermilion.Seq.len keys := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.invariant_preserve_0_1
 
--- vrml:begin reclaim_plan.project_row.invariant_preserve_0_2 f5a9b877b297d2b2
+-- vrml:begin reclaim_plan.project_row.invariant_preserve_0_2 66220115f30b33ff
 /--
 Generated VC `reclaim_plan.project_row.invariant_preserve_0_2`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1126:56-1126:86`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_2`
-- Statement hash: `f5a9b877b297d2b2`
+- Statement hash: `66220115f30b33ff`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩ ⟨reclaim_plan.ref_resolved_spec keys references tmp__post i q⟩ ⟨Vermilion.Seq.index input k⟩
 -/
 def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
@@ -2472,7 +2559,7 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
   assertId := "0_2"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_preserve"
-  statementHash := "f5a9b877b297d2b2"
+  statementHash := "66220115f30b33ff"
 }
 @[vrml_obligation] theorem invariant_preserve_0_2
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -2488,20 +2575,20 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -2511,21 +2598,21 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -2535,20 +2622,23 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
     (assume_44 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len tmp__post)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index tmp__post k))))
     (assume_45 : (∀ (q : Int), (((0 ≤ q) ∧ (q < (j + 1))) → reclaim_plan.ref_resolved_spec keys references tmp__post i q)))
     (assume_46 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → (Vermilion.Seq.index tmp__post k = Vermilion.Seq.index input k))))
-    (assert_23 : Vermilion.inUnsignedRange 64 (j + 1)) :
+    (assert_23 : (0 ≤ (j + 1)) ∧ ((j + 1) < Vermilion.usizeMod)) :
     Vermilion.Seq.len references = Vermilion.Seq.len keys := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.invariant_preserve_0_2
 
--- vrml:begin reclaim_plan.project_row.invariant_preserve_0_3 1001ace914e3f993
+-- vrml:begin reclaim_plan.project_row.invariant_preserve_0_3 0d5a17da4485c19e
 /--
 Generated VC `reclaim_plan.project_row.invariant_preserve_0_3`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1127:13-1127:41`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_3`
-- Statement hash: `1001ace914e3f993`
+- Statement hash: `0d5a17da4485c19e`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩ ⟨reclaim_plan.ref_resolved_spec keys references tmp__post i q⟩ ⟨Vermilion.Seq.index input k⟩
 -/
 def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
@@ -2560,7 +2650,7 @@ def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
   assertId := "0_3"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_preserve"
-  statementHash := "1001ace914e3f993"
+  statementHash := "0d5a17da4485c19e"
 }
 @[vrml_obligation] theorem invariant_preserve_0_3
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -2576,20 +2666,20 @@ def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -2599,21 +2689,21 @@ def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -2623,20 +2713,23 @@ def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
     (assume_44 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len tmp__post)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index tmp__post k))))
     (assume_45 : (∀ (q : Int), (((0 ≤ q) ∧ (q < (j + 1))) → reclaim_plan.ref_resolved_spec keys references tmp__post i q)))
     (assume_46 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → (Vermilion.Seq.index tmp__post k = Vermilion.Seq.index input k))))
-    (assert_23 : Vermilion.inUnsignedRange 64 (j + 1)) :
+    (assert_23 : (0 ≤ (j + 1)) ∧ ((j + 1) < Vermilion.usizeMod)) :
     tmp_ = Vermilion.Seq.index references i := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.invariant_preserve_0_3
 
--- vrml:begin reclaim_plan.project_row.invariant_preserve_0_4 456080fb06ad1a4b
+-- vrml:begin reclaim_plan.project_row.invariant_preserve_0_4 997fa6d36d52f21c
 /--
 Generated VC `reclaim_plan.project_row.invariant_preserve_0_4`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1127:43-1127:71`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_4`
-- Statement hash: `456080fb06ad1a4b`
+- Statement hash: `997fa6d36d52f21c`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩ ⟨reclaim_plan.ref_resolved_spec keys references tmp__post i q⟩ ⟨Vermilion.Seq.index input k⟩
 -/
 def invariant_preserve_0_4_meta : Vermilion.ObligationMeta := {
@@ -2648,7 +2741,7 @@ def invariant_preserve_0_4_meta : Vermilion.ObligationMeta := {
   assertId := "0_4"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_preserve"
-  statementHash := "456080fb06ad1a4b"
+  statementHash := "997fa6d36d52f21c"
 }
 @[vrml_obligation] theorem invariant_preserve_0_4
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -2664,20 +2757,20 @@ def invariant_preserve_0_4_meta : Vermilion.ObligationMeta := {
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -2687,21 +2780,21 @@ def invariant_preserve_0_4_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -2711,20 +2804,23 @@ def invariant_preserve_0_4_meta : Vermilion.ObligationMeta := {
     (assume_44 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len tmp__post)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index tmp__post k))))
     (assume_45 : (∀ (q : Int), (((0 ≤ q) ∧ (q < (j + 1))) → reclaim_plan.ref_resolved_spec keys references tmp__post i q)))
     (assume_46 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → (Vermilion.Seq.index tmp__post k = Vermilion.Seq.index input k))))
-    (assert_23 : Vermilion.inUnsignedRange 64 (j + 1)) :
+    (assert_23 : (0 ≤ (j + 1)) ∧ ((j + 1) < Vermilion.usizeMod)) :
     Vermilion.Seq.len index_row = Vermilion.Seq.len tmp_ := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.invariant_preserve_0_4
 
--- vrml:begin reclaim_plan.project_row.invariant_preserve_0_5 371f93c502d58563
+-- vrml:begin reclaim_plan.project_row.invariant_preserve_0_5 fd07aa2756131e62
 /--
 Generated VC `reclaim_plan.project_row.invariant_preserve_0_5`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1128:13-1128:43`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_5`
-- Statement hash: `371f93c502d58563`
+- Statement hash: `fd07aa2756131e62`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩ ⟨reclaim_plan.ref_resolved_spec keys references tmp__post i q⟩ ⟨Vermilion.Seq.index input k⟩
 -/
 def invariant_preserve_0_5_meta : Vermilion.ObligationMeta := {
@@ -2736,7 +2832,7 @@ def invariant_preserve_0_5_meta : Vermilion.ObligationMeta := {
   assertId := "0_5"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_preserve"
-  statementHash := "371f93c502d58563"
+  statementHash := "fd07aa2756131e62"
 }
 @[vrml_obligation] theorem invariant_preserve_0_5
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -2752,20 +2848,20 @@ def invariant_preserve_0_5_meta : Vermilion.ObligationMeta := {
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -2775,21 +2871,21 @@ def invariant_preserve_0_5_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -2799,20 +2895,23 @@ def invariant_preserve_0_5_meta : Vermilion.ObligationMeta := {
     (assume_44 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len tmp__post)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index tmp__post k))))
     (assume_45 : (∀ (q : Int), (((0 ≤ q) ∧ (q < (j + 1))) → reclaim_plan.ref_resolved_spec keys references tmp__post i q)))
     (assume_46 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → (Vermilion.Seq.index tmp__post k = Vermilion.Seq.index input k))))
-    (assert_23 : Vermilion.inUnsignedRange 64 (j + 1)) :
+    (assert_23 : (0 ≤ (j + 1)) ∧ ((j + 1) < Vermilion.usizeMod)) :
     reclaim_plan.prefix_of_spec input tmp__post := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.invariant_preserve_0_5
 
--- vrml:begin reclaim_plan.project_row.invariant_preserve_0_6 4ea985404fb9d0f1
+-- vrml:begin reclaim_plan.project_row.invariant_preserve_0_6 6c8dfd709ed8a77c
 /--
 Generated VC `reclaim_plan.project_row.invariant_preserve_0_6`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1129:13-1129:126`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_6`
-- Statement hash: `4ea985404fb9d0f1`
+- Statement hash: `6c8dfd709ed8a77c`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index tmp__post k⟩ ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩ ⟨reclaim_plan.ref_resolved_spec keys references tmp__post i q⟩ ⟨Vermilion.Seq.index input k⟩
 -/
 def invariant_preserve_0_6_meta : Vermilion.ObligationMeta := {
@@ -2824,7 +2923,7 @@ def invariant_preserve_0_6_meta : Vermilion.ObligationMeta := {
   assertId := "0_6"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_preserve"
-  statementHash := "4ea985404fb9d0f1"
+  statementHash := "6c8dfd709ed8a77c"
 }
 @[vrml_obligation] theorem invariant_preserve_0_6
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -2840,20 +2939,20 @@ def invariant_preserve_0_6_meta : Vermilion.ObligationMeta := {
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -2863,21 +2962,21 @@ def invariant_preserve_0_6_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -2887,20 +2986,23 @@ def invariant_preserve_0_6_meta : Vermilion.ObligationMeta := {
     (assume_44 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len tmp__post)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index tmp__post k))))
     (assume_45 : (∀ (q : Int), (((0 ≤ q) ∧ (q < (j + 1))) → reclaim_plan.ref_resolved_spec keys references tmp__post i q)))
     (assume_46 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → (Vermilion.Seq.index tmp__post k = Vermilion.Seq.index input k))))
-    (assert_23 : Vermilion.inUnsignedRange 64 (j + 1)) :
+    (assert_23 : (0 ≤ (j + 1)) ∧ ((j + 1) < Vermilion.usizeMod)) :
     (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len tmp__post)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index tmp__post k))) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.invariant_preserve_0_6
 
--- vrml:begin reclaim_plan.project_row.invariant_preserve_0_7 76a79135f2666d3a
+-- vrml:begin reclaim_plan.project_row.invariant_preserve_0_7 be5645372aee7c47
 /--
 Generated VC `reclaim_plan.project_row.invariant_preserve_0_7`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1130:13-1130:172`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_7`
-- Statement hash: `76a79135f2666d3a`
+- Statement hash: `be5645372aee7c47`
 - Triggers (Verus, for future e-matching): ⟨reclaim_plan.ref_resolved_spec keys references tmp__post i q⟩ ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩ ⟨reclaim_plan.ref_resolved_spec keys references tmp__post i q⟩ ⟨Vermilion.Seq.index input k⟩
 -/
 def invariant_preserve_0_7_meta : Vermilion.ObligationMeta := {
@@ -2912,7 +3014,7 @@ def invariant_preserve_0_7_meta : Vermilion.ObligationMeta := {
   assertId := "0_7"
   functionName := "reclaim_plan.project_row"
   kind := "invariant_preserve"
-  statementHash := "76a79135f2666d3a"
+  statementHash := "be5645372aee7c47"
 }
 @[vrml_obligation] theorem invariant_preserve_0_7
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -2928,20 +3030,20 @@ def invariant_preserve_0_7_meta : Vermilion.ObligationMeta := {
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -2951,21 +3053,21 @@ def invariant_preserve_0_7_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -2975,21 +3077,20 @@ def invariant_preserve_0_7_meta : Vermilion.ObligationMeta := {
     (assume_44 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len tmp__post)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index tmp__post k))))
     (assume_45 : (∀ (q : Int), (((0 ≤ q) ∧ (q < (j + 1))) → reclaim_plan.ref_resolved_spec keys references tmp__post i q)))
     (assume_46 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → (Vermilion.Seq.index tmp__post k = Vermilion.Seq.index input k))))
-    (assert_23 : Vermilion.inUnsignedRange 64 (j + 1)) :
-    (∀ (q : Int), (((0 ≤ q) ∧ (q < ((j + 1) % 18446744073709551616))) → reclaim_plan.ref_resolved_spec keys references tmp__post i q)) := by
-  have hr : (j + 1) % 18446744073709551616 = j + 1 := by
-    unfold Vermilion.inUnsignedRange at assert_23; norm_num at assert_23; omega
+    (assert_23 : (0 ≤ (j + 1)) ∧ ((j + 1) < Vermilion.usizeMod)) :
+    (∀ (q : Int), (((0 ≤ q) ∧ (q < (Vermilion.emod (j + 1) Vermilion.usizeMod))) → reclaim_plan.ref_resolved_spec keys references tmp__post i q)) := by
+  have hr : Vermilion.emod (j + 1) Vermilion.usizeMod = j + 1 := Vermilion.emod_usizeMod_of_lt assert_23.1 assert_23.2
   rw [hr]; exact assume_45
 -- vrml:end reclaim_plan.project_row.invariant_preserve_0_7
 
--- vrml:begin reclaim_plan.project_row.assert_0_decreases 63f170b657f2625d
+-- vrml:begin reclaim_plan.project_row.assert_0_decreases ab02d2cc89a39bfa
 /--
 Generated VC `reclaim_plan.project_row.assert_0_decreases`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1131:19-1131:32`
 - Rust/SST construct: loop termination measure must decrease
 - AssertId: `0_decreases`
-- Statement hash: `63f170b657f2625d`
+- Statement hash: `ab02d2cc89a39bfa`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩ ⟨Vermilion.Seq.index tmp__3 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__4 vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post vrml_i0⟩ ⟨Vermilion.Seq.index tmp__post k⟩ ⟨reclaim_plan.ref_resolved_spec keys references tmp__post i q⟩ ⟨Vermilion.Seq.index input k⟩
 -/
 def assert_0_decreases_meta : Vermilion.ObligationMeta := {
@@ -3001,7 +3102,7 @@ def assert_0_decreases_meta : Vermilion.ObligationMeta := {
   assertId := "0_decreases"
   functionName := "reclaim_plan.project_row"
   kind := "assert"
-  statementHash := "63f170b657f2625d"
+  statementHash := "ab02d2cc89a39bfa"
 }
 @[vrml_obligation] theorem assert_0_decreases
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -3017,20 +3118,20 @@ def assert_0_decreases_meta : Vermilion.ObligationMeta := {
     (tmp__3 : (Vermilion.Seq Int))
     (tmp__4 : (Vermilion.Seq Int))
     (tmp__post : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (loop_0_iteration_4 : Vermilion.inUnsignedRange 64 i)
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
-    (loop_0_iteration_11 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_13 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_iteration_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (loop_0_iteration_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (loop_0_iteration_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (loop_0_iteration_11 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_12 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_13 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_iteration_14 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_iteration_15 : i < Vermilion.Seq.len keys)
     (loop_0_iteration_16 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -3040,21 +3141,21 @@ def assert_0_decreases_meta : Vermilion.ObligationMeta := {
     (loop_0_iteration_20 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len edges)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index edges k))))
     (loop_0_iteration_21 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_iteration_22 : j < Vermilion.Seq.len tmp_)
-    (call_vec_index_1_ensures_0 : Vermilion.inUnsignedRange 64 tmp__2)
+    (call_vec_index_1_ensures_0 : (0 ≤ tmp__2) ∧ (tmp__2 < Vermilion.usizeMod))
     (call_vec_index_1_ensures_1 : tmp__2 = Vermilion.Seq.index index_row j)
-    (assume_25 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
+    (assume_25 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
     (then_0_assume_27 : (tmp__2 ≥ Vermilion.Seq.len keys) → (tmp__5 ↔ True))
-    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__3))
+    (else_0_call_vec_index_2_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__3) ∧ (Vermilion.Seq.len tmp__3 < Vermilion.usizeMod)))
     (else_0_call_vec_index_2_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__3)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__3 vrml_i0))))
     (else_0_call_vec_index_2_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__3 = Vermilion.Seq.index keys tmp__2))
-    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__4))
+    (else_0_call_vec_index_3_ensures_0 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → ((0 ≤ Vermilion.Seq.len tmp__4) ∧ (Vermilion.Seq.len tmp__4 < Vermilion.usizeMod)))
     (else_0_call_vec_index_3_ensures_1 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__4)) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index tmp__4 vrml_i0))))
     (else_0_call_vec_index_3_ensures_2 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__4 = Vermilion.Seq.index tmp_ j))
     (else_0_assume_33 : (¬ (tmp__2 ≥ Vermilion.Seq.len keys)) → (tmp__5 ↔ (¬ (tmp__3 = tmp__4))))
     (then_1_assume_35 : tmp__5 → False)
     (then_1_assume_36 : tmp__5 → False)
-    (assume_36 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp__post))
-    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0))))))
+    (assume_36 : (0 ≤ Vermilion.Seq.len tmp__post) ∧ (Vermilion.Seq.len tmp__post < Vermilion.usizeMod))
+    (assume_37 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp__post)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index tmp__post vrml_i0) < Vermilion.usizeMod))))))
     (call_push_ensures_0 : tmp__post = Vermilion.Seq.push edges (vermilion.tuple_2.tuple_2 i tmp__2))
     (assert_9 : reclaim_plan.prefix_of_spec edges tmp__post)
     (assert_10 : Vermilion.Seq.index tmp__post (Vermilion.Seq.len edges) = vermilion.tuple_2.tuple_2 i tmp__2)
@@ -3064,20 +3165,23 @@ def assert_0_decreases_meta : Vermilion.ObligationMeta := {
     (assume_44 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len tmp__post)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index tmp__post k))))
     (assume_45 : (∀ (q : Int), (((0 ≤ q) ∧ (q < (j + 1))) → reclaim_plan.ref_resolved_spec keys references tmp__post i q)))
     (assume_46 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → (Vermilion.Seq.index tmp__post k = Vermilion.Seq.index input k))))
-    (assert_23 : Vermilion.inUnsignedRange 64 (j + 1)) :
-    ((0 ≤ (Vermilion.Seq.len tmp_ - ((j + 1) % 18446744073709551616))) ∧ ((Vermilion.Seq.len tmp_ - ((j + 1) % 18446744073709551616)) < (Vermilion.Seq.len tmp_ - j))) ∨ (((Vermilion.Seq.len tmp_ - ((j + 1) % 18446744073709551616)) = (Vermilion.Seq.len tmp_ - j)) ∧ False) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+    (assert_23 : (0 ≤ (j + 1)) ∧ ((j + 1) < Vermilion.usizeMod)) :
+    ((0 ≤ (Vermilion.Seq.len tmp_ - (Vermilion.emod (j + 1) Vermilion.usizeMod))) ∧ ((Vermilion.Seq.len tmp_ - (Vermilion.emod (j + 1) Vermilion.usizeMod)) < (Vermilion.Seq.len tmp_ - j))) ∨ (((Vermilion.Seq.len tmp_ - (Vermilion.emod (j + 1) Vermilion.usizeMod)) = (Vermilion.Seq.len tmp_ - j)) ∧ False) := by
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.assert_0_decreases
 
--- vrml:begin reclaim_plan.project_row.ensures_24_0 877f5e51c10e415d
+-- vrml:begin reclaim_plan.project_row.ensures_24_0 2be06494061124ef
 /--
 Generated VC `reclaim_plan.project_row.ensures_24_0`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1117:9-1117:46`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `24_0`
-- Statement hash: `877f5e51c10e415d`
+- Statement hash: `2be06494061124ef`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index input k⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩
 -/
 def ensures_24_0_meta : Vermilion.ObligationMeta := {
@@ -3089,7 +3193,7 @@ def ensures_24_0_meta : Vermilion.ObligationMeta := {
   assertId := "24_0"
   functionName := "reclaim_plan.project_row"
   kind := "ensures"
-  statementHash := "877f5e51c10e415d"
+  statementHash := "2be06494061124ef"
 }
 @[vrml_obligation] theorem ensures_24_0
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -3100,25 +3204,25 @@ def ensures_24_0_meta : Vermilion.ObligationMeta := {
     (tmp_ : (Vermilion.Seq (Vermilion.Seq Int)))
     (edges : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (j : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (requires_4 : Vermilion.inUnsignedRange 64 i)
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
+    (requires_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (requires_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (requires_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (requires_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (requires_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
     (requires_9 : i < Vermilion.Seq.len keys)
     (requires_10 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
     (requires_11 : Vermilion.Seq.len index_row = Vermilion.Seq.len (Vermilion.Seq.index references i))
     (requires_12 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index input k))))
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (call_vec_index_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
     (call_vec_index_ensures_2 : tmp_ = Vermilion.Seq.index references i)
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_exit_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_exit_2 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_exit_0 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_exit_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_exit_2 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_exit_3 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_exit_4 : i < Vermilion.Seq.len keys)
     (loop_0_exit_5 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -3129,18 +3233,21 @@ def ensures_24_0_meta : Vermilion.ObligationMeta := {
     (loop_0_exit_10 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_exit_11 : (¬ (j < Vermilion.Seq.len tmp_))) :
     reclaim_plan.prefix_of_spec input (reclaim_plan.RowProjection.get_RowProjection_edges (reclaim_plan.RowProjection.RowProjection True edges)) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.ensures_24_0
 
--- vrml:begin reclaim_plan.project_row.ensures_24_1 04992559d8d68060
+-- vrml:begin reclaim_plan.project_row.ensures_24_1 40d4ff0156e842c6
 /--
 Generated VC `reclaim_plan.project_row.ensures_24_1`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1118:9-1118:143`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `24_1`
-- Statement hash: `04992559d8d68060`
+- Statement hash: `40d4ff0156e842c6`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index (reclaim_plan.RowProjection.get_RowProjection_edges (reclaim_plan.RowProjection.RowProjection True edges)) k⟩ ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index input k⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩
 -/
 def ensures_24_1_meta : Vermilion.ObligationMeta := {
@@ -3152,7 +3259,7 @@ def ensures_24_1_meta : Vermilion.ObligationMeta := {
   assertId := "24_1"
   functionName := "reclaim_plan.project_row"
   kind := "ensures"
-  statementHash := "04992559d8d68060"
+  statementHash := "40d4ff0156e842c6"
 }
 @[vrml_obligation] theorem ensures_24_1
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -3163,25 +3270,25 @@ def ensures_24_1_meta : Vermilion.ObligationMeta := {
     (tmp_ : (Vermilion.Seq (Vermilion.Seq Int)))
     (edges : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (j : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (requires_4 : Vermilion.inUnsignedRange 64 i)
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
+    (requires_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (requires_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (requires_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (requires_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (requires_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
     (requires_9 : i < Vermilion.Seq.len keys)
     (requires_10 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
     (requires_11 : Vermilion.Seq.len index_row = Vermilion.Seq.len (Vermilion.Seq.index references i))
     (requires_12 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index input k))))
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (call_vec_index_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
     (call_vec_index_ensures_2 : tmp_ = Vermilion.Seq.index references i)
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_exit_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_exit_2 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_exit_0 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_exit_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_exit_2 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_exit_3 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_exit_4 : i < Vermilion.Seq.len keys)
     (loop_0_exit_5 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
@@ -3192,18 +3299,21 @@ def ensures_24_1_meta : Vermilion.ObligationMeta := {
     (loop_0_exit_10 : (∀ (q : Int), (((0 ≤ q) ∧ (q < j)) → reclaim_plan.ref_resolved_spec keys references edges i q)))
     (loop_0_exit_11 : (¬ (j < Vermilion.Seq.len tmp_))) :
     (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len (reclaim_plan.RowProjection.get_RowProjection_edges (reclaim_plan.RowProjection.RowProjection True edges)))) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index (reclaim_plan.RowProjection.get_RowProjection_edges (reclaim_plan.RowProjection.RowProjection True edges)) k))) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.project_row.ensures_24_1
 
--- vrml:begin reclaim_plan.project_row.ensures_24_2 81fc9741550d3095
+-- vrml:begin reclaim_plan.project_row.ensures_24_2 c65a2251eba8320f
 /--
 Generated VC `reclaim_plan.project_row.ensures_24_2`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:1119:9-1120:119`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `24_2`
-- Statement hash: `81fc9741550d3095`
+- Statement hash: `c65a2251eba8320f`
 - Triggers (Verus, for future e-matching): ⟨reclaim_plan.ref_resolved_spec keys references (reclaim_plan.RowProjection.get_RowProjection_edges (reclaim_plan.RowProjection.RowProjection True edges)) i q⟩ ⟨Vermilion.Seq.index keys vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index references vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2⟩ ⟨Vermilion.Seq.index index_row vrml_i0⟩ ⟨Vermilion.Seq.index input vrml_i0⟩ ⟨Vermilion.Seq.index input k⟩ ⟨Vermilion.Seq.index tmp_ vrml_i0⟩ ⟨Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index edges k⟩ ⟨reclaim_plan.ref_resolved_spec keys references edges i q⟩
 -/
 def ensures_24_2_meta : Vermilion.ObligationMeta := {
@@ -3215,7 +3325,7 @@ def ensures_24_2_meta : Vermilion.ObligationMeta := {
   assertId := "24_2"
   functionName := "reclaim_plan.project_row"
   kind := "ensures"
-  statementHash := "81fc9741550d3095"
+  statementHash := "c65a2251eba8320f"
 }
 @[vrml_obligation] theorem ensures_24_2
     (keys : (Vermilion.Seq (Vermilion.Seq Int)))
@@ -3226,25 +3336,25 @@ def ensures_24_2_meta : Vermilion.ObligationMeta := {
     (tmp_ : (Vermilion.Seq (Vermilion.Seq Int)))
     (edges : (Vermilion.Seq (vermilion.tuple_2 Int Int)))
     (j : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len keys))
-    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
-    (requires_2 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len references))
-    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
-    (requires_4 : Vermilion.inUnsignedRange 64 i)
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len index_row))
-    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index index_row vrml_i0))))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len input))
-    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0))))))
+    (requires_0 : (0 ≤ Vermilion.Seq.len keys) ∧ (Vermilion.Seq.len keys < Vermilion.usizeMod))
+    (requires_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len keys)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index keys vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index keys vrml_i0) vrml_i1)))))))
+    (requires_2 : (0 ≤ Vermilion.Seq.len references) ∧ (Vermilion.Seq.len references < Vermilion.usizeMod))
+    (requires_3 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len references)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index references vrml_i0))) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) < Vermilion.usizeMod)) ∧ (∀ (vrml_i2 : Int), (((0 ≤ vrml_i2) ∧ (vrml_i2 < Vermilion.Seq.len (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index (Vermilion.Seq.index references vrml_i0) vrml_i1) vrml_i2))))))))))
+    (requires_4 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (requires_5 : (0 ≤ Vermilion.Seq.len index_row) ∧ (Vermilion.Seq.len index_row < Vermilion.usizeMod))
+    (requires_6 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len index_row)) → ((0 ≤ Vermilion.Seq.index index_row vrml_i0) ∧ (Vermilion.Seq.index index_row vrml_i0 < Vermilion.usizeMod)))))
+    (requires_7 : (0 ≤ Vermilion.Seq.len input) ∧ (Vermilion.Seq.len input < Vermilion.usizeMod))
+    (requires_8 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len input)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index input vrml_i0) < Vermilion.usizeMod))))))
     (requires_9 : i < Vermilion.Seq.len keys)
     (requires_10 : Vermilion.Seq.len references = Vermilion.Seq.len keys)
     (requires_11 : Vermilion.Seq.len index_row = Vermilion.Seq.len (Vermilion.Seq.index references i))
     (requires_12 : (∀ (k : Int), (((0 ≤ k) ∧ (k < Vermilion.Seq.len input)) → reclaim_plan.edge_names_ref_spec keys references (Vermilion.Seq.index input k))))
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len tmp_))
-    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (Vermilion.inUnsignedRange 64 (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
+    (call_vec_index_ensures_0 : (0 ≤ Vermilion.Seq.len tmp_) ∧ (Vermilion.Seq.len tmp_ < Vermilion.usizeMod))
+    (call_vec_index_ensures_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len tmp_)) → (((0 ≤ Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0)) ∧ (Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0) < Vermilion.usizeMod)) ∧ (∀ (vrml_i1 : Int), (((0 ≤ vrml_i1) ∧ (vrml_i1 < Vermilion.Seq.len (Vermilion.Seq.index tmp_ vrml_i0))) → Vermilion.inUnsignedRange 8 (Vermilion.Seq.index (Vermilion.Seq.index tmp_ vrml_i0) vrml_i1)))))))
     (call_vec_index_ensures_2 : tmp_ = Vermilion.Seq.index references i)
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_exit_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_exit_2 : Vermilion.inUnsignedRange 64 j)
+    (loop_0_exit_0 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_exit_1 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_exit_2 : (0 ≤ j) ∧ (j < Vermilion.usizeMod))
     (loop_0_exit_3 : (0 ≤ j) ∧ (j ≤ Vermilion.Seq.len tmp_))
     (loop_0_exit_4 : i < Vermilion.Seq.len keys)
     (loop_0_exit_5 : Vermilion.Seq.len references = Vermilion.Seq.len keys)

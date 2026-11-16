@@ -8,8 +8,8 @@
 #
 # Status (2026-11-16, per-function emission): 617 obligations, including
 # the class dictionary `reclaim_plan.key_lt.evidence_decidable_prop` in
-# proofs/reclaim_plan/Evidence.lean. The `vrml` automation closes 482; the
-# other 135 are proved by hand in the proofs/reclaim_plan/ twin, which has
+# proofs/reclaim_plan/Evidence.lean. The `vrml` automation closes 480; the
+# other 137 are proved by hand in the proofs/reclaim_plan/ twin, which has
 # no `sorry` left. Hence `--manual-proofs`. See README.md.
 exec "$(cd "$(dirname "$0")/../.." && pwd)/scripts/run_example.sh" \
   "$(dirname "$0")" reclaim_plan.rs --lib CaseTerraneReclaimPlan --manual-proofs "$@"

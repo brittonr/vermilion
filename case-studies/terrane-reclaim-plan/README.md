@@ -24,11 +24,11 @@ through Vermilion, with Lean as the only verifier.
 | | Count |
 |---|---:|
 | Obligations (44 per-function units, plus shared `Specs.lean`) | 617 |
-| Closed by the `vrml` automation | 482 |
-| Proved by hand in the `proofs/` twin | 135 |
+| Closed by the `vrml` automation | 480 |
+| Proved by hand in the `proofs/` twin | 137 |
 | `sorry` remaining | 0 |
 
-The 135 hand proofs include one `Decidable` evidence instance
+The 137 hand proofs include one `Decidable` evidence instance
 (`reclaim_plan.key_lt.evidence_decidable_prop`, in
 [`proofs/reclaim_plan/Evidence.lean`](proofs/reclaim_plan/Evidence.lean)).
 The hand-proved theorems spot-checked with `#print axioms` depend only on

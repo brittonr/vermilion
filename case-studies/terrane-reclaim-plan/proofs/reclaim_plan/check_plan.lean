@@ -10,14 +10,14 @@ set_option linter.unreachableTactic false
 
 namespace reclaim_plan.check_plan
 
--- vrml:begin reclaim_plan.check_plan.ensures_3 7b2e7230d426bb33
+-- vrml:begin reclaim_plan.check_plan.ensures_3 fe32aaf5fcbcc417
 /--
 Generated VC `reclaim_plan.check_plan.ensures_3`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:299:13-299:100`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `3`
-- Statement hash: `7b2e7230d426bb33`
+- Statement hash: `fe32aaf5fcbcc417`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩
 -/
 def ensures_3_meta : Vermilion.ObligationMeta := {
@@ -29,7 +29,7 @@ def ensures_3_meta : Vermilion.ObligationMeta := {
   assertId := "3"
   functionName := "reclaim_plan.check_plan"
   kind := "ensures"
-  statementHash := "7b2e7230d426bb33"
+  statementHash := "fe32aaf5fcbcc417"
 }
 @[vrml_obligation] theorem ensures_3
     (n : Int)
@@ -40,34 +40,37 @@ def ensures_3_meta : Vermilion.ObligationMeta := {
     (candidate : (Vermilion.Seq Prop))
     (tmp_ : Prop)
     (tmp__2 : Prop)
-    (requires_0 : Vermilion.inUnsignedRange 64 n)
-    (requires_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (requires_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (requires_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (requires_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (requires_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (requires_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (requires_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (requires_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (requires_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
     (then_0_assume_9 : (¬ reclaim_plan.admissible_spec n edges roots reclaimable) → (tmp_ ↔ True))
-    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
+    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → ((0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod)))
     (else_0_assume_10 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → (tmp_ ↔ (Vermilion.Seq.len retained ≠ n)))
     (then_1_assume_12 : tmp_ → (tmp__2 ↔ True))
-    (else_1_assume_12 : (¬ tmp_) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (else_1_assume_12 : (¬ tmp_) → ((0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod)))
     (else_1_assume_13 : (¬ tmp_) → (tmp__2 ↔ (Vermilion.Seq.len candidate ≠ n)))
     (branch_2 : tmp__2) :
     False ↔ reclaim_plan.plan_valid_spec n edges roots reclaimable retained candidate := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.ensures_3
 
--- vrml:begin reclaim_plan.check_plan.invariant_entry_0_0 29b00394d44fe8b3
+-- vrml:begin reclaim_plan.check_plan.invariant_entry_0_0 965d12b9a7fd3a7f
 /--
 Generated VC `reclaim_plan.check_plan.invariant_entry_0_0`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:306:19-306:40`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_0`
-- Statement hash: `29b00394d44fe8b3`
+- Statement hash: `965d12b9a7fd3a7f`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩
 -/
 def invariant_entry_0_0_meta : Vermilion.ObligationMeta := {
@@ -79,7 +82,7 @@ def invariant_entry_0_0_meta : Vermilion.ObligationMeta := {
   assertId := "0_0"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_entry"
-  statementHash := "29b00394d44fe8b3"
+  statementHash := "965d12b9a7fd3a7f"
 }
 @[vrml_obligation] theorem invariant_entry_0_0
     (n : Int)
@@ -90,35 +93,38 @@ def invariant_entry_0_0_meta : Vermilion.ObligationMeta := {
     (candidate : (Vermilion.Seq Prop))
     (tmp_ : Prop)
     (tmp__2 : Prop)
-    (requires_0 : Vermilion.inUnsignedRange 64 n)
-    (requires_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (requires_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (requires_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (requires_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (requires_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (requires_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (requires_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (requires_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (requires_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
     (then_0_assume_9 : (¬ reclaim_plan.admissible_spec n edges roots reclaimable) → (tmp_ ↔ True))
-    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
+    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → ((0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod)))
     (else_0_assume_10 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → (tmp_ ↔ (Vermilion.Seq.len retained ≠ n)))
     (then_1_assume_12 : tmp_ → (tmp__2 ↔ True))
-    (else_1_assume_12 : (¬ tmp_) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (else_1_assume_12 : (¬ tmp_) → ((0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod)))
     (else_1_assume_13 : (¬ tmp_) → (tmp__2 ↔ (Vermilion.Seq.len candidate ≠ n)))
     (then_2_assume_15 : tmp__2 → False)
     (then_2_assume_16 : tmp__2 → False) :
     (0 ≤ 0) ∧ (0 ≤ Vermilion.Seq.len roots) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_entry_0_0
 
--- vrml:begin reclaim_plan.check_plan.invariant_entry_0_1 cd341fe1a535f76d
+-- vrml:begin reclaim_plan.check_plan.invariant_entry_0_1 dee6ce6f085e0d41
 /--
 Generated VC `reclaim_plan.check_plan.invariant_entry_0_1`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:306:42-306:79`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_1`
-- Statement hash: `cd341fe1a535f76d`
+- Statement hash: `dee6ce6f085e0d41`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩
 -/
 def invariant_entry_0_1_meta : Vermilion.ObligationMeta := {
@@ -130,7 +136,7 @@ def invariant_entry_0_1_meta : Vermilion.ObligationMeta := {
   assertId := "0_1"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_entry"
-  statementHash := "cd341fe1a535f76d"
+  statementHash := "dee6ce6f085e0d41"
 }
 @[vrml_obligation] theorem invariant_entry_0_1
     (n : Int)
@@ -141,35 +147,38 @@ def invariant_entry_0_1_meta : Vermilion.ObligationMeta := {
     (candidate : (Vermilion.Seq Prop))
     (tmp_ : Prop)
     (tmp__2 : Prop)
-    (requires_0 : Vermilion.inUnsignedRange 64 n)
-    (requires_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (requires_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (requires_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (requires_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (requires_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (requires_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (requires_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (requires_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (requires_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
     (then_0_assume_9 : (¬ reclaim_plan.admissible_spec n edges roots reclaimable) → (tmp_ ↔ True))
-    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
+    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → ((0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod)))
     (else_0_assume_10 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → (tmp_ ↔ (Vermilion.Seq.len retained ≠ n)))
     (then_1_assume_12 : tmp_ → (tmp__2 ↔ True))
-    (else_1_assume_12 : (¬ tmp_) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (else_1_assume_12 : (¬ tmp_) → ((0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod)))
     (else_1_assume_13 : (¬ tmp_) → (tmp__2 ↔ (Vermilion.Seq.len candidate ≠ n)))
     (then_2_assume_15 : tmp__2 → False)
     (then_2_assume_16 : tmp__2 → False) :
     reclaim_plan.roots_in_range_spec n roots := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_entry_0_1
 
--- vrml:begin reclaim_plan.check_plan.invariant_entry_0_2 1c6a2979432e5682
+-- vrml:begin reclaim_plan.check_plan.invariant_entry_0_2 79d6d716d44c029e
 /--
 Generated VC `reclaim_plan.check_plan.invariant_entry_0_2`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:306:81-306:101`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_2`
-- Statement hash: `1c6a2979432e5682`
+- Statement hash: `79d6d716d44c029e`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩
 -/
 def invariant_entry_0_2_meta : Vermilion.ObligationMeta := {
@@ -181,7 +190,7 @@ def invariant_entry_0_2_meta : Vermilion.ObligationMeta := {
   assertId := "0_2"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_entry"
-  statementHash := "1c6a2979432e5682"
+  statementHash := "79d6d716d44c029e"
 }
 @[vrml_obligation] theorem invariant_entry_0_2
     (n : Int)
@@ -192,35 +201,38 @@ def invariant_entry_0_2_meta : Vermilion.ObligationMeta := {
     (candidate : (Vermilion.Seq Prop))
     (tmp_ : Prop)
     (tmp__2 : Prop)
-    (requires_0 : Vermilion.inUnsignedRange 64 n)
-    (requires_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (requires_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (requires_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (requires_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (requires_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (requires_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (requires_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (requires_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (requires_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
     (then_0_assume_9 : (¬ reclaim_plan.admissible_spec n edges roots reclaimable) → (tmp_ ↔ True))
-    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
+    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → ((0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod)))
     (else_0_assume_10 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → (tmp_ ↔ (Vermilion.Seq.len retained ≠ n)))
     (then_1_assume_12 : tmp_ → (tmp__2 ↔ True))
-    (else_1_assume_12 : (¬ tmp_) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (else_1_assume_12 : (¬ tmp_) → ((0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod)))
     (else_1_assume_13 : (¬ tmp_) → (tmp__2 ↔ (Vermilion.Seq.len candidate ≠ n)))
     (then_2_assume_15 : tmp__2 → False)
     (then_2_assume_16 : tmp__2 → False) :
     Vermilion.Seq.len retained = n := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_entry_0_2
 
--- vrml:begin reclaim_plan.check_plan.invariant_entry_0_3 dee8b804c7e00463
+-- vrml:begin reclaim_plan.check_plan.invariant_entry_0_3 a7b5f4c415f9ebe7
 /--
 Generated VC `reclaim_plan.check_plan.invariant_entry_0_3`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:307:13-307:92`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `0_3`
-- Statement hash: `dee8b804c7e00463`
+- Statement hash: `a7b5f4c415f9ebe7`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index roots j⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩
 -/
 def invariant_entry_0_3_meta : Vermilion.ObligationMeta := {
@@ -232,7 +244,7 @@ def invariant_entry_0_3_meta : Vermilion.ObligationMeta := {
   assertId := "0_3"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_entry"
-  statementHash := "dee8b804c7e00463"
+  statementHash := "a7b5f4c415f9ebe7"
 }
 @[vrml_obligation] theorem invariant_entry_0_3
     (n : Int)
@@ -243,35 +255,38 @@ def invariant_entry_0_3_meta : Vermilion.ObligationMeta := {
     (candidate : (Vermilion.Seq Prop))
     (tmp_ : Prop)
     (tmp__2 : Prop)
-    (requires_0 : Vermilion.inUnsignedRange 64 n)
-    (requires_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (requires_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (requires_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (requires_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (requires_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (requires_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (requires_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (requires_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (requires_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
     (then_0_assume_9 : (¬ reclaim_plan.admissible_spec n edges roots reclaimable) → (tmp_ ↔ True))
-    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
+    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → ((0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod)))
     (else_0_assume_10 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → (tmp_ ↔ (Vermilion.Seq.len retained ≠ n)))
     (then_1_assume_12 : tmp_ → (tmp__2 ↔ True))
-    (else_1_assume_12 : (¬ tmp_) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (else_1_assume_12 : (¬ tmp_) → ((0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod)))
     (else_1_assume_13 : (¬ tmp_) → (tmp__2 ↔ (Vermilion.Seq.len candidate ≠ n)))
     (then_2_assume_15 : tmp__2 → False)
     (then_2_assume_16 : tmp__2 → False) :
     (∀ (j : Int), (((0 ≤ j) ∧ (j < 0)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_entry_0_3
 
--- vrml:begin reclaim_plan.check_plan.call_requires_5 6a436542987054e4
+-- vrml:begin reclaim_plan.check_plan.call_requires_5 9f0528bc986433a5
 /--
 Generated VC `reclaim_plan.check_plan.call_requires_5`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:310:22-310:30`
 - Rust/SST construct: call vec_index
 - AssertId: `5`
-- Statement hash: `6a436542987054e4`
+- Statement hash: `9f0528bc986433a5`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩
 -/
 def call_requires_5_meta : Vermilion.ObligationMeta := {
@@ -283,7 +298,7 @@ def call_requires_5_meta : Vermilion.ObligationMeta := {
   assertId := "5"
   functionName := "reclaim_plan.check_plan"
   kind := "call_requires"
-  statementHash := "6a436542987054e4"
+  statementHash := "9f0528bc986433a5"
 }
 @[vrml_obligation] theorem call_requires_5
     (n : Int)
@@ -295,35 +310,38 @@ def call_requires_5_meta : Vermilion.ObligationMeta := {
     (tmp_ : Prop)
     (tmp__2 : Prop)
     (r : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_10 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_iteration_11 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_iteration_12 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_iteration_13 : Vermilion.Seq.len retained = n)
     (loop_0_iteration_14 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_iteration_15 : r < Vermilion.Seq.len roots) :
     r < Vermilion.Seq.len roots := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.call_requires_5
 
--- vrml:begin reclaim_plan.check_plan.call_requires_6 25b817712f50ee90
+-- vrml:begin reclaim_plan.check_plan.call_requires_6 02fdec5b697a36f8
 /--
 Generated VC `reclaim_plan.check_plan.call_requires_6`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:310:13-310:31`
 - Rust/SST construct: call vec_index
 - AssertId: `6`
-- Statement hash: `25b817712f50ee90`
+- Statement hash: `02fdec5b697a36f8`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩
 -/
 def call_requires_6_meta : Vermilion.ObligationMeta := {
@@ -335,7 +353,7 @@ def call_requires_6_meta : Vermilion.ObligationMeta := {
   assertId := "6"
   functionName := "reclaim_plan.check_plan"
   kind := "call_requires"
-  statementHash := "25b817712f50ee90"
+  statementHash := "02fdec5b697a36f8"
 }
 @[vrml_obligation] theorem call_requires_6
     (n : Int)
@@ -348,37 +366,40 @@ def call_requires_6_meta : Vermilion.ObligationMeta := {
     (tmp__2 : Prop)
     (r : Int)
     (tmp__3 : Int)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_10 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_iteration_11 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_iteration_12 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_iteration_13 : Vermilion.Seq.len retained = n)
     (loop_0_iteration_14 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_iteration_15 : r < Vermilion.Seq.len roots)
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 tmp__3)
+    (call_vec_index_ensures_0 : (0 ≤ tmp__3) ∧ (tmp__3 < Vermilion.usizeMod))
     (call_vec_index_ensures_1 : tmp__3 = Vermilion.Seq.index roots r) :
     tmp__3 < Vermilion.Seq.len retained := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.call_requires_6
 
--- vrml:begin reclaim_plan.check_plan.ensures_7 088c7ad73b2c1aeb
+-- vrml:begin reclaim_plan.check_plan.ensures_7 3a800f40d6fc48d1
 /--
 Generated VC `reclaim_plan.check_plan.ensures_7`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:299:13-299:100`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `7`
-- Statement hash: `088c7ad73b2c1aeb`
+- Statement hash: `3a800f40d6fc48d1`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩
 -/
 def ensures_7_meta : Vermilion.ObligationMeta := {
@@ -390,7 +411,7 @@ def ensures_7_meta : Vermilion.ObligationMeta := {
   assertId := "7"
   functionName := "reclaim_plan.check_plan"
   kind := "ensures"
-  statementHash := "088c7ad73b2c1aeb"
+  statementHash := "3a800f40d6fc48d1"
 }
 @[vrml_obligation] theorem ensures_7
     (n : Int)
@@ -404,39 +425,42 @@ def ensures_7_meta : Vermilion.ObligationMeta := {
     (r : Int)
     (tmp__3 : Int)
     (tmp__4 : Prop)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_10 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_iteration_11 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_iteration_12 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_iteration_13 : Vermilion.Seq.len retained = n)
     (loop_0_iteration_14 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_iteration_15 : r < Vermilion.Seq.len roots)
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 tmp__3)
+    (call_vec_index_ensures_0 : (0 ≤ tmp__3) ∧ (tmp__3 < Vermilion.usizeMod))
     (call_vec_index_ensures_1 : tmp__3 = Vermilion.Seq.index roots r)
     (call_vec_index_1_ensures_0 : tmp__4 ↔ Vermilion.Seq.index retained tmp__3)
     (branch_3 : (¬ tmp__4)) :
     False ↔ reclaim_plan.plan_valid_spec n edges roots reclaimable retained candidate := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.ensures_7
 
--- vrml:begin reclaim_plan.check_plan.assert_8 baed5af0848db9fb
+-- vrml:begin reclaim_plan.check_plan.assert_8 2dbacb390df77ebb
 /--
 Generated VC `reclaim_plan.check_plan.assert_8`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:313:9-313:15`
 - Rust/SST construct: possible arithmetic underflow/overflow
 - AssertId: `8`
-- Statement hash: `baed5af0848db9fb`
+- Statement hash: `2dbacb390df77ebb`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩
 -/
 def assert_8_meta : Vermilion.ObligationMeta := {
@@ -448,7 +472,7 @@ def assert_8_meta : Vermilion.ObligationMeta := {
   assertId := "8"
   functionName := "reclaim_plan.check_plan"
   kind := "assert"
-  statementHash := "baed5af0848db9fb"
+  statementHash := "2dbacb390df77ebb"
 }
 @[vrml_obligation] theorem assert_8
     (n : Int)
@@ -462,40 +486,43 @@ def assert_8_meta : Vermilion.ObligationMeta := {
     (r : Int)
     (tmp__3 : Int)
     (tmp__4 : Prop)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_10 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_iteration_11 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_iteration_12 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_iteration_13 : Vermilion.Seq.len retained = n)
     (loop_0_iteration_14 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_iteration_15 : r < Vermilion.Seq.len roots)
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 tmp__3)
+    (call_vec_index_ensures_0 : (0 ≤ tmp__3) ∧ (tmp__3 < Vermilion.usizeMod))
     (call_vec_index_ensures_1 : tmp__3 = Vermilion.Seq.index roots r)
     (call_vec_index_1_ensures_0 : tmp__4 ↔ Vermilion.Seq.index retained tmp__3)
     (then_3_assume_20 : (¬ tmp__4) → False)
     (then_3_assume_21 : (¬ tmp__4) → False) :
-    Vermilion.inUnsignedRange 64 (r + 1) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+    (0 ≤ (r + 1)) ∧ ((r + 1) < Vermilion.usizeMod) := by
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.assert_8
 
--- vrml:begin reclaim_plan.check_plan.invariant_preserve_0_0 bcc4c7dc09f334bc
+-- vrml:begin reclaim_plan.check_plan.invariant_preserve_0_0 c0b1e2a128ade81a
 /--
 Generated VC `reclaim_plan.check_plan.invariant_preserve_0_0`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:306:19-306:40`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_0`
-- Statement hash: `bcc4c7dc09f334bc`
+- Statement hash: `c0b1e2a128ade81a`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩
 -/
 def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
@@ -507,7 +534,7 @@ def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
   assertId := "0_0"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_preserve"
-  statementHash := "bcc4c7dc09f334bc"
+  statementHash := "c0b1e2a128ade81a"
 }
 @[vrml_obligation] theorem invariant_preserve_0_0
     (n : Int)
@@ -521,41 +548,44 @@ def invariant_preserve_0_0_meta : Vermilion.ObligationMeta := {
     (r : Int)
     (tmp__3 : Int)
     (tmp__4 : Prop)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_10 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_iteration_11 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_iteration_12 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_iteration_13 : Vermilion.Seq.len retained = n)
     (loop_0_iteration_14 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_iteration_15 : r < Vermilion.Seq.len roots)
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 tmp__3)
+    (call_vec_index_ensures_0 : (0 ≤ tmp__3) ∧ (tmp__3 < Vermilion.usizeMod))
     (call_vec_index_ensures_1 : tmp__3 = Vermilion.Seq.index roots r)
     (call_vec_index_1_ensures_0 : tmp__4 ↔ Vermilion.Seq.index retained tmp__3)
     (then_3_assume_20 : (¬ tmp__4) → False)
     (then_3_assume_21 : (¬ tmp__4) → False)
-    (assert_8 : Vermilion.inUnsignedRange 64 (r + 1)) :
-    (0 ≤ ((r + 1) % 18446744073709551616)) ∧ (((r + 1) % 18446744073709551616) ≤ Vermilion.Seq.len roots) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+    (assert_8 : (0 ≤ (r + 1)) ∧ ((r + 1) < Vermilion.usizeMod)) :
+    (0 ≤ (Vermilion.emod (r + 1) Vermilion.usizeMod)) ∧ ((Vermilion.emod (r + 1) Vermilion.usizeMod) ≤ Vermilion.Seq.len roots) := by
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_0_0
 
--- vrml:begin reclaim_plan.check_plan.invariant_preserve_0_1 296c48f4ab1a2ff6
+-- vrml:begin reclaim_plan.check_plan.invariant_preserve_0_1 0bca38c0961e162e
 /--
 Generated VC `reclaim_plan.check_plan.invariant_preserve_0_1`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:306:42-306:79`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_1`
-- Statement hash: `296c48f4ab1a2ff6`
+- Statement hash: `0bca38c0961e162e`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩
 -/
 def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
@@ -567,7 +597,7 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
   assertId := "0_1"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_preserve"
-  statementHash := "296c48f4ab1a2ff6"
+  statementHash := "0bca38c0961e162e"
 }
 @[vrml_obligation] theorem invariant_preserve_0_1
     (n : Int)
@@ -581,41 +611,44 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
     (r : Int)
     (tmp__3 : Int)
     (tmp__4 : Prop)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_10 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_iteration_11 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_iteration_12 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_iteration_13 : Vermilion.Seq.len retained = n)
     (loop_0_iteration_14 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_iteration_15 : r < Vermilion.Seq.len roots)
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 tmp__3)
+    (call_vec_index_ensures_0 : (0 ≤ tmp__3) ∧ (tmp__3 < Vermilion.usizeMod))
     (call_vec_index_ensures_1 : tmp__3 = Vermilion.Seq.index roots r)
     (call_vec_index_1_ensures_0 : tmp__4 ↔ Vermilion.Seq.index retained tmp__3)
     (then_3_assume_20 : (¬ tmp__4) → False)
     (then_3_assume_21 : (¬ tmp__4) → False)
-    (assert_8 : Vermilion.inUnsignedRange 64 (r + 1)) :
+    (assert_8 : (0 ≤ (r + 1)) ∧ ((r + 1) < Vermilion.usizeMod)) :
     reclaim_plan.roots_in_range_spec n roots := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_0_1
 
--- vrml:begin reclaim_plan.check_plan.invariant_preserve_0_2 5acbfb4ca50a3541
+-- vrml:begin reclaim_plan.check_plan.invariant_preserve_0_2 58f867226d4ca119
 /--
 Generated VC `reclaim_plan.check_plan.invariant_preserve_0_2`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:306:81-306:101`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_2`
-- Statement hash: `5acbfb4ca50a3541`
+- Statement hash: `58f867226d4ca119`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩
 -/
 def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
@@ -627,7 +660,7 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
   assertId := "0_2"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_preserve"
-  statementHash := "5acbfb4ca50a3541"
+  statementHash := "58f867226d4ca119"
 }
 @[vrml_obligation] theorem invariant_preserve_0_2
     (n : Int)
@@ -641,41 +674,44 @@ def invariant_preserve_0_2_meta : Vermilion.ObligationMeta := {
     (r : Int)
     (tmp__3 : Int)
     (tmp__4 : Prop)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_10 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_iteration_11 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_iteration_12 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_iteration_13 : Vermilion.Seq.len retained = n)
     (loop_0_iteration_14 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_iteration_15 : r < Vermilion.Seq.len roots)
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 tmp__3)
+    (call_vec_index_ensures_0 : (0 ≤ tmp__3) ∧ (tmp__3 < Vermilion.usizeMod))
     (call_vec_index_ensures_1 : tmp__3 = Vermilion.Seq.index roots r)
     (call_vec_index_1_ensures_0 : tmp__4 ↔ Vermilion.Seq.index retained tmp__3)
     (then_3_assume_20 : (¬ tmp__4) → False)
     (then_3_assume_21 : (¬ tmp__4) → False)
-    (assert_8 : Vermilion.inUnsignedRange 64 (r + 1)) :
+    (assert_8 : (0 ≤ (r + 1)) ∧ ((r + 1) < Vermilion.usizeMod)) :
     Vermilion.Seq.len retained = n := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_0_2
 
--- vrml:begin reclaim_plan.check_plan.invariant_preserve_0_3 86b8f3e2788293d3
+-- vrml:begin reclaim_plan.check_plan.invariant_preserve_0_3 ae974817ef495e95
 /--
 Generated VC `reclaim_plan.check_plan.invariant_preserve_0_3`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:307:13-307:92`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `0_3`
-- Statement hash: `86b8f3e2788293d3`
+- Statement hash: `ae974817ef495e95`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index roots j⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩
 -/
 def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
@@ -687,7 +723,7 @@ def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
   assertId := "0_3"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_preserve"
-  statementHash := "86b8f3e2788293d3"
+  statementHash := "ae974817ef495e95"
 }
 @[vrml_obligation] theorem invariant_preserve_0_3
     (n : Int)
@@ -701,31 +737,30 @@ def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
     (r : Int)
     (tmp__3 : Int)
     (tmp__4 : Prop)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_10 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_iteration_11 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_iteration_12 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_iteration_13 : Vermilion.Seq.len retained = n)
     (loop_0_iteration_14 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_iteration_15 : r < Vermilion.Seq.len roots)
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 tmp__3)
+    (call_vec_index_ensures_0 : (0 ≤ tmp__3) ∧ (tmp__3 < Vermilion.usizeMod))
     (call_vec_index_ensures_1 : tmp__3 = Vermilion.Seq.index roots r)
     (call_vec_index_1_ensures_0 : tmp__4 ↔ Vermilion.Seq.index retained tmp__3)
     (then_3_assume_20 : (¬ tmp__4) → False)
     (then_3_assume_21 : (¬ tmp__4) → False)
-    (assert_8 : Vermilion.inUnsignedRange 64 (r + 1)) :
-    (∀ (j : Int), (((0 ≤ j) ∧ (j < ((r + 1) % 18446744073709551616))) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))) := by
-  have hr : (r + 1) % 18446744073709551616 = r + 1 := by
-    unfold Vermilion.inUnsignedRange at assert_8; norm_num at assert_8; omega
+    (assert_8 : (0 ≤ (r + 1)) ∧ ((r + 1) < Vermilion.usizeMod)) :
+    (∀ (j : Int), (((0 ≤ j) ∧ (j < (Vermilion.emod (r + 1) Vermilion.usizeMod))) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))) := by
+  have hr : Vermilion.emod (r + 1) Vermilion.usizeMod = r + 1 := Vermilion.emod_usizeMod_of_lt assert_8.1 assert_8.2
   rw [hr]
   intro j hj
   by_cases hjr : j < r
@@ -735,14 +770,14 @@ def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
     exact call_vec_index_1_ensures_0.mp (by by_contra h; exact then_3_assume_20 h)
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_0_3
 
--- vrml:begin reclaim_plan.check_plan.assert_0_decreases 52d039971f14dce8
+-- vrml:begin reclaim_plan.check_plan.assert_0_decreases b905947ee1b1a62e
 /--
 Generated VC `reclaim_plan.check_plan.assert_0_decreases`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:308:19-308:34`
 - Rust/SST construct: loop termination measure must decrease
 - AssertId: `0_decreases`
-- Statement hash: `52d039971f14dce8`
+- Statement hash: `b905947ee1b1a62e`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩
 -/
 def assert_0_decreases_meta : Vermilion.ObligationMeta := {
@@ -754,7 +789,7 @@ def assert_0_decreases_meta : Vermilion.ObligationMeta := {
   assertId := "0_decreases"
   functionName := "reclaim_plan.check_plan"
   kind := "assert"
-  statementHash := "52d039971f14dce8"
+  statementHash := "b905947ee1b1a62e"
 }
 @[vrml_obligation] theorem assert_0_decreases
     (n : Int)
@@ -768,41 +803,44 @@ def assert_0_decreases_meta : Vermilion.ObligationMeta := {
     (r : Int)
     (tmp__3 : Int)
     (tmp__4 : Prop)
-    (loop_0_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_0_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_0_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_0_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_0_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_0_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_0_iteration_10 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_0_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_0_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_0_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_0_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_0_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_0_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_0_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_0_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_iteration_11 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_iteration_12 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_iteration_13 : Vermilion.Seq.len retained = n)
     (loop_0_iteration_14 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_iteration_15 : r < Vermilion.Seq.len roots)
-    (call_vec_index_ensures_0 : Vermilion.inUnsignedRange 64 tmp__3)
+    (call_vec_index_ensures_0 : (0 ≤ tmp__3) ∧ (tmp__3 < Vermilion.usizeMod))
     (call_vec_index_ensures_1 : tmp__3 = Vermilion.Seq.index roots r)
     (call_vec_index_1_ensures_0 : tmp__4 ↔ Vermilion.Seq.index retained tmp__3)
     (then_3_assume_20 : (¬ tmp__4) → False)
     (then_3_assume_21 : (¬ tmp__4) → False)
-    (assert_8 : Vermilion.inUnsignedRange 64 (r + 1)) :
-    ((0 ≤ (Vermilion.Seq.len roots - ((r + 1) % 18446744073709551616))) ∧ ((Vermilion.Seq.len roots - ((r + 1) % 18446744073709551616)) < (Vermilion.Seq.len roots - r))) ∨ (((Vermilion.Seq.len roots - ((r + 1) % 18446744073709551616)) = (Vermilion.Seq.len roots - r)) ∧ False) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+    (assert_8 : (0 ≤ (r + 1)) ∧ ((r + 1) < Vermilion.usizeMod)) :
+    ((0 ≤ (Vermilion.Seq.len roots - (Vermilion.emod (r + 1) Vermilion.usizeMod))) ∧ ((Vermilion.Seq.len roots - (Vermilion.emod (r + 1) Vermilion.usizeMod)) < (Vermilion.Seq.len roots - r))) ∨ (((Vermilion.Seq.len roots - (Vermilion.emod (r + 1) Vermilion.usizeMod)) = (Vermilion.Seq.len roots - r)) ∧ False) := by
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.assert_0_decreases
 
--- vrml:begin reclaim_plan.check_plan.invariant_entry_1_0 af826453e45e31d4
+-- vrml:begin reclaim_plan.check_plan.invariant_entry_1_0 0395b4f4843ce5a7
 /--
 Generated VC `reclaim_plan.check_plan.invariant_entry_1_0`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:317:19-317:40`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `1_0`
-- Statement hash: `af826453e45e31d4`
+- Statement hash: `0395b4f4843ce5a7`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩
 -/
 def invariant_entry_1_0_meta : Vermilion.ObligationMeta := {
@@ -814,7 +852,7 @@ def invariant_entry_1_0_meta : Vermilion.ObligationMeta := {
   assertId := "1_0"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_entry"
-  statementHash := "af826453e45e31d4"
+  statementHash := "0395b4f4843ce5a7"
 }
 @[vrml_obligation] theorem invariant_entry_1_0
     (n : Int)
@@ -826,41 +864,44 @@ def invariant_entry_1_0_meta : Vermilion.ObligationMeta := {
     (tmp_ : Prop)
     (tmp__2 : Prop)
     (r : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 n)
-    (requires_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (requires_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (requires_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (requires_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (requires_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (requires_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (requires_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (requires_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (requires_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
     (then_0_assume_9 : (¬ reclaim_plan.admissible_spec n edges roots reclaimable) → (tmp_ ↔ True))
-    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
+    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → ((0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod)))
     (else_0_assume_10 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → (tmp_ ↔ (Vermilion.Seq.len retained ≠ n)))
     (then_1_assume_12 : tmp_ → (tmp__2 ↔ True))
-    (else_1_assume_12 : (¬ tmp_) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (else_1_assume_12 : (¬ tmp_) → ((0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod)))
     (else_1_assume_13 : (¬ tmp_) → (tmp__2 ↔ (Vermilion.Seq.len candidate ≠ n)))
     (then_2_assume_15 : tmp__2 → False)
     (then_2_assume_16 : tmp__2 → False)
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_exit_0 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_exit_1 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_exit_2 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_exit_3 : Vermilion.Seq.len retained = n)
     (loop_0_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_exit_5 : (¬ (r < Vermilion.Seq.len roots))) :
     (0 ≤ 0) ∧ (0 ≤ Vermilion.Seq.len edges) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_entry_1_0
 
--- vrml:begin reclaim_plan.check_plan.invariant_entry_1_1 5730abd61d944c1f
+-- vrml:begin reclaim_plan.check_plan.invariant_entry_1_1 91e7dfafb8788306
 /--
 Generated VC `reclaim_plan.check_plan.invariant_entry_1_1`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:317:42-317:79`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `1_1`
-- Statement hash: `5730abd61d944c1f`
+- Statement hash: `91e7dfafb8788306`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩
 -/
 def invariant_entry_1_1_meta : Vermilion.ObligationMeta := {
@@ -872,7 +913,7 @@ def invariant_entry_1_1_meta : Vermilion.ObligationMeta := {
   assertId := "1_1"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_entry"
-  statementHash := "5730abd61d944c1f"
+  statementHash := "91e7dfafb8788306"
 }
 @[vrml_obligation] theorem invariant_entry_1_1
     (n : Int)
@@ -884,41 +925,44 @@ def invariant_entry_1_1_meta : Vermilion.ObligationMeta := {
     (tmp_ : Prop)
     (tmp__2 : Prop)
     (r : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 n)
-    (requires_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (requires_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (requires_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (requires_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (requires_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (requires_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (requires_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (requires_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (requires_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
     (then_0_assume_9 : (¬ reclaim_plan.admissible_spec n edges roots reclaimable) → (tmp_ ↔ True))
-    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
+    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → ((0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod)))
     (else_0_assume_10 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → (tmp_ ↔ (Vermilion.Seq.len retained ≠ n)))
     (then_1_assume_12 : tmp_ → (tmp__2 ↔ True))
-    (else_1_assume_12 : (¬ tmp_) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (else_1_assume_12 : (¬ tmp_) → ((0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod)))
     (else_1_assume_13 : (¬ tmp_) → (tmp__2 ↔ (Vermilion.Seq.len candidate ≠ n)))
     (then_2_assume_15 : tmp__2 → False)
     (then_2_assume_16 : tmp__2 → False)
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_exit_0 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_exit_1 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_exit_2 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_exit_3 : Vermilion.Seq.len retained = n)
     (loop_0_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_exit_5 : (¬ (r < Vermilion.Seq.len roots))) :
     reclaim_plan.edges_in_range_spec n edges := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_entry_1_1
 
--- vrml:begin reclaim_plan.check_plan.invariant_entry_1_2 faec537a62134188
+-- vrml:begin reclaim_plan.check_plan.invariant_entry_1_2 ac8a5bf0120f9b15
 /--
 Generated VC `reclaim_plan.check_plan.invariant_entry_1_2`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:317:81-317:101`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `1_2`
-- Statement hash: `faec537a62134188`
+- Statement hash: `ac8a5bf0120f9b15`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩
 -/
 def invariant_entry_1_2_meta : Vermilion.ObligationMeta := {
@@ -930,7 +974,7 @@ def invariant_entry_1_2_meta : Vermilion.ObligationMeta := {
   assertId := "1_2"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_entry"
-  statementHash := "faec537a62134188"
+  statementHash := "ac8a5bf0120f9b15"
 }
 @[vrml_obligation] theorem invariant_entry_1_2
     (n : Int)
@@ -942,41 +986,44 @@ def invariant_entry_1_2_meta : Vermilion.ObligationMeta := {
     (tmp_ : Prop)
     (tmp__2 : Prop)
     (r : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 n)
-    (requires_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (requires_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (requires_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (requires_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (requires_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (requires_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (requires_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (requires_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (requires_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
     (then_0_assume_9 : (¬ reclaim_plan.admissible_spec n edges roots reclaimable) → (tmp_ ↔ True))
-    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
+    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → ((0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod)))
     (else_0_assume_10 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → (tmp_ ↔ (Vermilion.Seq.len retained ≠ n)))
     (then_1_assume_12 : tmp_ → (tmp__2 ↔ True))
-    (else_1_assume_12 : (¬ tmp_) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (else_1_assume_12 : (¬ tmp_) → ((0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod)))
     (else_1_assume_13 : (¬ tmp_) → (tmp__2 ↔ (Vermilion.Seq.len candidate ≠ n)))
     (then_2_assume_15 : tmp__2 → False)
     (then_2_assume_16 : tmp__2 → False)
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_exit_0 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_exit_1 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_exit_2 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_exit_3 : Vermilion.Seq.len retained = n)
     (loop_0_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_exit_5 : (¬ (r < Vermilion.Seq.len roots))) :
     Vermilion.Seq.len retained = n := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_entry_1_2
 
--- vrml:begin reclaim_plan.check_plan.invariant_entry_1_3 745e5a406427812b
+-- vrml:begin reclaim_plan.check_plan.invariant_entry_1_3 83605b43d0f637be
 /--
 Generated VC `reclaim_plan.check_plan.invariant_entry_1_3`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:318:13-319:82`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `1_3`
-- Statement hash: `745e5a406427812b`
+- Statement hash: `83605b43d0f637be`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges j⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩
 -/
 def invariant_entry_1_3_meta : Vermilion.ObligationMeta := {
@@ -988,7 +1035,7 @@ def invariant_entry_1_3_meta : Vermilion.ObligationMeta := {
   assertId := "1_3"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_entry"
-  statementHash := "745e5a406427812b"
+  statementHash := "83605b43d0f637be"
 }
 @[vrml_obligation] theorem invariant_entry_1_3
     (n : Int)
@@ -1000,41 +1047,44 @@ def invariant_entry_1_3_meta : Vermilion.ObligationMeta := {
     (tmp_ : Prop)
     (tmp__2 : Prop)
     (r : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 n)
-    (requires_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (requires_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (requires_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (requires_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (requires_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (requires_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (requires_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (requires_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (requires_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
     (then_0_assume_9 : (¬ reclaim_plan.admissible_spec n edges roots reclaimable) → (tmp_ ↔ True))
-    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
+    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → ((0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod)))
     (else_0_assume_10 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → (tmp_ ↔ (Vermilion.Seq.len retained ≠ n)))
     (then_1_assume_12 : tmp_ → (tmp__2 ↔ True))
-    (else_1_assume_12 : (¬ tmp_) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (else_1_assume_12 : (¬ tmp_) → ((0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod)))
     (else_1_assume_13 : (¬ tmp_) → (tmp__2 ↔ (Vermilion.Seq.len candidate ≠ n)))
     (then_2_assume_15 : tmp__2 → False)
     (then_2_assume_16 : tmp__2 → False)
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_exit_0 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_exit_1 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_exit_2 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_exit_3 : Vermilion.Seq.len retained = n)
     (loop_0_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_exit_5 : (¬ (r < Vermilion.Seq.len roots))) :
     (∀ (j : Int), (((0 ≤ j) ∧ (j < 0)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_entry_1_3
 
--- vrml:begin reclaim_plan.check_plan.call_requires_10 0688619a84073ef9
+-- vrml:begin reclaim_plan.check_plan.call_requires_10 b0b1235df1ed4c7e
 /--
 Generated VC `reclaim_plan.check_plan.call_requires_10`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:322:22-322:30`
 - Rust/SST construct: call vec_index
 - AssertId: `10`
-- Statement hash: `0688619a84073ef9`
+- Statement hash: `b0b1235df1ed4c7e`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index edges j⟩
 -/
 def call_requires_10_meta : Vermilion.ObligationMeta := {
@@ -1046,7 +1096,7 @@ def call_requires_10_meta : Vermilion.ObligationMeta := {
   assertId := "10"
   functionName := "reclaim_plan.check_plan"
   kind := "call_requires"
-  statementHash := "0688619a84073ef9"
+  statementHash := "b0b1235df1ed4c7e"
 }
 @[vrml_obligation] theorem call_requires_10
     (n : Int)
@@ -1059,36 +1109,39 @@ def call_requires_10_meta : Vermilion.ObligationMeta := {
     (tmp__2 : Prop)
     (r : Int)
     (i : Int)
-    (loop_1_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_1_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_1_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_1_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_1_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_1_iteration_11 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_1_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_1_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_1_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_1_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_1_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_iteration_12 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_iteration_13 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_iteration_14 : Vermilion.Seq.len retained = n)
     (loop_1_iteration_15 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_iteration_16 : i < Vermilion.Seq.len edges) :
     i < Vermilion.Seq.len edges := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.call_requires_10
 
--- vrml:begin reclaim_plan.check_plan.call_requires_11 7a100d073e2655bb
+-- vrml:begin reclaim_plan.check_plan.call_requires_11 8ff9074e6684438d
 /--
 Generated VC `reclaim_plan.check_plan.call_requires_11`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:323:12-323:23`
 - Rust/SST construct: call vec_index
 - AssertId: `11`
-- Statement hash: `7a100d073e2655bb`
+- Statement hash: `8ff9074e6684438d`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index edges j⟩
 -/
 def call_requires_11_meta : Vermilion.ObligationMeta := {
@@ -1100,7 +1153,7 @@ def call_requires_11_meta : Vermilion.ObligationMeta := {
   assertId := "11"
   functionName := "reclaim_plan.check_plan"
   kind := "call_requires"
-  statementHash := "7a100d073e2655bb"
+  statementHash := "8ff9074e6684438d"
 }
 @[vrml_obligation] theorem call_requires_11
     (n : Int)
@@ -1114,39 +1167,42 @@ def call_requires_11_meta : Vermilion.ObligationMeta := {
     (r : Int)
     (i : Int)
     (tmp__5 : (vermilion.tuple_2 Int Int))
-    (loop_1_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_1_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_1_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_1_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_1_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_1_iteration_11 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_1_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_1_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_1_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_1_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_1_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_iteration_12 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_iteration_13 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_iteration_14 : Vermilion.Seq.len retained = n)
     (loop_1_iteration_15 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_iteration_16 : i < Vermilion.Seq.len edges)
-    (call_vec_index_2_ensures_0 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 tmp__5))
-    (call_vec_index_2_ensures_1 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 tmp__5))
+    (call_vec_index_2_ensures_0 : (0 ≤ vermilion.tuple_2.get_tuple_2__0 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__0 tmp__5 < Vermilion.usizeMod))
+    (call_vec_index_2_ensures_1 : (0 ≤ vermilion.tuple_2.get_tuple_2__1 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__1 tmp__5 < Vermilion.usizeMod))
     (call_vec_index_2_ensures_2 : tmp__5 = Vermilion.Seq.index edges i) :
     vermilion.tuple_2.get_tuple_2__0 tmp__5 < Vermilion.Seq.len retained := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.call_requires_11
 
--- vrml:begin reclaim_plan.check_plan.call_requires_12 7080d67eac759739
+-- vrml:begin reclaim_plan.check_plan.call_requires_12 fb1ec1c897f71a9f
 /--
 Generated VC `reclaim_plan.check_plan.call_requires_12`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:323:28-323:39`
 - Rust/SST construct: call vec_index
 - AssertId: `12`
-- Statement hash: `7080d67eac759739`
+- Statement hash: `fb1ec1c897f71a9f`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index edges j⟩
 -/
 def call_requires_12_meta : Vermilion.ObligationMeta := {
@@ -1158,7 +1214,7 @@ def call_requires_12_meta : Vermilion.ObligationMeta := {
   assertId := "12"
   functionName := "reclaim_plan.check_plan"
   kind := "call_requires"
-  statementHash := "7080d67eac759739"
+  statementHash := "fb1ec1c897f71a9f"
 }
 @[vrml_obligation] theorem call_requires_12
     (n : Int)
@@ -1174,41 +1230,44 @@ def call_requires_12_meta : Vermilion.ObligationMeta := {
     (tmp__5 : (vermilion.tuple_2 Int Int))
     (tmp__6 : Prop)
     (tmp__8 : Prop)
-    (loop_1_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_1_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_1_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_1_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_1_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_1_iteration_11 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_1_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_1_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_1_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_1_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_1_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_iteration_12 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_iteration_13 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_iteration_14 : Vermilion.Seq.len retained = n)
     (loop_1_iteration_15 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_iteration_16 : i < Vermilion.Seq.len edges)
-    (call_vec_index_2_ensures_0 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 tmp__5))
-    (call_vec_index_2_ensures_1 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 tmp__5))
+    (call_vec_index_2_ensures_0 : (0 ≤ vermilion.tuple_2.get_tuple_2__0 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__0 tmp__5 < Vermilion.usizeMod))
+    (call_vec_index_2_ensures_1 : (0 ≤ vermilion.tuple_2.get_tuple_2__1 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__1 tmp__5 < Vermilion.usizeMod))
     (call_vec_index_2_ensures_2 : tmp__5 = Vermilion.Seq.index edges i)
     (call_vec_index_3_ensures_0 : tmp__6 ↔ Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 tmp__5))
     (branch_4 : tmp__6) :
     vermilion.tuple_2.get_tuple_2__1 tmp__5 < Vermilion.Seq.len retained := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.call_requires_12
 
--- vrml:begin reclaim_plan.check_plan.ensures_13 f79eb0b75dda410f
+-- vrml:begin reclaim_plan.check_plan.ensures_13 c1ae941a6a381819
 /--
 Generated VC `reclaim_plan.check_plan.ensures_13`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:299:13-299:100`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `13`
-- Statement hash: `f79eb0b75dda410f`
+- Statement hash: `c1ae941a6a381819`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index edges j⟩
 -/
 def ensures_13_meta : Vermilion.ObligationMeta := {
@@ -1220,7 +1279,7 @@ def ensures_13_meta : Vermilion.ObligationMeta := {
   assertId := "13"
   functionName := "reclaim_plan.check_plan"
   kind := "ensures"
-  statementHash := "f79eb0b75dda410f"
+  statementHash := "c1ae941a6a381819"
 }
 @[vrml_obligation] theorem ensures_13
     (n : Int)
@@ -1237,25 +1296,25 @@ def ensures_13_meta : Vermilion.ObligationMeta := {
     (tmp__6 : Prop)
     (tmp__8 : Prop)
     (tmp__7 : Prop)
-    (loop_1_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_1_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_1_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_1_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_1_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_1_iteration_11 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_1_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_1_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_1_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_1_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_1_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_iteration_12 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_iteration_13 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_iteration_14 : Vermilion.Seq.len retained = n)
     (loop_1_iteration_15 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_iteration_16 : i < Vermilion.Seq.len edges)
-    (call_vec_index_2_ensures_0 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 tmp__5))
-    (call_vec_index_2_ensures_1 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 tmp__5))
+    (call_vec_index_2_ensures_0 : (0 ≤ vermilion.tuple_2.get_tuple_2__0 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__0 tmp__5 < Vermilion.usizeMod))
+    (call_vec_index_2_ensures_1 : (0 ≤ vermilion.tuple_2.get_tuple_2__1 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__1 tmp__5 < Vermilion.usizeMod))
     (call_vec_index_2_ensures_2 : tmp__5 = Vermilion.Seq.index edges i)
     (call_vec_index_3_ensures_0 : tmp__6 ↔ Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 tmp__5))
     (then_4_call_vec_index_4_ensures_0 : tmp__6 → (tmp__7 ↔ Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 tmp__5)))
@@ -1263,18 +1322,21 @@ def ensures_13_meta : Vermilion.ObligationMeta := {
     (else_4_assume_22 : (¬ tmp__6) → (tmp__8 ↔ False))
     (branch_5 : tmp__8) :
     False ↔ reclaim_plan.plan_valid_spec n edges roots reclaimable retained candidate := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.ensures_13
 
--- vrml:begin reclaim_plan.check_plan.assert_14 8a39f7f83e6be4d1
+-- vrml:begin reclaim_plan.check_plan.assert_14 974f7cfd864474f2
 /--
 Generated VC `reclaim_plan.check_plan.assert_14`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:326:9-326:15`
 - Rust/SST construct: possible arithmetic underflow/overflow
 - AssertId: `14`
-- Statement hash: `8a39f7f83e6be4d1`
+- Statement hash: `974f7cfd864474f2`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index edges j⟩
 -/
 def assert_14_meta : Vermilion.ObligationMeta := {
@@ -1286,7 +1348,7 @@ def assert_14_meta : Vermilion.ObligationMeta := {
   assertId := "14"
   functionName := "reclaim_plan.check_plan"
   kind := "assert"
-  statementHash := "8a39f7f83e6be4d1"
+  statementHash := "974f7cfd864474f2"
 }
 @[vrml_obligation] theorem assert_14
     (n : Int)
@@ -1303,25 +1365,25 @@ def assert_14_meta : Vermilion.ObligationMeta := {
     (tmp__6 : Prop)
     (tmp__8 : Prop)
     (tmp__7 : Prop)
-    (loop_1_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_1_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_1_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_1_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_1_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_1_iteration_11 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_1_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_1_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_1_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_1_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_1_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_iteration_12 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_iteration_13 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_iteration_14 : Vermilion.Seq.len retained = n)
     (loop_1_iteration_15 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_iteration_16 : i < Vermilion.Seq.len edges)
-    (call_vec_index_2_ensures_0 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 tmp__5))
-    (call_vec_index_2_ensures_1 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 tmp__5))
+    (call_vec_index_2_ensures_0 : (0 ≤ vermilion.tuple_2.get_tuple_2__0 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__0 tmp__5 < Vermilion.usizeMod))
+    (call_vec_index_2_ensures_1 : (0 ≤ vermilion.tuple_2.get_tuple_2__1 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__1 tmp__5 < Vermilion.usizeMod))
     (call_vec_index_2_ensures_2 : tmp__5 = Vermilion.Seq.index edges i)
     (call_vec_index_3_ensures_0 : tmp__6 ↔ Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 tmp__5))
     (then_4_call_vec_index_4_ensures_0 : tmp__6 → (tmp__7 ↔ Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 tmp__5)))
@@ -1329,19 +1391,22 @@ def assert_14_meta : Vermilion.ObligationMeta := {
     (else_4_assume_22 : (¬ tmp__6) → (tmp__8 ↔ False))
     (then_5_assume_25 : tmp__8 → False)
     (then_5_assume_26 : tmp__8 → False) :
-    Vermilion.inUnsignedRange 64 (i + 1) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+    (0 ≤ (i + 1)) ∧ ((i + 1) < Vermilion.usizeMod) := by
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.assert_14
 
--- vrml:begin reclaim_plan.check_plan.invariant_preserve_1_0 27d31f82d23339c4
+-- vrml:begin reclaim_plan.check_plan.invariant_preserve_1_0 7f7f18fe81d8c3ad
 /--
 Generated VC `reclaim_plan.check_plan.invariant_preserve_1_0`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:317:19-317:40`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `1_0`
-- Statement hash: `27d31f82d23339c4`
+- Statement hash: `7f7f18fe81d8c3ad`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index edges j⟩
 -/
 def invariant_preserve_1_0_meta : Vermilion.ObligationMeta := {
@@ -1353,7 +1418,7 @@ def invariant_preserve_1_0_meta : Vermilion.ObligationMeta := {
   assertId := "1_0"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_preserve"
-  statementHash := "27d31f82d23339c4"
+  statementHash := "7f7f18fe81d8c3ad"
 }
 @[vrml_obligation] theorem invariant_preserve_1_0
     (n : Int)
@@ -1370,25 +1435,25 @@ def invariant_preserve_1_0_meta : Vermilion.ObligationMeta := {
     (tmp__6 : Prop)
     (tmp__8 : Prop)
     (tmp__7 : Prop)
-    (loop_1_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_1_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_1_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_1_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_1_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_1_iteration_11 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_1_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_1_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_1_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_1_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_1_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_iteration_12 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_iteration_13 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_iteration_14 : Vermilion.Seq.len retained = n)
     (loop_1_iteration_15 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_iteration_16 : i < Vermilion.Seq.len edges)
-    (call_vec_index_2_ensures_0 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 tmp__5))
-    (call_vec_index_2_ensures_1 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 tmp__5))
+    (call_vec_index_2_ensures_0 : (0 ≤ vermilion.tuple_2.get_tuple_2__0 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__0 tmp__5 < Vermilion.usizeMod))
+    (call_vec_index_2_ensures_1 : (0 ≤ vermilion.tuple_2.get_tuple_2__1 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__1 tmp__5 < Vermilion.usizeMod))
     (call_vec_index_2_ensures_2 : tmp__5 = Vermilion.Seq.index edges i)
     (call_vec_index_3_ensures_0 : tmp__6 ↔ Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 tmp__5))
     (then_4_call_vec_index_4_ensures_0 : tmp__6 → (tmp__7 ↔ Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 tmp__5)))
@@ -1396,20 +1461,23 @@ def invariant_preserve_1_0_meta : Vermilion.ObligationMeta := {
     (else_4_assume_22 : (¬ tmp__6) → (tmp__8 ↔ False))
     (then_5_assume_25 : tmp__8 → False)
     (then_5_assume_26 : tmp__8 → False)
-    (assert_14 : Vermilion.inUnsignedRange 64 (i + 1)) :
-    (0 ≤ ((i + 1) % 18446744073709551616)) ∧ (((i + 1) % 18446744073709551616) ≤ Vermilion.Seq.len edges) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+    (assert_14 : (0 ≤ (i + 1)) ∧ ((i + 1) < Vermilion.usizeMod)) :
+    (0 ≤ (Vermilion.emod (i + 1) Vermilion.usizeMod)) ∧ ((Vermilion.emod (i + 1) Vermilion.usizeMod) ≤ Vermilion.Seq.len edges) := by
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_1_0
 
--- vrml:begin reclaim_plan.check_plan.invariant_preserve_1_1 dd5401f79a7b719f
+-- vrml:begin reclaim_plan.check_plan.invariant_preserve_1_1 ef051cb0528d878c
 /--
 Generated VC `reclaim_plan.check_plan.invariant_preserve_1_1`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:317:42-317:79`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `1_1`
-- Statement hash: `dd5401f79a7b719f`
+- Statement hash: `ef051cb0528d878c`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index edges j⟩
 -/
 def invariant_preserve_1_1_meta : Vermilion.ObligationMeta := {
@@ -1421,7 +1489,7 @@ def invariant_preserve_1_1_meta : Vermilion.ObligationMeta := {
   assertId := "1_1"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_preserve"
-  statementHash := "dd5401f79a7b719f"
+  statementHash := "ef051cb0528d878c"
 }
 @[vrml_obligation] theorem invariant_preserve_1_1
     (n : Int)
@@ -1438,25 +1506,25 @@ def invariant_preserve_1_1_meta : Vermilion.ObligationMeta := {
     (tmp__6 : Prop)
     (tmp__8 : Prop)
     (tmp__7 : Prop)
-    (loop_1_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_1_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_1_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_1_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_1_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_1_iteration_11 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_1_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_1_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_1_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_1_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_1_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_iteration_12 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_iteration_13 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_iteration_14 : Vermilion.Seq.len retained = n)
     (loop_1_iteration_15 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_iteration_16 : i < Vermilion.Seq.len edges)
-    (call_vec_index_2_ensures_0 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 tmp__5))
-    (call_vec_index_2_ensures_1 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 tmp__5))
+    (call_vec_index_2_ensures_0 : (0 ≤ vermilion.tuple_2.get_tuple_2__0 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__0 tmp__5 < Vermilion.usizeMod))
+    (call_vec_index_2_ensures_1 : (0 ≤ vermilion.tuple_2.get_tuple_2__1 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__1 tmp__5 < Vermilion.usizeMod))
     (call_vec_index_2_ensures_2 : tmp__5 = Vermilion.Seq.index edges i)
     (call_vec_index_3_ensures_0 : tmp__6 ↔ Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 tmp__5))
     (then_4_call_vec_index_4_ensures_0 : tmp__6 → (tmp__7 ↔ Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 tmp__5)))
@@ -1464,20 +1532,23 @@ def invariant_preserve_1_1_meta : Vermilion.ObligationMeta := {
     (else_4_assume_22 : (¬ tmp__6) → (tmp__8 ↔ False))
     (then_5_assume_25 : tmp__8 → False)
     (then_5_assume_26 : tmp__8 → False)
-    (assert_14 : Vermilion.inUnsignedRange 64 (i + 1)) :
+    (assert_14 : (0 ≤ (i + 1)) ∧ ((i + 1) < Vermilion.usizeMod)) :
     reclaim_plan.edges_in_range_spec n edges := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_1_1
 
--- vrml:begin reclaim_plan.check_plan.invariant_preserve_1_2 ca1a7ef5d9a93b08
+-- vrml:begin reclaim_plan.check_plan.invariant_preserve_1_2 c389bdd307ba1f63
 /--
 Generated VC `reclaim_plan.check_plan.invariant_preserve_1_2`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:317:81-317:101`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `1_2`
-- Statement hash: `ca1a7ef5d9a93b08`
+- Statement hash: `c389bdd307ba1f63`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index edges j⟩
 -/
 def invariant_preserve_1_2_meta : Vermilion.ObligationMeta := {
@@ -1489,7 +1560,7 @@ def invariant_preserve_1_2_meta : Vermilion.ObligationMeta := {
   assertId := "1_2"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_preserve"
-  statementHash := "ca1a7ef5d9a93b08"
+  statementHash := "c389bdd307ba1f63"
 }
 @[vrml_obligation] theorem invariant_preserve_1_2
     (n : Int)
@@ -1506,25 +1577,25 @@ def invariant_preserve_1_2_meta : Vermilion.ObligationMeta := {
     (tmp__6 : Prop)
     (tmp__8 : Prop)
     (tmp__7 : Prop)
-    (loop_1_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_1_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_1_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_1_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_1_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_1_iteration_11 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_1_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_1_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_1_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_1_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_1_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_iteration_12 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_iteration_13 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_iteration_14 : Vermilion.Seq.len retained = n)
     (loop_1_iteration_15 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_iteration_16 : i < Vermilion.Seq.len edges)
-    (call_vec_index_2_ensures_0 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 tmp__5))
-    (call_vec_index_2_ensures_1 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 tmp__5))
+    (call_vec_index_2_ensures_0 : (0 ≤ vermilion.tuple_2.get_tuple_2__0 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__0 tmp__5 < Vermilion.usizeMod))
+    (call_vec_index_2_ensures_1 : (0 ≤ vermilion.tuple_2.get_tuple_2__1 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__1 tmp__5 < Vermilion.usizeMod))
     (call_vec_index_2_ensures_2 : tmp__5 = Vermilion.Seq.index edges i)
     (call_vec_index_3_ensures_0 : tmp__6 ↔ Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 tmp__5))
     (then_4_call_vec_index_4_ensures_0 : tmp__6 → (tmp__7 ↔ Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 tmp__5)))
@@ -1532,20 +1603,23 @@ def invariant_preserve_1_2_meta : Vermilion.ObligationMeta := {
     (else_4_assume_22 : (¬ tmp__6) → (tmp__8 ↔ False))
     (then_5_assume_25 : tmp__8 → False)
     (then_5_assume_26 : tmp__8 → False)
-    (assert_14 : Vermilion.inUnsignedRange 64 (i + 1)) :
+    (assert_14 : (0 ≤ (i + 1)) ∧ ((i + 1) < Vermilion.usizeMod)) :
     Vermilion.Seq.len retained = n := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_1_2
 
--- vrml:begin reclaim_plan.check_plan.invariant_preserve_1_3 36454fcae25694cd
+-- vrml:begin reclaim_plan.check_plan.invariant_preserve_1_3 0f04f35f47f62b5a
 /--
 Generated VC `reclaim_plan.check_plan.invariant_preserve_1_3`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:318:13-319:82`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `1_3`
-- Statement hash: `36454fcae25694cd`
+- Statement hash: `0f04f35f47f62b5a`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges j⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index edges j⟩
 -/
 def invariant_preserve_1_3_meta : Vermilion.ObligationMeta := {
@@ -1557,7 +1631,7 @@ def invariant_preserve_1_3_meta : Vermilion.ObligationMeta := {
   assertId := "1_3"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_preserve"
-  statementHash := "36454fcae25694cd"
+  statementHash := "0f04f35f47f62b5a"
 }
 @[vrml_obligation] theorem invariant_preserve_1_3
     (n : Int)
@@ -1574,25 +1648,25 @@ def invariant_preserve_1_3_meta : Vermilion.ObligationMeta := {
     (tmp__6 : Prop)
     (tmp__8 : Prop)
     (tmp__7 : Prop)
-    (loop_1_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_1_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_1_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_1_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_1_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_1_iteration_11 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_1_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_1_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_1_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_1_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_1_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_iteration_12 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_iteration_13 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_iteration_14 : Vermilion.Seq.len retained = n)
     (loop_1_iteration_15 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_iteration_16 : i < Vermilion.Seq.len edges)
-    (call_vec_index_2_ensures_0 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 tmp__5))
-    (call_vec_index_2_ensures_1 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 tmp__5))
+    (call_vec_index_2_ensures_0 : (0 ≤ vermilion.tuple_2.get_tuple_2__0 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__0 tmp__5 < Vermilion.usizeMod))
+    (call_vec_index_2_ensures_1 : (0 ≤ vermilion.tuple_2.get_tuple_2__1 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__1 tmp__5 < Vermilion.usizeMod))
     (call_vec_index_2_ensures_2 : tmp__5 = Vermilion.Seq.index edges i)
     (call_vec_index_3_ensures_0 : tmp__6 ↔ Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 tmp__5))
     (then_4_call_vec_index_4_ensures_0 : tmp__6 → (tmp__7 ↔ Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 tmp__5)))
@@ -1600,10 +1674,9 @@ def invariant_preserve_1_3_meta : Vermilion.ObligationMeta := {
     (else_4_assume_22 : (¬ tmp__6) → (tmp__8 ↔ False))
     (then_5_assume_25 : tmp__8 → False)
     (then_5_assume_26 : tmp__8 → False)
-    (assert_14 : Vermilion.inUnsignedRange 64 (i + 1)) :
-    (∀ (j : Int), (((0 ≤ j) ∧ (j < ((i + 1) % 18446744073709551616))) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))) := by
-  have hr : (i + 1) % 18446744073709551616 = i + 1 := by
-    unfold Vermilion.inUnsignedRange at assert_14; norm_num at assert_14; omega
+    (assert_14 : (0 ≤ (i + 1)) ∧ ((i + 1) < Vermilion.usizeMod)) :
+    (∀ (j : Int), (((0 ≤ j) ∧ (j < (Vermilion.emod (i + 1) Vermilion.usizeMod))) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))) := by
+  have hr : Vermilion.emod (i + 1) Vermilion.usizeMod = i + 1 := Vermilion.emod_usizeMod_of_lt assert_14.1 assert_14.2
   rw [hr]
   intro j hj
   by_cases hji : j < i
@@ -1618,14 +1691,14 @@ def invariant_preserve_1_3_meta : Vermilion.ObligationMeta := {
     exact (then_4_call_vec_index_4_ensures_0 h6).mp h7
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_1_3
 
--- vrml:begin reclaim_plan.check_plan.assert_1_decreases 7d6e2075a065edbb
+-- vrml:begin reclaim_plan.check_plan.assert_1_decreases c2a529b30dd41834
 /--
 Generated VC `reclaim_plan.check_plan.assert_1_decreases`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:320:19-320:34`
 - Rust/SST construct: loop termination measure must decrease
 - AssertId: `1_decreases`
-- Statement hash: `7d6e2075a065edbb`
+- Statement hash: `c2a529b30dd41834`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index edges j⟩
 -/
 def assert_1_decreases_meta : Vermilion.ObligationMeta := {
@@ -1637,7 +1710,7 @@ def assert_1_decreases_meta : Vermilion.ObligationMeta := {
   assertId := "1_decreases"
   functionName := "reclaim_plan.check_plan"
   kind := "assert"
-  statementHash := "7d6e2075a065edbb"
+  statementHash := "c2a529b30dd41834"
 }
 @[vrml_obligation] theorem assert_1_decreases
     (n : Int)
@@ -1654,25 +1727,25 @@ def assert_1_decreases_meta : Vermilion.ObligationMeta := {
     (tmp__6 : Prop)
     (tmp__8 : Prop)
     (tmp__7 : Prop)
-    (loop_1_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_1_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_1_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_1_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_1_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_1_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_1_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_1_iteration_11 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_1_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_1_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_1_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_1_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_1_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_1_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_1_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_1_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_1_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_iteration_12 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_iteration_13 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_iteration_14 : Vermilion.Seq.len retained = n)
     (loop_1_iteration_15 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_iteration_16 : i < Vermilion.Seq.len edges)
-    (call_vec_index_2_ensures_0 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 tmp__5))
-    (call_vec_index_2_ensures_1 : Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 tmp__5))
+    (call_vec_index_2_ensures_0 : (0 ≤ vermilion.tuple_2.get_tuple_2__0 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__0 tmp__5 < Vermilion.usizeMod))
+    (call_vec_index_2_ensures_1 : (0 ≤ vermilion.tuple_2.get_tuple_2__1 tmp__5) ∧ (vermilion.tuple_2.get_tuple_2__1 tmp__5 < Vermilion.usizeMod))
     (call_vec_index_2_ensures_2 : tmp__5 = Vermilion.Seq.index edges i)
     (call_vec_index_3_ensures_0 : tmp__6 ↔ Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 tmp__5))
     (then_4_call_vec_index_4_ensures_0 : tmp__6 → (tmp__7 ↔ Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 tmp__5)))
@@ -1680,20 +1753,23 @@ def assert_1_decreases_meta : Vermilion.ObligationMeta := {
     (else_4_assume_22 : (¬ tmp__6) → (tmp__8 ↔ False))
     (then_5_assume_25 : tmp__8 → False)
     (then_5_assume_26 : tmp__8 → False)
-    (assert_14 : Vermilion.inUnsignedRange 64 (i + 1)) :
-    ((0 ≤ (Vermilion.Seq.len edges - ((i + 1) % 18446744073709551616))) ∧ ((Vermilion.Seq.len edges - ((i + 1) % 18446744073709551616)) < (Vermilion.Seq.len edges - i))) ∨ (((Vermilion.Seq.len edges - ((i + 1) % 18446744073709551616)) = (Vermilion.Seq.len edges - i)) ∧ False) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+    (assert_14 : (0 ≤ (i + 1)) ∧ ((i + 1) < Vermilion.usizeMod)) :
+    ((0 ≤ (Vermilion.Seq.len edges - (Vermilion.emod (i + 1) Vermilion.usizeMod))) ∧ ((Vermilion.Seq.len edges - (Vermilion.emod (i + 1) Vermilion.usizeMod)) < (Vermilion.Seq.len edges - i))) ∨ (((Vermilion.Seq.len edges - (Vermilion.emod (i + 1) Vermilion.usizeMod)) = (Vermilion.Seq.len edges - i)) ∧ False) := by
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.assert_1_decreases
 
--- vrml:begin reclaim_plan.check_plan.invariant_entry_2_0 e5f8f031fee21d4b
+-- vrml:begin reclaim_plan.check_plan.invariant_entry_2_0 753645063d591500
 /--
 Generated VC `reclaim_plan.check_plan.invariant_entry_2_0`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:330:19-330:30`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `2_0`
-- Statement hash: `e5f8f031fee21d4b`
+- Statement hash: `753645063d591500`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩ ⟨Vermilion.Seq.index edges j⟩
 -/
 def invariant_entry_2_0_meta : Vermilion.ObligationMeta := {
@@ -1705,7 +1781,7 @@ def invariant_entry_2_0_meta : Vermilion.ObligationMeta := {
   assertId := "2_0"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_entry"
-  statementHash := "e5f8f031fee21d4b"
+  statementHash := "753645063d591500"
 }
 @[vrml_obligation] theorem invariant_entry_2_0
     (n : Int)
@@ -1718,47 +1794,50 @@ def invariant_entry_2_0_meta : Vermilion.ObligationMeta := {
     (tmp__2 : Prop)
     (r : Int)
     (i : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 n)
-    (requires_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (requires_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (requires_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (requires_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (requires_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (requires_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (requires_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (requires_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (requires_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
     (then_0_assume_9 : (¬ reclaim_plan.admissible_spec n edges roots reclaimable) → (tmp_ ↔ True))
-    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
+    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → ((0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod)))
     (else_0_assume_10 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → (tmp_ ↔ (Vermilion.Seq.len retained ≠ n)))
     (then_1_assume_12 : tmp_ → (tmp__2 ↔ True))
-    (else_1_assume_12 : (¬ tmp_) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (else_1_assume_12 : (¬ tmp_) → ((0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod)))
     (else_1_assume_13 : (¬ tmp_) → (tmp__2 ↔ (Vermilion.Seq.len candidate ≠ n)))
     (then_2_assume_15 : tmp__2 → False)
     (then_2_assume_16 : tmp__2 → False)
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_exit_0 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_exit_1 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_exit_2 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_exit_3 : Vermilion.Seq.len retained = n)
     (loop_0_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_exit_5 : (¬ (r < Vermilion.Seq.len roots)))
-    (loop_1_exit_0 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_exit_0 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_exit_1 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_exit_2 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_exit_3 : Vermilion.Seq.len retained = n)
     (loop_1_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_exit_5 : (¬ (i < Vermilion.Seq.len edges))) :
     (0 ≤ 0) ∧ (0 ≤ n) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_entry_2_0
 
--- vrml:begin reclaim_plan.check_plan.invariant_entry_2_1 16fb63daba281c77
+-- vrml:begin reclaim_plan.check_plan.invariant_entry_2_1 9e03841816b7445c
 /--
 Generated VC `reclaim_plan.check_plan.invariant_entry_2_1`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:330:32-330:53`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `2_1`
-- Statement hash: `16fb63daba281c77`
+- Statement hash: `9e03841816b7445c`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩ ⟨Vermilion.Seq.index edges j⟩
 -/
 def invariant_entry_2_1_meta : Vermilion.ObligationMeta := {
@@ -1770,7 +1849,7 @@ def invariant_entry_2_1_meta : Vermilion.ObligationMeta := {
   assertId := "2_1"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_entry"
-  statementHash := "16fb63daba281c77"
+  statementHash := "9e03841816b7445c"
 }
 @[vrml_obligation] theorem invariant_entry_2_1
     (n : Int)
@@ -1783,47 +1862,50 @@ def invariant_entry_2_1_meta : Vermilion.ObligationMeta := {
     (tmp__2 : Prop)
     (r : Int)
     (i : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 n)
-    (requires_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (requires_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (requires_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (requires_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (requires_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (requires_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (requires_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (requires_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (requires_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
     (then_0_assume_9 : (¬ reclaim_plan.admissible_spec n edges roots reclaimable) → (tmp_ ↔ True))
-    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
+    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → ((0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod)))
     (else_0_assume_10 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → (tmp_ ↔ (Vermilion.Seq.len retained ≠ n)))
     (then_1_assume_12 : tmp_ → (tmp__2 ↔ True))
-    (else_1_assume_12 : (¬ tmp_) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (else_1_assume_12 : (¬ tmp_) → ((0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod)))
     (else_1_assume_13 : (¬ tmp_) → (tmp__2 ↔ (Vermilion.Seq.len candidate ≠ n)))
     (then_2_assume_15 : tmp__2 → False)
     (then_2_assume_16 : tmp__2 → False)
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_exit_0 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_exit_1 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_exit_2 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_exit_3 : Vermilion.Seq.len retained = n)
     (loop_0_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_exit_5 : (¬ (r < Vermilion.Seq.len roots)))
-    (loop_1_exit_0 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_exit_0 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_exit_1 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_exit_2 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_exit_3 : Vermilion.Seq.len retained = n)
     (loop_1_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_exit_5 : (¬ (i < Vermilion.Seq.len edges))) :
     Vermilion.Seq.len candidate = n := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_entry_2_1
 
--- vrml:begin reclaim_plan.check_plan.invariant_entry_2_2 60964e9de3a65e84
+-- vrml:begin reclaim_plan.check_plan.invariant_entry_2_2 0fe8984299b8e0f5
 /--
 Generated VC `reclaim_plan.check_plan.invariant_entry_2_2`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:330:55-330:75`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `2_2`
-- Statement hash: `60964e9de3a65e84`
+- Statement hash: `0fe8984299b8e0f5`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩ ⟨Vermilion.Seq.index edges j⟩
 -/
 def invariant_entry_2_2_meta : Vermilion.ObligationMeta := {
@@ -1835,7 +1917,7 @@ def invariant_entry_2_2_meta : Vermilion.ObligationMeta := {
   assertId := "2_2"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_entry"
-  statementHash := "60964e9de3a65e84"
+  statementHash := "0fe8984299b8e0f5"
 }
 @[vrml_obligation] theorem invariant_entry_2_2
     (n : Int)
@@ -1848,47 +1930,50 @@ def invariant_entry_2_2_meta : Vermilion.ObligationMeta := {
     (tmp__2 : Prop)
     (r : Int)
     (i : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 n)
-    (requires_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (requires_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (requires_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (requires_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (requires_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (requires_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (requires_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (requires_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (requires_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
     (then_0_assume_9 : (¬ reclaim_plan.admissible_spec n edges roots reclaimable) → (tmp_ ↔ True))
-    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
+    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → ((0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod)))
     (else_0_assume_10 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → (tmp_ ↔ (Vermilion.Seq.len retained ≠ n)))
     (then_1_assume_12 : tmp_ → (tmp__2 ↔ True))
-    (else_1_assume_12 : (¬ tmp_) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (else_1_assume_12 : (¬ tmp_) → ((0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod)))
     (else_1_assume_13 : (¬ tmp_) → (tmp__2 ↔ (Vermilion.Seq.len candidate ≠ n)))
     (then_2_assume_15 : tmp__2 → False)
     (then_2_assume_16 : tmp__2 → False)
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_exit_0 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_exit_1 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_exit_2 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_exit_3 : Vermilion.Seq.len retained = n)
     (loop_0_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_exit_5 : (¬ (r < Vermilion.Seq.len roots)))
-    (loop_1_exit_0 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_exit_0 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_exit_1 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_exit_2 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_exit_3 : Vermilion.Seq.len retained = n)
     (loop_1_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_exit_5 : (¬ (i < Vermilion.Seq.len edges))) :
     Vermilion.Seq.len retained = n := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_entry_2_2
 
--- vrml:begin reclaim_plan.check_plan.invariant_entry_2_3 ba10f466fd8a6a9d
+-- vrml:begin reclaim_plan.check_plan.invariant_entry_2_3 358d502be2f598e2
 /--
 Generated VC `reclaim_plan.check_plan.invariant_entry_2_3`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:330:77-330:100`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `2_3`
-- Statement hash: `ba10f466fd8a6a9d`
+- Statement hash: `358d502be2f598e2`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩ ⟨Vermilion.Seq.index edges j⟩
 -/
 def invariant_entry_2_3_meta : Vermilion.ObligationMeta := {
@@ -1900,7 +1985,7 @@ def invariant_entry_2_3_meta : Vermilion.ObligationMeta := {
   assertId := "2_3"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_entry"
-  statementHash := "ba10f466fd8a6a9d"
+  statementHash := "358d502be2f598e2"
 }
 @[vrml_obligation] theorem invariant_entry_2_3
     (n : Int)
@@ -1913,47 +1998,50 @@ def invariant_entry_2_3_meta : Vermilion.ObligationMeta := {
     (tmp__2 : Prop)
     (r : Int)
     (i : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 n)
-    (requires_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (requires_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (requires_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (requires_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (requires_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (requires_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (requires_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (requires_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (requires_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
     (then_0_assume_9 : (¬ reclaim_plan.admissible_spec n edges roots reclaimable) → (tmp_ ↔ True))
-    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
+    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → ((0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod)))
     (else_0_assume_10 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → (tmp_ ↔ (Vermilion.Seq.len retained ≠ n)))
     (then_1_assume_12 : tmp_ → (tmp__2 ↔ True))
-    (else_1_assume_12 : (¬ tmp_) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (else_1_assume_12 : (¬ tmp_) → ((0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod)))
     (else_1_assume_13 : (¬ tmp_) → (tmp__2 ↔ (Vermilion.Seq.len candidate ≠ n)))
     (then_2_assume_15 : tmp__2 → False)
     (then_2_assume_16 : tmp__2 → False)
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_exit_0 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_exit_1 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_exit_2 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_exit_3 : Vermilion.Seq.len retained = n)
     (loop_0_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_exit_5 : (¬ (r < Vermilion.Seq.len roots)))
-    (loop_1_exit_0 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_exit_0 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_exit_1 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_exit_2 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_exit_3 : Vermilion.Seq.len retained = n)
     (loop_1_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_exit_5 : (¬ (i < Vermilion.Seq.len edges))) :
     Vermilion.Seq.len reclaimable = n := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_entry_2_3
 
--- vrml:begin reclaim_plan.check_plan.invariant_entry_2_4 217d3d2392fab7e3
+-- vrml:begin reclaim_plan.check_plan.invariant_entry_2_4 18d73b94ec664a96
 /--
 Generated VC `reclaim_plan.check_plan.invariant_entry_2_4`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:331:13-331:120`
 - Rust/SST construct: loop invariant on entry
 - AssertId: `2_4`
-- Statement hash: `217d3d2392fab7e3`
+- Statement hash: `18d73b94ec664a96`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index candidate k⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩ ⟨Vermilion.Seq.index edges j⟩
 -/
 def invariant_entry_2_4_meta : Vermilion.ObligationMeta := {
@@ -1965,7 +2053,7 @@ def invariant_entry_2_4_meta : Vermilion.ObligationMeta := {
   assertId := "2_4"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_entry"
-  statementHash := "217d3d2392fab7e3"
+  statementHash := "18d73b94ec664a96"
 }
 @[vrml_obligation] theorem invariant_entry_2_4
     (n : Int)
@@ -1978,47 +2066,50 @@ def invariant_entry_2_4_meta : Vermilion.ObligationMeta := {
     (tmp__2 : Prop)
     (r : Int)
     (i : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 n)
-    (requires_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (requires_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (requires_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (requires_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (requires_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (requires_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (requires_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (requires_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (requires_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
     (then_0_assume_9 : (¬ reclaim_plan.admissible_spec n edges roots reclaimable) → (tmp_ ↔ True))
-    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
+    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → ((0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod)))
     (else_0_assume_10 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → (tmp_ ↔ (Vermilion.Seq.len retained ≠ n)))
     (then_1_assume_12 : tmp_ → (tmp__2 ↔ True))
-    (else_1_assume_12 : (¬ tmp_) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (else_1_assume_12 : (¬ tmp_) → ((0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod)))
     (else_1_assume_13 : (¬ tmp_) → (tmp__2 ↔ (Vermilion.Seq.len candidate ≠ n)))
     (then_2_assume_15 : tmp__2 → False)
     (then_2_assume_16 : tmp__2 → False)
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_exit_0 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_exit_1 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_exit_2 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_exit_3 : Vermilion.Seq.len retained = n)
     (loop_0_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_exit_5 : (¬ (r < Vermilion.Seq.len roots)))
-    (loop_1_exit_0 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_exit_0 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_exit_1 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_exit_2 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_exit_3 : Vermilion.Seq.len retained = n)
     (loop_1_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_exit_5 : (¬ (i < Vermilion.Seq.len edges))) :
     (∀ (k : Int), (((0 ≤ k) ∧ (k < 0)) → (Vermilion.Seq.index candidate k ↔ (Vermilion.Seq.index reclaimable k ∧ (¬ Vermilion.Seq.index retained k))))) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_entry_2_4
 
--- vrml:begin reclaim_plan.check_plan.call_requires_15 e8a72978b98d4d5a
+-- vrml:begin reclaim_plan.check_plan.call_requires_15 da5c29b123d7acfc
 /--
 Generated VC `reclaim_plan.check_plan.call_requires_15`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:334:12-334:24`
 - Rust/SST construct: call vec_index
 - AssertId: `15`
-- Statement hash: `e8a72978b98d4d5a`
+- Statement hash: `da5c29b123d7acfc`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index candidate k⟩
 -/
 def call_requires_15_meta : Vermilion.ObligationMeta := {
@@ -2030,7 +2121,7 @@ def call_requires_15_meta : Vermilion.ObligationMeta := {
   assertId := "15"
   functionName := "reclaim_plan.check_plan"
   kind := "call_requires"
-  statementHash := "e8a72978b98d4d5a"
+  statementHash := "da5c29b123d7acfc"
 }
 @[vrml_obligation] theorem call_requires_15
     (n : Int)
@@ -2044,19 +2135,19 @@ def call_requires_15_meta : Vermilion.ObligationMeta := {
     (r : Int)
     (i : Int)
     (v : Int)
-    (loop_2_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_2_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_2_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_2_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_2_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_2_iteration_11 : Vermilion.inUnsignedRange 64 i)
-    (loop_2_iteration_12 : Vermilion.inUnsignedRange 64 v)
+    (loop_2_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_2_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_2_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_2_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_2_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_2_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_2_iteration_12 : (0 ≤ v) ∧ (v < Vermilion.usizeMod))
     (loop_2_iteration_13 : (0 ≤ v) ∧ (v ≤ n))
     (loop_2_iteration_14 : Vermilion.Seq.len candidate = n)
     (loop_2_iteration_15 : Vermilion.Seq.len retained = n)
@@ -2064,18 +2155,21 @@ def call_requires_15_meta : Vermilion.ObligationMeta := {
     (loop_2_iteration_17 : (∀ (k : Int), (((0 ≤ k) ∧ (k < v)) → (Vermilion.Seq.index candidate k ↔ (Vermilion.Seq.index reclaimable k ∧ (¬ Vermilion.Seq.index retained k))))))
     (loop_2_iteration_18 : v < n) :
     v < Vermilion.Seq.len candidate := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.call_requires_15
 
--- vrml:begin reclaim_plan.check_plan.call_requires_16 a1aa1a25abd5fc81
+-- vrml:begin reclaim_plan.check_plan.call_requires_16 20646617d9b19a4b
 /--
 Generated VC `reclaim_plan.check_plan.call_requires_16`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:334:29-334:43`
 - Rust/SST construct: call vec_index
 - AssertId: `16`
-- Statement hash: `a1aa1a25abd5fc81`
+- Statement hash: `20646617d9b19a4b`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index candidate k⟩
 -/
 def call_requires_16_meta : Vermilion.ObligationMeta := {
@@ -2087,7 +2181,7 @@ def call_requires_16_meta : Vermilion.ObligationMeta := {
   assertId := "16"
   functionName := "reclaim_plan.check_plan"
   kind := "call_requires"
-  statementHash := "a1aa1a25abd5fc81"
+  statementHash := "20646617d9b19a4b"
 }
 @[vrml_obligation] theorem call_requires_16
     (n : Int)
@@ -2102,19 +2196,19 @@ def call_requires_16_meta : Vermilion.ObligationMeta := {
     (i : Int)
     (v : Int)
     (tmp__9 : Prop)
-    (loop_2_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_2_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_2_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_2_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_2_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_2_iteration_11 : Vermilion.inUnsignedRange 64 i)
-    (loop_2_iteration_12 : Vermilion.inUnsignedRange 64 v)
+    (loop_2_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_2_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_2_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_2_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_2_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_2_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_2_iteration_12 : (0 ≤ v) ∧ (v < Vermilion.usizeMod))
     (loop_2_iteration_13 : (0 ≤ v) ∧ (v ≤ n))
     (loop_2_iteration_14 : Vermilion.Seq.len candidate = n)
     (loop_2_iteration_15 : Vermilion.Seq.len retained = n)
@@ -2123,18 +2217,21 @@ def call_requires_16_meta : Vermilion.ObligationMeta := {
     (loop_2_iteration_18 : v < n)
     (call_vec_index_5_ensures_0 : tmp__9 ↔ Vermilion.Seq.index candidate v) :
     v < Vermilion.Seq.len reclaimable := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.call_requires_16
 
--- vrml:begin reclaim_plan.check_plan.call_requires_17 afe701d522b4abfa
+-- vrml:begin reclaim_plan.check_plan.call_requires_17 22bbcfc106ce60e0
 /--
 Generated VC `reclaim_plan.check_plan.call_requires_17`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:334:48-334:59`
 - Rust/SST construct: call vec_index
 - AssertId: `17`
-- Statement hash: `afe701d522b4abfa`
+- Statement hash: `22bbcfc106ce60e0`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index candidate k⟩
 -/
 def call_requires_17_meta : Vermilion.ObligationMeta := {
@@ -2146,7 +2243,7 @@ def call_requires_17_meta : Vermilion.ObligationMeta := {
   assertId := "17"
   functionName := "reclaim_plan.check_plan"
   kind := "call_requires"
-  statementHash := "afe701d522b4abfa"
+  statementHash := "22bbcfc106ce60e0"
 }
 @[vrml_obligation] theorem call_requires_17
     (n : Int)
@@ -2163,19 +2260,19 @@ def call_requires_17_meta : Vermilion.ObligationMeta := {
     (tmp__9 : Prop)
     (tmp__10 : Prop)
     (tmp__12 : Prop)
-    (loop_2_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_2_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_2_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_2_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_2_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_2_iteration_11 : Vermilion.inUnsignedRange 64 i)
-    (loop_2_iteration_12 : Vermilion.inUnsignedRange 64 v)
+    (loop_2_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_2_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_2_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_2_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_2_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_2_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_2_iteration_12 : (0 ≤ v) ∧ (v < Vermilion.usizeMod))
     (loop_2_iteration_13 : (0 ≤ v) ∧ (v ≤ n))
     (loop_2_iteration_14 : Vermilion.Seq.len candidate = n)
     (loop_2_iteration_15 : Vermilion.Seq.len retained = n)
@@ -2186,18 +2283,21 @@ def call_requires_17_meta : Vermilion.ObligationMeta := {
     (call_vec_index_6_ensures_0 : tmp__10 ↔ Vermilion.Seq.index reclaimable v)
     (branch_6 : tmp__10) :
     v < Vermilion.Seq.len retained := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.call_requires_17
 
--- vrml:begin reclaim_plan.check_plan.ensures_18 c1c9227dc2797018
+-- vrml:begin reclaim_plan.check_plan.ensures_18 b7ba70ef8b584052
 /--
 Generated VC `reclaim_plan.check_plan.ensures_18`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:299:13-299:100`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `18`
-- Statement hash: `c1c9227dc2797018`
+- Statement hash: `b7ba70ef8b584052`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index candidate k⟩
 -/
 def ensures_18_meta : Vermilion.ObligationMeta := {
@@ -2209,7 +2309,7 @@ def ensures_18_meta : Vermilion.ObligationMeta := {
   assertId := "18"
   functionName := "reclaim_plan.check_plan"
   kind := "ensures"
-  statementHash := "c1c9227dc2797018"
+  statementHash := "b7ba70ef8b584052"
 }
 @[vrml_obligation] theorem ensures_18
     (n : Int)
@@ -2227,19 +2327,19 @@ def ensures_18_meta : Vermilion.ObligationMeta := {
     (tmp__10 : Prop)
     (tmp__12 : Prop)
     (tmp__11 : Prop)
-    (loop_2_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_2_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_2_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_2_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_2_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_2_iteration_11 : Vermilion.inUnsignedRange 64 i)
-    (loop_2_iteration_12 : Vermilion.inUnsignedRange 64 v)
+    (loop_2_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_2_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_2_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_2_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_2_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_2_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_2_iteration_12 : (0 ≤ v) ∧ (v < Vermilion.usizeMod))
     (loop_2_iteration_13 : (0 ≤ v) ∧ (v ≤ n))
     (loop_2_iteration_14 : Vermilion.Seq.len candidate = n)
     (loop_2_iteration_15 : Vermilion.Seq.len retained = n)
@@ -2253,18 +2353,21 @@ def ensures_18_meta : Vermilion.ObligationMeta := {
     (else_6_assume_22 : (¬ tmp__10) → (tmp__12 ↔ False))
     (branch_7 : tmp__9 ↔ ¬ tmp__12) :
     False ↔ reclaim_plan.plan_valid_spec n edges roots reclaimable retained candidate := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.ensures_18
 
--- vrml:begin reclaim_plan.check_plan.assert_19 9af5dd68c9440aa4
+-- vrml:begin reclaim_plan.check_plan.assert_19 7ccde04224e64404
 /--
 Generated VC `reclaim_plan.check_plan.assert_19`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:337:9-337:15`
 - Rust/SST construct: possible arithmetic underflow/overflow
 - AssertId: `19`
-- Statement hash: `9af5dd68c9440aa4`
+- Statement hash: `7ccde04224e64404`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index candidate k⟩
 -/
 def assert_19_meta : Vermilion.ObligationMeta := {
@@ -2276,7 +2379,7 @@ def assert_19_meta : Vermilion.ObligationMeta := {
   assertId := "19"
   functionName := "reclaim_plan.check_plan"
   kind := "assert"
-  statementHash := "9af5dd68c9440aa4"
+  statementHash := "7ccde04224e64404"
 }
 @[vrml_obligation] theorem assert_19
     (n : Int)
@@ -2294,19 +2397,19 @@ def assert_19_meta : Vermilion.ObligationMeta := {
     (tmp__10 : Prop)
     (tmp__12 : Prop)
     (tmp__11 : Prop)
-    (loop_2_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_2_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_2_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_2_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_2_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_2_iteration_11 : Vermilion.inUnsignedRange 64 i)
-    (loop_2_iteration_12 : Vermilion.inUnsignedRange 64 v)
+    (loop_2_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_2_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_2_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_2_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_2_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_2_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_2_iteration_12 : (0 ≤ v) ∧ (v < Vermilion.usizeMod))
     (loop_2_iteration_13 : (0 ≤ v) ∧ (v ≤ n))
     (loop_2_iteration_14 : Vermilion.Seq.len candidate = n)
     (loop_2_iteration_15 : Vermilion.Seq.len retained = n)
@@ -2320,19 +2423,22 @@ def assert_19_meta : Vermilion.ObligationMeta := {
     (else_6_assume_22 : (¬ tmp__10) → (tmp__12 ↔ False))
     (then_7_assume_25 : (tmp__9 ↔ ¬ tmp__12) → False)
     (then_7_assume_26 : (tmp__9 ↔ ¬ tmp__12) → False) :
-    Vermilion.inUnsignedRange 64 (v + 1) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+    (0 ≤ (v + 1)) ∧ ((v + 1) < Vermilion.usizeMod) := by
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.assert_19
 
--- vrml:begin reclaim_plan.check_plan.invariant_preserve_2_0 00f527ef894dfbad
+-- vrml:begin reclaim_plan.check_plan.invariant_preserve_2_0 71a36244aa8d2e37
 /--
 Generated VC `reclaim_plan.check_plan.invariant_preserve_2_0`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:330:19-330:30`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `2_0`
-- Statement hash: `00f527ef894dfbad`
+- Statement hash: `71a36244aa8d2e37`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index candidate k⟩
 -/
 def invariant_preserve_2_0_meta : Vermilion.ObligationMeta := {
@@ -2344,7 +2450,7 @@ def invariant_preserve_2_0_meta : Vermilion.ObligationMeta := {
   assertId := "2_0"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_preserve"
-  statementHash := "00f527ef894dfbad"
+  statementHash := "71a36244aa8d2e37"
 }
 @[vrml_obligation] theorem invariant_preserve_2_0
     (n : Int)
@@ -2362,19 +2468,19 @@ def invariant_preserve_2_0_meta : Vermilion.ObligationMeta := {
     (tmp__10 : Prop)
     (tmp__12 : Prop)
     (tmp__11 : Prop)
-    (loop_2_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_2_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_2_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_2_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_2_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_2_iteration_11 : Vermilion.inUnsignedRange 64 i)
-    (loop_2_iteration_12 : Vermilion.inUnsignedRange 64 v)
+    (loop_2_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_2_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_2_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_2_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_2_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_2_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_2_iteration_12 : (0 ≤ v) ∧ (v < Vermilion.usizeMod))
     (loop_2_iteration_13 : (0 ≤ v) ∧ (v ≤ n))
     (loop_2_iteration_14 : Vermilion.Seq.len candidate = n)
     (loop_2_iteration_15 : Vermilion.Seq.len retained = n)
@@ -2388,20 +2494,23 @@ def invariant_preserve_2_0_meta : Vermilion.ObligationMeta := {
     (else_6_assume_22 : (¬ tmp__10) → (tmp__12 ↔ False))
     (then_7_assume_25 : (tmp__9 ↔ ¬ tmp__12) → False)
     (then_7_assume_26 : (tmp__9 ↔ ¬ tmp__12) → False)
-    (assert_19 : Vermilion.inUnsignedRange 64 (v + 1)) :
-    (0 ≤ ((v + 1) % 18446744073709551616)) ∧ (((v + 1) % 18446744073709551616) ≤ n) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+    (assert_19 : (0 ≤ (v + 1)) ∧ ((v + 1) < Vermilion.usizeMod)) :
+    (0 ≤ (Vermilion.emod (v + 1) Vermilion.usizeMod)) ∧ ((Vermilion.emod (v + 1) Vermilion.usizeMod) ≤ n) := by
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_2_0
 
--- vrml:begin reclaim_plan.check_plan.invariant_preserve_2_1 95d5ed0772f3ab53
+-- vrml:begin reclaim_plan.check_plan.invariant_preserve_2_1 bfec4815301be4b3
 /--
 Generated VC `reclaim_plan.check_plan.invariant_preserve_2_1`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:330:32-330:53`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `2_1`
-- Statement hash: `95d5ed0772f3ab53`
+- Statement hash: `bfec4815301be4b3`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index candidate k⟩
 -/
 def invariant_preserve_2_1_meta : Vermilion.ObligationMeta := {
@@ -2413,7 +2522,7 @@ def invariant_preserve_2_1_meta : Vermilion.ObligationMeta := {
   assertId := "2_1"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_preserve"
-  statementHash := "95d5ed0772f3ab53"
+  statementHash := "bfec4815301be4b3"
 }
 @[vrml_obligation] theorem invariant_preserve_2_1
     (n : Int)
@@ -2431,19 +2540,19 @@ def invariant_preserve_2_1_meta : Vermilion.ObligationMeta := {
     (tmp__10 : Prop)
     (tmp__12 : Prop)
     (tmp__11 : Prop)
-    (loop_2_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_2_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_2_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_2_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_2_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_2_iteration_11 : Vermilion.inUnsignedRange 64 i)
-    (loop_2_iteration_12 : Vermilion.inUnsignedRange 64 v)
+    (loop_2_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_2_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_2_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_2_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_2_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_2_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_2_iteration_12 : (0 ≤ v) ∧ (v < Vermilion.usizeMod))
     (loop_2_iteration_13 : (0 ≤ v) ∧ (v ≤ n))
     (loop_2_iteration_14 : Vermilion.Seq.len candidate = n)
     (loop_2_iteration_15 : Vermilion.Seq.len retained = n)
@@ -2457,20 +2566,23 @@ def invariant_preserve_2_1_meta : Vermilion.ObligationMeta := {
     (else_6_assume_22 : (¬ tmp__10) → (tmp__12 ↔ False))
     (then_7_assume_25 : (tmp__9 ↔ ¬ tmp__12) → False)
     (then_7_assume_26 : (tmp__9 ↔ ¬ tmp__12) → False)
-    (assert_19 : Vermilion.inUnsignedRange 64 (v + 1)) :
+    (assert_19 : (0 ≤ (v + 1)) ∧ ((v + 1) < Vermilion.usizeMod)) :
     Vermilion.Seq.len candidate = n := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_2_1
 
--- vrml:begin reclaim_plan.check_plan.invariant_preserve_2_2 e6b1a968d0d06cc8
+-- vrml:begin reclaim_plan.check_plan.invariant_preserve_2_2 5625da5db4401428
 /--
 Generated VC `reclaim_plan.check_plan.invariant_preserve_2_2`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:330:55-330:75`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `2_2`
-- Statement hash: `e6b1a968d0d06cc8`
+- Statement hash: `5625da5db4401428`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index candidate k⟩
 -/
 def invariant_preserve_2_2_meta : Vermilion.ObligationMeta := {
@@ -2482,7 +2594,7 @@ def invariant_preserve_2_2_meta : Vermilion.ObligationMeta := {
   assertId := "2_2"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_preserve"
-  statementHash := "e6b1a968d0d06cc8"
+  statementHash := "5625da5db4401428"
 }
 @[vrml_obligation] theorem invariant_preserve_2_2
     (n : Int)
@@ -2500,19 +2612,19 @@ def invariant_preserve_2_2_meta : Vermilion.ObligationMeta := {
     (tmp__10 : Prop)
     (tmp__12 : Prop)
     (tmp__11 : Prop)
-    (loop_2_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_2_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_2_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_2_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_2_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_2_iteration_11 : Vermilion.inUnsignedRange 64 i)
-    (loop_2_iteration_12 : Vermilion.inUnsignedRange 64 v)
+    (loop_2_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_2_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_2_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_2_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_2_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_2_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_2_iteration_12 : (0 ≤ v) ∧ (v < Vermilion.usizeMod))
     (loop_2_iteration_13 : (0 ≤ v) ∧ (v ≤ n))
     (loop_2_iteration_14 : Vermilion.Seq.len candidate = n)
     (loop_2_iteration_15 : Vermilion.Seq.len retained = n)
@@ -2526,20 +2638,23 @@ def invariant_preserve_2_2_meta : Vermilion.ObligationMeta := {
     (else_6_assume_22 : (¬ tmp__10) → (tmp__12 ↔ False))
     (then_7_assume_25 : (tmp__9 ↔ ¬ tmp__12) → False)
     (then_7_assume_26 : (tmp__9 ↔ ¬ tmp__12) → False)
-    (assert_19 : Vermilion.inUnsignedRange 64 (v + 1)) :
+    (assert_19 : (0 ≤ (v + 1)) ∧ ((v + 1) < Vermilion.usizeMod)) :
     Vermilion.Seq.len retained = n := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_2_2
 
--- vrml:begin reclaim_plan.check_plan.invariant_preserve_2_3 978077f53e26e889
+-- vrml:begin reclaim_plan.check_plan.invariant_preserve_2_3 f0c62d4423c94a69
 /--
 Generated VC `reclaim_plan.check_plan.invariant_preserve_2_3`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:330:77-330:100`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `2_3`
-- Statement hash: `978077f53e26e889`
+- Statement hash: `f0c62d4423c94a69`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index candidate k⟩
 -/
 def invariant_preserve_2_3_meta : Vermilion.ObligationMeta := {
@@ -2551,7 +2666,7 @@ def invariant_preserve_2_3_meta : Vermilion.ObligationMeta := {
   assertId := "2_3"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_preserve"
-  statementHash := "978077f53e26e889"
+  statementHash := "f0c62d4423c94a69"
 }
 @[vrml_obligation] theorem invariant_preserve_2_3
     (n : Int)
@@ -2569,19 +2684,19 @@ def invariant_preserve_2_3_meta : Vermilion.ObligationMeta := {
     (tmp__10 : Prop)
     (tmp__12 : Prop)
     (tmp__11 : Prop)
-    (loop_2_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_2_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_2_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_2_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_2_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_2_iteration_11 : Vermilion.inUnsignedRange 64 i)
-    (loop_2_iteration_12 : Vermilion.inUnsignedRange 64 v)
+    (loop_2_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_2_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_2_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_2_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_2_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_2_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_2_iteration_12 : (0 ≤ v) ∧ (v < Vermilion.usizeMod))
     (loop_2_iteration_13 : (0 ≤ v) ∧ (v ≤ n))
     (loop_2_iteration_14 : Vermilion.Seq.len candidate = n)
     (loop_2_iteration_15 : Vermilion.Seq.len retained = n)
@@ -2595,20 +2710,23 @@ def invariant_preserve_2_3_meta : Vermilion.ObligationMeta := {
     (else_6_assume_22 : (¬ tmp__10) → (tmp__12 ↔ False))
     (then_7_assume_25 : (tmp__9 ↔ ¬ tmp__12) → False)
     (then_7_assume_26 : (tmp__9 ↔ ¬ tmp__12) → False)
-    (assert_19 : Vermilion.inUnsignedRange 64 (v + 1)) :
+    (assert_19 : (0 ≤ (v + 1)) ∧ ((v + 1) < Vermilion.usizeMod)) :
     Vermilion.Seq.len reclaimable = n := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_2_3
 
--- vrml:begin reclaim_plan.check_plan.invariant_preserve_2_4 221027be9708f7e8
+-- vrml:begin reclaim_plan.check_plan.invariant_preserve_2_4 bff1c94d13631c6e
 /--
 Generated VC `reclaim_plan.check_plan.invariant_preserve_2_4`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:331:13-331:120`
 - Rust/SST construct: loop invariant preserved by the body
 - AssertId: `2_4`
-- Statement hash: `221027be9708f7e8`
+- Statement hash: `bff1c94d13631c6e`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index candidate k⟩ ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index candidate k⟩
 -/
 def invariant_preserve_2_4_meta : Vermilion.ObligationMeta := {
@@ -2620,7 +2738,7 @@ def invariant_preserve_2_4_meta : Vermilion.ObligationMeta := {
   assertId := "2_4"
   functionName := "reclaim_plan.check_plan"
   kind := "invariant_preserve"
-  statementHash := "221027be9708f7e8"
+  statementHash := "bff1c94d13631c6e"
 }
 @[vrml_obligation] theorem invariant_preserve_2_4
     (n : Int)
@@ -2638,19 +2756,19 @@ def invariant_preserve_2_4_meta : Vermilion.ObligationMeta := {
     (tmp__10 : Prop)
     (tmp__12 : Prop)
     (tmp__11 : Prop)
-    (loop_2_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_2_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_2_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_2_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_2_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_2_iteration_11 : Vermilion.inUnsignedRange 64 i)
-    (loop_2_iteration_12 : Vermilion.inUnsignedRange 64 v)
+    (loop_2_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_2_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_2_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_2_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_2_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_2_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_2_iteration_12 : (0 ≤ v) ∧ (v < Vermilion.usizeMod))
     (loop_2_iteration_13 : (0 ≤ v) ∧ (v ≤ n))
     (loop_2_iteration_14 : Vermilion.Seq.len candidate = n)
     (loop_2_iteration_15 : Vermilion.Seq.len retained = n)
@@ -2664,10 +2782,9 @@ def invariant_preserve_2_4_meta : Vermilion.ObligationMeta := {
     (else_6_assume_22 : (¬ tmp__10) → (tmp__12 ↔ False))
     (then_7_assume_25 : (tmp__9 ↔ ¬ tmp__12) → False)
     (then_7_assume_26 : (tmp__9 ↔ ¬ tmp__12) → False)
-    (assert_19 : Vermilion.inUnsignedRange 64 (v + 1)) :
-    (∀ (k : Int), (((0 ≤ k) ∧ (k < ((v + 1) % 18446744073709551616))) → (Vermilion.Seq.index candidate k ↔ (Vermilion.Seq.index reclaimable k ∧ (¬ Vermilion.Seq.index retained k))))) := by
-  have hr : (v + 1) % 18446744073709551616 = v + 1 := by
-    unfold Vermilion.inUnsignedRange at assert_19; norm_num at assert_19; omega
+    (assert_19 : (0 ≤ (v + 1)) ∧ ((v + 1) < Vermilion.usizeMod)) :
+    (∀ (k : Int), (((0 ≤ k) ∧ (k < (Vermilion.emod (v + 1) Vermilion.usizeMod))) → (Vermilion.Seq.index candidate k ↔ (Vermilion.Seq.index reclaimable k ∧ (¬ Vermilion.Seq.index retained k))))) := by
+  have hr : Vermilion.emod (v + 1) Vermilion.usizeMod = v + 1 := Vermilion.emod_usizeMod_of_lt assert_19.1 assert_19.2
   rw [hr]
   intro k hk
   by_cases hkv : k < v
@@ -2688,14 +2805,14 @@ def invariant_preserve_2_4_meta : Vermilion.ObligationMeta := {
       exact ⟨False.elim, fun h => h10 (call_vec_index_6_ensures_0.mpr h.1)⟩
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_2_4
 
--- vrml:begin reclaim_plan.check_plan.assert_2_decreases 78518db3890bb83f
+-- vrml:begin reclaim_plan.check_plan.assert_2_decreases 8f13f5652688f807
 /--
 Generated VC `reclaim_plan.check_plan.assert_2_decreases`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:332:19-332:24`
 - Rust/SST construct: loop termination measure must decrease
 - AssertId: `2_decreases`
-- Statement hash: `78518db3890bb83f`
+- Statement hash: `8f13f5652688f807`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index candidate k⟩
 -/
 def assert_2_decreases_meta : Vermilion.ObligationMeta := {
@@ -2707,7 +2824,7 @@ def assert_2_decreases_meta : Vermilion.ObligationMeta := {
   assertId := "2_decreases"
   functionName := "reclaim_plan.check_plan"
   kind := "assert"
-  statementHash := "78518db3890bb83f"
+  statementHash := "8f13f5652688f807"
 }
 @[vrml_obligation] theorem assert_2_decreases
     (n : Int)
@@ -2725,19 +2842,19 @@ def assert_2_decreases_meta : Vermilion.ObligationMeta := {
     (tmp__10 : Prop)
     (tmp__12 : Prop)
     (tmp__11 : Prop)
-    (loop_2_iteration_0 : Vermilion.inUnsignedRange 64 n)
-    (loop_2_iteration_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (loop_2_iteration_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (loop_2_iteration_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (loop_2_iteration_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_8 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (loop_2_iteration_9 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
-    (loop_2_iteration_10 : Vermilion.inUnsignedRange 64 r)
-    (loop_2_iteration_11 : Vermilion.inUnsignedRange 64 i)
-    (loop_2_iteration_12 : Vermilion.inUnsignedRange 64 v)
+    (loop_2_iteration_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (loop_2_iteration_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (loop_2_iteration_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (loop_2_iteration_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (loop_2_iteration_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (loop_2_iteration_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (loop_2_iteration_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_8 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (loop_2_iteration_9 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
+    (loop_2_iteration_10 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
+    (loop_2_iteration_11 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
+    (loop_2_iteration_12 : (0 ≤ v) ∧ (v < Vermilion.usizeMod))
     (loop_2_iteration_13 : (0 ≤ v) ∧ (v ≤ n))
     (loop_2_iteration_14 : Vermilion.Seq.len candidate = n)
     (loop_2_iteration_15 : Vermilion.Seq.len retained = n)
@@ -2751,20 +2868,23 @@ def assert_2_decreases_meta : Vermilion.ObligationMeta := {
     (else_6_assume_22 : (¬ tmp__10) → (tmp__12 ↔ False))
     (then_7_assume_25 : (tmp__9 ↔ ¬ tmp__12) → False)
     (then_7_assume_26 : (tmp__9 ↔ ¬ tmp__12) → False)
-    (assert_19 : Vermilion.inUnsignedRange 64 (v + 1)) :
-    ((0 ≤ (n - ((v + 1) % 18446744073709551616))) ∧ ((n - ((v + 1) % 18446744073709551616)) < (n - v))) ∨ (((n - ((v + 1) % 18446744073709551616)) = (n - v)) ∧ False) := by
-  iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))
-  vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec]
+    (assert_19 : (0 ≤ (v + 1)) ∧ ((v + 1) < Vermilion.usizeMod)) :
+    ((0 ≤ (n - (Vermilion.emod (v + 1) Vermilion.usizeMod))) ∧ ((n - (Vermilion.emod (v + 1) Vermilion.usizeMod)) < (n - v))) ∨ (((n - (Vermilion.emod (v + 1) Vermilion.usizeMod)) = (n - v)) ∧ False) := by
+  vrml_first
+    | ((iterate 3 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | (vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 1 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
+    | ((iterate 2 (try first | (rw [reclaim_plan.reachable_fuel]; try norm_num) | (rw [reclaim_plan.count_true_upto]; try norm_num) | (rw [reclaim_plan.key_reach_fuel]; try norm_num))); vrml [reclaim_plan.edges_in_range_spec, reclaim_plan.closed_spec, reclaim_plan.has_edge_spec, reclaim_plan.MAX_NODES, reclaim_plan.MAX_EDGES, reclaim_plan.MAX_ROOTS, reclaim_plan.roots_in_range_spec, reclaim_plan.protected_closed_spec, reclaim_plan.admissible_spec, reclaim_plan.roots_retained_spec, reclaim_plan.candidates_exact_spec, reclaim_plan.plan_valid_spec, reclaim_plan.live_spec, reclaim_plan.count_true, reclaim_plan.LENGTH_MISMATCH, reclaim_plan.PLANNED, reclaim_plan.TOO_LARGE, reclaim_plan.ROOT_OUT_OF_RANGE, reclaim_plan.EDGE_OUT_OF_RANGE, reclaim_plan.PROTECTED_REFERENCES_RECLAIMABLE, reclaim_plan.retained_sound_spec, reclaim_plan.ROUND_LIMIT, reclaim_plan.edges_subset_spec, reclaim_plan.roots_subset_spec, reclaim_plan.reclaimable_subset_spec, reclaim_plan.prefix_eq_spec, reclaim_plan.key_lt_at_spec, reclaim_plan.key_lt_spec, reclaim_plan.keys_sorted_spec, reclaim_plan.edge_names_ref_spec, reclaim_plan.ref_resolved_spec, reclaim_plan.edges_match_refs_spec, reclaim_plan.roots_match_keys_spec, reclaim_plan.projection_valid_spec, reclaim_plan.key_live_spec, reclaim_plan.prefix_of_spec, reclaim_plan.key_marked_spec, reclaim_plan.mask_matches_paths_spec])
 -- vrml:end reclaim_plan.check_plan.assert_2_decreases
 
--- vrml:begin reclaim_plan.check_plan.ensures_20 5467dbda86d7f3ad
+-- vrml:begin reclaim_plan.check_plan.ensures_20 cd3f49ee2514e6b5
 /--
 Generated VC `reclaim_plan.check_plan.ensures_20`.
 
 - Rust source: `case-studies/terrane-reclaim-plan/reclaim_plan.rs:299:13-299:100`
 - Rust/SST construct: function postcondition (`ensures`)
 - AssertId: `20`
-- Statement hash: `5467dbda86d7f3ad`
+- Statement hash: `cd3f49ee2514e6b5`
 - Triggers (Verus, for future e-matching): ⟨Vermilion.Seq.index edges vrml_i0⟩ ⟨Vermilion.Seq.index roots vrml_i0⟩ ⟨Vermilion.Seq.index roots j⟩ ⟨Vermilion.Seq.index edges j⟩ ⟨Vermilion.Seq.index candidate k⟩
 -/
 def ensures_20_meta : Vermilion.ObligationMeta := {
@@ -2776,7 +2896,7 @@ def ensures_20_meta : Vermilion.ObligationMeta := {
   assertId := "20"
   functionName := "reclaim_plan.check_plan"
   kind := "ensures"
-  statementHash := "5467dbda86d7f3ad"
+  statementHash := "cd3f49ee2514e6b5"
 }
 @[vrml_obligation] theorem ensures_20
     (n : Int)
@@ -2790,35 +2910,35 @@ def ensures_20_meta : Vermilion.ObligationMeta := {
     (r : Int)
     (i : Int)
     (v : Int)
-    (requires_0 : Vermilion.inUnsignedRange 64 n)
-    (requires_1 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len edges))
-    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ Vermilion.inUnsignedRange 64 (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0))))))
-    (requires_3 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len roots))
-    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.index roots vrml_i0))))
-    (requires_5 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len reclaimable))
-    (requires_6 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
-    (requires_7 : Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (requires_0 : (0 ≤ n) ∧ (n < Vermilion.usizeMod))
+    (requires_1 : (0 ≤ Vermilion.Seq.len edges) ∧ (Vermilion.Seq.len edges < Vermilion.usizeMod))
+    (requires_2 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len edges)) → (((0 ≤ vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod)) ∧ ((0 ≤ vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0)) ∧ (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges vrml_i0) < Vermilion.usizeMod))))))
+    (requires_3 : (0 ≤ Vermilion.Seq.len roots) ∧ (Vermilion.Seq.len roots < Vermilion.usizeMod))
+    (requires_4 : (∀ (vrml_i0 : Int), (((0 ≤ vrml_i0) ∧ (vrml_i0 < Vermilion.Seq.len roots)) → ((0 ≤ Vermilion.Seq.index roots vrml_i0) ∧ (Vermilion.Seq.index roots vrml_i0 < Vermilion.usizeMod)))))
+    (requires_5 : (0 ≤ Vermilion.Seq.len reclaimable) ∧ (Vermilion.Seq.len reclaimable < Vermilion.usizeMod))
+    (requires_6 : (0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod))
+    (requires_7 : (0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod))
     (then_0_assume_9 : (¬ reclaim_plan.admissible_spec n edges roots reclaimable) → (tmp_ ↔ True))
-    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len retained))
+    (else_0_assume_9 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → ((0 ≤ Vermilion.Seq.len retained) ∧ (Vermilion.Seq.len retained < Vermilion.usizeMod)))
     (else_0_assume_10 : (¬ (¬ reclaim_plan.admissible_spec n edges roots reclaimable)) → (tmp_ ↔ (Vermilion.Seq.len retained ≠ n)))
     (then_1_assume_12 : tmp_ → (tmp__2 ↔ True))
-    (else_1_assume_12 : (¬ tmp_) → Vermilion.inUnsignedRange 64 (Vermilion.Seq.len candidate))
+    (else_1_assume_12 : (¬ tmp_) → ((0 ≤ Vermilion.Seq.len candidate) ∧ (Vermilion.Seq.len candidate < Vermilion.usizeMod)))
     (else_1_assume_13 : (¬ tmp_) → (tmp__2 ↔ (Vermilion.Seq.len candidate ≠ n)))
     (then_2_assume_15 : tmp__2 → False)
     (then_2_assume_16 : tmp__2 → False)
-    (loop_0_exit_0 : Vermilion.inUnsignedRange 64 r)
+    (loop_0_exit_0 : (0 ≤ r) ∧ (r < Vermilion.usizeMod))
     (loop_0_exit_1 : (0 ≤ r) ∧ (r ≤ Vermilion.Seq.len roots))
     (loop_0_exit_2 : reclaim_plan.roots_in_range_spec n roots)
     (loop_0_exit_3 : Vermilion.Seq.len retained = n)
     (loop_0_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < r)) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))))
     (loop_0_exit_5 : (¬ (r < Vermilion.Seq.len roots)))
-    (loop_1_exit_0 : Vermilion.inUnsignedRange 64 i)
+    (loop_1_exit_0 : (0 ≤ i) ∧ (i < Vermilion.usizeMod))
     (loop_1_exit_1 : (0 ≤ i) ∧ (i ≤ Vermilion.Seq.len edges))
     (loop_1_exit_2 : reclaim_plan.edges_in_range_spec n edges)
     (loop_1_exit_3 : Vermilion.Seq.len retained = n)
     (loop_1_exit_4 : (∀ (j : Int), (((0 ≤ j) ∧ (j < i)) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))))
     (loop_1_exit_5 : (¬ (i < Vermilion.Seq.len edges)))
-    (loop_2_exit_0 : Vermilion.inUnsignedRange 64 v)
+    (loop_2_exit_0 : (0 ≤ v) ∧ (v < Vermilion.usizeMod))
     (loop_2_exit_1 : (0 ≤ v) ∧ (v ≤ n))
     (loop_2_exit_2 : Vermilion.Seq.len candidate = n)
     (loop_2_exit_3 : Vermilion.Seq.len retained = n)

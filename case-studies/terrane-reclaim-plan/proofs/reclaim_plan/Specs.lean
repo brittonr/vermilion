@@ -91,7 +91,7 @@ instance {V : Type} (x : (core.option.Option V)) : Decidable (core.option.Option
   cases x <;> first | exact isTrue trivial | exact isFalse (by simp)
 
 @[simp, grind] def core.option.Option.get_Some__0 {V : Type} [Inhabited V] : (core.option.Option V) → V
-  | .None => default
+  | .None => Vermilion.unspecified "core.option.Option.get_Some_0"
   | .Some _0 => _0
 
 -- vrml:spec reclaim_plan.edges_in_range_spec case-studies/terrane-reclaim-plan/reclaim_plan.rs:84:1
