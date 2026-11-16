@@ -148,7 +148,7 @@ unconstrained off-range reading. -/
 def update (xs : Seq α) (i : Int) (x : α) : Seq α :=
   if 0 ≤ i then xs.set i.toNat x else xs
 
-@[simp] theorem len_update (xs : Seq α) (i : Int) (x : α) :
+@[simp, grind =] theorem len_update (xs : Seq α) (i : Int) (x : α) :
     (xs.update i x).len = xs.len := by
   unfold update len; split <;> simp
 
@@ -168,6 +168,19 @@ def update (xs : Seq α) (i : Int) (x : α) : Seq α :=
         List.getElem?_set_ne (show j.toNat ≠ i.toNat by omega)]
     · simp only [update, if_neg hj]
   · simp only [index, if_neg hi]
+
+/-- Pointwise reading of an in-range update, as one equation `grind` can
+e-match and case-split: the written slot reads back `x`, every other slot
+is unchanged. Only for an in-range index, which is all vstd specifies
+(off-range updates are a model choice, issue #19, that automation must
+not see). Lets the ladder close the usual "fill a prefix" loop invariant
+`∀ j < i + 1, (v.update i x)[j] = …` without a twin proof. -/
+@[grind =] theorem index_update_in_range [Inhabited α] (xs : Seq α) (i : Int)
+    (x : α) (j : Int) (low : 0 ≤ i) (high : i < xs.len) :
+    (xs.update i x).index j = if j = i then x else xs.index j := by
+  by_cases h : j = i
+  · subst h; simp [index_update_same xs j x low high]
+  · simp [h, index_update_other xs j x i (Ne.symm h)]
 
 /-- Contiguous slice (vstd `Seq::subrange`; the view of `Vec::pop`'s tail and
 of slice ranges): elements at positions `[i, j)`. In range (`0 ≤ i ≤ j ≤ len`)
