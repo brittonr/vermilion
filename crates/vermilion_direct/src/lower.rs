@@ -4968,6 +4968,11 @@ impl Lowering<'_> {
         // Body, then the back-edge invariant checks under the post-body env.
         // The frame lets `break`/`continue` sites inside the body find this
         // loop's invariants and measure.
+        // Facts the body adds about its own locals (call results, pushes)
+        // must not outlive it: the body is isolated, so a later loop that
+        // copied them into its iteration telescope would mention variables
+        // no obligation binds. Restored at the exit below.
+        let saved_type_facts = self.type_facts.clone();
         self.loop_frames.push(LoopFrame {
             loop_id,
             label: label.clone(),
@@ -5027,6 +5032,7 @@ impl Lowering<'_> {
         // state. Break-capable loops (`cond = None`) get no condition fact:
         // control may leave through a `break`, where only the at-exit
         // invariants were checked.
+        self.type_facts = saved_type_facts;
         self.type_facts.extend(havoc_facts.iter().cloned());
         let mut exit = havoc_facts;
         for inv in invs.iter() {
@@ -5741,6 +5747,8 @@ impl Lowering<'_> {
         // break/continue were rejected at recognition, so a stray one inside
         // fails closed on the empty frame stack.
         let saved_statements = std::mem::take(&mut self.statements);
+        // Body-local facts die with the body (see the `while` lowering).
+        let saved_type_facts = self.type_facts.clone();
         for stm in &plan.body {
             self.statement(stm)?;
         }
@@ -5801,6 +5809,7 @@ impl Lowering<'_> {
         // Exit: the continuation sees the havoc symbols, the invariants at
         // the exit peek value, and the borrow resolutions from the
         // exhausted-iterator arm.
+        self.type_facts = saved_type_facts;
         self.type_facts.extend(havoc_facts.iter().cloned());
         let mut exit = havoc_facts;
         for inv in &plan.user_invs {

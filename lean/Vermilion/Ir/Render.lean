@@ -161,7 +161,8 @@ obligation's own `unfolds` (spec-fn definitions visible at its program
 point) drive the machine attempt: non-recursive names go into the
 `vrml [names…]` simp list; recursive ones get bounded rewriting
 (`iterate N (try rw [f])` — a simp entry would loop), with N the reveal
-rounds, tried as a `vrml_first` over depths N, 0, 1, …, N - 1. -/
+rounds, tried as a `vrml_first` over depths N, 0, 1 when the goal applies
+one of them (plain `vrml` otherwise). -/
 def renderObligation (recursiveNames : Array String)
     (obligation : Obligation) : String := Id.run do
   let unfolds := (obligation.unfolds.filter
@@ -235,7 +236,7 @@ def renderObligation (recursiveNames : Array String)
   -- heartbeat baseline, so one heavy failure cannot starve the rest): the
   -- full bound first (what
   -- every obligation that closes today already pays), then the folded goal,
-  -- then each smaller bound. Fewer rounds never reveal more than the full
+  -- then depth 1 (see `shallower` below). Fewer rounds never reveal more than the full
   -- bound, so visibility coherence with Verus is unchanged.
   --
   -- The `vrml [...]` simp set carries both the revealed spec-fn
@@ -245,7 +246,12 @@ def renderObligation (recursiveNames : Array String)
   let vrmlCall :=
     if simpNames.isEmpty then "vrml"
     else s!"vrml [{String.intercalate ", " simpNames}]"
-  if bounded.isEmpty then
+  -- `rw` acts on the goal only, so when the goal applies none of the
+  -- recursive names every unfolding attempt is the plain `vrml` (what the
+  -- old no-op preamble amounted to): emit just that.
+  let goalApplies := obligation.goal.applies
+  let unfoldable := bounded.any fun (name, _) => goalApplies.contains name
+  if bounded.isEmpty || !unfoldable then
     out := out ++ s!"  {vrmlCall}\n"
   else
     let rounds := bounded.foldl (fun acc (_, n) => acc + n) 0
@@ -255,7 +261,12 @@ def renderObligation (recursiveNames : Array String)
     -- `iterate d (…); vrml` would repeat `(…); vrml` d times.
     let unfoldTo := fun (depth : Nat) =>
       s!"((iterate {depth} (try first | {alts})); {vrmlCall})"
-    let shallower := (List.range (rounds - 1)).map fun k => unfoldTo (k + 1)
+    -- Depths N, 0, 1 only: depth 0 recovers a goal that is verbatim a
+    -- hypothesis, depth 1 keeps an induction hypothesis one step down in
+    -- reach. Every depth in between multiplied the cost of a failing
+    -- obligation by N + 1 (N sums the reveal rounds of every visible
+    -- recursive spec fn, so it grows with the crate).
+    let shallower := if rounds > 1 then [unfoldTo 1] else []
     out := out ++ "  vrml_first\n"
     for attempt in [unfoldTo rounds, s!"({vrmlCall})"] ++ shallower do
       out := out ++ s!"    | {attempt}\n"

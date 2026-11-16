@@ -75,3 +75,25 @@ Lean keyword missing from the hand-curated `leanReservedWords` (35 of the
 247 identifier-shaped tokens in the generated modules' environment). The
 Specs module failed to parse. The list is now the full token set, guarded
 by `tests/lean_reserved_words.lean`; corpus c226/c227.
+
+## Follow-up: loop-body facts no longer leak
+
+`rollup::group_totals` (a push loop, then an accumulation loop with
+`set`) stopped `vrml_gen` on its hygiene check: the first body's
+`tmp__post` type facts were copied into the second loop's telescope.
+Loop lowerings now save and restore `type_facts` around the body, as the
+assertion-query lowering already did. Corpus c236/c237.
+
+## Follow-up: shorter recursive-unfold ladder
+
+With the kernel at 366 obligations a full run exceeded 30 minutes. The
+`vrml_first` alternatives over depths `N, 0, 1, …, N − 1` made every
+failing obligation pay for N + 1 complete ladders, including goals that
+mention no recursive function at all. `Render` now emits plain `vrml`
+when the goal applies no bounded recursive name (hypothesis unfolds
+cannot help it), and otherwise tries depths `N, 0, 1` only. The harness
+also caps the SMT rung (`VRML_SMT_TIMEOUT=30`). The kernel run dropped to
+about 10 minutes; `docs/vcgen.md` and `docs/ir.md` record the policy.
+
+forecast-kernel now closes with 366 obligations and 0 sorry (twin proofs
+for the residue), Z3 verifying all 51 functions.

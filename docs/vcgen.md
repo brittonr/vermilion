@@ -711,10 +711,17 @@ obligation is which defining equations the machine attempt may use — the
   goal only, so unfolding can separate the goal from a hypothesis that
   states the same fact about the folded call (a callee's `ensures`, an
   induction hypothesis one step down). The attempt is therefore
-  `vrml_first` over the depths `N, 0, 1, …, N − 1` — the full bound
-  first, so an obligation that closes at depth `N` costs what it did
-  before — each alternative `((iterate d (try first | …)); vrml […])`, the
-  depth-0 one just `(vrml […])`. `vrml_first` gives each alternative a
+  `vrml_first` over the depths `N, 0, 1` — the full bound first, so an
+  obligation that closes at depth `N` costs what it did before; depth 0
+  recovers a goal that is verbatim a hypothesis; depth 1 keeps an
+  induction hypothesis one step down in reach — each alternative
+  `((iterate d (try first | …)); vrml […])`, the depth-0 one just
+  `(vrml […])`. Intermediate depths are not tried: `N` sums the rounds of
+  every visible recursive spec fn, so trying them all made a failing
+  obligation cost `N + 1` ladders, growing with the crate. When the goal
+  applies none of the recursive names, every `rw` is a no-op (it acts on
+  the goal only) and the attempt is the plain `vrml […]`, exactly what
+  the preamble amounted to. `vrml_first` gives each alternative a
   fresh heartbeat baseline and counts heartbeat exhaustion as that
   alternative's failure (core `first` rethrows it). A shallower depth
   reveals no definition the full bound does not, so visibility stays as
