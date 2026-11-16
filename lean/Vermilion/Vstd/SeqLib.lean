@@ -37,6 +37,11 @@ def dropFirst (s : Seq α) : Seq α := s.subrange 1 s.len
 def remove (s : Seq α) (i : Int) : Seq α :=
   (s.subrange 0 i).add (s.subrange (i + 1) s.len)
 
+/-- vstd `Seq::insert i a` = `subrange(0, i).push(a) + subrange(i, len)`
+(the `Vec::insert` view). -/
+def insert (s : Seq α) (i : Int) (a : α) : Seq α :=
+  ((s.subrange 0 i).push a).add (s.subrange i s.len)
+
 /-- vstd `Seq::contains needle` = `∃ i, 0 ≤ i < len ∧ self[i] = needle`. -/
 def contains [Inhabited α] (s : Seq α) (x : α) : Prop :=
   ∃ i : Int, (0 ≤ i ∧ i < s.len) ∧ s.index i = x
@@ -96,6 +101,44 @@ theorem dropLast_add (a b : Seq α) (h : 0 < b.len) :
   rw [len_add, len_subrange s 0 i (by omega) low (by omega),
     len_subrange s (i + 1) s.len (by omega) (by omega) (by omega)]
   omega
+
+/-- vstd's `insert_ensures`, length part: in range, `insert` grows the
+sequence by one. -/
+@[simp, grind =] theorem len_insert (s : Seq α) (i : Int) (a : α)
+    (low : 0 ≤ i) (high : i ≤ s.len) : (s.insert i a).len = s.len + 1 := by
+  have := len_nonneg s
+  simp only [insert]
+  rw [len_add, len_push, len_subrange s 0 i (by omega) low high,
+    len_subrange s i s.len low high (by omega)]
+  omega
+
+/-- vstd's `insert_ensures`, element part: below `i` unchanged, `i` the new
+element, above `i` shifted by one. -/
+@[grind =] theorem index_insert [Inhabited α] (s : Seq α) (i : Int) (a : α) (k : Int)
+    (low : 0 ≤ i) (high : i ≤ s.len) (k0 : 0 ≤ k) (k1 : k ≤ s.len) :
+    (s.insert i a).index k =
+      if k < i then s.index k else if k = i then a else s.index (k - 1) := by
+  have hl := len_nonneg s
+  have hp : ((s.subrange 0 i).push a).len = i + 1 := by
+    rw [len_push, len_subrange s 0 i (by omega) low high]; omega
+  have hsub : (s.subrange 0 i).len = i := by
+    rw [len_subrange s 0 i (by omega) low high]; omega
+  simp only [insert]
+  by_cases hk : k ≤ i
+  · rw [index_add_left _ _ k k0 (by rw [hp]; omega)]
+    by_cases hki : k < i
+    · rw [if_pos hki, index_push_prefix _ _ k k0 (by rw [hsub]; exact hki),
+        index_subrange s 0 i k (by omega) k0 (by omega)]
+      simp
+    · have hke : k = i := by omega
+      subst hke
+      rw [if_neg hki, if_pos rfl]
+      have := index_push_last (s.subrange 0 k) a
+      rw [hsub] at this
+      exact this
+  · rw [if_neg (by omega), if_neg (by omega), index_add_right _ _ k (by rw [hp]; omega), hp,
+      index_subrange s i s.len (k - (i + 1)) low (by omega) (by omega)]
+    congr 1; omega
 
 end Seq
 
