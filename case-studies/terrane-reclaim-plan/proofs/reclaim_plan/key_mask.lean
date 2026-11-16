@@ -1524,8 +1524,10 @@ def assert_17_meta : Vermilion.ObligationMeta := {
     (then_4_assert_15 : (u = tmp__2) → (Vermilion.Seq.index paths s = Vermilion.Seq.index keys u))
     (else_4_assert_16 : (¬ (u = tmp__2)) → (Vermilion.Seq.index tmp__post_2 u ↔ Vermilion.Seq.index m_2 u)) :
     (∃ (q : Int), (((0 ≤ q) ∧ (q < (s + 1))) ∧ (Vermilion.Seq.index paths q = Vermilion.Seq.index keys u))) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  by_cases hu : u = tmp__2
+  · exact ⟨s, ⟨loop_1_iteration_14.1, by omega⟩, then_4_assert_15 hu⟩
+  · obtain ⟨q, hq, e⟩ := loop_1_iteration_18 u ⟨assume_39.1, (else_4_assert_16 hu).mp assume_39.2⟩
+    exact ⟨q, ⟨hq.1, by omega⟩, e⟩
 -- vrml:end reclaim_plan.key_mask.assert_17
 
 -- vrml:begin reclaim_plan.key_mask.assert_18 ed5f57c72cc5ce6d
@@ -1695,8 +1697,19 @@ def assert_19_meta : Vermilion.ObligationMeta := {
     (assume_40 : (0 ≤ q) ∧ (q < (s + 1)))
     (branch_5 : (¬ (q = s))) :
     Vermilion.Seq.index tmp__post_2 (Vermilion.chooseSpec (fun (u : Int) => ((((0 ≤ u) ∧ (u < Vermilion.Seq.len keys)) ∧ Vermilion.Seq.index m_2 u) ∧ (Vermilion.Seq.index keys u = Vermilion.Seq.index paths q)))) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hq : 0 ≤ q ∧ q < s := ⟨assume_40.1, by have := assume_40.2; omega⟩
+  have hU := choose_spec_0 (loop_1_iteration_19 q hq)
+  obtain ⟨⟨⟨hU0, hU1⟩, hUm⟩, _⟩ := hU
+  rw [call_set_ensures_0]
+  by_cases he : Vermilion.chooseSpec (fun (u : Int) => ((((0 ≤ u) ∧ (u < Vermilion.Seq.len keys)) ∧
+      Vermilion.Seq.index m_2 u) ∧ (Vermilion.Seq.index keys u = Vermilion.Seq.index paths q))) = tmp__2
+  · rw [he]
+    have h0 : 0 ≤ tmp__2 := by
+      unfold Vermilion.inUnsignedRange at call_vec_index_ensures_0; exact call_vec_index_ensures_0.1
+    rw [Vermilion.Seq.index_update_same _ _ _ h0 (by rw [loop_1_iteration_17]; rw [← he]; exact hU1)]
+    trivial
+  · rw [Vermilion.Seq.index_update_other _ _ _ _ (Ne.symm he)]
+    exact hUm
 -- vrml:end reclaim_plan.key_mask.assert_19
 
 -- vrml:begin reclaim_plan.key_mask.assert_20 db384505b05adf96
@@ -2279,8 +2292,9 @@ def invariant_preserve_1_4_meta : Vermilion.ObligationMeta := {
     (assume_39 : (∀ (q : Int), (((0 ≤ q) ∧ (q < (s + 1))) → (∃ (u : Int), ((((0 ≤ u) ∧ (u < Vermilion.Seq.len keys)) ∧ Vermilion.Seq.index tmp__post_2 u) ∧ (Vermilion.Seq.index keys u = Vermilion.Seq.index paths q))))))
     (assert_21 : Vermilion.inUnsignedRange 64 (s + 1)) :
     (∀ (t : Int), ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ Vermilion.Seq.index tmp__post_2 t) → (∃ (q : Int), (((0 ≤ q) ∧ (q < ((s + 1) % 18446744073709551616))) ∧ (Vermilion.Seq.index paths q = Vermilion.Seq.index keys t))))) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hr : (s + 1) % 18446744073709551616 = s + 1 := by
+    unfold Vermilion.inUnsignedRange at assert_21; norm_num at assert_21; omega
+  rw [hr]; exact assume_38
 -- vrml:end reclaim_plan.key_mask.invariant_preserve_1_4
 
 -- vrml:begin reclaim_plan.key_mask.invariant_preserve_1_5 498dce3e76648220
@@ -2362,8 +2376,9 @@ def invariant_preserve_1_5_meta : Vermilion.ObligationMeta := {
     (assume_39 : (∀ (q : Int), (((0 ≤ q) ∧ (q < (s + 1))) → (∃ (u : Int), ((((0 ≤ u) ∧ (u < Vermilion.Seq.len keys)) ∧ Vermilion.Seq.index tmp__post_2 u) ∧ (Vermilion.Seq.index keys u = Vermilion.Seq.index paths q))))))
     (assert_21 : Vermilion.inUnsignedRange 64 (s + 1)) :
     (∀ (q : Int), (((0 ≤ q) ∧ (q < ((s + 1) % 18446744073709551616))) → (∃ (t : Int), ((((0 ≤ t) ∧ (t < Vermilion.Seq.len keys)) ∧ Vermilion.Seq.index tmp__post_2 t) ∧ (Vermilion.Seq.index keys t = Vermilion.Seq.index paths q))))) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hr : (s + 1) % 18446744073709551616 = s + 1 := by
+    unfold Vermilion.inUnsignedRange at assert_21; norm_num at assert_21; omega
+  rw [hr]; exact assume_39
 -- vrml:end reclaim_plan.key_mask.invariant_preserve_1_5
 
 -- vrml:begin reclaim_plan.key_mask.assert_1_decreases f3ccafa99316415e
@@ -2647,8 +2662,10 @@ def ensures_24_meta : Vermilion.ObligationMeta := {
     (loop_1_exit_8 : (¬ (s < Vermilion.Seq.len paths)))
     (assume_29 : (∀ (q : Int), (((0 ≤ q) ∧ (q < Vermilion.Seq.len paths)) → reclaim_plan.key_marked_spec keys m_2 (Vermilion.Seq.index paths q)))) :
     core.option.Option.is_Some (core.option.Option.Some m_2) → reclaim_plan.mask_matches_paths_spec keys paths (core.option.Option.get_Some__0 (core.option.Option.Some m_2)) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  intro _
+  exact ⟨⟨loop_1_exit_5, fun t ht => by
+    obtain ⟨q, hq, e⟩ := loop_1_exit_6 t ht
+    exact ⟨q, ⟨hq.1, by omega⟩, e⟩⟩, fun q hq => assume_29 q hq⟩
 -- vrml:end reclaim_plan.key_mask.ensures_24
 
 end reclaim_plan.key_mask

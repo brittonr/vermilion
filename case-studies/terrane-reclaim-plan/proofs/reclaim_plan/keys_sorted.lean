@@ -264,8 +264,10 @@ def assert_7_meta : Vermilion.ObligationMeta := {
     (call_vec_index_1_ensures_2 : tmp__2 = Vermilion.Seq.index keys i)
     (branch_1 : (¬ reclaim_plan.key_lt_spec tmp_ tmp__2)) :
     (¬ reclaim_plan.key_lt_spec (Vermilion.Seq.index keys (i - 1)) (Vermilion.Seq.index keys i)) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hm : (i - 1) % 18446744073709551616 = i - 1 := by
+    unfold Vermilion.inUnsignedRange at assert_3; norm_num at assert_3; omega
+  rw [hm] at call_vec_index_ensures_2
+  rw [call_vec_index_ensures_2, call_vec_index_1_ensures_2] at branch_1; exact branch_1
 -- vrml:end reclaim_plan.keys_sorted.assert_7
 
 -- vrml:begin reclaim_plan.keys_sorted.ensures_8 31ba600023b9e061
@@ -311,8 +313,9 @@ def ensures_8_meta : Vermilion.ObligationMeta := {
     (branch_1 : (¬ reclaim_plan.key_lt_spec tmp_ tmp__2))
     (assert_7 : (¬ reclaim_plan.key_lt_spec (Vermilion.Seq.index keys (i - 1)) (Vermilion.Seq.index keys i))) :
     False ↔ reclaim_plan.keys_sorted_spec keys := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  constructor
+  · exact False.elim
+  · intro hs; exact assert_7 (hs (i - 1) i ⟨⟨by omega, by omega⟩, loop_0_iteration_6⟩)
 -- vrml:end reclaim_plan.keys_sorted.ensures_8
 
 -- vrml:begin reclaim_plan.keys_sorted.call_requires_9_0 9149b2d30313f8ae
@@ -365,8 +368,7 @@ def call_requires_9_0_meta : Vermilion.ObligationMeta := {
     (assume_19 : ((0 ≤ a) ∧ (a < b)) ∧ (b < (i + 1)))
     (branch_2 : (b = i) ∧ (a < (i - 1))) :
     reclaim_plan.key_lt_spec (Vermilion.Seq.index keys a) (Vermilion.Seq.index keys (i - 1)) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  exact loop_0_iteration_5 a (i - 1) ⟨⟨assume_19.1.1, branch_2.2⟩, by omega⟩
 -- vrml:end reclaim_plan.keys_sorted.call_requires_9_0
 
 -- vrml:begin reclaim_plan.keys_sorted.call_requires_9_1 29bc197254cc2c64
@@ -419,8 +421,14 @@ def call_requires_9_1_meta : Vermilion.ObligationMeta := {
     (assume_19 : ((0 ≤ a) ∧ (a < b)) ∧ (b < (i + 1)))
     (branch_2 : (b = i) ∧ (a < (i - 1))) :
     reclaim_plan.key_lt_spec (Vermilion.Seq.index keys (i - 1)) (Vermilion.Seq.index keys i) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hm : (i - 1) % 18446744073709551616 = i - 1 := by
+    unfold Vermilion.inUnsignedRange at assert_3; norm_num at assert_3; omega
+  rw [hm] at call_vec_index_ensures_2
+  have hk : reclaim_plan.key_lt_spec (Vermilion.Seq.index keys (i - 1)) (Vermilion.Seq.index keys i) := by
+    have h : reclaim_plan.key_lt_spec tmp_ tmp__2 := by
+      by_contra h; exact then_1_assume_16 h
+    rw [call_vec_index_ensures_2, call_vec_index_1_ensures_2] at h; exact h
+  exact hk
 -- vrml:end reclaim_plan.keys_sorted.call_requires_9_1
 
 -- vrml:begin reclaim_plan.keys_sorted.assert_10 4b12bcbb02c9ed10
@@ -473,8 +481,20 @@ def assert_10_meta : Vermilion.ObligationMeta := {
     (assume_19 : ((0 ≤ a) ∧ (a < b)) ∧ (b < (i + 1)))
     (then_2_call_key_lt_transitive_ensures_0 : ((b = i) ∧ (a < (i - 1))) → reclaim_plan.key_lt_spec (Vermilion.Seq.index keys a) (Vermilion.Seq.index keys i)) :
     reclaim_plan.key_lt_spec (Vermilion.Seq.index keys a) (Vermilion.Seq.index keys b) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hm : (i - 1) % 18446744073709551616 = i - 1 := by
+    unfold Vermilion.inUnsignedRange at assert_3; norm_num at assert_3; omega
+  rw [hm] at call_vec_index_ensures_2
+  have hk : reclaim_plan.key_lt_spec (Vermilion.Seq.index keys (i - 1)) (Vermilion.Seq.index keys i) := by
+    have h : reclaim_plan.key_lt_spec tmp_ tmp__2 := by
+      by_contra h; exact then_1_assume_16 h
+    rw [call_vec_index_ensures_2, call_vec_index_1_ensures_2] at h; exact h
+  by_cases hb : b < i
+  · exact loop_0_iteration_5 a b ⟨assume_19.1, hb⟩
+  · have hbi : b = i := by have := assume_19.2; omega
+    by_cases ha : a < i - 1
+    · rw [hbi]; exact then_2_call_key_lt_transitive_ensures_0 ⟨hbi, ha⟩
+    · have hai : a = i - 1 := by have := assume_19.1.2; omega
+      rw [hai, hbi]; exact hk
 -- vrml:end reclaim_plan.keys_sorted.assert_10
 
 -- vrml:begin reclaim_plan.keys_sorted.assert_11 c56f48b53b2c8b1c
@@ -622,8 +642,9 @@ def invariant_preserve_0_1_meta : Vermilion.ObligationMeta := {
     (assume_17 : (∀ (a : Int) (b : Int), ((((0 ≤ a) ∧ (a < b)) ∧ (b < (i + 1))) → reclaim_plan.key_lt_spec (Vermilion.Seq.index keys a) (Vermilion.Seq.index keys b))))
     (assert_11 : Vermilion.inUnsignedRange 64 (i + 1)) :
     (∀ (a : Int) (b : Int), ((((0 ≤ a) ∧ (a < b)) ∧ (b < ((i + 1) % 18446744073709551616))) → reclaim_plan.key_lt_spec (Vermilion.Seq.index keys a) (Vermilion.Seq.index keys b))) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hr : (i + 1) % 18446744073709551616 = i + 1 := by
+    unfold Vermilion.inUnsignedRange at assert_11; norm_num at assert_11; omega
+  rw [hr]; exact assume_17
 -- vrml:end reclaim_plan.keys_sorted.invariant_preserve_0_1
 
 -- vrml:begin reclaim_plan.keys_sorted.assert_0_decreases 8c7c7016eafe68d9

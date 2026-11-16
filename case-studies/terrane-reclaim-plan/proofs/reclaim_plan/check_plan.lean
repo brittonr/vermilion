@@ -724,8 +724,15 @@ def invariant_preserve_0_3_meta : Vermilion.ObligationMeta := {
     (then_3_assume_21 : (¬ tmp__4) → False)
     (assert_8 : Vermilion.inUnsignedRange 64 (r + 1)) :
     (∀ (j : Int), (((0 ≤ j) ∧ (j < ((r + 1) % 18446744073709551616))) → Vermilion.Seq.index retained (Vermilion.Seq.index roots j))) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hr : (r + 1) % 18446744073709551616 = r + 1 := by
+    unfold Vermilion.inUnsignedRange at assert_8; norm_num at assert_8; omega
+  rw [hr]
+  intro j hj
+  by_cases hjr : j < r
+  · exact loop_0_iteration_14 j ⟨hj.1, hjr⟩
+  · have : j = r := by omega
+    rw [this, ← call_vec_index_ensures_1]
+    exact call_vec_index_1_ensures_0.mp (by by_contra h; exact then_3_assume_20 h)
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_0_3
 
 -- vrml:begin reclaim_plan.check_plan.assert_0_decreases 52d039971f14dce8
@@ -1595,8 +1602,20 @@ def invariant_preserve_1_3_meta : Vermilion.ObligationMeta := {
     (then_5_assume_26 : tmp__8 → False)
     (assert_14 : Vermilion.inUnsignedRange 64 (i + 1)) :
     (∀ (j : Int), (((0 ≤ j) ∧ (j < ((i + 1) % 18446744073709551616))) → (Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__0 (Vermilion.Seq.index edges j)) → Vermilion.Seq.index retained (vermilion.tuple_2.get_tuple_2__1 (Vermilion.Seq.index edges j))))) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hr : (i + 1) % 18446744073709551616 = i + 1 := by
+    unfold Vermilion.inUnsignedRange at assert_14; norm_num at assert_14; omega
+  rw [hr]
+  intro j hj
+  by_cases hji : j < i
+  · exact loop_1_iteration_15 j ⟨hj.1, hji⟩
+  · have : j = i := by omega
+    rw [this, ← call_vec_index_2_ensures_2]
+    intro h0
+    have h6 : tmp__6 := call_vec_index_3_ensures_0.mpr h0
+    have n8 : ¬ tmp__8 := fun h => then_5_assume_25 h
+    have h7 : tmp__7 := by
+      by_contra h7; exact n8 ((then_4_assume_23 h6).mpr h7)
+    exact (then_4_call_vec_index_4_ensures_0 h6).mp h7
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_1_3
 
 -- vrml:begin reclaim_plan.check_plan.assert_1_decreases 7d6e2075a065edbb
@@ -2647,8 +2666,26 @@ def invariant_preserve_2_4_meta : Vermilion.ObligationMeta := {
     (then_7_assume_26 : (tmp__9 ↔ ¬ tmp__12) → False)
     (assert_19 : Vermilion.inUnsignedRange 64 (v + 1)) :
     (∀ (k : Int), (((0 ≤ k) ∧ (k < ((v + 1) % 18446744073709551616))) → (Vermilion.Seq.index candidate k ↔ (Vermilion.Seq.index reclaimable k ∧ (¬ Vermilion.Seq.index retained k))))) := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have hr : (v + 1) % 18446744073709551616 = v + 1 := by
+    unfold Vermilion.inUnsignedRange at assert_19; norm_num at assert_19; omega
+  rw [hr]
+  intro k hk
+  by_cases hkv : k < v
+  · exact loop_2_iteration_17 k ⟨hk.1, hkv⟩
+  · have : k = v := by omega
+    rw [this]
+    have hiff : tmp__9 ↔ tmp__12 := by
+      by_contra h
+      apply then_7_assume_25
+      constructor
+      · intro a b; exact h ⟨fun _ => b, fun _ => a⟩
+      · intro nb; by_contra na; exact h ⟨fun a => absurd a na, fun b => absurd b nb⟩
+    rw [← call_vec_index_5_ensures_0, hiff]
+    by_cases h10 : tmp__10
+    · rw [then_6_assume_23 h10, then_6_call_vec_index_7_ensures_0 h10]
+      exact ⟨fun h => ⟨call_vec_index_6_ensures_0.mp h10, h⟩, fun h => h.2⟩
+    · rw [else_6_assume_22 h10]
+      exact ⟨False.elim, fun h => h10 (call_vec_index_6_ensures_0.mpr h.1)⟩
 -- vrml:end reclaim_plan.check_plan.invariant_preserve_2_4
 
 -- vrml:begin reclaim_plan.check_plan.assert_2_decreases 78518db3890bb83f
@@ -2789,8 +2826,14 @@ def ensures_20_meta : Vermilion.ObligationMeta := {
     (loop_2_exit_5 : (∀ (k : Int), (((0 ≤ k) ∧ (k < v)) → (Vermilion.Seq.index candidate k ↔ (Vermilion.Seq.index reclaimable k ∧ (¬ Vermilion.Seq.index retained k))))))
     (loop_2_exit_6 : (¬ (v < n))) :
     True ↔ reclaim_plan.plan_valid_spec n edges roots reclaimable retained candidate := by
-  -- TODO(vermilion): automation failed; prove this obligation.
-  sorry
+  have n2 : ¬ tmp__2 := fun h => then_2_assume_15 h
+  have n1 : ¬ tmp_ := fun h => n2 ((then_1_assume_12 h).mpr trivial)
+  have adm : reclaim_plan.admissible_spec n edges roots reclaimable := by
+    by_contra h; exact n1 ((then_0_assume_9 h).mpr trivial)
+  refine ⟨fun _ => ⟨⟨⟨⟨⟨adm, loop_0_exit_3⟩, loop_2_exit_2⟩, ?_⟩, ?_⟩, ?_⟩, fun _ => trivial⟩
+  · intro j hj; exact loop_0_exit_4 j ⟨hj.1, by omega⟩
+  · intro j hj; exact loop_1_exit_4 j ⟨hj.1, by omega⟩
+  · intro k hk; exact loop_2_exit_5 k ⟨hk.1, by omega⟩
 -- vrml:end reclaim_plan.check_plan.ensures_20
 
 end reclaim_plan.check_plan
