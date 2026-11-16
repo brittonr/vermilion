@@ -138,6 +138,13 @@ elab "vrml_usize_facts" : tactic => do
       (rcases Vermilion.usizeMod_cases' with _vrml_usize | _vrml_usize <;>
         simp only [_vrml_usize, Vermilion.emod_usize32, Vermilion.emod_usize64] at *)))
 
+/-- Evaluate the prelude bit operations on literal operands (and nothing
+else): the `subst_bits` rung's closing step. -/
+macro "vrml_eval_bits" : tactic =>
+  `(tactic| (simp [Vermilion.Bits.band, Vermilion.Bits.bor, Vermilion.Bits.bxor,
+    Vermilion.Bits.shl, Vermilion.Bits.shr, Vermilion.Bits.sband, Vermilion.Bits.sbor,
+    Vermilion.Bits.sbxor, Vermilion.Bits.sshl, Vermilion.Bits.sshr]; done))
+
 /-- Normalization shared by every discharger rung. -/
 macro "vrml_norm" : tactic =>
   `(tactic|
@@ -511,6 +518,14 @@ elab "vrml_ladder" : tactic => do
   let rungs : List (String × Nat × Syntax.Tactic) := [
     ("grind", rungBudget, ← `(tactic| grind)),
     ("omega", rungBudget, ← `(tactic| omega)),
+    -- A bit-vector goal over variables pinned to literals by equations in
+    -- context (`x = 3 ⊢ Bits.band 8 x 1 = 1`, the `by (bit_vector)
+    -- requires` shape): substitute them and evaluate the prelude bit
+    -- operations. Deliberately NOT `decide`: kernel evaluation would also
+    -- unfold hidden or opaque user spec fns and break Verus's visibility
+    -- verdicts (`hide`, `#[verifier::opaque]`). Only the listed prelude
+    -- definitions are unfolded.
+    ("subst_bits", rungBudget, ← `(tactic| (subst_vars; vrml_eval_bits))),
     ("simp_all", rungBudget, ← `(tactic| simp_all)),
     -- simp exposes linear arithmetic that omega finishes (e.g. the
     -- `ediv`/`emod` rewrites for nonzero literal divisors).
