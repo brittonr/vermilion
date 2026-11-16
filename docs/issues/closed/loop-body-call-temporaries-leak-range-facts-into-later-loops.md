@@ -26,6 +26,6 @@ then an edges loop.
 Commit 533ea8a saves `type_facts` before the loop and restores it before
 adding the havoc facts, in both the `while` and `for` lowerings.
 
-Regression case: `tests/differential/c217_loop_body_temp_scope_ok.rs`
+Regression case: `tests/differential/c232_loop_body_temp_scope_ok.rs`
 (Verus: 3 verified; Vermilion: 14/14 obligations by automation; without the
 fix it hits the same hygiene error).

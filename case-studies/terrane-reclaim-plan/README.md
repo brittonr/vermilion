@@ -83,4 +83,4 @@ These gaps are tracked in
 Acquiring the kernel also exposed an adapter bug, now fixed, where range facts
 of loop-body temporaries leaked into later loops
 ([closed issue](../../docs/issues/closed/loop-body-call-temporaries-leak-range-facts-into-later-loops.md),
-regression case `tests/differential/c217_loop_body_temp_scope_ok.rs`).
+regression case `tests/differential/c232_loop_body_temp_scope_ok.rs`).
