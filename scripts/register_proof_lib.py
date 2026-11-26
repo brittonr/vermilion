@@ -17,6 +17,9 @@ mechanical and loud (user directive, 2026-07-20):
 and tests/ (any nesting), skipping `upstream/` snapshots and generated
 trees. Registered srcDirs are read back from lakefile.lean itself, so the
 two can never drift.
+
+Run it from the workspace root: the repository, or a project elsewhere
+(`vrml init`), whose lakefile.lean takes the same stanzas.
 """
 
 import argparse
@@ -24,8 +27,8 @@ import pathlib
 import re
 import sys
 
-REPO = pathlib.Path(__file__).resolve().parent.parent
-LAKEFILE = REPO / "lakefile.lean"
+ROOT = pathlib.Path.cwd()
+LAKEFILE = ROOT / "lakefile.lean"
 
 STANZA = """
 lean_lib {name} where
@@ -49,7 +52,7 @@ def cmd_register(name: str, srcdir: str) -> int:
     if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", name):
         print(f"invalid Lake library name: {name}", file=sys.stderr)
         return 2
-    directory = REPO / srcdir
+    directory = ROOT / srcdir
     if not directory.is_dir():
         print(f"srcDir does not exist: {srcdir}", file=sys.stderr)
         return 2
@@ -70,14 +73,14 @@ def cmd_scan() -> int:
     covered = registered_srcdirs(text)
     missing = []
     for root in SCAN_ROOTS:
-        base = REPO / root
+        base = ROOT / root
         if not base.is_dir():
             continue
         for path in base.rglob("proofs"):
             if not path.is_dir():
                 continue
-            relative = path.relative_to(REPO).as_posix()
-            if any(part in SKIP_PARTS for part in path.relative_to(REPO).parts):
+            relative = path.relative_to(ROOT).as_posix()
+            if any(part in SKIP_PARTS for part in path.relative_to(ROOT).parts):
                 continue
             # Nested proofs dirs inside an already-registered tree are roots
             # of that same library, not separate efforts.
@@ -92,19 +95,19 @@ def cmd_scan() -> int:
     # are never flagged.
     residue = []
     for root in SCAN_ROOTS:
-        base = REPO / root
+        base = ROOT / root
         if not base.is_dir():
             continue
         for path in base.rglob("proofs"):
             if not path.is_dir():
                 continue
-            if any(part in SKIP_PARTS for part in path.relative_to(REPO).parts):
+            if any(part in SKIP_PARTS for part in path.relative_to(ROOT).parts):
                 continue
             for flat in path.glob("*.lean"):
                 if not flat.with_suffix("").is_dir():
                     continue
                 if "-- vrml:begin" in flat.read_text(errors="replace"):
-                    residue.append(flat.relative_to(REPO).as_posix())
+                    residue.append(flat.relative_to(ROOT).as_posix())
     if missing:
         print("proofs trees with no registered Lake library:", file=sys.stderr)
         for entry in sorted(missing):
@@ -137,6 +140,9 @@ def main() -> int:
     reg.add_argument("srcdir")
     sub.add_parser("scan", help="fail if any proofs tree is unregistered")
     arguments = parser.parse_args()
+    if not LAKEFILE.is_file():
+        print(f"no lakefile.lean in {ROOT}: run from the workspace root", file=sys.stderr)
+        return 2
     if arguments.command == "register":
         return cmd_register(arguments.name, arguments.srcdir)
     return cmd_scan()

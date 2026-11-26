@@ -176,6 +176,8 @@ banner "$contracts_phase" "incrementality + fail-closed + interactive evidence c
 ./scripts/test_twin_rename.sh
 ./scripts/test_render_hygiene.sh
 ./scripts/test_vrml_first.sh
+./scripts/test_watch.sh
+./scripts/test_standalone_project.sh
 
 if [[ "$scope" == smoke ]]; then
   echo "Vermilion smoke suite passed: every example verified by Lean (or" \

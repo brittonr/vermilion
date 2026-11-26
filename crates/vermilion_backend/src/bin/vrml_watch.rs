@@ -20,6 +20,7 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::time::{Duration, SystemTime};
 
+use vermilion_backend::home;
 use vermilion_backend::project::{ModuleManifest, ObligationRecord};
 
 struct Tools {
@@ -62,7 +63,7 @@ fn regenerate(tools: &Tools, rust_file: &str, stem: &str) -> Result<(PathBuf, Mo
         &tools.verus,
         &arguments,
         &[(
-            "VERMILION_VIR_EXPORT",
+            "VERUS_VIR_EXPORT",
             std::env::current_dir()
                 .map_err(|error| error.to_string())?
                 .join(&export)
@@ -165,7 +166,7 @@ fn iteration(
 /// import. Best effort — without the worker binary (or `mkfifo`), or with
 /// `VRML_ISOLATED` set, `vrml_check` simply starts its own processes.
 fn start_persistent_worker() -> Option<std::process::Child> {
-    let worker = Path::new(".lake/build/bin/vrml_worker");
+    let worker = home::worker();
     if std::env::var_os("VRML_ISOLATED").is_some() || !worker.exists() {
         return None;
     }
@@ -179,14 +180,22 @@ fn start_persistent_worker() -> Option<std::process::Child> {
             return None;
         }
     }
-    let mut command = Command::new("lake");
-    command.args(["env", ".lake/build/bin/vrml_worker", "--serve"]).arg(&dir);
-    let lib_dir = Path::new(".lake/packages/cvc5/.lake/build/lib");
-    if let Some(plugin) = ["libcvc5_cvc5.dylib", "libcvc5_cvc5.so", "cvc5_cvc5.dll"]
-        .into_iter()
-        .map(|name| lib_dir.join(name))
-        .find(|path| path.exists())
-    {
+    // The search path the checks themselves use; with none on record, Lake
+    // supplies it.
+    let mut command = match home::lean_path() {
+        Some(lean_path) => {
+            let mut direct = Command::new(&worker);
+            direct.env("LEAN_PATH", lean_path);
+            direct
+        }
+        None => {
+            let mut through_lake = Command::new("lake");
+            through_lake.arg("env").arg(&worker);
+            through_lake
+        }
+    };
+    command.arg("--serve").arg(&dir);
+    if let Some(plugin) = home::cvc5_plugin() {
         command.arg(format!("--plugin={}", plugin.display()));
     }
     let child = command.spawn().ok()?;
@@ -217,7 +226,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         verus: verus.ok_or("--verus is required")?,
         direct: direct.ok_or("--direct is required")?,
         vrml_gen: vrml_gen.ok_or("--vrml-gen is required")?,
-        vrml_check: "./target/debug/vrml_check".to_owned(),
+        // The checker built or installed beside this binary.
+        vrml_check: std::env::current_exe()?
+            .with_file_name("vrml_check")
+            .display()
+            .to_string(),
     };
     let stem = Path::new(&rust_file)
         .file_stem()

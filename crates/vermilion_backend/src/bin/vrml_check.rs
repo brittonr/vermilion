@@ -1,7 +1,8 @@
 //! Check a generated Lean module and report failed obligations as
 //! rustc/Verus-style JSON diagnostics keyed by the original Rust spans.
 //!
-//! Usage (from the repository root, after `lake build Vermilion`):
+//! Usage (from the project root; the Vermilion home is that directory too
+//! unless `VERMILION_HOME` names another, see `vermilion_backend::home`):
 //!
 //! ```console
 //! vrml_check examples/m1-diagnostics/generated/broken.json
@@ -34,6 +35,7 @@ use std::process::{Command, Stdio};
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Mutex;
 
+use vermilion_backend::home;
 use vermilion_backend::twin::{has_hole, same_declaration, split_block};
 use vermilion_backend::project::{
     rewrite_specs_import, twin_of, ModuleManifest, ObligationRecord,
@@ -54,14 +56,6 @@ struct LeanMessage {
     data: String,
 }
 
-fn find_cvc5_plugin() -> Option<PathBuf> {
-    let lib_dir = Path::new(".lake/packages/cvc5/.lake/build/lib");
-    ["libcvc5_cvc5.dylib", "libcvc5_cvc5.so", "cvc5_cvc5.dll"]
-        .into_iter()
-        .map(|name| lib_dir.join(name))
-        .find(|path| path.exists())
-}
-
 fn failure_message(kind: &str) -> &'static str {
     match kind {
         "assert" => "assertion failed",
@@ -73,37 +67,6 @@ fn failure_message(kind: &str) -> &'static str {
         "typeclass_evidence" => "required Lean typeclass evidence is unresolved",
         _ => "verification condition failed",
     }
-}
-
-/// The workspace LEAN_PATH cached by scripts/lean_env.sh, if still fresh
-/// (same staleness rule: invalid once the Lake configuration changed).
-fn cached_lean_path() -> Option<String> {
-    let cache = Path::new(".vermilion/lean-path");
-    let cache_modified = std::fs::metadata(cache).ok()?.modified().ok()?;
-    for config in ["lakefile.lean", "lake-manifest.json"] {
-        if let Ok(metadata) = std::fs::metadata(config) {
-            if metadata.modified().ok()? > cache_modified {
-                return None;
-            }
-        }
-    }
-    let content = std::fs::read_to_string(cache).ok()?;
-    let trimmed = content.trim();
-    if trimmed.is_empty() {
-        None
-    } else {
-        Some(trimmed.to_owned())
-    }
-}
-
-/// The LEAN_PATH to hand to direct `lean` invocations, resolved once.
-/// `None` means fall back to `lake env lean` (a ~30s workspace
-/// re-materialization per call).
-fn resolve_lean_path() -> Option<String> {
-    std::env::var("LEAN_PATH")
-        .ok()
-        .filter(|path| !path.is_empty())
-        .or_else(cached_lean_path)
 }
 
 /// A `lean` invocation (direct with the resolved LEAN_PATH, else through
@@ -134,7 +97,7 @@ fn lean_like_command(program: &str, lean_path: &Option<String>, extra_root: Opti
         }
         through_lake
     };
-    if let Some(plugin) = find_cvc5_plugin() {
+    if let Some(plugin) = home::cvc5_plugin() {
         command.arg(format!("--plugin={}", plugin.display()));
     }
     for (name, value) in checker_defines() {
@@ -1159,9 +1122,6 @@ fn worker_jobs() -> usize {
         .max(1)
 }
 
-/// The batch elaborator built by Lake (`lean_exe vrml_worker`), if present.
-const WORKER_PATH: &str = ".lake/build/bin/vrml_worker";
-
 /// Elaborate files: through ONE `vrml_worker` process that imports the
 /// shared environment once (issue #11), or — when the worker is not built,
 /// `VRML_ISOLATED` is set, or the worker itself fails to run — through one
@@ -1180,7 +1140,7 @@ fn run_lean_parallel(
             eprintln!("[vrml-check] persistent vrml_worker unavailable; starting a fresh one");
         }
     }
-    if std::env::var_os("VRML_ISOLATED").is_none() && Path::new(WORKER_PATH).exists() {
+    if std::env::var_os("VRML_ISOLATED").is_none() && home::worker().exists() {
         if let Some(outputs) = run_worker_batch(files, lean_path, json, extra_root) {
             return outputs;
         }
@@ -1200,7 +1160,7 @@ fn run_worker_batch(
     json: bool,
     extra_root: Option<&str>,
 ) -> Option<Vec<Option<std::process::Output>>> {
-    let worker = std::fs::canonicalize(WORKER_PATH).ok()?;
+    let worker = std::fs::canonicalize(home::worker()).ok()?;
     let mut command = lean_like_command(&worker.to_string_lossy(), lean_path, extra_root);
     if json {
         command.arg("--json");
@@ -1493,7 +1453,7 @@ fn main() {
         }
     };
 
-    let lean_path = resolve_lean_path();
+    let lean_path = home::lean_path();
     let units = units_of(&manifest, &only);
 
     // Per-function lowering refusals (adapter dispositions) are reported in

@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+# Vermilion as a tool, for a project outside its own repository.
+#
+#   vrml init [DIR]                       make DIR (default: .) a project
+#   vrml run <dir> <source.rs> [options]  verify one source file
+#   vrml watch <dir> <source.rs>          verify it again on every save
+#   vrml register <Name> <proofs-dir>     declare a proofs tree to Lake
+#
+# The Vermilion home, the directory above this script, supplies the tools
+# and the Lean library. A project holds Rust sources, the generated/ modules
+# and proofs/ twins beside them, and state under .vermilion/; `init` sets one
+# up (scripts/vrml_init.py). `run` and `watch` take the arguments of
+# scripts/run_example.sh and scripts/vrml_watch.sh, from anywhere inside the
+# project. `register` gives a proofs tree its Lake library, which is what
+# `lake build <Name>` and the Lean language server need to open its twins.
+set -euo pipefail
+
+home="$(cd "$(dirname "$0")/.." && pwd -P)"
+
+usage() { sed -n '2,/^set -euo pipefail$/p' "$0" | sed -e '$d' -e 's/^# \{0,1\}//'; }
+
+# The project the current directory is in: the nearest directory, here or
+# above, that `vrml init` set up for this home.
+project_root() {
+  local dir
+  dir="$(pwd -P)"
+  while [[ ! -L "$dir/.vermilion/home" ]]; do
+    if [[ "$dir" == / ]]; then
+      echo "vrml: not inside a Vermilion project; run 'vrml init' in its root" >&2
+      exit 2
+    fi
+    dir="$(dirname "$dir")"
+  done
+  if [[ "$(cd "$dir/.vermilion/home" 2>/dev/null && pwd -P)" != "$home" ]]; then
+    echo "vrml: $dir is set up for another Vermilion:" >&2
+    echo "  $(readlink "$dir/.vermilion/home")" >&2
+    echo "run 'vrml init $dir' to move it to this one" >&2
+    exit 2
+  fi
+  printf '%s' "$dir"
+}
+
+command="${1:-}"
+[[ $# -gt 0 ]] && shift
+case "$command" in
+  init)
+    exec "$home/scripts/vrml_init.py" "$home" "${1:-.}"
+    ;;
+  run)
+    root="$(project_root)"
+    exec "$home/scripts/run_example.sh" "$@" --project-root "$root"
+    ;;
+  watch)
+    root="$(project_root)"
+    exec "$home/scripts/vrml_watch.sh" "$@" --project-root "$root"
+    ;;
+  register)
+    if [[ $# -ne 2 ]]; then
+      echo "usage: vrml register <Name> <proofs-dir>" >&2
+      exit 2
+    fi
+    root="$(project_root)"
+    # The library's source directory is recorded relative to the project.
+    proofs_dir="$(cd "$2" && pwd -P)"
+    cd "$root"
+    exec "$home/scripts/register_proof_lib.py" register "$1" "${proofs_dir#"$root"/}"
+    ;;
+  ""|-h|--help|help)
+    usage
+    ;;
+  *)
+    echo "vrml: unknown command '$command'" >&2
+    usage >&2
+    exit 2
+    ;;
+esac

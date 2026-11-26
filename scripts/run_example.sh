@@ -2,7 +2,7 @@
 # Shared per-example driver. Usage:
 #   run_example.sh <example-dir> <source.rs> [--lib <LakeLib>] [--expect-failure]
 #                  [--manual-proofs] [--clean-env] [--per-function|--per-file]
-#                  [--help]
+#                  [--project-root <dir>] [--help]
 #
 # Flow (Lean is the only verifier; Verus runs --no-verify as a front end):
 #   1. front end -> VIR export -> direct adapter -> textual IR (docs/ir.md)
@@ -30,6 +30,11 @@
 #   with your hand-written proofs; the twin is still kernel-checked).
 # --clean-env starts from a clean slate: removes generated/ and the cached
 #   .vermilion artifacts of this example. Your proofs/ twin is never touched.
+# --project-root DIR verifies a project elsewhere. DIR holds the sources with
+#   their generated/ and proofs/ trees and the .vermilion/ state, and every
+#   path in an emitted artifact is relative to it. The tools and the Lean
+#   library come from the Vermilion home, which is where this script lives;
+#   without the flag the home is the project too (a development checkout).
 #
 # Exit codes: 0 verified; 1 Lean rejected an obligation; 3 the Verus front
 # end rejected the program (ill-typed — nothing reached the verifier); 4 the
@@ -37,7 +42,9 @@
 # record is .vermilion/<stem>-run.json ({"phase","exit"}).
 set -euo pipefail
 
-example_dir="$(cd "$1" && pwd)"
+# Physical paths throughout: the example is placed relative to the project
+# root by prefix, and a project reaches its home through a link.
+example_dir="$(cd "$1" && pwd -P)"
 source_file="$2"
 shift 2
 lib=""
@@ -48,6 +55,7 @@ verus_externs=()
 manual_proofs=0
 clean=0
 generated_root=""
+project=""
 emit_mode="${VERMILION_EMIT_MODE:-}"
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -76,24 +84,30 @@ while [[ $# -gt 0 ]]; do
     # branch below (all DIR/*.json), so the mounted lemma/spec files' twins
     # land in the tracked case-study tree, not the untracked upstream clone.
     --generated-root) generated_root="$2"; shift 2 ;;
+    --project-root) project="$(cd "$2" && pwd -P)"; shift 2 ;;
     --clean-env) clean=1; shift ;;
     --per-function) emit_mode="per-function"; shift ;;
     --per-file) emit_mode="per-file"; shift ;;
     -h|--help)
-      sed -n '2,26p' "$0" | sed 's/^# \{0,1\}//'
+      sed -n '2,/^set -euo pipefail$/p' "$0" | sed -e '$d' -e 's/^# \{0,1\}//'
       exit 0
       ;;
     *) echo "unknown option $1 (try --help)" >&2; exit 2 ;;
   esac
 done
 
-repository="$(cd "$(dirname "$0")/.." && pwd)"
-cd "$repository"
-relative_dir="${example_dir#"$repository"/}"
-# Repository-relative, like every other path in emitted artifacts: an
+home="$(cd "$(dirname "$0")/.." && pwd -P)"
+project="${project:-$home}"
+cd "$project"
+relative_dir="${example_dir#"$project"/}"
+if [[ "$relative_dir" == /* ]]; then
+  echo "$example_dir is outside the project root $project" >&2
+  exit 2
+fi
+# Project-relative, like every other path in emitted artifacts: an
 # absolute --generated-root leaks into manifests and into every
 # diagnostic's twin_file (no machine-specific paths).
-generated_root="${generated_root#"$repository"/}"
+generated_root="${generated_root#"$project"/}"
 stem="$(basename "$source_file" .rs)"
 
 # Live one-line status: each caption replaces the previous one.
@@ -115,19 +129,11 @@ if [[ "$clean" -eq 1 ]]; then
   rm -rf "$relative_dir/generated"
   rm -f ".vermilion/$stem-vir.bin" ".vermilion/$stem-ir.sexp" \
     ".vermilion/$stem-check.json" ".vermilion/$stem-run.json" \
-    ".vermilion/$stem-frontend.log" ".vermilion/lake-build-stamp" \
-    ".vermilion/lean-path"
+    ".vermilion/$stem-frontend.log" "$home/.vermilion/lake-build-stamp" \
+    "$home/.vermilion/lean-path"
 fi
 
-# Inline fast path: call setup_verus.sh only when its stamp is missing or
-# stale (the subprocess alone costs ~0.8s).
-if [[ ! -f .vermilion/setup-verus-ok \
-  || ! -x .verus-checkout/source/target-verus/release/rust_verify \
-  || scripts/setup_verus.sh -nt .vermilion/setup-verus-ok ]]; then
-  status "checking the pinned Verus toolchain"
-  ./scripts/setup_verus.sh >/dev/null
-fi
-source "$repository/scripts/verus_env.sh"
+source "$home/scripts/home_env.sh"
 
 mkdir -p .vermilion
 # Examples importing vstd get the real vstd; the rest stay minimal.
@@ -148,7 +154,7 @@ write_run_status() { # phase exit-code
 status "Verus front end: elaborating $relative_dir/$source_file (--no-verify)"
 frontend_log=".vermilion/$stem-frontend.log"
 set +e
-VERUS_VIR_EXPORT="$repository/.vermilion/$stem-vir.bin" "$verus" \
+VERUS_VIR_EXPORT="$project/.vermilion/$stem-vir.bin" "$verus" \
   "$relative_dir/$source_file" \
   --crate-type=lib ${vstd_flags[@]+"${vstd_flags[@]}"} \
   ${verus_externs[@]+"${verus_externs[@]}"} --no-verify \
@@ -163,24 +169,11 @@ if [[ "$frontend_status" -ne 0 ]]; then
   exit 3
 fi
 
-# Even no-op cargo builds cost ~a second each; skip them when the binaries
-# are newer than every Rust source.
-rust_stale() {
-  [[ ! -e "$1" ]] && return 0
-  [[ -n "$(find "$2" -name '*.rs' -newer "$1" 2>/dev/null | head -1)" ]]
-}
-if rust_stale crates/vermilion_direct/target/release/vermilion_direct crates/vermilion_direct/src; then
-  status "building the direct SST adapter"
-  (cd crates/vermilion_direct && rustup run "$verus_toolchain" cargo build --release --quiet)
-fi
-if rust_stale target/debug/vrml_check crates/vermilion_backend/src; then
-  status "building the Vermilion tools"
-  cargo build --quiet -p vermilion_backend --bins
-fi
+vrml_build_rust_tools
 status "lowering SST to the textual IR"
 lowering_log=".vermilion/$stem-lowering.log"
 set +e
-./crates/vermilion_direct/target/release/vermilion_direct ".vermilion/$stem-vir.bin" \
+"$vermilion_direct" ".vermilion/$stem-vir.bin" \
   --out ".vermilion/$stem-ir.sexp" >/dev/null 2> "$lowering_log"
 lowering_status=$?
 set -e
@@ -202,16 +195,11 @@ if [[ "$expect_unsupported" -eq 1 ]]; then
   exit 1
 fi
 
-# Lake pays a ~30s workspace re-materialization per invocation; go through
-# it only when the Lean sources actually changed, and give every later
-# `lean` the cached LEAN_PATH (scripts/lean_env.sh).
-status "preparing the Lean environment (cached unless the library changed)"
-source "$repository/scripts/lean_env.sh"
-vrml_lake_build_if_stale vrml_gen vrml_worker Vermilion
+vrml_build_lean_tools
 status "generating Lean obligations from the IR"
 # Without an explicit --per-file/--per-function, vrml_gen keeps whatever
 # mode the existing manifest records (sticky), defaulting to per-function.
-./.lake/build/bin/vrml_gen ${emit_mode:+--mode "$emit_mode"} \
+"$vrml_gen" ${emit_mode:+--mode "$emit_mode"} \
   ${generated_root:+--generated-root "$generated_root"} \
   ".vermilion/$stem-ir.sexp" >/dev/null
 
@@ -223,7 +211,7 @@ status "generating Lean obligations from the IR"
 if [[ -n "$generated_root" ]]; then
   status "judging all manifests under $generated_root"
   proofs_root="${generated_root%/generated}/proofs"
-  python3 scripts/register_proof_lib.py scan >/dev/null 2>&1 || true
+  python3 "$home/scripts/register_proof_lib.py" scan >/dev/null 2>&1 || true
   agg=0; total_obl=0; total_fail=0
   for m in "$generated_root"/*.json; do
     [[ -e "$m" ]] || continue
@@ -232,7 +220,7 @@ if [[ -n "$generated_root" ]]; then
     # Sweep budget profile: the mounted lemma files carry large nonlinear
     # goals; the tight per-rung caps + cvc5 timeout keep the whole-crate
     # judging to minutes and never let one goal stall a manifest.
-    ./target/debug/vrml_check "$m" \
+    "$vrml_check" "$m" \
       --rung-budget "${VRML_RUNG_BUDGET:-200}" \
       --saturate-budget "${VRML_SATURATE_BUDGET:-800}" \
       --smt-budget "${VRML_SMT_BUDGET:-200}" \
@@ -258,7 +246,7 @@ if [[ -n "$generated_root" ]]; then
       exit 1
     fi
     sync_flags=(); [[ "$manual_proofs" -eq 1 ]] && sync_flags+=(--fail-on-sorry)
-    ./target/debug/vrml_sync "$m" --failures ".vermilion/ga-$mstem-check.json" \
+    "$vrml_sync" "$m" --failures ".vermilion/ga-$mstem-check.json" \
       ${sync_flags[@]+"${sync_flags[@]}"} 2>&1 | tail -1 || agg=1
     [[ "$st" -ne 0 && "$expect_partial" -ne 1 ]] && agg=1
   done
@@ -279,10 +267,10 @@ fi
 # to the full check-then-sync flow below, so failures still get graceful
 # per-obligation `sorry` placeholders and span-mapped diagnostics.
 if [[ -n "$lib" && "$manual_proofs" -eq 1 && "$expect_failure" -eq 0 ]] \
-  && ./target/debug/vrml_sync "$relative_dir/generated/$stem.json" --probe; then
+  && "$vrml_sync" "$relative_dir/generated/$stem.json" --probe; then
   status "kernel-checking your proofs twin (sole arbiter; generated check skipped)"
   set +e
-  ./target/debug/vrml_check "$relative_dir/generated/$stem.json" \
+  "$vrml_check" "$relative_dir/generated/$stem.json" \
     --twin-check 2> ".vermilion/$stem-twin.log"
   twin_status=$?
   set -e
@@ -293,11 +281,11 @@ if [[ -n "$lib" && "$manual_proofs" -eq 1 && "$expect_failure" -eq 0 ]] \
     # obligations keep their blue "discharged interactively" squiggles; auto
     # obligations produce nothing and simply show green. Then record the
     # verdict so the editor surfaces the result without re-running anything.
-    ./target/debug/vrml_check "$relative_dir/generated/$stem.json" \
+    "$vrml_check" "$relative_dir/generated/$stem.json" \
       --twin-coverage-only > ".vermilion/$stem-check.json" 2>/dev/null
     write_run_status lean 0
     echo >&2
-    ./target/debug/vrml_sync "$relative_dir/generated/$stem.json"
+    "$vrml_sync" "$relative_dir/generated/$stem.json"
     echo "  (generated-module check skipped: the proofs twin is current and is the sole arbiter)" >&2
     echo "${c_green}✓ proofs twin kernel-checked:${c_reset} $relative_dir/proofs/$stem*" >&2
     exit 0
@@ -311,7 +299,7 @@ status "Lean is judging the generated obligations of $relative_dir/$source_file"
 # Machine-readable diagnostics go to the check file (consumed by
 # vrml_sync); the human report streams on stderr.
 set +e
-./target/debug/vrml_check "$relative_dir/generated/$stem.json" \
+"$vrml_check" "$relative_dir/generated/$stem.json" \
   > ".vermilion/$stem-check.json" 2> ".vermilion/$stem-check.human"
 check_status=$?
 set -e
@@ -331,7 +319,7 @@ fi
 # follow (sync's verdict, then the kernel-check / skip line) stay together
 # with no blank between them.
 echo >&2
-./target/debug/vrml_sync "$relative_dir/generated/$stem.json" \
+"$vrml_sync" "$relative_dir/generated/$stem.json" \
   --failures ".vermilion/$stem-check.json" \
   ${sync_flags[@]+"${sync_flags[@]}"}
 
@@ -370,7 +358,7 @@ if [[ -n "$lib" ]]; then
   fi
   status "kernel-checking your proofs twin"
   set +e
-  ./target/debug/vrml_check "$relative_dir/generated/$stem.json" \
+  "$vrml_check" "$relative_dir/generated/$stem.json" \
     --twin-check ${twin_flags[@]+"${twin_flags[@]}"}
   twin_status=$?
   set -e
