@@ -18,7 +18,9 @@ release the Verus pin expects. It also sets what the scripts need under Nix:
 zlib on the library path for the Verus driver, and `CARGO_TARGET_DIR=target`,
 so each cargo workspace's tools land where the scripts look for them whatever
 the machine-wide cargo configuration says. `nix flake check` builds and tests
-the Rust tools and runs the Python tooling's unit tests.
+the Rust tools, runs the Python tooling's unit tests, and on x86_64-linux
+builds the whole pipeline from pinned inputs and runs it on a project outside
+the repository (see [Nix packages](#nix-packages)).
 
 The repository selects its Lean version in [`lean-toolchain`](../lean-toolchain),
 Lean dependencies in [`lakefile.lean`](../lakefile.lean) and
@@ -62,6 +64,70 @@ hook; no manual patch application is needed.
 
 For an end-to-end first run, follow the [README quick start](../README.md#quick-start)
 or [tutorial](TUTORIAL.md).
+
+## Home and project
+
+The scripts and tools keep two directories apart. The **home** holds the
+tools and the Lean library with its Lake packages. The **project** holds Rust
+sources, the `generated/` and `proofs/` trees beside them, and the
+`.vermilion/` state; every path in an emitted artifact is relative to its
+root. A checkout is its own project, which is what the commands in this
+guide use.
+
+Sources elsewhere are verified where they are.
+[`scripts/vrml`](../scripts/vrml) is the command for that:
+
+```console
+vrml init [DIR]                       # make DIR (default: .) a project
+vrml run <dir> <source.rs> [options]  # run_example.sh on the project
+vrml watch <dir> <source.rs>          # vrml_watch.sh on the project
+vrml register <Name> <proofs-dir>     # a Lake library for a proofs tree
+```
+
+`vrml init` links the home as `.vermilion/home` and writes the project's Lake
+workspace: a `lakefile.lean` that requires the library through the link, a
+`lake-manifest.json` that names the library and each of its packages by
+their path under the link, the home's `lean-toolchain`, and
+`scripts/run_example.sh` and `scripts/vrml_watch.sh`, which run the home's
+scripts on the project. Lake uses the library and the packages as the home
+built them; it downloads and rebuilds nothing. A runner written for the
+repository layout (`examples/<name>/run.sh`) works unchanged in a project
+that has it at the same relative path.
+
+Underneath, `run_example.sh` and `vrml_watch.sh` take `--project-root DIR`,
+and the Rust tools read `VERMILION_HOME` (the scripts set it; unset, the home
+is the current directory). A home with a `bin/` directory is an installed
+one: its tools are used as built. A checkout builds them on demand
+([`scripts/home_env.sh`](../scripts/home_env.sh)).
+
+`scripts/test_standalone_project.sh` verifies one example in the repository
+and as a copy in a fresh project, and requires the same verdict, generated
+modules, manifest and twins from both.
+
+### Nix packages
+
+On x86_64-linux the flake builds every part of the pipeline from pinned
+inputs:
+
+| Output | Contents |
+| --- | --- |
+| `verus-fork` | the pinned Verus fork: `rust_verify` with vstd and Z3 |
+| `vermilion-direct` | the adapter from exported VIR to the textual IR |
+| `lean-toolchain` | the Lean release named in `lean-toolchain` |
+| `vermilion-lean` | the Lean library with its Lake packages built (Mathlib from its olean cache), `vrml_gen` and `vrml_worker` |
+| `vrml-tools` | `vrml_check`, `vrml_sync`, `vrml_watch`, `vrml_source_guard` |
+| `vermilion` | all of the above as one installed home, and `vrml` |
+
+```console
+nix build .#vermilion
+./result/bin/vrml init ~/my-project
+```
+
+The Verus fork is named twice, by the flake input `verus` and by
+`scripts/setup_verus.sh`; the `verus-pin` check fails when the two differ.
+The `standalone-project` check runs two examples from source to verdict
+with the installed tool, in the build sandbox, and builds their twins with
+Lake from the project's own workspace.
 
 ## Test scopes
 

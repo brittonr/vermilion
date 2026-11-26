@@ -542,6 +542,56 @@ witnesses, index case-splits), you prove it interactively in the twin,
 as `examples/m3-quantifiers` demonstrates. See each example's README for the shapes to
 expect in `generated/`.
 
+## 8. A project of your own
+
+Everything above ran inside the Vermilion repository. Your own sources
+stay where they are: Vermilion is the *home* that supplies the tools and the
+Lean library, and your directory is the *project*.
+
+The command is `vrml`. From a checkout it is `scripts/vrml`, after
+`./scripts/build.sh`; with Nix, `nix build .#vermilion` gives
+`result/bin/vrml` with every part of the pipeline built from pinned inputs
+([details](development.md#home-and-project)).
+
+```console
+mkdir ~/counter && cd ~/counter
+vrml init
+```
+
+`init` links the home as `.vermilion/home` and writes the project's Lake
+workspace (`lakefile.lean`, `lake-manifest.json`, `lean-toolchain`) and two
+small scripts. Put a source in a directory of its own, say
+`counter/count.rs`, and verify it:
+
+```console
+vrml run counter count.rs --lib Counter
+```
+
+`run` takes the arguments of `run_example.sh` and works from anywhere inside
+the project. The result is what steps 1 to 5 showed: `counter/generated/`
+for machine output, `counter/proofs/` for your twins, verdicts at Rust
+spans. A runner copied from this repository
+(`examples/m2-loops/run.sh`, with its directory at the same relative path)
+works as it is, and so do the proofs in its twins.
+
+To open the twins in the editor, or build them with Lake, declare the
+proofs tree once:
+
+```console
+vrml register Counter counter/proofs
+lake build Counter
+```
+
+Lake takes the library and Mathlib as the home built them; nothing is
+downloaded or compiled again. It must be the Lean release named in
+`lean-toolchain`: elan selects it from that file, and the Nix package has it
+as `.vermilion/home/bin/lake`.
+
+Keep `.vermilion/`, `.lake/` and `generated/` out of version control. The
+other files `init` wrote name the home only through the link, so they are
+the same on every machine. After cloning the project elsewhere, or to move
+it to another Vermilion, run `vrml init` again.
+
 ## Where to go next
 
 - [DESIGN.md](../DESIGN.md) — the architecture, what is reused from Verus,

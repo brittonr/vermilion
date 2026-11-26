@@ -75,6 +75,13 @@ lean_exe vrml_worker where
   root := `VrmlWorker
   supportInterpreter := true
 
+-- An installed Vermilion ends here. The libraries below belong to this
+-- repository's examples, case studies and tests; their source directories
+-- are named relative to it, and Lake resolves those names against the
+-- directory it was started in, which for a project that requires the
+-- library is the project. nix/lean.nix cuts the file at the next line.
+-- vrml:repository-libraries
+
 -- Generated modules are written beside each example/case study, but every
 -- unit consistently imports `generated.<stem>.Specs`. The editor shim builds
 -- a disposable, duplicate-checked symlink overlay of the generated stem each

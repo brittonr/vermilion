@@ -77,6 +77,11 @@ breaking a Rust postcondition, and regenerating proofs. For other features,
 choose a [feature example](docs/support.md#supported-features) and run its
 `run.sh` from the repository root.
 
+To verify sources that live outside this repository, set their directory up
+as a project with `scripts/vrml init` and run `vrml run` there; the
+[tutorial's last step](docs/TUTORIAL.md#8-a-project-of-your-own) shows how.
+With Nix, `nix build .#vermilion` builds the whole tool from pinned inputs.
+
 ## VS Code extension
 
 After the build completes, install the bundled Vermilion extension:
@@ -146,7 +151,8 @@ partial results, and blocked studies.
 - [Architecture](DESIGN.md), [trust boundary](docs/trust.md), and
   [VC-generation policy](docs/vcgen.md): how the translation and proofs work.
 - [Development guide](docs/development.md): setup details, test scopes,
-  watch mode, and proof-library registration.
+  watch mode, proof-library registration, and the home/project split with
+  its Nix packages.
 - [Documentation index](docs/README.md): reports, roadmap, and engineering logs.
 
 To run the full test suite from the repository root:

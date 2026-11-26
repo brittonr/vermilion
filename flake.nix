@@ -1,10 +1,28 @@
 {
   description = "Vermilion: a Lean 4 backend for the Verus verifier";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # The Rust release the Verus fork builds with (its rust-toolchain.toml),
+    # rustc-dev included; nixpkgs carries only its current Rust.
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # The Verus fork at the revision scripts/setup_verus.sh pins.
+    verus = {
+      url = "github:ilyasergey/verus/48600836424a79420589c56d86e720236a029811";
+      flake = false;
+    };
+  };
 
   outputs =
-    { self, nixpkgs }:
+    {
+      self,
+      nixpkgs,
+      rust-overlay,
+      verus,
+    }:
     let
       inherit (nixpkgs) lib;
       systems = [
@@ -100,6 +118,36 @@
             mainProgram = "vrml_check";
           };
         };
+
+      # The rest of the pipeline, built hermetically: the Verus fork and the
+      # adapter (nix/verus.nix), then the Lean toolchain, the Lake packages
+      # and Vermilion's own Lean build (nix/lean.nix), and all of it as one
+      # tool for projects elsewhere (nix/vermilion.nix). Built and tested on
+      # x86_64-linux only.
+      pipelineSystems = [ "x86_64-linux" ];
+      mkVerusPackages =
+        pkgs:
+        import ./nix/verus.nix {
+          inherit lib pkgs;
+          verusSrc = verus;
+          rustBin = rust-overlay.lib.mkRustBin { } pkgs;
+          verusZ3 = mkVerusZ3 pkgs;
+        };
+      mkLeanPackages = pkgs: import ./nix/lean.nix { inherit lib pkgs; };
+      mkVermilion =
+        pkgs:
+        let
+          verusPackages = mkVerusPackages pkgs;
+          leanPackages = mkLeanPackages pkgs;
+        in
+        import ./nix/vermilion.nix {
+          inherit lib pkgs;
+          verusFork = verusPackages.verus-fork;
+          vermilionDirect = verusPackages.vermilion-direct;
+          vrmlTools = mkVrmlTools pkgs;
+          leanToolchain = leanPackages.lean-toolchain;
+          vermilionLean = leanPackages.vermilion-lean;
+        };
     in
     {
       packages = forAllSystems (
@@ -111,6 +159,11 @@
         // lib.optionalAttrs (z3Releases ? ${pkgs.stdenv.hostPlatform.system}) {
           verus-z3 = mkVerusZ3 pkgs;
         }
+        // lib.optionalAttrs (lib.elem pkgs.stdenv.hostPlatform.system pipelineSystems) {
+          inherit (mkVerusPackages pkgs) verus-fork vermilion-direct;
+          inherit (mkLeanPackages pkgs) lean-toolchain vermilion-lean;
+          vermilion = mkVermilion pkgs;
+        }
       );
 
       checks = forAllSystems (
@@ -121,7 +174,18 @@
         {
           inherit (self.packages.${system}) vrml-tools;
           nix-formatting = pkgs.runCommand "nix-formatting" { nativeBuildInputs = [ pkgs.nixfmt ]; } ''
-            nixfmt --check ${./flake.nix}
+            nixfmt --check ${./flake.nix} ${./nix}/*.nix
+            touch $out
+          '';
+          # The Verus fork is named twice: by the flake input the packages are
+          # built from, and by the script that builds it in a checkout.
+          verus-pin = pkgs.runCommand "verus-pin" { } ''
+            pin=$(sed -n 's/^pin="\(.*\)"$/\1/p' ${./scripts/setup_verus.sh})
+            if [ "$pin" != "${verus.rev}" ]; then
+              echo "scripts/setup_verus.sh pins Verus at '$pin'," >&2
+              echo "the flake input 'verus' is at ${verus.rev}" >&2
+              exit 1
+            fi
             touch $out
           '';
           # The unit tests of the Python tooling; no other gate runs them.
@@ -147,6 +211,45 @@
         }
         // lib.optionalAttrs (self.packages.${system} ? verus-z3) {
           inherit (self.packages.${system}) verus-z3;
+        }
+        // lib.optionalAttrs (self.packages.${system} ? vermilion) {
+          # The pipeline from source to verdict, in the sandbox: the installed
+          # tool on a project that is no Vermilion checkout. The examples
+          # arrive with their runners as the repository has them. m2-loops
+          # carries hand-written proofs in its twins: the run must accept
+          # them unchanged, and Lake must build them from the project's own
+          # workspace without the network.
+          standalone-project =
+            pkgs.runCommand "vermilion-standalone-project"
+              {
+                nativeBuildInputs = [ self.packages.${system}.vermilion ];
+                examples = lib.fileset.toSource {
+                  root = ./.;
+                  fileset = lib.fileset.unions [
+                    ./examples/m1-pipeline/simple.rs
+                    ./examples/m1-pipeline/run.sh
+                    ./examples/m2-loops/looping.rs
+                    ./examples/m2-loops/run.sh
+                    ./examples/m2-loops/proofs
+                  ];
+                };
+              }
+              ''
+                cp -r $examples project
+                chmod -R u+w project
+                cd project
+                vrml init
+                # The sandbox has no /usr/bin/env.
+                patchShebangs scripts examples
+
+                ./examples/m1-pipeline/run.sh
+                ./examples/m2-loops/run.sh
+                diff -r $examples/examples/m2-loops/proofs examples/m2-loops/proofs
+
+                vrml register M2Loops examples/m2-loops/proofs
+                PATH=$PWD/.vermilion/home/bin:$PATH lake build M2Loops
+                touch $out
+              '';
         }
       );
 
