@@ -2,7 +2,7 @@
 title: Recursive-unfold preamble rewrites the goal but not the hypotheses
 labels: [bug, vcgen]
 state: closed
-github: null
+github: 38
 ---
 
 In the forecast-kernel acquisition, `kernel.spread.lemma_cumulative_monotone`

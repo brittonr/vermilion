@@ -1,5 +1,5 @@
 ---
-title: "test_differential_editor.sh passes an 800 KB setup description through the environment, which Linux refuses"
+title: test_differential_editor.sh passes an 800 KB setup description through the environment, which Linux refuses
 labels: [bug]
 state: closed
 github: 32

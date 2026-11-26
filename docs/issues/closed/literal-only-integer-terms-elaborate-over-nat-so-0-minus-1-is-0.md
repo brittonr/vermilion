@@ -1,5 +1,5 @@
 ---
-title: "Literal-only integer terms elaborate over Nat, so 0 - 1 = 0 (false acceptance)"
+title: Literal-only integer terms elaborate over Nat, so 0 - 1 = 0 (false acceptance)
 labels: [bug, vcgen, foundations]
 state: closed
 github: 22

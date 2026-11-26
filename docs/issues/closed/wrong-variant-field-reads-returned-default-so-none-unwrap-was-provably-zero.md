@@ -1,5 +1,5 @@
 ---
-title: "Wrong-variant field reads returned default, so None.unwrap() was provably 0"
+title: Wrong-variant field reads returned default, so None.unwrap() was provably 0
 labels: [bug, vcgen, foundations]
 state: closed
 github: 27

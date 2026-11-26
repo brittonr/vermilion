@@ -2,7 +2,7 @@
 title: Shared definitions olean is reused after the library changes
 labels: [bug]
 state: closed
-github: null
+github: 39
 ---
 
 `vrml_check` caches the compiled `Specs`/`Evidence` module and reuses it

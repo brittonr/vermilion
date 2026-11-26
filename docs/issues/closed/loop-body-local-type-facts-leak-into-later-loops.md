@@ -2,7 +2,7 @@
 title: Loop-body-local type facts leak into later loops
 labels: [bug, vcgen]
 state: closed
-github: null
+github: 36
 ---
 
 The direct adapter accumulates type facts (`type_facts` in

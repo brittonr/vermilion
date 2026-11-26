@@ -2,7 +2,7 @@
 title: Generated-check summary counts a broken twin proof as discharged
 labels: [bug]
 state: open
-github: null
+github: 34
 ---
 
 With `--manual-proofs`, when a hand-written twin proof does not

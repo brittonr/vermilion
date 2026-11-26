@@ -1,6 +1,6 @@
 ---
 title: Generated modules allow auto-bound implicits, so dangling IR names elaborate silently
-labels: [enhancement, foundations, vcgen]
+labels: [enhancement, vcgen, foundations]
 state: closed
 github: 6
 ---

@@ -1,5 +1,5 @@
 ---
-title: "Out-of-range casts and `as nat` of negatives prove exact values that Verus leaves unspecified"
+title: Out-of-range casts and `as nat` of negatives prove exact values that Verus leaves unspecified
 labels: [enhancement, vcgen, foundations]
 state: closed
 github: 17

@@ -1,5 +1,5 @@
 ---
-title: "hide(f) was ignored, so a hidden spec fn still unfolded"
+title: hide(f) was ignored, so a hidden spec fn still unfolded
 labels: [bug, vcgen]
 state: closed
 github: 28

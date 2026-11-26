@@ -1,5 +1,5 @@
 ---
-title: "A killed or crashed vrml_check leaves a truncated failures file that vrml_sync reads as success"
+title: A killed or crashed vrml_check leaves a truncated failures file that vrml_sync reads as success
 labels: [bug, foundations]
 state: closed
 github: 23

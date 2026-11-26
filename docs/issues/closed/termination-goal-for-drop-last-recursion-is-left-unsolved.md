@@ -2,7 +2,7 @@
 title: Termination goal for drop_last recursion is left unsolved
 labels: [bug, vcgen]
 state: closed
-github: null
+github: 40
 ---
 
 A spec fn that recurses through `s.drop_last()` under `decreases s.len()`,

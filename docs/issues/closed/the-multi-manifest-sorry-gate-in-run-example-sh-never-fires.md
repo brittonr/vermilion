@@ -1,5 +1,5 @@
 ---
-title: "The multi-manifest sorry gate in run_example.sh never fires (pipeline status of tail)"
+title: The multi-manifest sorry gate in run_example.sh never fires (pipeline status of tail)
 labels: [bug]
 state: closed
 github: 25

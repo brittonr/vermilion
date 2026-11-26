@@ -1,5 +1,5 @@
 ---
-title: "Add a vacuity oracle: obligations whose hypotheses prove False"
+title: Add a vacuity oracle: obligations whose hypotheses prove False
 labels: [enhancement, foundations]
 state: closed
 github: 16

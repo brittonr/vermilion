@@ -2,7 +2,7 @@
 title: Lean keywords beyond the curated list break rendering
 labels: [bug, vcgen]
 state: closed
-github: null
+github: 35
 ---
 
 `leanSegment` escapes Rust names that are Lean keywords, but the list it

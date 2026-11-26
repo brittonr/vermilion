@@ -1,5 +1,5 @@
 ---
-title: ""Fill a prefix" loops over Seq::update needed a twin proof"
+title: "Fill a prefix" loops over Seq::update needed a twin proof
 labels: [enhancement, vcgen]
 state: closed
 github: 29

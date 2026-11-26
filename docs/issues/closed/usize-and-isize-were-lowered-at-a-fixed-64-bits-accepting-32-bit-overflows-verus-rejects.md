@@ -1,5 +1,5 @@
 ---
-title: "usize/isize were lowered at a fixed 64 bits, accepting 32-bit overflows Verus rejects"
+title: usize/isize were lowered at a fixed 64 bits, accepting 32-bit overflows Verus rejects
 labels: [bug, vcgen, foundations]
 state: closed
 github: 26

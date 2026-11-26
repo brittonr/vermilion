@@ -1,5 +1,5 @@
 ---
-title: "final(x) after an if/else was the else arm's value, so false postconditions verified"
+title: final(x) after an if/else was the else arm's value, so false postconditions verified
 labels: [bug, vcgen, foundations]
 state: closed
 github: 30

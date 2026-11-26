@@ -2,7 +2,7 @@
 title: Out-of-bounds Seq index loses its machine-type range
 labels: [bug, vcgen]
 state: open
-github: null
+github: 37
 ---
 
 A `Seq<u64>` parameter lowers to `Vermilion.Seq Int` with the range fact

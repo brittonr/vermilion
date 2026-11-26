@@ -1,5 +1,5 @@
 ---
-title: "The Lake shim invalidates a config path Lake no longer uses, so a new proof root stays unknown to the editor"
+title: The Lake shim invalidates a config path Lake no longer uses, so a new proof root stays unknown to the editor
 labels: [bug, vscode-extension]
 state: closed
 github: 33

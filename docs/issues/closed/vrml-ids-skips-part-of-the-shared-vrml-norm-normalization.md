@@ -1,5 +1,5 @@
 ---
-title: "`vrml [ids]` skips part of the shared `vrml_norm` normalization"
+title: `vrml [ids]` skips part of the shared `vrml_norm` normalization
 labels: [enhancement, vcgen]
 state: closed
 github: 8

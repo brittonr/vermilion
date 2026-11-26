@@ -1,5 +1,5 @@
 ---
-title: "vrml_sync keeps a machine attempt that automation no longer proves when the statement is unchanged"
+title: vrml_sync keeps a machine attempt that automation no longer proves when the statement is unchanged
 labels: [bug, foundations]
 state: open
 github: 24

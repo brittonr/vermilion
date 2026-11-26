@@ -1,5 +1,5 @@
 ---
-title: "sync_issues.py --push would overwrite a fork's issues with files numbered for its parent"
+title: sync_issues.py --push would overwrite a fork's issues with files numbered for its parent
 labels: [bug]
 state: closed
 github: 31
