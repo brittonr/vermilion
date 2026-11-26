@@ -45,10 +45,13 @@ complexity:
 The initial table covers 28 distinct production functions. DL5 added
 [`withdrawal_question_mark.rs`](withdrawal_question_mark.rs) (6 obligations),
 [`bounded_arithmetic.rs`](bounded_arithmetic.rs) (4), and
-[`active_bitmap_set.rs`](active_bitmap_set.rs) (11) to `run.sh`, bringing its
-scope to 31 distinct production functions. The current ten runner modules
-contain 118 logical-or-evidence obligation declarations. These are source
-inventory counts; the dated issue closures record the verification results.
+[`active_bitmap_set.rs`](active_bitmap_set.rs) (11) to `run.sh`, and
+[`liquidation_fee_minmax.rs`](liquidation_fee_minmax.rs) (5) joined them
+once the default-body contracts of std `Ord::max`/`min` were supported,
+bringing its scope to 32 distinct production functions. The current eleven
+runner modules contain 123 logical-or-evidence obligation declarations.
+These are source inventory counts; the dated issue closures record the
+verification results.
 The contracts prove the complete codec truth tables, the unique
 caller-observation auto-crank case, opposite-side classification, bitmap
 emptiness, out-of-range fail-closed reads, exact bit extraction, Boolean
@@ -81,21 +84,20 @@ regeneration.
 
 ## Exact boundary found
 
-The two remaining partial drivers in [`explore.sh`](explore.sh) are:
+One partial driver remains in [`explore.sh`](explore.sh):
 
-- [`liquidation_fee_minmax.rs`](liquidation_fee_minmax.rs):
-  [std `Ord::min/max` default-body contracts](../../docs/issues/support-std-ord-min-max-default-body-contracts.md).
 - [`active_bitmap_clear.rs`](active_bitmap_clear.rs):
   [fixed-width unary `BitNot`](../../docs/issues/support-bitnot.md).
 
 The runner uses `--expect-partial --manual-proofs`: supported siblings must
-verify, and each driver must retain a source-mapped lowering refusal.
+verify, and the driver must retain a source-mapped lowering refusal.
 
 ```console
 ./case-studies/percolator/explore.sh
 ```
 
 Earlier prerequisites have landed:
+[std `Ord::min/max` default-body contracts](../../docs/issues/closed/support-std-ord-min-max-default-body-contracts.md),
 [generic spec applications used by `?`](../../docs/issues/closed/lower-generic-spec-functions-used-by-question-mark.md),
 [polymorphic constructor typing](../../docs/issues/closed/generated-twins-must-elaborate-without-hidden-typeclass-context.md),
 [indexed fixed-array mutation](../../docs/issues/closed/support-indexed-mutation-of-fixed-size-arrays.md),

@@ -307,19 +307,34 @@ fn register_datatype(ctx: ExpCtx<'_>, dt: &vir::ast::Dt) -> Result<FunctionId, S
         .datatypes_in_flight
         .borrow_mut()
         .push(dt.clone());
-    let mut variants = Vec::new();
-    for variant in declaration.x.variants.iter() {
-        let mut fields = Vec::new();
-        for field in variant.fields.iter() {
-            let (typ, _mode, _visibility) = &field.a;
-            fields.push(Binder::new(field.name.to_string(), binder_type(ctx, typ)?));
+    // The registration is DECLARATION-scoped, like `register_spec_fn`'s:
+    // field types are expressed in the datatype's own type parameters. A
+    // call site's active substitution must not leak in — `Option::ok_or<T,
+    // E>` substitutes `T`/`E`, the very names `Result<T, E>` declares, and
+    // the first such contract to mention `Result` then emitted
+    // `Ok (_0 : Int)` for every later instantiation.
+    let decl_ctx = ExpCtx { typ_substs: None, ..ctx };
+    // Lowered as one fallible step so the in-flight entry is removed on
+    // failure too: a caller may recover from a refusal (a generic spec fn
+    // that turns out to need an instance), and a stale entry would make the
+    // next mention of this datatype look like a self-reference.
+    let variants = (|| {
+        let mut variants = Vec::new();
+        for variant in declaration.x.variants.iter() {
+            let mut fields = Vec::new();
+            for field in variant.fields.iter() {
+                let (typ, _mode, _visibility) = &field.a;
+                fields.push(Binder::new(field.name.to_string(), binder_type(decl_ctx, typ)?));
+            }
+            variants.push(VariantView {
+                name: variant.name.to_string(),
+                fields,
+            });
         }
-        variants.push(VariantView {
-            name: variant.name.to_string(),
-            fields,
-        });
-    }
+        Ok::<_, String>(variants)
+    })();
     ctx.registry.datatypes_in_flight.borrow_mut().pop();
+    let mut variants = variants?;
     // A declaration with no variants (Verus's anonymous exec-closure
     // datatypes are opaque) still needs an inhabitable Lean inductive:
     // synthesize a single nullary variant. Nothing constructs or projects
@@ -425,6 +440,23 @@ pub struct SpecRegistry {
     /// universal binders. Sound for every interpretation — in particular
     /// every impl (Verus's dictionary semantics).
     trait_fn_symbols: std::cell::RefCell<Vec<((vir::ast::Fun, String), (String, Ty))>>,
+    /// Spec functions with no single generic definition (see
+    /// `TYPE_DEPENDENT`): their applications go straight to an instance.
+    type_dependent: std::cell::RefCell<std::collections::HashSet<vir::ast::Fun>>,
+    /// Registered spec function instances: the synthetic identity of each,
+    /// with the generic function and type arguments it stands for.
+    spec_fn_instances: std::cell::RefCell<Vec<(vir::ast::Fun, (vir::ast::Fun, String))>>,
+    /// Contract predicates of function ITEMS (`call_ensures(f, args, ret)`
+    /// with `f` a named function: `T::clone` in vstd's `cloned`,
+    /// `Self::partial_cmp` in the default-body ensures of `PartialOrd::gt`):
+    /// per (function, instantiated type args), a fresh predicate symbol that
+    /// joins the enclosing function's universal binders, like
+    /// `trait_fn_symbols`. See `lower_fn_item_ensures`.
+    fn_item_preds: std::cell::RefCell<Vec<((vir::ast::Fun, String), (String, Ty))>>,
+    /// Function items whose `ensures` is being conjoined to an occurrence
+    /// of their predicate: a contract that mentions its own item gets the
+    /// bare symbol there instead of recursing.
+    fn_items_in_flight: std::cell::RefCell<Vec<(vir::ast::Fun, String)>>,
 
     /// The current function's own parameters: `old(x)` (`VarAt::Pre`) on
     /// one of these is the ENTRY value (the parameter binder), never the
@@ -450,6 +482,10 @@ impl SpecRegistry {
             mut_aliases: std::cell::RefCell::new(HashMap::new()),
             closure_preds: std::cell::RefCell::new(HashMap::new()),
             trait_fn_symbols: std::cell::RefCell::new(Vec::new()),
+            type_dependent: std::cell::RefCell::new(std::collections::HashSet::new()),
+            spec_fn_instances: std::cell::RefCell::new(Vec::new()),
+            fn_item_preds: std::cell::RefCell::new(Vec::new()),
+            fn_items_in_flight: std::cell::RefCell::new(Vec::new()),
             current_params: std::cell::RefCell::new(Vec::new()),
             in_postcondition: std::cell::Cell::new(false),
         }
@@ -838,17 +874,32 @@ fn register_spec_fn(
     fun: &vir::ast::Fun,
     spec: &vir::sst::FuncSpecBodySst,
 ) -> Result<FunctionId, String> {
-    let id = function_id_of(&fun.path)?;
+    register_spec_fn_as(ctx, fun, fun, spec, None)
+}
+
+/// Register a definition of the spec function `fun` under `identity`: `fun`
+/// itself for its one generic definition, or the synthetic function naming
+/// an instance (`spec_fn_instance_identity`), whose type parameters
+/// `instance` then replaces. Recursion is tracked by identity, so an
+/// instance that applies itself is recursive in its own right.
+fn register_spec_fn_as(
+    ctx: ExpCtx<'_>,
+    identity: &vir::ast::Fun,
+    fun: &vir::ast::Fun,
+    spec: &vir::sst::FuncSpecBodySst,
+    instance: Option<&HashMap<vir::ast::Ident, Typ>>,
+) -> Result<FunctionId, String> {
+    let id = function_id_of(&identity.path)?;
     if ctx
         .registry
         .spec_fns
         .borrow()
         .iter()
-        .any(|(seen, _)| seen == fun)
+        .any(|(seen, _)| seen == identity)
     {
         return Ok(id);
     }
-    if ctx.registry.in_flight.borrow().iter().any(|f| f == fun) {
+    if ctx.registry.in_flight.borrow().iter().any(|f| f == identity) {
         // Self-application inside the body being lowered: mark and keep the
         // application (the emitted Lean definition is genuinely recursive).
         // Self- OR mutual recursion: every function on the in-flight
@@ -856,7 +907,7 @@ fn register_spec_fn(
         // recursive and keep the application (the Lean side groups
         // mutually-referencing definitions into a `mutual` block).
         let in_flight = ctx.registry.in_flight.borrow();
-        let cycle_start = in_flight.iter().position(|f| f == fun).unwrap();
+        let cycle_start = in_flight.iter().position(|f| f == identity).unwrap();
         let cycle: Vec<vir::ast::Fun> = in_flight[cycle_start..].to_vec();
         drop(in_flight);
         let mut recursive = ctx.registry.recursive.borrow_mut();
@@ -883,19 +934,32 @@ fn register_spec_fn(
             _ => None,
         })
         .collect();
-    let type_params: Vec<String> = function
-        .x
-        .typ_params
-        .iter()
-        .map(|p| p.to_string())
-        .filter(|name| !const_params.contains(name))
-        .collect();
+    if instance.is_some() && !const_params.is_empty() {
+        return Err(format!(
+            "unsupported instance of the const-generic spec function {}",
+            id.name
+        ));
+    }
+    let type_params: Vec<String> = match instance {
+        Some(_) => Vec::new(),
+        None => function
+            .x
+            .typ_params
+            .iter()
+            .map(|p| p.to_string())
+            .filter(|name| !const_params.contains(name))
+            .collect(),
+    };
     // The registration is DECLARATION-scoped: binder/return types and the
-    // body are expressed in the spec fn's own type parameters. A call
-    // site's active type substitution must not leak in, or the emitted
-    // definition would be monomorphized to the first caller's
-    // instantiation (issue #19's dedup trap).
-    let decl_ctx = ExpCtx { typ_substs: None, ..ctx };
+    // body are expressed in the spec fn's own type parameters — or, for an
+    // instance, in the type arguments that replace them. A call site's
+    // active type substitution must not leak in, or the emitted definition
+    // would be monomorphized to the first caller's instantiation (issue
+    // #19's dedup trap).
+    let decl_ctx = ExpCtx {
+        typ_substs: instance,
+        ..ctx
+    };
     let mut binders = Vec::new();
     let mut env = Env::new();
     for param in function.x.typ_params.iter() {
@@ -910,13 +974,17 @@ fn register_spec_fn(
         binders.push(Binder::new(base, binder_type(decl_ctx, &parameter.x.typ)?));
     }
     let ret = binder_type(decl_ctx, &function.x.ret.x.typ)?;
-    ctx.registry.in_flight.borrow_mut().push(fun.clone());
+    ctx.registry.in_flight.borrow_mut().push(identity.clone());
     let body = lower_exp(decl_ctx, &env, &spec.body_exp);
     ctx.registry.in_flight.borrow_mut().pop();
+    // Reported ahead of anything about its measures: a body with no single
+    // definition for all type arguments is what makes the caller register
+    // an instance instead (`spec_fn_definition`).
+    let body = body?;
     // A recursive definition needs its termination measures: Verus already
     // checked them; the `decrease%init` bindings of its termination check
     // carry the measure expressions in parameter terms.
-    let is_recursive = ctx.registry.recursive.borrow().iter().any(|f| f == fun);
+    let is_recursive = ctx.registry.recursive.borrow().iter().any(|f| f == identity);
     let mut decreases = Vec::new();
     if is_recursive {
         let Some(termination) = &spec.termination_check else {
@@ -927,7 +995,7 @@ fn register_spec_fn(
         };
         for statement in termination.local_decls_decreases_init.iter() {
             if let StmX::Assign { rhs, .. } = &statement.x {
-                decreases.push(lower_exp(ctx, &env, rhs)?);
+                decreases.push(lower_exp(decl_ctx, &env, rhs)?);
             }
         }
         if decreases.is_empty() {
@@ -950,7 +1018,12 @@ fn register_spec_fn(
         .pars
         .iter()
         .filter_map(|parameter| {
-            range_constraint(&parameter.x.typ).map(|constraint| {
+            // An instance's parameter types are the substituted ones.
+            let typ = match instance {
+                Some(_) => resolve_typ(decl_ctx, &parameter.x.typ),
+                None => parameter.x.typ.clone(),
+            };
+            range_constraint(&typ).map(|constraint| {
                 range_proposition(
                     &constraint,
                     Expr::Var(parameter.x.name.0.to_string()),
@@ -964,14 +1037,270 @@ fn register_spec_fn(
         type_params,
         binders,
         ret,
-        body: body?,
+        body,
         visible,
         param_ranges,
         decreases,
         uninterpreted: false,
     };
-    ctx.registry.spec_fns.borrow_mut().push((fun.clone(), view));
+    ctx.registry.spec_fns.borrow_mut().push((identity.clone(), view));
     Ok(id)
+}
+
+/// Marks the refusal of a spec function body that has no single Lean
+/// definition for all its type arguments, because what it says depends on
+/// WHICH type a parameter is (a trait spec fn applied at that parameter
+/// dispatches to the parameter's implementation). `spec_fn_definition`
+/// answers it by registering one definition per instantiation.
+const TYPE_DEPENDENT: &str = "depends on which type its type parameter is";
+
+/// The Lean definition an application of the spec function `fun` at `typs`
+/// refers to, and whether that is an instance (which takes no type or
+/// const-generic arguments of its own).
+///
+/// A spec function normally has ONE definition, generic in its type
+/// parameters. One whose body dispatches on a type parameter — `impl<T:
+/// PartialOrd> PartialOrdSpecImpl for Option<T>` compares payloads with
+/// `T`'s `partial_cmp_spec` — has none: Verus passes the type along, a Lean
+/// definition generic in `T` cannot. Such a function is emitted once per
+/// instantiation instead, as `<name>_at_<types>`, where the inner
+/// applications resolve statically. This is not inlining: the application
+/// stays an application of a named definition.
+fn spec_fn_definition(
+    ctx: ExpCtx<'_>,
+    fun: &vir::ast::Fun,
+    spec: &vir::sst::FuncSpecBodySst,
+    typs: &[Typ],
+) -> Result<(FunctionId, bool), String> {
+    if !ctx.registry.type_dependent.borrow().contains(fun) {
+        match register_spec_fn(ctx, fun, spec) {
+            Ok(id) => return Ok((id, false)),
+            Err(error) if error.contains(TYPE_DEPENDENT) => {
+                ctx.registry.type_dependent.borrow_mut().insert(fun.clone());
+            }
+            Err(error) => return Err(error),
+        }
+    }
+    let callee = &ctx.declarations[fun];
+    let resolved: Vec<Typ> = typs.iter().map(|typ| resolve_typ(ctx, typ)).collect();
+    if callee.x.typ_params.len() != resolved.len() || !resolved.iter().all(typ_is_closed) {
+        // Still abstract here: the enclosing definition is type-dependent in
+        // turn, and its own applications instantiate it.
+        return Err(format!(
+            "spec function {} {TYPE_DEPENDENT}, and is applied at a type that is not concrete",
+            fun_display_name(fun)
+        ));
+    }
+    let identity = spec_fn_instance_identity(ctx, fun, &resolved)?;
+    let typ_substs: HashMap<vir::ast::Ident, Typ> = callee
+        .x
+        .typ_params
+        .iter()
+        .cloned()
+        .zip(resolved)
+        .collect();
+    let id = register_spec_fn_as(ctx, &identity, fun, spec, Some(&typ_substs))?;
+    Ok((id, true))
+}
+
+/// The synthetic function under which the instance of `fun` at the concrete
+/// type arguments `typs` is registered: `fun`'s path with `_at_<types>`
+/// appended to its name. Rendered names are for reading and are not
+/// guaranteed distinct, so two instantiations that render alike are refused
+/// rather than merged into one definition.
+fn spec_fn_instance_identity(
+    ctx: ExpCtx<'_>,
+    fun: &vir::ast::Fun,
+    typs: &[Typ],
+) -> Result<vir::ast::Fun, String> {
+    let mut rendered = Vec::new();
+    for typ in typs {
+        rendered.push(mangle_typ(typ)?);
+    }
+    let mut segments: Vec<vir::ast::Ident> = fun.path.segments.iter().cloned().collect();
+    let name = segments
+        .pop()
+        .ok_or_else(|| "empty function path".to_owned())?;
+    segments.push(std::sync::Arc::new(format!("{name}_at_{}", rendered.join("_"))));
+    let identity: vir::ast::Fun = std::sync::Arc::new(vir::ast::FunX {
+        path: std::sync::Arc::new(vir::ast::PathX {
+            krate: fun.path.krate.clone(),
+            segments: std::sync::Arc::new(segments),
+        }),
+    });
+    let key = (fun.clone(), format!("{typs:?}"));
+    let mut instances = ctx.registry.spec_fn_instances.borrow_mut();
+    match instances.iter().find(|(seen, _)| *seen == identity) {
+        Some((_, existing)) if *existing == key => {}
+        Some(_) => {
+            return Err(format!(
+                "two instantiations of spec function {} render to the same name `{}`",
+                fun_display_name(fun),
+                fun_display_name(&identity)
+            ));
+        }
+        None => {
+            if ctx.declarations.contains_key(&identity) {
+                return Err(format!(
+                    "the instance name `{}` is already a declared function",
+                    fun_display_name(&identity)
+                ));
+            }
+            instances.push((identity.clone(), key));
+        }
+    }
+    Ok(identity)
+}
+
+/// A readable identifier fragment for a concrete type argument. Decorations
+/// are kept (`&T` and `T` select different implementations).
+fn mangle_typ(typ: &Typ) -> Result<String, String> {
+    let with_args = |head: String, args: &[Typ]| -> Result<String, String> {
+        let mut parts = vec![head];
+        for arg in args {
+            parts.push(mangle_typ(arg)?);
+        }
+        Ok(parts.join("_"))
+    };
+    match &**typ {
+        TypX::Bool => Ok("bool".to_owned()),
+        TypX::Int(range) => Ok(match range {
+            IntRange::Int => "int".to_owned(),
+            IntRange::Nat => "nat".to_owned(),
+            IntRange::U(bits) => format!("u{bits}"),
+            IntRange::I(bits) => format!("i{bits}"),
+            IntRange::USize => "usize".to_owned(),
+            IntRange::ISize => "isize".to_owned(),
+            IntRange::Char => "char".to_owned(),
+        }),
+        TypX::Datatype(vir::ast::Dt::Path(path), args, _) => {
+            let name = path
+                .segments
+                .last()
+                .ok_or_else(|| "empty datatype path".to_owned())?;
+            with_args(name.to_string(), args)
+        }
+        TypX::Datatype(vir::ast::Dt::Tuple(arity), args, _) => {
+            with_args(format!("tuple{arity}"), args)
+        }
+        TypX::Primitive(primitive, args) => {
+            with_args(format!("{primitive:?}").to_lowercase(), args)
+        }
+        TypX::Decorate(decoration, _, inner) => Ok(format!(
+            "{}_{}",
+            format!("{decoration:?}").to_lowercase(),
+            mangle_typ(inner)?
+        )),
+        TypX::ConstInt(value) => Ok(value.to_string().replace('-', "neg")),
+        TypX::ConstBool(value) => Ok(value.to_string()),
+        other => Err(format!(
+            "unsupported type argument {other:?} of a spec function instance"
+        )),
+    }
+}
+
+/// Does `typ` name one concrete type — no type parameter and no unresolved
+/// projection anywhere inside? Unknown shapes count as not closed.
+fn typ_is_closed(typ: &Typ) -> bool {
+    match &**typ {
+        TypX::Bool | TypX::Int(_) | TypX::ConstInt(_) | TypX::ConstBool(_) => true,
+        TypX::Datatype(_, args, _) | TypX::Primitive(_, args) => args.iter().all(typ_is_closed),
+        TypX::Decorate(_, _, inner) | TypX::MutRef(inner) => typ_is_closed(inner),
+        TypX::SpecFn(params, ret) => params.iter().all(typ_is_closed) && typ_is_closed(ret),
+        _ => false,
+    }
+}
+
+/// Static resolution of trait method `fun` at `typs` through an
+/// implementation generic in its own type parameters (`impl<T> Tr for
+/// Option<T>` at `Option<u64>`): the one `TraitMethodImpl` whose trait type
+/// arguments match `typs` as a pattern, with the implementation's type
+/// arguments that make them equal. `None` when no implementation or more
+/// than one matches, or some implementation parameter stays undetermined.
+fn resolve_trait_method_generic(
+    ctx: ExpCtx<'_>,
+    fun: &vir::ast::Fun,
+    typs: &[Typ],
+) -> Option<(vir::ast::Fun, Vec<Typ>)> {
+    let actual: Vec<Typ> = typs.iter().map(|typ| resolve_typ(ctx, typ)).collect();
+    let mut found = None;
+    for (name, declaration) in ctx.declarations.iter() {
+        let vir::ast::FunctionKind::TraitMethodImpl {
+            method,
+            trait_typ_args,
+            ..
+        } = &declaration.x.kind
+        else {
+            continue;
+        };
+        if method != fun || trait_typ_args.len() > actual.len() {
+            continue;
+        }
+        let params = &declaration.x.typ_params;
+        let mut bindings: HashMap<vir::ast::Ident, Typ> = HashMap::new();
+        if !trait_typ_args
+            .iter()
+            .zip(actual.iter())
+            .all(|(pattern, typ)| match_typ(pattern, typ, params, &mut bindings))
+        {
+            continue;
+        }
+        let Some(arguments) = params
+            .iter()
+            .map(|param| bindings.get(param).cloned())
+            .collect::<Option<Vec<Typ>>>()
+        else {
+            continue;
+        };
+        if found.is_some() {
+            return None;
+        }
+        found = Some((name.clone(), arguments));
+    }
+    found
+}
+
+/// First-order matching of the type pattern `pattern`, whose variables are
+/// `params`, against the type `actual`. Only shapes compared structurally
+/// here can bind a variable; everything else must be equal as it stands.
+fn match_typ(
+    pattern: &Typ,
+    actual: &Typ,
+    params: &[vir::ast::Ident],
+    bindings: &mut HashMap<vir::ast::Ident, Typ>,
+) -> bool {
+    match (&**pattern, &**actual) {
+        (TypX::TypParam(param), _) if params.contains(param) => match bindings.get(param) {
+            Some(bound) => vir::ast_util::types_equal(bound, actual),
+            None => {
+                bindings.insert(param.clone(), actual.clone());
+                true
+            }
+        },
+        (TypX::Datatype(pattern_dt, pattern_args, _), TypX::Datatype(dt, args, _)) => {
+            pattern_dt == dt
+                && pattern_args.len() == args.len()
+                && pattern_args
+                    .iter()
+                    .zip(args.iter())
+                    .all(|(pattern, actual)| match_typ(pattern, actual, params, bindings))
+        }
+        (TypX::Primitive(pattern_kind, pattern_args), TypX::Primitive(kind, args)) => {
+            pattern_kind == kind
+                && pattern_args.len() == args.len()
+                && pattern_args
+                    .iter()
+                    .zip(args.iter())
+                    .all(|(pattern, actual)| match_typ(pattern, actual, params, bindings))
+        }
+        (
+            TypX::Decorate(pattern_decoration, _, pattern_inner),
+            TypX::Decorate(decoration, _, inner),
+        ) => {
+            pattern_decoration == decoration && match_typ(pattern_inner, inner, params, bindings)
+        }
+        _ => vir::ast_util::types_equal(pattern, actual),
+    }
 }
 
 /// Does `name` occur as a type parameter anywhere inside `typ`? Structural
@@ -1452,6 +1781,228 @@ fn lower_slice_range_ensures(
     })())
 }
 
+/// `call_ensures(f, (a, …), r)` where `f` is a function item (`T::clone`,
+/// `Self::partial_cmp`), not a closure.
+///
+/// Verus keeps the predicate uninterpreted and axiomatizes it per item in
+/// one direction, `call_ensures(f, args, ret) ==> <ensures of f>`
+/// (`vir::ast_simplify::add_fndef_axioms_to_function`): for a trait method,
+/// the declaration's `ensures` and those of the implementation its type
+/// arguments select. Under that axiom the predicate is equivalent to its
+/// conjunction with those `ensures`, wherever it occurs, so an occurrence
+/// lowers to `symbol(a, …, r) ∧ ensures[a, …, r]`. The symbol is a fresh
+/// predicate per (item, type arguments) among the enclosing function's
+/// universal binders — the obligation then holds for every interpretation,
+/// Verus's included. The consequence is conjoined where the item's contract
+/// lowers; where it does not (an implementation generic in its own
+/// parameters, a contract outside the fragment) the bare symbol remains,
+/// which only knows less.
+///
+/// The key is the Rust type arguments, never their Lean models: `u8::clone`
+/// and `u16::clone` are different predicates even though both relate `Int`s.
+fn lower_fn_item_ensures(
+    ctx: ExpCtx<'_>,
+    env: &Env,
+    typs: &[Typ],
+    raw_args: &[Exp],
+) -> Option<Result<Expr, String>> {
+    let fn_typ = resolve_typ(ctx, typs.first()?);
+    let TypX::FnDef(fun, fn_typs, _) = undecorate(&fn_typ) else {
+        return None;
+    };
+    Some((|| {
+        // A spec function is one Lean definition for all callers; it cannot
+        // mention a symbol bound by the function being checked.
+        if !ctx.registry.in_flight.borrow().is_empty() {
+            return Err(
+                "unsupported `call_ensures` on a function item inside a spec function body"
+                    .to_owned(),
+            );
+        }
+        let [_, tuple, result] = raw_args else {
+            return Err(format!(
+                "function-item `call_ensures` has {} arguments, expected 3",
+                raw_args.len()
+            ));
+        };
+        let ExpX::Ctor(vir::ast::Dt::Tuple(_), _, fields) = &tuple.x else {
+            return Err(
+                "unsupported function-item `call_ensures` whose arguments are not a tuple literal"
+                    .to_owned(),
+            );
+        };
+        let mut fields: Vec<_> = fields.iter().collect();
+        fields.sort_by_key(|field| field.name.parse::<usize>().unwrap_or(usize::MAX));
+        let mut arguments = Vec::new();
+        let mut parameter_tys = Vec::new();
+        for field in fields {
+            if matches!(undecorate(&resolve_typ(ctx, &field.a.typ)), TypX::MutRef(_)) {
+                return Err(
+                    "unsupported function-item `call_ensures` with a `&mut` argument".to_owned(),
+                );
+            }
+            parameter_tys.push(binder_type(ctx, &field.a.typ)?);
+            arguments.push(lower_exp(ctx, env, &field.a)?);
+        }
+        parameter_tys.push(binder_type(ctx, &result.typ)?);
+        let result = lower_exp(ctx, env, result)?;
+
+        let fn_typs: Vec<Typ> = fn_typs.iter().map(|typ| resolve_typ(ctx, typ)).collect();
+        let key = (fun.clone(), format!("{fn_typs:?}"));
+        let existing = ctx
+            .registry
+            .fn_item_preds
+            .borrow()
+            .iter()
+            .find(|(seen, _)| *seen == key)
+            .map(|(_, (name, _))| name.clone());
+        let name = match existing {
+            Some(name) => name,
+            None => {
+                let count = ctx.registry.fn_item_preds.borrow().len();
+                let name = format!("{}_call_ensures_{count}", fun_display_name(fun));
+                ctx.registry.fn_item_preds.borrow_mut().push((
+                    key.clone(),
+                    (name.clone(), Ty::Fn(parameter_tys, Box::new(Ty::Prop))),
+                ));
+                name
+            }
+        };
+        let mut applied = arguments.clone();
+        applied.push(result.clone());
+        let predicate = Expr::CallFn(Box::new(Expr::Var(name)), applied);
+
+        if ctx.registry.fn_items_in_flight.borrow().contains(&key) {
+            return Ok(predicate);
+        }
+        ctx.registry.fn_items_in_flight.borrow_mut().push(key);
+        let consequence = fn_item_consequence(ctx, fun, &fn_typs, &arguments, &result);
+        ctx.registry.fn_items_in_flight.borrow_mut().pop();
+        Ok(match consequence {
+            Some(consequence) => Expr::binary(BinOp::And, predicate, consequence),
+            None => predicate,
+        })
+    })())
+}
+
+/// What Verus's function-item axioms let `call_ensures(fun::<fn_typs>,
+/// arguments, result)` imply: the `ensures` of `fun` itself and, when `fun`
+/// is a trait method declaration, of the implementation `fn_typs` selects —
+/// instantiated at `arguments` and `result`. `None` when there is nothing
+/// to add or some clause does not lower: the caller keeps the bare symbol.
+fn fn_item_consequence(
+    ctx: ExpCtx<'_>,
+    fun: &vir::ast::Fun,
+    fn_typs: &[Typ],
+    arguments: &[Expr],
+    result: &Expr,
+) -> Option<Expr> {
+    let declared = ctx.declarations.get(fun)?;
+    let mut sources: Vec<(&FunctionSst, Vec<Typ>)> = vec![(declared, fn_typs.to_vec())];
+    if matches!(
+        declared.x.kind,
+        vir::ast::FunctionKind::TraitMethodDecl { .. }
+    ) {
+        let implementation = resolve_trait_method(ctx, fun, fn_typs)
+            .map(|implementation| (implementation, Vec::new()))
+            .or_else(|| resolve_trait_method_generic(ctx, fun, fn_typs));
+        if let Some((implementation, implementation_typs)) = implementation {
+            sources.push((&ctx.declarations[&implementation], implementation_typs));
+        }
+    }
+    let mut clauses = Vec::new();
+    for (source, source_typs) in sources {
+        let declaration = &source.x.decl;
+        if declaration.enss.0.is_empty() {
+            continue;
+        }
+        if source.x.typ_params.len() != source_typs.len()
+            || declaration.req_inv_pars.len() != arguments.len()
+        {
+            return None;
+        }
+        let typ_substs: HashMap<vir::ast::Ident, Typ> = source
+            .x
+            .typ_params
+            .iter()
+            .cloned()
+            .zip(source_typs.iter().cloned())
+            .collect();
+        let source_ctx = ExpCtx {
+            typ_substs: Some(&typ_substs),
+            ..ctx
+        };
+        let mut source_env = Env::new();
+        for (parameter, argument) in declaration.req_inv_pars.iter().zip(arguments.iter()) {
+            if matches!(
+                undecorate(&resolve_typ(source_ctx, &parameter.x.typ)),
+                TypX::MutRef(_)
+            ) {
+                return None;
+            }
+            source_env.insert(parameter.x.name.clone(), argument.clone());
+        }
+        if let Some(ret) = declaration.ens_pars.iter().nth(arguments.len()) {
+            source_env.insert(ret.x.name.clone(), result.clone());
+        }
+        for clause in declaration.enss.0.iter() {
+            clauses.push(lower_exp(source_ctx, &source_env, clause).ok()?);
+        }
+    }
+    clauses
+        .into_iter()
+        .reduce(|lhs, rhs| Expr::binary(BinOp::And, lhs, rhs))
+}
+
+/// Lower an application of the non-recursive spec function `fun` as its body
+/// at these type arguments and arguments, for the few vstd wrappers whose
+/// meaning depends on the type itself (see the `cloned` call site). Their
+/// visibility cannot be adjusted: `hide` or `reveal` of one registers its
+/// definition, which fails closed on the predicate inside.
+fn lower_spec_fn_body_at(
+    ctx: ExpCtx<'_>,
+    env: &Env,
+    fun: &vir::ast::Fun,
+    typs: &[Typ],
+    args: &[&Exp],
+) -> Result<Expr, String> {
+    let name = fun_display_name(fun);
+    let callee = ctx
+        .declarations
+        .get(fun)
+        .ok_or_else(|| format!("no SST declaration for vstd `{name}`"))?;
+    let spec = callee
+        .x
+        .axioms
+        .spec_axioms
+        .as_ref()
+        .ok_or_else(|| format!("vstd `{name}` has no body to lower"))?;
+    if matches!(callee.x.opaqueness, vir::ast::Opaqueness::Opaque)
+        || callee.x.typ_params.len() != typs.len()
+        || callee.x.pars.len() != args.len()
+    {
+        return Err(format!(
+            "vstd `{name}` no longer has the open shape its lowering relies on"
+        ));
+    }
+    let typ_substs: HashMap<vir::ast::Ident, Typ> = callee
+        .x
+        .typ_params
+        .iter()
+        .cloned()
+        .zip(typs.iter().map(|typ| resolve_typ(ctx, typ)))
+        .collect();
+    let mut body_env = Env::new();
+    for (parameter, argument) in callee.x.pars.iter().zip(args.iter()) {
+        body_env.insert(parameter.x.name.clone(), lower_exp(ctx, env, argument)?);
+    }
+    let body_ctx = ExpCtx {
+        typ_substs: Some(&typ_substs),
+        ..ctx
+    };
+    lower_exp(body_ctx, &body_env, &spec.body_exp)
+}
+
 /// Follow the `&mut` alias chain to the root borrow variable; identity for
 /// anything that never aliased a mutable reference.
 fn resolve_mut_root(registry: &SpecRegistry, ident: &VarIdent) -> VarIdent {
@@ -1702,6 +2253,9 @@ fn names_reserved_below<'a>(
         taken.insert(name.clone());
     }
     for (_, (name, _)) in ctx.registry.trait_fn_symbols.borrow().iter() {
+        taken.insert(name.clone());
+    }
+    for (_, (name, _)) in ctx.registry.fn_item_preds.borrow().iter() {
         taken.insert(name.clone());
     }
     let mut stack: Vec<VarIdent> = bound.to_vec();
@@ -2357,11 +2911,13 @@ fn lower_exp_impl(ctx: ExpCtx<'_>, env: &Env, exp: &Exp) -> Result<Expr, String>
                 if let Some(lowered) = lower_slice_range_ensures(ctx, env, typs, raw_args) {
                     return lowered;
                 }
+                if let Some(lowered) = lower_fn_item_ensures(ctx, env, typs, raw_args) {
+                    return lowered;
+                }
             }
             let Some(closure_path) = closure_type_path(ctx, typs) else {
                 return Err(
-                    "unsupported closure contract predicate: the closure type argument is not \
-                     an anonymous closure datatype or a supported slice-range function item"
+                    "unsupported closure contract predicate: `call_requires` on a function item"
                         .to_owned(),
                 );
             };
@@ -2598,6 +3154,20 @@ fn lower_exp_impl(ctx: ExpCtx<'_>, env: &Env, exp: &Exp) -> Result<Expr, String>
                 (CrateId::Vstd, ["map" | "map_lib", _, _]) => "Map",
                 (CrateId::Vstd, ["multiset", _, _]) => "Multiset",
                 _ => {
+                    // vstd's `cloned`/`strictly_cloned` wrap
+                    // `call_ensures(T::clone, (&a,), b)`, a predicate on the
+                    // function item `T::clone`: what it says depends on
+                    // which type `T` is, and no single Lean definition
+                    // generic in `T` can say that. The application lowers to
+                    // the body at the type it names (`lower_fn_item_ensures`).
+                    if matches!(&fun.path.krate, CrateId::Vstd)
+                        && matches!(
+                            segments.as_slice(),
+                            ["pervasive", "cloned" | "strictly_cloned"]
+                        )
+                    {
+                        return lower_spec_fn_body_at(ctx, env, fun, typs, &args);
+                    }
                     // A user spec function: keep the application as an
                     // application and register its definition for emission
                     // (no inlining, no fuel — see plans/execution-plan.md).
@@ -2605,6 +3175,7 @@ fn lower_exp_impl(ctx: ExpCtx<'_>, env: &Env, exp: &Exp) -> Result<Expr, String>
                     // carries its resolved concrete impl, whose definition
                     // is the one emitted and applied.
                     let static_impl;
+                    let matched_typs;
                     // The type arguments of the function actually applied:
                     // a statically resolved impl method takes the IMPL's
                     // type parameters (`resolved`'s typs), not the trait
@@ -2627,12 +3198,32 @@ fn lower_exp_impl(ctx: ExpCtx<'_>, env: &Env, exp: &Exp) -> Result<Expr, String>
                                 static_impl = impl_fun;
                                 &static_impl
                             }
-                            None => fun,
+                            // An implementation generic in its own
+                            // parameters (`impl<T> … for Option<T>` at
+                            // `Option<u64>`), with the arguments that
+                            // instantiate it.
+                            None => match resolve_trait_method_generic(ctx, fun, typs) {
+                                Some((impl_fun, impl_typs)) => {
+                                    matched_typs = impl_typs;
+                                    target_typs = &matched_typs;
+                                    static_impl = impl_fun;
+                                    &static_impl
+                                }
+                                None => fun,
+                            },
                         },
                     };
                     if let Some(callee) = ctx.declarations.get(target) {
                         if let Some(spec) = &callee.x.axioms.spec_axioms {
-                            let id = register_spec_fn(ctx, target, spec)?;
+                            let (id, instance) =
+                                spec_fn_definition(ctx, target, spec, target_typs)?;
+                            if instance {
+                                let lowered = args
+                                    .iter()
+                                    .map(|argument| lower_exp(ctx, env, argument))
+                                    .collect::<Result<Vec<_>, _>>()?;
+                                return Ok(Expr::Apply(id, Vec::new(), lowered));
+                            }
                             // Const-generic instantiations travel as
                             // leading explicit Int arguments, in the
                             // callee's typ_params order.
@@ -2683,6 +3274,17 @@ fn lower_exp_impl(ctx: ExpCtx<'_>, env: &Env, exp: &Exp) -> Result<Expr, String>
                             callee.x.kind,
                             vir::ast::FunctionKind::TraitMethodDecl { .. }
                         ) {
+                            // A spec function body is one definition for
+                            // every caller: it has no enclosing function to
+                            // bind this symbol. Its applications get an
+                            // instance each (`spec_fn_definition`).
+                            if !ctx.registry.in_flight.borrow().is_empty() {
+                                return Err(format!(
+                                    "the spec function body {TYPE_DEPENDENT}: it applies the \
+                                     trait function `{}` at it",
+                                    fun_display_name(target)
+                                ));
+                            }
                             let resolved_typs: Vec<Typ> =
                                 typs.iter().map(|t| resolve_typ(ctx, t)).collect();
                             let key = (target.clone(), format!("{resolved_typs:?}"));
@@ -2765,8 +3367,39 @@ fn lower_exp_impl(ctx: ExpCtx<'_>, env: &Env, exp: &Exp) -> Result<Expr, String>
                                 .iter()
                                 .map(|argument| lower_exp(ctx, env, argument))
                                 .collect::<Result<Vec<_>, _>>()?;
+                            // vstd's `spec_from::<S, T>(value, ret)` — the
+                            // error conversion of `?` — is uninterpreted, with
+                            // one axiom in the always-on `group_vstd_default`:
+                            // `spec_from::<T, T>(t, s) ==> t == s`. Under that
+                            // axiom the predicate at ONE type is equivalent
+                            // to its conjunction with the equality, wherever
+                            // it occurs, so conjoining the equality is how an
+                            // error passed through unconverted keeps its
+                            // identity — no quantified axiom involved. The
+                            // test is on the Rust types: two that merely
+                            // share a Lean model get nothing.
+                            let identity = (matches!(&fun.path.krate, CrateId::Vstd)
+                                && segments == ["std_specs", "control_flow", "spec_from"]
+                                && target_typs.len() == 2
+                                && value_args.len() == 2
+                                && vir::ast_util::types_equal(
+                                    &resolve_typ(ctx, &target_typs[0]),
+                                    &resolve_typ(ctx, &target_typs[1]),
+                                ))
+                            .then(|| {
+                                let equal = if is_bool(&resolve_typ(ctx, &args[0].typ)) {
+                                    BinOp::Iff
+                                } else {
+                                    BinOp::Eq
+                                };
+                                Expr::binary(equal, value_args[0].clone(), value_args[1].clone())
+                            });
                             lowered.extend(value_args);
-                            return Ok(Expr::Apply(id, type_args, lowered));
+                            let application = Expr::Apply(id, type_args, lowered);
+                            return Ok(match identity {
+                                Some(identity) => Expr::binary(BinOp::And, application, identity),
+                                None => application,
+                            });
                         }
                     }
                     return Err(format!(
@@ -3842,6 +4475,43 @@ fn split_cond_setup<'x>(
     Some((flat, guard, resolutions))
 }
 
+/// Is an ASSUMED `exp` nothing but resolution of non-reference values?
+///
+/// Verus's resolution inference assumes `has_resolved(v)` for every value it
+/// drops or moves, references or not, and guards the payload of a variant by
+/// the variant test: the residual of `?` is resolved by
+/// `tmp is Break ==> has_resolved(tmp->Break_0)`. Only a `&mut` carries a
+/// prophecy; for any other type the marker says nothing the sequential
+/// fragment models, and leaving an assumption out is always sound. Guarded
+/// resolution of a `&mut` is not covered: it stays outside the fragment.
+fn is_vacuous_resolution(exp: &Exp) -> bool {
+    match &exp.x {
+        ExpX::UnaryOpr(UnaryOpr::HasResolved(typ), _) => {
+            !matches!(undecorate(typ), TypX::MutRef(_))
+        }
+        ExpX::Binary(BinaryOp::Implies, _, conclusion) => is_vacuous_resolution(conclusion),
+        ExpX::Binary(BinaryOp::And, lhs, rhs) => {
+            is_vacuous_resolution(lhs) && is_vacuous_resolution(rhs)
+        }
+        _ => false,
+    }
+}
+
+/// Does control never fall out of the end of `statements`? True when one of
+/// them closes the path (`assume false`, what a `return`, `break` or
+/// `continue` leaves behind) or branches into two arms that both do.
+fn statements_diverge(statements: &[Statement]) -> bool {
+    statements.iter().any(|statement| match statement {
+        Statement::Assume(Expr::False) => true,
+        Statement::Branch {
+            then_branch,
+            else_branch,
+            ..
+        } => statements_diverge(then_branch) && statements_diverge(else_branch),
+        _ => false,
+    })
+}
+
 fn assert_id_string(assert_id: &Option<vir::sst::AssertId>, default: &str) -> String {
     assert_id
         .as_ref()
@@ -4180,6 +4850,11 @@ impl Lowering<'_> {
                 Ok(())
             }
             StmX::Assume(exp) => {
+                // An owned value Verus resolves at the loop head (`items`
+                // in `while i < items.len()`): nothing to evaluate.
+                if is_vacuous_resolution(exp) {
+                    return Ok(());
+                }
                 let expression = lower_exp(self.ctx, &self.env, exp)?;
                 if last_assertion.as_ref() == Some(&expression) {
                     *last_assertion = None;
@@ -4431,6 +5106,7 @@ impl Lowering<'_> {
         args: &[Exp],
         dest: &Option<vir::sst::Dest>,
         assert_id: &Option<vir::sst::AssertId>,
+        is_trait_default: Option<bool>,
     ) -> Result<(), String> {
         // `<Vec<T> as Clone>::clone` for machine-integer/bool elements:
         // vstd's external spec relates elements through `cloned::<T>`, a
@@ -4521,11 +5197,18 @@ impl Lowering<'_> {
             }
         }
         let declaration = &contract.x.decl;
-        if !declaration.enss.1.is_empty() {
-            return Err(format!(
-                "unsupported default-body ensures on call to `{callee_name}`"
-            ));
-        }
+        // `default_ensures` describe the body a trait PROVIDES for a method
+        // (`PartialOrd::gt`, `Ord::max`); Verus keeps them apart from the
+        // ordinary ensures and assumes them at a call exactly when the call
+        // runs that provided body (`is_trait_default`, the leading argument
+        // of the trait method's ensures predicate in `sst_to_air`). An
+        // implementation that overrides the method, and a call through an
+        // abstract `Self`, get the ordinary ensures alone.
+        let default_ensures: &[Exp] = if is_trait_default == Some(true) {
+            &declaration.enss.1[..]
+        } else {
+            &[]
+        };
 
         // Contract expressions carry the contract declaration's own type
         // parameters; resolve them with the (instantiated) type arguments
@@ -4696,6 +5379,11 @@ impl Lowering<'_> {
                     .map_err(|error| format!("in postcondition of `{callee_name}`: {error}")),
             );
         }
+        for postcondition in default_ensures.iter() {
+            lowered_enss.push(lower_exp(callee_ctx, &ens_env, postcondition).map_err(|error| {
+                format!("in default-body postcondition of `{callee_name}`: {error}")
+            }));
+        }
         // The callee-param future entries live only for the substitution
         // above; borrow-temporary entries persist for phase 2.
         {
@@ -4769,6 +5457,10 @@ impl Lowering<'_> {
             .collect();
         keys.sort_by_key(|key| format!("{key:?}"));
 
+        // Whether an arm reaches the join at all (before the join equations
+        // are appended to it).
+        let then_diverges = statements_diverge(&then_statements);
+        let else_diverges = statements_diverge(&else_statements);
         let mut joins = Vec::new();
         for key in keys {
             let then_value = then_env.get(&key);
@@ -4783,7 +5475,21 @@ impl Lowering<'_> {
                 continue;
             }
             let (Some(then_value), Some(else_value)) = (then_value, else_value) else {
-                // Assigned on one path only: branch-local, invisible after.
+                // Assigned on one path only: branch-local, invisible after —
+                // unless the other arm never reaches the join. The `?`
+                // desugaring binds its `Continue` payload inside the arm that
+                // falls through and reads it after the `if`; the arm that
+                // returns is dead, so that binding is the variable's value on
+                // every path into the continuation. Arm-introduced binders it
+                // mentions survive the branch (docs/vcgen.md, (BRANCH)).
+                let live = match (then_value, else_value) {
+                    (Some(value), None) if else_diverges => Some(value),
+                    (None, Some(value)) if then_diverges => Some(value),
+                    _ => None,
+                };
+                if let Some(value) = live {
+                    self.env.insert(key.clone(), value.clone());
+                }
                 continue;
             };
             let typ = self
@@ -6276,11 +6982,10 @@ impl Lowering<'_> {
                 // Resolution of a non-reference value (Verus resolves
                 // type-recursively) is vacuous in the sequential fragment:
                 // `&mut` cannot occur inside data here, so a plain value
-                // carries no prophecy to resolve.
-                if let ExpX::UnaryOpr(UnaryOpr::HasResolved(typ), _) = &exp.x {
-                    if !matches!(undecorate(typ), TypX::MutRef(_)) {
-                        return Ok(());
-                    }
+                // carries no prophecy to resolve. A variant's payload
+                // arrives guarded by the variant test.
+                if is_vacuous_resolution(exp) {
+                    return Ok(());
                 }
                 // The well-typedness of a reference-typed temporary is
                 // re-established piecewise (phase-1 definition equates it
@@ -6303,6 +7008,7 @@ impl Lowering<'_> {
             StmX::Call {
                 fun: CallTarget::Fun(fun),
                 resolved_method,
+                is_trait_default,
                 typ_args,
                 args,
                 dest,
@@ -6351,7 +7057,7 @@ impl Lowering<'_> {
                         return Ok(());
                     }
                 }
-                self.call(stm, fun, typ_args, args, dest, assert_id)?
+                self.call(stm, fun, typ_args, args, dest, assert_id, *is_trait_default)?
             }
             StmX::Return {
                 assert_id,
@@ -6594,6 +7300,8 @@ fn function_view_impl(
     registry.mut_aliases.borrow_mut().clear();
     registry.closure_preds.borrow_mut().clear();
     registry.trait_fn_symbols.borrow_mut().clear();
+    registry.fn_item_preds.borrow_mut().clear();
+    registry.fn_items_in_flight.borrow_mut().clear();
     registry.in_postcondition.set(false);
     *registry.current_params.borrow_mut() = function
         .x
@@ -6710,6 +7418,9 @@ fn function_view_impl(
         }
     }
     for (_, (name, ty)) in ctx.registry.trait_fn_symbols.borrow().iter() {
+        binders.push(Binder::new(name.clone(), ty.clone()));
+    }
+    for (_, (name, ty)) in ctx.registry.fn_item_preds.borrow().iter() {
         binders.push(Binder::new(name.clone(), ty.clone()));
     }
     Ok(FunctionView {

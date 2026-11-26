@@ -233,8 +233,8 @@ instance {V : Type} (x : (core.option.Option V)) : Decidable (core.option.Option
   | .Some _0 => _0
 
 inductive core.result.Result (T : Type) (E : Type) where
-  | Ok (_0 : Int)
-  | Err (_0 : bounded_arithmetic.V16Error)
+  | Ok (_0 : T)
+  | Err (_0 : E)
 deriving Inhabited
 
 @[simp, grind] def core.result.Result.is_Ok {T : Type} {E : Type} : (core.result.Result T E) → Prop
@@ -249,11 +249,11 @@ instance {T : Type} {E : Type} (x : (core.result.Result T E)) : Decidable (core.
 instance {T : Type} {E : Type} (x : (core.result.Result T E)) : Decidable (core.result.Result.is_Err x) := by
   cases x <;> first | exact isTrue trivial | exact isFalse (by simp)
 
-@[simp, grind] def core.result.Result.get_Ok__0 {T : Type} [Inhabited T] {E : Type} [Inhabited E] : (core.result.Result T E) → Int
+@[simp, grind] def core.result.Result.get_Ok__0 {T : Type} [Inhabited T] {E : Type} [Inhabited E] : (core.result.Result T E) → T
   | .Ok _0 => _0
   | .Err _ => Vermilion.unspecified "core.result.Result.get_Ok_0"
 
-@[simp, grind] def core.result.Result.get_Err__0 {T : Type} [Inhabited T] {E : Type} [Inhabited E] : (core.result.Result T E) → bounded_arithmetic.V16Error
+@[simp, grind] def core.result.Result.get_Err__0 {T : Type} [Inhabited T] {E : Type} [Inhabited E] : (core.result.Result T E) → E
   | .Ok _ => Vermilion.unspecified "core.result.Result.get_Err_0"
   | .Err _0 => _0
 

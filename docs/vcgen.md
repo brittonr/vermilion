@@ -658,7 +658,9 @@ at the SAT level for free; arithmetic atoms are excluded (the arithmetic
 rungs own those) and the split is capped at 3 atoms. A `split_ifs_hyps`
 rung repeats the conditional split over HYPOTHESES, where `?`-chain and
 `checked_*` branch joins arrive as nested `iteP` facts about a call
-result. Ladder
+result; each branch is then closed by `simp_all`, and what that leaves by
+`omega` or `grind` — typically a variant test on the opaque result of the
+early return, which needs a case analysis simp does not make. Ladder
 rungs carry per-rung heartbeat budgets (`scalar_saturate` gets a larger
 bounded allowance; the trailing `smt` rung is uncapped). These proof-search
 details are droppable: they affect automatic closure, never the proposition
@@ -684,7 +686,10 @@ congruence (equal arguments ⇒ equal result), which is free because they are
 ordinary Lean function applications. The soundness obligation is exactly that
 they stay unknown: `c114_uninterp_specfn_unknown_fail` in the differential
 corpus guards that an opaque predicate at an unconstrained argument is *not*
-provable, agreeing with Verus.
+provable, agreeing with Verus. One vstd symbol carries a fact of its own:
+`spec_from::<S, T>(value, ret)` at `S = T` (as Rust types) reaches the
+generator already conjoined with `value == ret`, vstd's always-on identity
+axiom for it, added by the lowering (docs/trust.md, "Mutable references").
 
 ## Spec-function visibility and the unfold set
 

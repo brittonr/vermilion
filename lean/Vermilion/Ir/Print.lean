@@ -1,5 +1,6 @@
 import Vermilion.Ir.Ast
 import Vermilion.Ir.Naming
+import Vermilion.Vstd.Registry
 
 /-!
 # Rendering neutral expressions as Lean syntax
@@ -305,10 +306,12 @@ equation compiler sees the branch hypotheses in termination goals. -/
 def Expr.renderBody (e : Expr) : String := e.renderD true
 
 /-- Does this expression force `noncomputable` on a definition containing
-it? Only a possibly-zero (`non-literal`) `ediv`/`emod` does now: it keeps
-the opaque-at-zero `Vermilion.ediv`/`emod`. `iteP` is computable (it takes
-the condition's `Decidable` instance) and nonzero-literal division renders
-to native `/`/`%`, so neither forces it. -/
+it? A possibly-zero (`non-literal`) `ediv`/`emod` does: it keeps the
+opaque-at-zero `Vermilion.ediv`/`emod`. So does a vstd mirror whose model
+is noncomputable (`Seq::filter`, `Vermilion.Vstd.isNoncomputable`). `iteP`
+is computable (it takes the condition's `Decidable` instance) and
+nonzero-literal division renders to native `/`/`%`, so neither forces
+it. -/
 partial def Expr.needsClassical : Expr → Bool
   | .binary .ediv _ (.int v) => v == 0
   | .binary .emod _ (.int v) => v == 0
@@ -322,7 +325,8 @@ partial def Expr.needsClassical : Expr → Bool
     a.needsClassical || b.needsClassical
   | .seqUpdate a b c | .seqSubrange a b c =>
     a.needsClassical || b.needsClassical || c.needsClassical
-  | .vstdApply _ _ args => args.any Expr.needsClassical
+  | .vstdApply path _ args =>
+    Vermilion.Vstd.isNoncomputable path || args.any Expr.needsClassical
   | .bitOp _ _ _ a b => a.needsClassical || b.needsClassical
   | .coll _ args | .apply _ _ args | .ctor _ _ _ args =>
     args.any Expr.needsClassical

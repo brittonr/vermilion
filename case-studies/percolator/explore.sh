@@ -9,11 +9,10 @@ repository="$(cd "$here/../.." && pwd)"
 # fns (#19) and constructor type-argument ascription (#18) landed with
 # dalek-lite DL5, so all three verify (two carry short interactive twin
 # proofs, first-class per project policy) — they are in run.sh now.
+# liquidation_fee_minmax.rs followed 2026-11-26, when the default-body
+# ensures of `Ord::max`/`min` became assumable (#23).
 # Partially supported since DL1 isolation + DL5 registration fixes: the
-# supported siblings verify; one span-mapped refusal each remains —
-# liquidation: the `max` default-body contract (std-Ord issue);
+# supported siblings verify; one span-mapped refusal remains —
 # bitmap-clear: `BitNot` (its own issue).
-"$repository/scripts/run_example.sh" "$here" liquidation_fee_minmax.rs \
-  --lib CasePercolator --manual-proofs --expect-partial "$@"
 "$repository/scripts/run_example.sh" "$here" active_bitmap_clear.rs \
   --lib CasePercolator --manual-proofs --expect-partial "$@"

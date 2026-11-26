@@ -281,6 +281,24 @@ or a discarded scope end with it.
   two-phase borrow shape (temp definition, prophecy writeback before the
   call) is as emitted today; reference-typed temporaries only alias, and
   every other reference-valued assignment fails closed.
+- **Markers on values that are not references.** Verus resolves every
+  value it drops or moves, and guards a variant's payload by the variant
+  test: the residual of `?` arrives as `tmp is Break ==>
+  has_resolved(tmp->Break_0)`, and an owned loop operand is resolved at
+  the loop head. Only a `&mut` carries a prophecy, so these assumptions
+  are left out, which is always sound. A guarded marker on a `&mut`
+  stays outside the fragment.
+- **A binding made in one arm only** is visible after the branch exactly
+  when the other arm cannot reach the join (it returned): the `?`
+  desugaring binds its `Continue` payload in the arm that falls through
+  and reads it afterwards. Otherwise such a binding stays arm-local.
+- **`?` passing an error through unconverted.** vstd states the
+  conversion as the uninterpreted `spec_from::<S, T>(value, ret)` and
+  gives it one axiom in the always-on default group, `spec_from::<T,
+  T>(t, s) ==> t == s`. Where the two Rust types are equal the
+  application lowers to its conjunction with that equality — equivalent
+  under the axiom, in any position. The axiom is vstd's (`admit` in its
+  body); it is trusted here exactly as there.
 - **Guards:** differential cases c73–c77, including `ensures
   *final(x) == *old(x)` with a mutating body and a havocked caller
   assert — both must fail in *both* verifiers. c244–c247 pin the
@@ -288,7 +306,11 @@ or a discarded scope end with it.
   `match` with true postconditions (c244), a postcondition that holds of
   the `else` arm only (c245), and `final(x)` asserted after a join (c246)
   and after an arm that returned (c247) — the three negatives must fail
-  in both verifiers.
+  in both verifiers. c252–c256 pin `?`: datatype and integer error
+  payloads with postconditions on both exits (c252, c255), a false claim
+  about `final(x)` on the early return (c253), a wrong error value (c254)
+  — both negatives must fail in both verifiers — and an owned operand
+  resolved in a `while` condition (c256).
 
 ## Range `for` loops (specialized at lowering)
 
@@ -497,13 +519,13 @@ docs/reports/target-projects.md); four distinct trust surfaces:
   the result's type-range facts are preserved as assumes; determinism is
   given by the equation's shape. Same folding powers pure while-condition
   setups (short-circuit `&&` over functional calls).
-- **`<Vec<T> as Clone>::clone`, machine-int/bool `T` only**: synthesized
+- **`<Vec<T> as Clone>::clone`, machine-int/bool `T`**: synthesized
   contract `result@ == vec@`. vstd's real spec says `cloned::<T>`
-  pointwise (via the higher-order `call_ensures` encoding) plus an
-  extensionality bridge; for these `T` vstd's own clone specs `returns`
-  the value, so `cloned` collapses to equality and the synthesized
-  contract is equivalent. Other element types fail closed at the
-  `cloned` predicate (with its span).
+  pointwise plus an extensionality bridge; for these `T` vstd's own clone
+  specs `returns` the value, so `cloned` collapses to equality and the
+  synthesized contract is equivalent. Other element types take vstd's
+  contract as written, with `cloned` lowered as a function-item predicate
+  (below).
 - **Guards:** c129/c130 (split_off subranges, wrong-subrange negative),
   c131/c132 (to_multiset congruence, push-changes-multiset negative);
   `case-studies/merge-sort` verified end to end (31 automatic + 9
@@ -539,11 +561,23 @@ Lean. This is model equivalence at the registry boundary, not an assumed proof
 fact. The fork's native positive/negative tests and differential c160/c161 pin
 the direction and byte order.
 
+`Seq::filter` is `#[verifier::opaque]` in vstd. Its model is `List.filter`
+with the predicate decided classically, and the model definition is kept
+out of the simp and grind sets: the ladder knows `filter` through the four
+facts vstd's always-on `group_seq_lib_default` supplies (`lemma_filter_len`,
+`lemma_filter_pred`, `lemma_filter_contains`,
+`filter_distributes_over_add`), each a proved theorem of the model, and
+through nothing else. `reveal(Seq::filter)` has no effect on the machine
+attempt; a proof that needs the definition is written in the twin.
+
 - **Guards:** c133/c134 (`Multiset::add` through the registry:
   congruence positive, add-is-not-identity negative); c158/c159 (exact `u64`
   rotations including zero/width/oversized counts and a wrong-result
   negative); c160/c161 (native u64 endian round trip and wrong byte order),
-  plus the Verus fork's per-width rotation and native byte tests.
+  plus the Verus fork's per-width rotation and native byte tests;
+  c260–c262 (`Seq::filter`: the four default facts, a false length claim,
+  and a true claim that needs the hidden definition — the last two must
+  fail on both sides).
 
 ## `broadcast use` hints (V4)
 
@@ -675,9 +709,77 @@ inherited clauses into its own declaration, which is then used.
 Inherited `requires` is proved at every call site; impl bodies are
 checked against the inherited `ensures`.
 
+A trait may also PROVIDE a method body (`PartialOrd::gt`, `Ord::max`), and
+vstd specifies that body's own facts as `default_ensures`, which Verus
+keeps apart from the ordinary ensures. They are assumed at a call exactly
+when the call runs the provided body — the SST call's `is_trait_default`,
+which is what selects them in Verus's own encoding of the trait method's
+ensures predicate. An overriding implementation, and a call through an
+abstract `Self`, get the ordinary ensures alone.
+
+A trait spec function applied at a concrete `Self` resolves to the
+implementation whose header matches, including one generic in its own
+parameters (`impl<T: PartialOrd> PartialOrdSpecImpl for Option<T>` at
+`Option<u64>`): first-order matching of the implementation's trait
+arguments against the call's, accepted only when exactly one
+implementation matches and every parameter is determined.
+
 - **Guards:** c83 (caller violating an inherited requires must fail both
   sides — this obligation was *missing* before 2026-07-13) and c84 (an
-  impl violating the trait ensures must fail both sides).
+  impl violating the trait ensures must fail both sides). c248/c249
+  (`max`/`min` through the provided body, and a false claim about `max`),
+  c250/c251 (comparison operators on `Option<u64>`, and a false claim).
+
+## Function-item contract predicates
+
+`call_ensures(f, (a, …), r)` with `f` a named function — vstd's
+`cloned(a, b)` is `call_ensures(T::clone, (&a,), b) || a == b`, and the
+`default_ensures` of `PartialOrd::gt` speak of `Self::partial_cmp` this
+way — is uninterpreted in Verus, with one axiom per item and in one
+direction: `call_ensures(f, args, ret) ==> <ensures of f>` (for a trait
+method, the declaration's ensures and those of the implementation the
+type arguments select).
+
+- **Encoding.** An occurrence lowers to `symbol(a, …, r) ∧ ensures[a, …,
+  r]`. Under the axiom the predicate is equivalent to that conjunction, so
+  the rewrite is valid in every position, hypothesis or goal. The symbol
+  is a fresh predicate among the enclosing function's universal binders,
+  one per (item, Rust type arguments): the obligation holds for every
+  interpretation, Verus's included. Where the item's contract does not
+  lower the conjunct is left out, which only knows less.
+- **The key is the Rust type, not its Lean model.** `u8::clone` and
+  `u16::clone` relate `Int`s both; `Rc<T>::clone` and `T::clone` relate
+  the same model type and may promise different things. Sharing a symbol
+  between two such items would let one item's ensures be concluded from
+  the other's predicate.
+- **`cloned`/`strictly_cloned`** are lowered as their bodies at the type
+  the application names: a spec function generic in `T` is one Lean
+  definition, which cannot say "the clone of whichever type `T` is".
+  `hide`/`reveal` of either is refused, as is the predicate inside any
+  other spec function body.
+- **Not modeled:** `call_requires` on a function item (fails closed); the
+  fact Verus assumes after a call, that the call's own result satisfies
+  `call_ensures` of the callee. A postcondition that states `cloned(x,
+  r)` about `r = x.clone()` for an abstract `T` is therefore not provable
+  here; Verus proves it.
+- **Guards:** c257 (derived `Clone` over `Vec`, `Option` and nested
+  derives lowers and verifies), c258 (a claim about a derived clone's
+  result, which has no specification, fails on both sides), c259 (a false
+  ensures on a hand-written `clone` built from field clones fails on both
+  sides), and the default-ensures cases above.
+
+## Spec function instances
+
+A spec function is emitted once, generic in its type parameters. One
+whose body dispatches on a type parameter — the `Option<T>` comparison
+spec calls `T`'s — has no such definition: Verus passes the type along, a
+Lean definition generic in `T` cannot. It is emitted once per concrete
+instantiation instead, as `<name>_at_<types>`, with the inner
+applications resolved statically. The application stays an application
+of a named definition; nothing is inlined. Two instantiations whose
+rendered names coincide are refused rather than merged, and an
+application at a type that is still abstract fails closed.
+**Guards:** c250/c251.
 
 ## What keeps this honest
 

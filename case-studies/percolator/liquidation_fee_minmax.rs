@@ -3,8 +3,8 @@
 // Executable body extracted from aeyakovenko/percolator src/v16.rs at
 // 143e68c4917ed0400a27b952f036a5677047cd84.  Verus result binders,
 // specification helpers, and contracts are the only changes around the body.
-// Verus verifies this file; Vermilion currently refuses the std Ord::max/min
-// default-body contract reached by the final expression.
+// Verus verifies this file, and so does Vermilion: the final expression
+// reaches the default-body contracts of std `Ord::max`/`min`.
 
 use vstd::prelude::*;
 

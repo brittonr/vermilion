@@ -15,8 +15,8 @@ The differential directory contains 191 source fixtures; a file count does
 not establish current verdict or span parity. Earlier measurements remain
 in the [progress ledger](../docs/reports/progress.md).
 
-Percolator's green runner covers 31 production bodies, with two additional
-partial drivers. IMO 1988 #6 and power-of-2 have recorded complete proofs.
+Percolator's green runner covers 32 production bodies, with one additional
+partial driver. IMO 1988 #6 and power-of-2 have recorded complete proofs.
 Aeneas SHA-3 remains paused at its recorded `copy_to` slice. Entry API and
 statics are expected-refusal studies. The recursion tutorial is a historical
 investigation, excluded from current supported coverage.
@@ -133,7 +133,6 @@ Schedule these as small, separately committed slices, ordered by a real driver
 becoming available:
 
 - unary `BitNot`, then Percolator bitmap clear (indexed mutation has landed);
-- std `Ord::min`/`max` default-body contracts;
 - Entry API views and returned-`&mut` prophecy contracts;
 - `decreases_to!` and `via`/`#[via_fn]` when a new recursion driver is acquired;
 - const-generic datatypes;

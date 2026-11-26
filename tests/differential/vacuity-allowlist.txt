@@ -13,6 +13,7 @@ dcd57554c811b489  # c120_for_range_reversed_fail.reversed_range.assert_0_decreas
 a798aaa25a98ccea  # c172_while_condition_short_circuit_ok.checked_condition_short_circuits.assert_0: short-circuit condition: the loop body is unreachable
 2a99009f621c7513  # c172_while_condition_short_circuit_ok.checked_condition_short_circuits.assert_1: short-circuit condition: the loop body is unreachable
 f5b2ab30b0fbb9c1  # c172_while_condition_short_circuit_ok.checked_condition_short_circuits.assert_2: short-circuit condition: the loop body is unreachable
+d2a9379cd724658b  # c252_question_mark_enum_error_ok.pick.ensures_3_0: `?` returned early, so `input` is None: the clause's guard `input is Some` contradicts it (the path's own hypotheses do not)
 408c541826bf7832  # c29_continue_decreases_violated.spin.assert_0: after `continue` with the s == 0 invariant
 ff3d14f331b5063c  # c29_continue_decreases_violated.spin.assert_0_decreases: after `continue` with the s == 0 invariant
 b1b578751716b825  # c29_continue_decreases_violated.spin.invariant_preserve_0_0: after `continue` with the s == 0 invariant

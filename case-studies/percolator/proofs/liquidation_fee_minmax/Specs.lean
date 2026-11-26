@@ -230,11 +230,59 @@ instance {T : Type} {E : Type} (x : (core.result.Result T E)) : Decidable (core.
 
 @[simp, grind] def core.result.Result.get_Ok__0 {T : Type} [Inhabited T] {E : Type} [Inhabited E] : (core.result.Result T E) → T
   | .Ok _0 => _0
-  | .Err _ => default
+  | .Err _ => Vermilion.unspecified "core.result.Result.get_Ok_0"
 
 @[simp, grind] def core.result.Result.get_Err__0 {T : Type} [Inhabited T] {E : Type} [Inhabited E] : (core.result.Result T E) → E
-  | .Ok _ => default
+  | .Ok _ => Vermilion.unspecified "core.result.Result.get_Err_0"
   | .Err _0 => _0
+
+inductive core.cmp.Ordering where
+  | Less
+  | Equal
+  | Greater
+deriving Inhabited
+
+@[simp, grind] def core.cmp.Ordering.is_Less : core.cmp.Ordering → Prop
+  | .Less => True
+  | .Equal => False
+  | .Greater => False
+instance (x : core.cmp.Ordering) : Decidable (core.cmp.Ordering.is_Less x) := by
+  cases x <;> first | exact isTrue trivial | exact isFalse (by simp)
+
+@[simp, grind] def core.cmp.Ordering.is_Equal : core.cmp.Ordering → Prop
+  | .Less => False
+  | .Equal => True
+  | .Greater => False
+instance (x : core.cmp.Ordering) : Decidable (core.cmp.Ordering.is_Equal x) := by
+  cases x <;> first | exact isTrue trivial | exact isFalse (by simp)
+
+@[simp, grind] def core.cmp.Ordering.is_Greater : core.cmp.Ordering → Prop
+  | .Less => False
+  | .Equal => False
+  | .Greater => True
+instance (x : core.cmp.Ordering) : Decidable (core.cmp.Ordering.is_Greater x) := by
+  cases x <;> first | exact isTrue trivial | exact isFalse (by simp)
+
+inductive core.option.Option (V : Type) where
+  | None
+  | Some (_0 : V)
+deriving Inhabited
+
+@[simp, grind] def core.option.Option.is_None {V : Type} : (core.option.Option V) → Prop
+  | .None => True
+  | .Some _ => False
+instance {V : Type} (x : (core.option.Option V)) : Decidable (core.option.Option.is_None x) := by
+  cases x <;> first | exact isTrue trivial | exact isFalse (by simp)
+
+@[simp, grind] def core.option.Option.is_Some {V : Type} : (core.option.Option V) → Prop
+  | .None => False
+  | .Some _ => True
+instance {V : Type} (x : (core.option.Option V)) : Decidable (core.option.Option.is_Some x) := by
+  cases x <;> first | exact isTrue trivial | exact isFalse (by simp)
+
+@[simp, grind] def core.option.Option.get_Some__0 {V : Type} [Inhabited V] : (core.option.Option V) → V
+  | .None => Vermilion.unspecified "core.option.Option.get_Some_0"
+  | .Some _0 => _0
 
 -- vrml:spec liquidation_fee_minmax.min_u128 case-studies/percolator/liquidation_fee_minmax.rs:35:6
 def liquidation_fee_minmax.min_u128 (a : Int) (b : Int) : Int :=
@@ -243,4 +291,20 @@ def liquidation_fee_minmax.min_u128 (a : Int) (b : Int) : Int :=
 -- vrml:spec liquidation_fee_minmax.max_u128 case-studies/percolator/liquidation_fee_minmax.rs:31:6
 def liquidation_fee_minmax.max_u128 (a : Int) (b : Int) : Int :=
   (Vermilion.iteP (a ≥ b) a b)
+
+-- vrml:spec vstd.std_specs.num.u128_specs_tmp.impl__2.obeys_cmp_spec vstd/std_specs/num.rs:464:1
+def vstd.std_specs.num.u128_specs_tmp.impl__2.obeys_cmp_spec : Prop :=
+  True
+
+-- vrml:spec vstd.std_specs.num.u128_specs_tmp.impl__2.cmp_spec vstd/std_specs/num.rs:464:1
+def vstd.std_specs.num.u128_specs_tmp.impl__2.cmp_spec (self : Int) (other : Int) : core.cmp.Ordering :=
+  (Vermilion.iteP (self < other) core.cmp.Ordering.Less (Vermilion.iteP (self > other) core.cmp.Ordering.Greater core.cmp.Ordering.Equal))
+
+-- vrml:spec vstd.std_specs.num.u128_specs_tmp.impl__1.obeys_partial_cmp_spec vstd/std_specs/num.rs:464:1
+def vstd.std_specs.num.u128_specs_tmp.impl__1.obeys_partial_cmp_spec : Prop :=
+  True
+
+-- vrml:spec vstd.std_specs.num.u128_specs_tmp.impl__1.partial_cmp_spec vstd/std_specs/num.rs:464:1
+def vstd.std_specs.num.u128_specs_tmp.impl__1.partial_cmp_spec (self : Int) (other : Int) : (core.option.Option core.cmp.Ordering) :=
+  (Vermilion.iteP (self < other) (core.option.Option.Some core.cmp.Ordering.Less) (Vermilion.iteP (self > other) (core.option.Option.Some core.cmp.Ordering.Greater) (core.option.Option.Some core.cmp.Ordering.Equal)))
 

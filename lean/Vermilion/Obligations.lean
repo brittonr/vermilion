@@ -552,9 +552,14 @@ elab "vrml_ladder" : tactic => do
     -- expensive, so goals the goal-only split closes never pay for it.
     -- Its budget matches the saturation rung's: splitting a deep `?`
     -- chain re-simplifies a large context once per branch, which is real
-    -- but bounded work.
+    -- but bounded work. What is left of a branch after the split is often a
+    -- variant test on an opaque call result (`from_residual`'s contract says
+    -- the early-return value is `Err`; the postcondition asks about `Ok`):
+    -- simp has unfolded the variant predicates to a `match` on that
+    -- variable, which only a case analysis decides, so `grind` finishes
+    -- what `omega` cannot.
     ("split_ifs_hyps", saturateBudget,
-      ← `(tactic| (split_ifs at * <;> simp_all <;> try omega))),
+      ← `(tactic| (split_ifs at * <;> simp_all <;> first | omega | grind))),
     -- Exact nat clips are conditionals. First let the public collection
     -- lemmas (`len_push`, `len_insert_new`, ...) simplify the operation; only
     -- then expose a cardinality model in the residual arithmetic branch.

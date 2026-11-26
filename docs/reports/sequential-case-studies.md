@@ -22,7 +22,7 @@ and the [progress ledger](progress.md) records features that have landed.
 | [sorting](../../case-studies/sorting/) | **Verified** | `sort_by`/`sorted_by`, uniqueness, and multiset equivalence; 12 automatic + 4 interactive VCs | — |
 | [imo-1988-6](../../case-studies/imo-1988-6/) | **Verified verbatim** | Vieta-jumping proof; 66 automatic + 1 interactive VC | —; isolated nonlinear queries and named-result joins have landed |
 | [power-of-2](../../case-studies/power-of-2/) | **Verified verbatim** | Recursive `pow2`/shift development; 40 automatic + 17 interactive VCs | —; isolated nonlinear queries and exact VIR clipping have landed |
-| [Percolator](../../case-studies/percolator/) | **Partially verified verbatim** | The green runner covers 31 production bodies and 118 logical-or-evidence declarations, including the DL5 withdrawal, bounded-arithmetic, and bitmap-set additions | std `Ord::min/max`, `BitNot`, and the separate whole-`wide_math.rs` Verus boundary |
+| [Percolator](../../case-studies/percolator/) | **Partially verified verbatim** | The green runner covers 32 production bodies and 123 logical-or-evidence declarations, including the DL5 withdrawal, bounded-arithmetic, and bitmap-set additions and the liquidation-fee `min`/`max` slice | `BitNot`, and the separate whole-`wide_math.rs` Verus boundary |
 | [Entry API](../../case-studies/entry-api/) | **Acquired / blocked** | Verbatim pinned source verifies 3/3 with Verus; Vermilion keeps an expected fail-closed probe | std `HashMap::Entry` views/contracts; returned-`&mut` prophecy relations |
 | [statics](../../case-studies/statics/) | **Acquired / outside the sequential gate** | Verbatim pinned source verifies 9/9 with Verus; Vermilion keeps an expected fail-closed probe | Globals and initialization semantics, followed by ghost memory and atomic protocols (M5/M6) |
 | Upstream recursion tutorial | **Historical investigation** | Excluded from supported coverage | A positive driver separated from intentional failures, then custom termination support |
@@ -43,8 +43,9 @@ not a receipt for the current tree. Run the
 [differential suite](../development.md#test-scopes) to obtain current results.
 
 The active benchmark is dalek-lite. The Aeneas SHA-3 push remains paused.
-Percolator's `run.sh` includes the three DL5 additions; its `explore.sh`
-contains two partial drivers, for `Ord` contracts and `BitNot`.
+Percolator's `run.sh` includes the three DL5 additions and the
+liquidation-fee slice; its `explore.sh` contains one partial driver, for
+`BitNot`.
 
 ## Active blockers by driver
 
@@ -54,12 +55,12 @@ contains two partial drivers, for `Ord` contracts and `BitNot`.
 has landed. Unsupported functions receive source-mapped dispositions while
 supported siblings continue through the pipeline.
 
-The remaining Percolator drivers are:
+The remaining Percolator driver is:
 
-- `liquidation_fee_minmax.rs`: [std `Ord` contracts](../issues/support-std-ord-min-max-default-body-contracts.md).
 - `active_bitmap_clear.rs`: [unary `BitNot`](../issues/support-bitnot.md).
 
 The former prerequisites are complete:
+[std `Ord` contracts](../issues/closed/support-std-ord-min-max-default-body-contracts.md),
 [generic spec applications](../issues/closed/lower-generic-spec-functions-used-by-question-mark.md),
 [indexed mutation](../issues/closed/support-indexed-mutation-of-fixed-size-arrays.md),
 and [constructor typing](../issues/closed/generated-twins-must-elaborate-without-hidden-typeclass-context.md).

@@ -80,7 +80,16 @@ def specFns : List (String × String) := [
   ("vstd::seq_lib::Seq::remove", "Vermilion.Seq.remove"),
   ("vstd::seq_lib::Seq::insert", "Vermilion.Seq.insert"),
   ("vstd::seq_lib::Seq::map", "Vermilion.Seq.map"),
-  ("vstd::seq_lib::Seq::sort_by", "Vermilion.Seq.sortBy")
+  ("vstd::seq_lib::Seq::sort_by", "Vermilion.Seq.sortBy"),
+  ("vstd::seq_lib::Seq::filter", "Vermilion.Seq.filter")
+]
+
+/-- Mirrored spec fns whose model is `noncomputable` (`filter` decides a
+`Prop`-valued predicate classically). A generated definition applying one
+must be marked `noncomputable` too, or Lean's compiler rejects it; the
+emitter consults this list (`Expr.needsClassical`). -/
+def noncomputableSpecFns : List String := [
+  "vstd::seq_lib::Seq::filter"
 ]
 
 /-- vstd lemmas of `vstd::seq_lib` and their proved mirrors (hints).
@@ -107,7 +116,17 @@ def lemmas : List (String × List String) := [
      "Vermilion.Seq.toMultiset_push", "Vermilion.Seq.toMultiset_len",
      "Vermilion.Seq.subrange_all", "Vermilion.Seq.add_push",
      "Vermilion.Seq.len_dropLast", "Vermilion.Seq.index_dropLast",
-     "Vermilion.Seq.len_remove"])
+     "Vermilion.Seq.len_remove"]),
+  -- `filter_pred` is left out of these simp hint lists: its conclusion is
+  -- an application of the predicate VARIABLE, a pattern simp would try on
+  -- every proposition. It reaches the ladder through its grind pattern.
+  ("vstd::seq_lib::Seq::lemma_filter_len", ["Vermilion.Seq.len_filter_le"]),
+  ("vstd::seq_lib::Seq::lemma_filter_contains",
+    ["Vermilion.Seq.filter_contains"]),
+  ("vstd::seq_lib::Seq::filter_distributes_over_add",
+    ["Vermilion.Seq.filter_add"]),
+  ("vstd::seq_lib::group_filter_ensures",
+    ["Vermilion.Seq.len_filter_le", "Vermilion.Seq.filter_contains"])
 ]
 
 end SeqLib
@@ -272,5 +291,9 @@ def specFn (path : String) : Option String :=
 /-- Look up the mirror lemmas for a vstd lemma or broadcast-group path. -/
 def lemmaHints (path : String) : Option (List String) :=
   (lemmaRegistry.find? (·.1 == path)).map (·.2)
+
+/-- Is the model of this vstd spec-fn path `noncomputable`? -/
+def isNoncomputable (path : String) : Bool :=
+  SeqLib.noncomputableSpecFns.contains path
 
 end Vermilion.Vstd

@@ -72,6 +72,76 @@ of scope — vstd's own proof of `lemma_sorted_unique` uses Hilbert
 `choose`. -/
 opaque sortBy [Inhabited α] (s : Seq α) (leq : α → α → Prop) : Seq α
 
+/-- vstd `Seq::filter pred`: the elements satisfying `pred`, in order.
+
+vstd defines it by recursion on `drop_last` and marks it
+`#[verifier::opaque]`, so Verus reasons about it only through lemmas unless
+the user reveals it. Four of them are always in scope
+(`group_seq_lib_default`): `lemma_filter_len`, `lemma_filter_pred`,
+`lemma_filter_contains` and `filter_distributes_over_add`. They are the
+simp/grind facts below; the definition itself is neither, so the ladder
+sees `filter` exactly as far as an un-`reveal`ed Verus proof does.
+
+The model is `List.filter` with the predicate decided classically (a spec
+predicate is a `Prop`), hence `noncomputable`: the registry lists the path
+in `noncomputableSpecFns`, and definitions applying it are emitted
+`noncomputable` in turn. -/
+noncomputable def filter (s : Seq α) (p : α → Prop) : Seq α :=
+  List.filter (fun x => @decide (p x) (Classical.propDecidable _)) s
+
+/-- Membership in a filtered sequence, in `List` terms. -/
+private theorem mem_filter (s : Seq α) (p : α → Prop) (x : α) :
+    x ∈ (s.filter p : List α) ↔ x ∈ (s : List α) ∧ p x := by
+  simp [filter]
+
+/-- An in-range element is a member. -/
+private theorem index_mem [Inhabited α] (s : Seq α) (i : Int)
+    (low : 0 ≤ i) (high : i < s.len) : s.index i ∈ (s : List α) := by
+  have hb : i.toNat < s.length := by simp only [len] at high; omega
+  simp only [index, if_pos low, List.getD_eq_getElem s default hb]
+  exact List.getElem_mem hb
+
+/-- vstd `lemma_filter_len`: filtering cannot grow a sequence. -/
+@[simp] theorem len_filter_le (s : Seq α) (p : α → Prop) :
+    (s.filter p).len ≤ s.len := by
+  simp only [filter, len]
+  exact_mod_cast List.length_filter_le _ s
+
+grind_pattern len_filter_le => (s.filter p).len
+
+/-- vstd `lemma_filter_pred`: every kept element satisfies the predicate. -/
+theorem filter_pred [Inhabited α] (s : Seq α) (p : α → Prop) (i : Int)
+    (low : 0 ≤ i) (high : i < (s.filter p).len) : p ((s.filter p).index i) :=
+  ((mem_filter s p _).mp (index_mem (s.filter p) i low high)).2
+
+grind_pattern filter_pred => (s.filter p).index i
+
+/-- vstd `lemma_filter_contains`: every element satisfying the predicate
+is kept. -/
+theorem filter_contains [Inhabited α] (s : Seq α) (p : α → Prop) (i : Int)
+    (low : 0 ≤ i) (high : i < s.len) (holds : p (s.index i)) :
+    (s.filter p).contains (s.index i) := by
+  have member : s.index i ∈ (s.filter p : List α) :=
+    (mem_filter s p _).mpr ⟨index_mem s i low high, holds⟩
+  obtain ⟨n, hn, hval⟩ := List.mem_iff_getElem.mp member
+  refine ⟨(n : Int), ⟨Int.natCast_nonneg n, ?_⟩, ?_⟩
+  · simp only [len]; exact_mod_cast hn
+  · simp only [index, if_pos (Int.natCast_nonneg n), Int.toNat_natCast,
+      List.getD_eq_getElem _ default hn]
+    exact hval
+
+grind_pattern filter_contains => s.filter p, s.index i
+
+/-- vstd `filter_distributes_over_add`. -/
+@[simp, grind =] theorem filter_add (a b : Seq α) (p : α → Prop) :
+    (a.add b).filter p = (a.filter p).add (b.filter p) := by
+  simp [filter, add]
+
+/-- Filtering the empty sequence: what `lemma_filter_len` and sequence
+extensionality give Verus. -/
+@[simp, grind =] theorem filter_empty (p : α → Prop) :
+    (empty : Seq α).filter p = empty := rfl
+
 /-- `drop_last` shrinks the length by one (in range). -/
 @[simp] theorem len_dropLast (s : Seq α) (h : 0 < s.len) :
     s.dropLast.len = s.len - 1 := by

@@ -34,8 +34,8 @@ S4 items) are therefore mostly UNBLOCKED on the collection side — what
 remains for each is the non-collection feature it names (Box/returns/
 `&mut`-returns for S2, recursive enums/accessors for S3). `multiset.rs` has since landed
 as the verified `case-studies/sorting` study. The first GitHub acquisition is
-also **DONE**: `case-studies/percolator` pins `143e68c`, has expanded its green runner to 31 unchanged
-production function bodies / 118 logical-or-evidence declarations, and records
+also **DONE**: `case-studies/percolator` pins `143e68c`, has expanded its green runner to 32 unchanged
+production function bodies / 123 logical-or-evidence declarations, and records
 its clean tool gaps as issues. The next four pinned-Verus studies are now
 acquired in increasing complexity: `imo_1988_6` and `power_of_2` are green;
 `entry_api` and `statics` are documented expected-refusal probes. The landed
@@ -177,11 +177,12 @@ combination, then (under a diagnostic public-field adaptation) unsupported
 `overflowing_*`, `leading_zeros`, `unsigned_abs`, and formatted panic/assert
 core APIs. The case README records the exact boundary and source links.
 
-DL5 added withdrawal, bounded arithmetic, and bitmap set to the green runner,
-which now covers 31 production bodies and 118 logical-or-evidence declarations.
-The two remaining partial drivers exercise `Ord::min/max` and `BitNot`.
-Per-function isolation, generic opaque applications, indexed fixed-array
-mutation, and constructor typing have landed. See the
+DL5 added withdrawal, bounded arithmetic, and bitmap set to the green runner;
+the liquidation-fee slice followed once the default-body contracts of std
+`Ord::max`/`min` were supported. The runner now covers 32 production bodies
+and 123 logical-or-evidence declarations. The one remaining partial driver
+exercises `BitNot`. Per-function isolation, generic opaque applications,
+indexed fixed-array mutation, and constructor typing have landed. See the
 [case README](../../case-studies/percolator/README.md) for the runner split and
 closed prerequisites.
 

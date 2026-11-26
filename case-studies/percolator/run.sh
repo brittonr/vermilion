@@ -8,6 +8,8 @@ repository="$(cd "$here/../.." && pwd)"
   --lib CasePercolator --manual-proofs "$@"
 "$repository/scripts/run_example.sh" "$here" withdrawal_question_mark.rs \
   --lib CasePercolator --manual-proofs "$@"
+"$repository/scripts/run_example.sh" "$here" liquidation_fee_minmax.rs \
+  --lib CasePercolator --manual-proofs "$@"
 "$repository/scripts/run_example.sh" "$here" bounded_arithmetic.rs \
   --lib CasePercolator --manual-proofs "$@"
 "$repository/scripts/run_example.sh" "$here" active_bitmap_set.rs \

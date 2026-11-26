@@ -32,7 +32,7 @@ ledger is [docs/reports/progress.md](../docs/reports/progress.md).
 | [power-of-2](power-of-2/) | Verus `examples/power_of_2.rs` (verbatim) | **Verified** — 40 automatic + 17 interactive | isolated nonlinear queries + exact VIR clipping landed |
 | [entry-api](entry-api/) | Verus `examples/entry_api.rs` (verbatim) | **Acquired / blocked** — Verus 3/3; expected fail-closed Vermilion probe | std Entry views; returned `&mut` prophecy |
 | [statics](statics/) | Verus `examples/statics.rs` (verbatim) | **Acquired / out of sequential gate** — Verus 9/9; expected fail-closed probe | globals/initialization, then ghost memory + atomic protocols |
-| [percolator](percolator/) | `aeyakovenko/percolator` @ `143e68c` | **Partially verified verbatim**: the green runner covers 31 production bodies, with 118 logical-or-evidence declarations; DL5 added withdrawal, bounded arithmetic, and bitmap set | std `min/max`, `BitNot`, and the separate whole-`wide_math.rs` Verus boundary |
+| [percolator](percolator/) | `aeyakovenko/percolator` @ `143e68c` | **Partially verified verbatim**: the green runner covers 32 production bodies, with 123 logical-or-evidence declarations; DL5 added withdrawal, bounded arithmetic, and bitmap set, and the liquidation-fee `min`/`max` slice followed | `BitNot`, and the separate whole-`wide_math.rs` Verus boundary |
 | [dalek-lite](dalek-lite/) | `Beneficial-AI-Foundation/dalek-lite` @ `de9ebf015` | **Partial field-cone acquisition**: recorded 416/454 lowered functions and 5,215 VCs; eight explicit `sorry` bodies remain in four checked-in units. See [current status](dalek-lite/README.md#current-verification-status) | proof holes and declaration collisions, refused functions, higher layers, and trusted-floor discharge |
 | [curve25519](aeneas/curve25519/) | Aeneas corpus `curve25519.rs` (verbatim curve25519-dalek) | **Verified** — 38 obligations: 9 automatic + 29 interactive; spec bridge proves the dalek/Aeneas `asNat` theorem (same spec, `ring`) | — (first Aeneas-plan crypto acquisition) |
 | [sha3.rs](aeneas/sha3/) | `AeneasVerif/sha3.rs` @ `cb411d54ee0b` | **Partial; paused**: recorded verification through unchanged `copy_to`, 198 obligations in 25 twins, source guard covering 86 annotation regions | absorb/squeeze, sponge, six public functions, and the exact external-spec bridge; public parity remains 0/6 |
@@ -74,5 +74,5 @@ studies and external projects — is
 ./case-studies/dalek-lite/probes/run.sh     # supported dalek-lite probes
 ./case-studies/dalek-lite/probes/explore.sh # measured dalek-lite lowering boundaries
 ./case-studies/percolator/verify_verus.sh # full Verus check of green + blocker slices
-./case-studies/percolator/explore.sh   # two partial drivers with expected refusals
+./case-studies/percolator/explore.sh   # one partial driver with an expected refusal
 ```

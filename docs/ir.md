@@ -315,7 +315,8 @@ BINOP     ::= add | sub | mul | ediv | emod
   followed by the returned reference's future value, followed by the old
   suffix when one exists. Verus's SST closure supplies the result relation but
   not the inherited `Index`/`IndexMut` requirement, so the Rust adapter
-  reconstructs both together. Other `FnDef` closure contracts fail closed.
+  reconstructs both together. Other function items lower as predicate
+  symbols (see `call_ensures` below).
   `copy_from_slice` remains an ordinary contract call: its length requirement
   and final destination equality compose with the mutable range prophecy.
   This introduces no new IR node: it emits existing `(call …)`, `seqsubrange`,
@@ -343,9 +344,8 @@ BINOP     ::= add | sub | mul | ediv | emod
   fail closed. `<Vec<T> as
   Clone>::clone` for machine-int/bool `T` lowers with the synthesized
   contract `result == vec` (vstd's per-element `cloned::<T>` collapses to
-  equality for those `T`; the `call_ensures` FnDef encoding behind
-  `cloned` is an SMT artifact this boundary does not carry). Other
-  element types fail closed.
+  equality for those `T`). Other element types take vstd's contract as
+  written.
 - `bool` becomes `Prop`; `eq`/`ne` on bools are serialized as `iff`/`niff`.
   This erases the executable decision procedure Rust carries. When a rendered
   theorem uses such a proposition as an `iteP` guard and Lean cannot
@@ -420,8 +420,10 @@ BINOP     ::= add | sub | mul | ediv | emod
   characterizing hypotheses; tuple binders and unsupported bodies fail closed
   (see [choice semantics](vcgen.md#choose-characterizing-hypotheses-the-choose-post-pass)).
 - Generated definitions avoid `noncomputable` unless the body forces it
-  (including `choose`, possibly-zero `ediv`/`emod`, and opaque-proposition
-  conditionals, transitively through calls); `iteP` stays computable when its
+  (including `choose`, possibly-zero `ediv`/`emod`, an application of a
+  vstd mirror whose model is noncomputable — `Seq::filter` — and
+  opaque-proposition conditionals, transitively through calls); `iteP`
+  stays computable when its
   guard has constructive `Decidable` evidence. Interactive proposition
   decision evidence is emitted only after spec definitions, so it cannot
   leak classical computation into them. Datatype accessors and
@@ -521,17 +523,40 @@ BINOP     ::= add | sub | mul | ediv | emod
 - Traits dispatch statically: impl spec fns are emitted under the impl's
   name and trait spec-fn calls resolve to the impl of their `Self` type
   (contract positions carry no resolution in the SST, so the lowering
-  matches type arguments against `TraitMethodImpl` declarations). Exec
+  matches type arguments against `TraitMethodImpl` declarations — by
+  equality, or as a pattern for an impl generic in its own parameters,
+  such as `impl<T> … for Option<T>` at `Option<u64>`). Exec
   trait-method calls verify against the trait declaration's contract —
   inherited `requires` proved at the call site, inherited `ensures`
   assumed, both instantiated at the call's type arguments; impls that
   redeclare contracts materialize the inherited clauses into their own
-  declarations, used directly. A unique monomorphic associated-type equation
+  declarations, used directly. The `default_ensures` of a method the trait
+  provides (`PartialOrd::gt`, `Ord::max`) are assumed too exactly when the
+  call runs the provided body (the SST call's `is_trait_default`), never
+  for an overriding impl or an abstract `Self`. A unique monomorphic
+  associated-type equation
   (for example `Index::Output = u64` for a concrete `StateArray` impl) is
   normalized on the Rust side before binder types enter this IR, so it needs no
   new type form or Lean axiom. Generic, unresolved, or ambiguous projections
   retain their SST projection and fail closed. Generic bounds and dynamic
   dispatch otherwise keep their existing behavior.
+- A spec fn whose body dispatches on one of its own type parameters has
+  no single definition generic in that parameter (the `Option<T>`
+  comparison spec applies `T`'s). It is emitted once per concrete
+  instantiation, as an ordinary `specfn` with no type parameters named
+  `<name>_at_<types>`, and its applications are `(apply …)` of that
+  instance. No new IR form; an application at a still-abstract type fails
+  closed, as do two instantiations whose names coincide.
+- `call_ensures(f, (a, …), r)` on a function item `f` needs no new
+  constructs: it lowers to `(and (applyfn (var "<f>_call_ensures_<n>") a …
+  r) <ensures of f at a …, r>)`, the symbol being a fresh `fnspec`-typed
+  universal binder of the enclosing function, one per (item, Rust type
+  arguments), and the second conjunct present where the item's contract
+  lowers. vstd's `cloned`/`strictly_cloned`, which wrap that predicate at
+  `T::clone`, lower as their bodies at the type the application names
+  rather than as `(apply …)` of a generic definition. `call_requires` on
+  a function item, and either predicate inside a spec fn body, fail
+  closed. The reasoning is in [trust.md](trust.md#function-item-contract-predicates).
 - Verus's extensional equality (`ext_equal`; `=~=`, and the spec `==`
   that desugars to it on collection types) lowers to plain `eq` exactly
   where the Lean models are extensional: `Seq` (`List`), `Set`
@@ -577,10 +602,16 @@ BINOP     ::= add | sub | mul | ediv | emod
   for the result, and at `has_resolved` equates that future with the current
   value of the concrete destination. This supports static custom `IndexMut`
   calls without exposing references or prophecies in the textual IR.
-  Everything outside this
+  A `has_resolved` marker on a value that is not a reference carries no
+  prophecy and is dropped, also when Verus guards it by a variant test
+  (the residual of `?`: `tmp is Break ==> has_resolved(tmp->Break_0)`)
+  or places it in a `while` condition's setup. A variable bound in one arm
+  of a branch only is visible after it exactly when the other arm cannot
+  reach the join — the `?` desugaring binds its `Continue` payload that
+  way. Everything outside this
   discipline (`final` in a spec position with no resolved borrow, call
   contract, or postcondition; non-variable `&mut` arguments; `&mut`
-  values escaping into data) fails closed.
+  values escaping into data; a guarded marker on a `&mut`) fails closed.
 - `break`/`continue` never appear as IR statements: the Rust lowering
   expands each site inside the loop body into its Verus obligations — at a
   `continue`, `(invariant preserve …)` checks for the at-entry invariants

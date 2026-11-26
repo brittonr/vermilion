@@ -68,6 +68,14 @@ and case-study reports before generalizing them to a whole crate.
 - traits with contracts (statically dispatched): trait spec fns, inherited
   requires/ensures proved at call sites and against impl bodies —
   [examples/m3-traits](../examples/m3-traits/README.md);
+- std traits through vstd's specifications: methods a trait provides
+  (`Ord::max`/`min`, the comparison operators on `Option`), and
+  `#[derive(Clone)]` over `Vec`, `Option` and nested derived fields. As in
+  Verus, nothing is known about the result of a derived clone that is not
+  a copy — differential cases c248–c251 and c257–c259;
+- the `?` operator on `Result`, with integer and datatype error payloads;
+  an error passed through unconverted is known to be the same value —
+  differential cases c252–c255;
 - `&mut self` methods writing fields: record-update semantics through
   the prophecy contracts —
   [examples/m3-mut-fields](../examples/m3-mut-fields/README.md);
