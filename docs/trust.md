@@ -265,15 +265,30 @@ on an own parameter is the entry binder, `assume has_resolved(x)`
 snapshots the borrow's future, call-site futures are fresh symbols
 constrained only by callee `ensures`.
 
+A snapshot is path state, scoped like the environment it was read from.
+Verus resolves a borrow once per path — each arm of an `if`/`else` (or
+`match`) carries its own `has_resolved` — so at a branch join a borrow
+both arms resolved takes the joined current value, and one that only a
+single arm resolved (the arm returned, or the borrow is still live on
+the other path) is unresolved again. Snapshots taken inside a loop body
+or a discarded scope end with it.
+
 - **Assumptions** (all properties of Verus's own SST generation, valid
   for the sequential fragment its borrow checking guarantees):
-  `has_resolved` marks the end of the borrow (no writes after it); the
+  `has_resolved` marks the end of the borrow (no writes after it — which
+  is also why each arm's snapshot is that arm's final referent value,
+  the value the environment join merges); the
   two-phase borrow shape (temp definition, prophecy writeback before the
   call) is as emitted today; reference-typed temporaries only alias, and
   every other reference-valued assignment fails closed.
 - **Guards:** differential cases c73–c77, including `ensures
   *final(x) == *old(x)` with a mutating body and a havocked caller
-  assert — both must fail in *both* verifiers.
+  assert — both must fail in *both* verifiers. c244–c247 pin the
+  per-path resolution: writes in the arms of an `if`/`else` and a
+  `match` with true postconditions (c244), a postcondition that holds of
+  the `else` arm only (c245), and `final(x)` asserted after a join (c246)
+  and after an arm that returned (c247) — the three negatives must fail
+  in both verifiers.
 
 ## Range `for` loops (specialized at lowering)
 

@@ -560,7 +560,13 @@ BINOP     ::= add | sub | mul | ediv | emod
   current referent value (`mut_ref_current` is the identity; `*old(x)` on
   the enclosing function's own parameter is the entry binder);
   `assume has_resolved(x)` snapshots the current value as the borrow's
-  future, which is what a later `*final(x)` means; each `&mut` call
+  future, which is what a later `*final(x)` means. The snapshot is path
+  state, scoped like the substitution environment: Verus resolves a borrow
+  once per path (each arm of an `if`/`else` carries its own
+  `has_resolved`), so at a branch join a borrow both arms resolved takes
+  the joined current value, one that only a single arm resolved is
+  unresolved again, and a snapshot taken inside a loop body or a discarded
+  scope ends with it. Each `&mut` call
   argument's future becomes a fresh `(fresh …)` symbol constrained only
   by the callee's `(call … (ensures …))` — Verus emits the caller
   writeback `y = mut_ref_future(tmp)` *before* the call, so the symbol is

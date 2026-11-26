@@ -388,20 +388,22 @@ pub struct SpecRegistry {
     /// (leaf-first) order — valid Lean emission order for DAG references.
     datatypes: std::cell::RefCell<Vec<(vir::ast::Dt, DatatypeView)>>,
     datatypes_in_flight: std::cell::RefCell<Vec<vir::ast::Dt>>,
-    /// Prophecy resolution for `&mut` (per checked function; reset by
-    /// `function_view`): maps a mut-ref value's ident to its fresh
-    /// post-state symbol — callee param idents live here only while a
-    /// call's contract is substituted, borrow temporaries persist for the
-    /// phase-2 writeback.
+    /// Prophecy symbols for `&mut` (per checked function; reset by
+    /// `function_view`): maps a mut-ref value's ident to the fresh
+    /// post-state symbol a call constrains — callee param idents live here
+    /// only while a call's contract is substituted, borrow temporaries
+    /// persist for the phase-2 writeback. Never overwritten.
     mut_futures: std::cell::RefCell<HashMap<VarIdent, Expr>>,
-    /// The subset of `mut_futures` roots whose future is a CALL-created
-    /// prophecy symbol (constrained by a callee contract). These are never
-    /// overwritten; return-site resolution snapshots, by contrast, are
-    /// per-path and each `assume has_resolved(x)` re-snapshots them (an
-    /// early-return arm's stale snapshot must not shadow the fall-through
-    /// path's — the value of the referent can change between the two
-    /// resolution points).
-    call_futures: std::cell::RefCell<std::collections::HashSet<VarIdent>>,
+    /// Resolution snapshots (per checked function, like `mut_futures`): for
+    /// a borrow no call constrains — the function's own `&mut` parameters —
+    /// the referent value where `assume has_resolved(x)` resolved it, which
+    /// is what `final(x)` means from there on. This is PATH state, like the
+    /// substitution environment: Verus resolves a borrow once per path
+    /// (each arm of an `if`/`else` carries its own `has_resolved`), so a
+    /// snapshot holds only on the path that took it. The walker scopes this
+    /// map wherever it scopes `env`: `Lowering::branch` joins it, and loop
+    /// bodies and discarded scopes drop what they added.
+    resolution_snapshots: std::cell::RefCell<HashMap<VarIdent, Expr>>,
     /// Call destinations whose value is a returned `&mut`. Unlike a mutable
     /// argument, this prophecy is resolved only after the caller finishes
     /// using the returned reference, so `has_resolved` must equate it with
@@ -443,7 +445,7 @@ impl SpecRegistry {
             datatypes: std::cell::RefCell::new(Vec::new()),
             datatypes_in_flight: std::cell::RefCell::new(Vec::new()),
             mut_futures: std::cell::RefCell::new(HashMap::new()),
-            call_futures: std::cell::RefCell::new(std::collections::HashSet::new()),
+            resolution_snapshots: std::cell::RefCell::new(HashMap::new()),
             returned_mut_futures: std::cell::RefCell::new(std::collections::HashSet::new()),
             mut_aliases: std::cell::RefCell::new(HashMap::new()),
             closure_preds: std::cell::RefCell::new(HashMap::new()),
@@ -467,6 +469,16 @@ impl SpecRegistry {
                 .map(|(_, view)| view)
                 .collect(),
         )
+    }
+
+    /// `final(x)` for the borrow rooted at `root`, where one is known: the
+    /// symbol a call constrains, else the snapshot taken where the borrow
+    /// resolved on the current path.
+    fn mut_future(&self, root: &VarIdent) -> Option<Expr> {
+        if let Some(future) = self.mut_futures.borrow().get(root) {
+            return Some(future.clone());
+        }
+        self.resolution_snapshots.borrow().get(root).cloned()
     }
 }
 
@@ -1703,8 +1715,13 @@ fn names_reserved_below<'a>(
                         taken.insert(key.0.to_string());
                     }
                 }
-                if let Some(future) = ctx.registry.mut_futures.borrow().get(key) {
-                    reserve_expr_names(future, &mut taken);
+                for futures in [
+                    &ctx.registry.mut_futures,
+                    &ctx.registry.resolution_snapshots,
+                ] {
+                    if let Some(future) = futures.borrow().get(key) {
+                        reserve_expr_names(future, &mut taken);
+                    }
                 }
             }
         });
@@ -2080,10 +2097,11 @@ fn lower_exp_impl(ctx: ExpCtx<'_>, env: &Env, exp: &Exp) -> Result<Expr, String>
         }
         ExpX::Unary(UnaryOp::MutRefCurrent, operand) => lower_exp(ctx, env, operand),
         // `*final(x)`: at a call boundary the future is the fresh
-        // post-state symbol the call recorded; at a return site the
-        // prophecy resolves to the current value. Anywhere else this
-        // fails closed — the future must never be silently conflated
-        // with the current value.
+        // post-state symbol the call recorded; past the borrow's
+        // resolution on this path it is the snapshot taken there; at a
+        // return site the prophecy resolves to the current value. Anywhere
+        // else this fails closed — the future must never be silently
+        // conflated with the current value.
         ExpX::Unary(UnaryOp::MutRefFuture(_), operand) => {
             // The future projection is a prophecy — time-independent — so
             // `final` of the entry reference (`VarAt::Pre`, how ensures
@@ -2096,8 +2114,8 @@ fn lower_exp_impl(ctx: ExpCtx<'_>, env: &Env, exp: &Exp) -> Result<Expr, String>
             };
             if let Some(ident) = root {
                 let root = resolve_mut_root(&ctx.registry, ident);
-                if let Some(future) = ctx.registry.mut_futures.borrow().get(&root) {
-                    return Ok(future.clone());
+                if let Some(future) = ctx.registry.mut_future(&root) {
+                    return Ok(future);
                 }
                 if ctx.registry.in_postcondition.get() {
                     // At a return site the prophecy resolves to the current
@@ -3956,8 +3974,8 @@ impl Lowering<'_> {
     /// well-typed, so its range facts are sound assumptions.
     fn future_of(&mut self, ident: &VarIdent, referent: &Typ) -> Result<Expr, String> {
         let root = resolve_mut_root(&self.ctx.registry, ident);
-        if let Some(existing) = self.ctx.registry.mut_futures.borrow().get(&root) {
-            return Ok(existing.clone());
+        if let Some(existing) = self.ctx.registry.mut_future(&root) {
+            return Ok(existing);
         }
         let name = self.fresh_binder_name(&format!("{}_post", root.0));
         let binder = Binder::new(name.clone(), binder_type(self.ctx, referent)?);
@@ -3967,11 +3985,6 @@ impl Lowering<'_> {
             self.type_facts.push(fact.clone());
             self.statements.push(Statement::Assume(fact));
         }
-        self.ctx
-            .registry
-            .call_futures
-            .borrow_mut()
-            .insert(root.clone());
         self.ctx
             .registry
             .mut_futures
@@ -4716,21 +4729,34 @@ impl Lowering<'_> {
     /// the branch and each arm ends by assuming the join equation, so the
     /// continuation sees `cond → join = v_then` and `¬cond → join = v_else`
     /// once the generator guards arm-local context.
+    ///
+    /// Resolution snapshots are path state too and join alongside: a borrow
+    /// both arms resolved is resolved after the join — where the arms'
+    /// snapshots differ, at the joined current value (no write follows a
+    /// resolution, so each arm's snapshot is that arm's final referent
+    /// value, exactly what the environment join merges). A borrow only one
+    /// arm resolved is unresolved after the join: that arm returned (its
+    /// postconditions were lowered inside it) or the borrow is still live,
+    /// and its snapshot says nothing about the other path.
     fn branch(&mut self, cond: &Exp, then_stm: &Stm, else_stm: Option<&Stm>) -> Result<(), String> {
         let condition = lower_exp(self.ctx, &self.env, cond)?;
         charge_env_copy(self.ctx.registry, &self.env)?;
         let saved_env = self.env.clone();
+        let snapshots = &self.ctx.registry.resolution_snapshots;
+        let saved_snapshots = snapshots.borrow().clone();
         let outer_statements = std::mem::take(&mut self.statements);
 
         self.statement(then_stm)?;
         let mut then_statements = std::mem::take(&mut self.statements);
         let then_env = std::mem::replace(&mut self.env, saved_env.clone());
+        let then_snapshots = snapshots.replace(saved_snapshots);
 
         if let Some(else_stm) = else_stm {
             self.statement(else_stm)?;
         }
         let mut else_statements = std::mem::take(&mut self.statements);
         let else_env = std::mem::replace(&mut self.env, saved_env);
+        let else_snapshots = snapshots.take();
         self.statements = outer_statements;
 
         // Deterministic join order: sort candidate variables by debug key.
@@ -4779,6 +4805,20 @@ impl Lowering<'_> {
                 Binder::new(name, ty),
                 type_range_facts(self.ctx, &typ, &join)?,
             ));
+        }
+        for (root, then_snapshot) in then_snapshots {
+            let Some(else_snapshot) = else_snapshots.get(&root) else {
+                continue;
+            };
+            let joined = if then_snapshot == *else_snapshot {
+                then_snapshot
+            } else {
+                self.env
+                    .get(&root)
+                    .cloned()
+                    .unwrap_or_else(|| Expr::Var(root.0.to_string()))
+            };
+            snapshots.borrow_mut().insert(root, joined);
         }
 
         for (binder, _) in &joins {
@@ -4973,6 +5013,10 @@ impl Lowering<'_> {
         // copied them into its iteration telescope would mention variables
         // no obligation binds. Restored at the exit below.
         let saved_type_facts = self.type_facts.clone();
+        // Nor may the borrow resolutions it takes: a snapshot read from the
+        // iteration state says nothing about the exit state. Exit-path
+        // resolutions are replayed in the continuation below.
+        let saved_snapshots = self.ctx.registry.resolution_snapshots.borrow().clone();
         self.loop_frames.push(LoopFrame {
             loop_id,
             label: label.clone(),
@@ -5033,6 +5077,7 @@ impl Lowering<'_> {
         // control may leave through a `break`, where only the at-exit
         // invariants were checked.
         self.type_facts = saved_type_facts;
+        *self.ctx.registry.resolution_snapshots.borrow_mut() = saved_snapshots;
         self.type_facts.extend(havoc_facts.iter().cloned());
         let mut exit = havoc_facts;
         for inv in invs.iter() {
@@ -5747,8 +5792,10 @@ impl Lowering<'_> {
         // break/continue were rejected at recognition, so a stray one inside
         // fails closed on the empty frame stack.
         let saved_statements = std::mem::take(&mut self.statements);
-        // Body-local facts die with the body (see the `while` lowering).
+        // Body-local facts and borrow resolutions die with the body (see the
+        // `while` lowering).
         let saved_type_facts = self.type_facts.clone();
+        let saved_snapshots = self.ctx.registry.resolution_snapshots.borrow().clone();
         for stm in &plan.body {
             self.statement(stm)?;
         }
@@ -5810,6 +5857,7 @@ impl Lowering<'_> {
         // the exit peek value, and the borrow resolutions from the
         // exhausted-iterator arm.
         self.type_facts = saved_type_facts;
+        *self.ctx.registry.resolution_snapshots.borrow_mut() = saved_snapshots;
         self.type_facts.extend(havoc_facts.iter().cloned());
         let mut exit = havoc_facts;
         for inv in &plan.user_invs {
@@ -5882,6 +5930,7 @@ impl Lowering<'_> {
             StmX::DeadEnd(inner) => {
                 let saved_env = self.env.clone();
                 let saved_types = self.var_types.clone();
+                let saved_snapshots = self.ctx.registry.resolution_snapshots.borrow().clone();
                 let mut inner_statements = Vec::new();
                 std::mem::swap(&mut self.statements, &mut inner_statements);
                 let result = self.statement(inner);
@@ -5890,6 +5939,7 @@ impl Lowering<'_> {
                 self.statements.push(Statement::Scope(inner_statements));
                 self.env = saved_env;
                 self.var_types = saved_types;
+                *self.ctx.registry.resolution_snapshots.borrow_mut() = saved_snapshots;
                 self.last_assertion = None;
             }
             StmX::Assign { lhs, rhs } => {
@@ -6208,14 +6258,14 @@ impl Lowering<'_> {
                             // Keep a call-created prophecy as the named
                             // symbol used by the callee contract; the equation
                             // above resolves it without invalidating those
-                            // earlier contract facts. A non-call return-site
-                            // snapshot, however, is per-path: re-snapshot on
-                            // every `has_resolved` so an early-return arm's
-                            // stale value cannot shadow the fall-through path.
-                            if !self.ctx.registry.call_futures.borrow().contains(&root) {
+                            // earlier contract facts. Any other borrow
+                            // resolves to the referent's value on this path:
+                            // a snapshot scoped like the environment it was
+                            // read from (`SpecRegistry::resolution_snapshots`).
+                            if !self.ctx.registry.mut_futures.borrow().contains_key(&root) {
                                 self.ctx
                                     .registry
-                                    .mut_futures
+                                    .resolution_snapshots
                                     .borrow_mut()
                                     .insert(root, current);
                             }
@@ -6371,6 +6421,7 @@ impl Lowering<'_> {
             StmX::ClosureInner { body, typ_inv_vars } => {
                 let saved_env = self.env.clone();
                 let saved_types = self.var_types.clone();
+                let saved_snapshots = self.ctx.registry.resolution_snapshots.borrow().clone();
                 let mut inner = Vec::new();
                 std::mem::swap(&mut self.statements, &mut inner);
                 let result = (|| -> Result<(), String> {
@@ -6393,6 +6444,7 @@ impl Lowering<'_> {
                 self.statements.push(Statement::Scope(inner));
                 self.env = saved_env;
                 self.var_types = saved_types;
+                *self.ctx.registry.resolution_snapshots.borrow_mut() = saved_snapshots;
                 self.last_assertion = None;
             }
             // `assert ... by (nonlinear_arith)` is a separate Verus query:
@@ -6414,6 +6466,7 @@ impl Lowering<'_> {
                 let saved_env = self.env.clone();
                 let saved_types = self.var_types.clone();
                 let saved_type_facts = self.type_facts.clone();
+                let saved_snapshots = self.ctx.registry.resolution_snapshots.borrow().clone();
                 let iteration = self.type_facts.clone();
                 let mut inner = Vec::new();
                 std::mem::swap(&mut self.statements, &mut inner);
@@ -6443,6 +6496,7 @@ impl Lowering<'_> {
                 self.env = saved_env;
                 self.var_types = saved_types;
                 self.type_facts = saved_type_facts;
+                *self.ctx.registry.resolution_snapshots.borrow_mut() = saved_snapshots;
                 self.last_assertion = None;
             }
             // `assert(P) by (bit_vector)` (with optional `requires`):
@@ -6535,6 +6589,7 @@ fn function_view_impl(
     };
     // Mut-ref prophecy state is per checked function.
     registry.mut_futures.borrow_mut().clear();
+    registry.resolution_snapshots.borrow_mut().clear();
     registry.returned_mut_futures.borrow_mut().clear();
     registry.mut_aliases.borrow_mut().clear();
     registry.closure_preds.borrow_mut().clear();

@@ -291,7 +291,8 @@ measurement for M3/M4 outstanding):
 - `&mut` parameters in the sequential fragment (M3): Verus's prophecy
   encoding (`mut_ref_current`/`mut_ref_future`, `has_resolved`, two-phase
   borrows) resolved at lowering time — `*old(x)` is the entry binder,
-  `*final(x)` the value snapshotted where the borrow resolves, call-site
+  `*final(x)` the value snapshotted where the borrow resolves on the
+  current path (snapshots join with the environment at branches), call-site
   futures are fresh symbols constrained only by callee `ensures` (an
   unspecified callee havocs the referent); non-variable `&mut` arguments
   and escaping references fail closed (see `docs/ir.md`);
