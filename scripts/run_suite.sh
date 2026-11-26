@@ -106,7 +106,9 @@ if [[ "$scope" == differential ]]; then
 fi
 
 if [[ "$scope" == study ]]; then
-  if ! studies | grep -qx "$target_study"; then
+  # Not `studies | grep -q`: grep leaves at the first match, the listing
+  # dies writing the rest, and pipefail reports that as "no match".
+  if ! grep -qxF -- "$target_study" <<< "$(studies)"; then
     echo "unknown case study: $target_study" >&2
     echo "valid names:" >&2; studies >&2
     exit 2
