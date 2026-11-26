@@ -110,11 +110,16 @@ def main() -> int:
     toolchain = re.search(r'channel = "(.*)"',
                           (checkout / "rust-toolchain.toml").read_text()).group(1)
     sysroot = sh(["rustup", "run", toolchain, "rustc", "--print", "sysroot"]).stdout.strip()
+    # The toolchain's libraries go ahead of the inherited search path, not in
+    # place of it (as scripts/verus_env.sh does): under Nix that path is where
+    # the Verus driver's zlib comes from.
+    library_path = lambda name: ":".join(
+        filter(None, [f"{sysroot}/lib", os.environ.get(name)]))
     env = os.environ | {
         "VERUS_ROOT": str(checkout / "source/target-verus/release"),
         "VERUS_Z3_PATH": str(checkout / "source/z3"),
-        "DYLD_LIBRARY_PATH": f"{sysroot}/lib",
-        "LD_LIBRARY_PATH": f"{sysroot}/lib",
+        "DYLD_LIBRARY_PATH": library_path("DYLD_LIBRARY_PATH"),
+        "LD_LIBRARY_PATH": library_path("LD_LIBRARY_PATH"),
     }
 
     subprocess.run(

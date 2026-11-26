@@ -16,6 +16,7 @@ versioned with the repository. They are binding for any agent working here.
 @.Codex/memory/issue-tracker-workflow.md
 @.Codex/memory/per-function-emission-default.md
 @.Codex/memory/aeneas-folder-read-only.md
+@.Codex/memory/editor-guard-generates-keccak-probe.md
 @.Codex/memory/dalek-lite-active-target.md
 
 When a new durable directive lands, add it as a file in `.Codex/memory/`

@@ -16,6 +16,7 @@ versioned with the repository. They are binding for any agent working here.
 @.claude/memory/issue-tracker-workflow.md
 @.claude/memory/per-function-emission-default.md
 @.claude/memory/aeneas-folder-read-only.md
+@.claude/memory/editor-guard-generates-keccak-probe.md
 @.claude/memory/dalek-lite-active-target.md
 
 When a new durable directive lands, add it as a file in `.claude/memory/`

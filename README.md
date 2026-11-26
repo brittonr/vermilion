@@ -47,7 +47,8 @@ one spec.
 
 You need Git, Python 3, Rust installed through `rustup`, Lean installed through
 `elan` (providing `lean` and `lake`), and a C/C++ build toolchain. See
-[setup details](docs/development.md#prerequisites) for native dependencies.
+[setup details](docs/development.md#prerequisites) for native dependencies;
+with Nix, `nix develop` provides them all.
 Run these commands in a terminal:
 
 ```console

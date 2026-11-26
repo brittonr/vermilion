@@ -81,11 +81,15 @@ def tools():
                           (checkout / "rust-toolchain.toml").read_text()).group(1)
     sysroot = subprocess.run(["rustup", "run", toolchain, "rustc", "--print", "sysroot"],
                              capture_output=True, text=True, check=True).stdout.strip()
+    # Ahead of the inherited search path, not in place of it (see
+    # run_differential.py).
+    library_path = lambda name: ":".join(
+        filter(None, [f"{sysroot}/lib", os.environ.get(name)]))
     env = os.environ | {
         "VERUS_ROOT": str(release),
         "VERUS_Z3_PATH": str(checkout / "source/z3"),
-        "LD_LIBRARY_PATH": f"{sysroot}/lib",
-        "DYLD_LIBRARY_PATH": f"{sysroot}/lib",
+        "LD_LIBRARY_PATH": library_path("LD_LIBRARY_PATH"),
+        "DYLD_LIBRARY_PATH": library_path("DYLD_LIBRARY_PATH"),
     }
     return {
         "verus": release / "rust_verify",

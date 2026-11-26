@@ -58,13 +58,35 @@ check_setup() {
       UNEXPECTED_IMPORT="$unexpected_import" python3 -c "$(check_setup_program)"
 }
 
+# The SHA-3 unit pinned below is generated output of a probe that no suite
+# phase runs. Produce it when this checkout has none: front end, adapter and
+# generator only. Nothing is judged and no proof twin is reconciled, so the
+# only writes under case-studies/aeneas/ go to its gitignored generated/
+# directory — the one exception its owner made to that folder being
+# read-only (.claude/memory/editor-guard-generates-keccak-probe.md).
+probe_dir="case-studies/aeneas/probes"
+if [[ ! -e "$probe_dir/generated/keccak_iota/impl__6_index.lean" ]]; then
+  ./scripts/setup_verus.sh >/dev/null
+  source "$repository/scripts/verus_env.sh"
+  (cd crates/vermilion_direct && rustup run "$verus_toolchain" cargo build --release --quiet)
+  lake build vrml_gen >/dev/null
+  mkdir -p .vermilion
+  VERUS_VIR_EXPORT="$repository/.vermilion/keccak_iota-vir.bin" "$verus" \
+    "$probe_dir/keccak_iota.rs" --crate-type=lib --no-verify \
+    >/dev/null 2>.vermilion/keccak_iota-frontend.log \
+    || { cat .vermilion/keccak_iota-frontend.log >&2; exit 1; }
+  ./crates/vermilion_direct/target/release/vermilion_direct \
+    .vermilion/keccak_iota-vir.bin --out .vermilion/keccak_iota-ir.sexp >/dev/null
+  ./.lake/build/bin/vrml_gen .vermilion/keccak_iota-ir.sexp >/dev/null
+fi
+
 # Prime Lake without relying on a numbered corpus case. The fresh proof root
 # below is created only after this compiled configuration exists. Pin the
 # reported SHA-3 failure first: this generated file does not live under the
 # differential tree, so it catches a single-root generated-library mistake.
 check_setup "lean/Vermilion/Obligations.lean" "Vermilion.Obligations"
 check_setup \
-  "case-studies/aeneas/probes/generated/keccak_iota/impl__6_index.lean" \
+  "$probe_dir/generated/keccak_iota/impl__6_index.lean" \
   "generated.keccak_iota.impl__6_index" \
   "generated.keccak_iota.Specs"
 
@@ -125,7 +147,7 @@ cleanup
 trap - EXIT
 check_setup "lean/Vermilion/Obligations.lean" "Vermilion.Obligations"
 check_setup \
-  "case-studies/aeneas/probes/generated/keccak_iota/impl__6_index.lean" \
+  "$probe_dir/generated/keccak_iota/impl__6_index.lean" \
   "generated.keccak_iota.impl__6_index" \
   "generated.keccak_iota.Specs"
 

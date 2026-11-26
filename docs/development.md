@@ -12,6 +12,14 @@ and `unzip` for dependency downloads. On macOS, install the Xcode Command
 Line Tools; on Linux, install the corresponding compiler and libc++
 development packages.
 
+With Nix, `nix develop` (or direnv, through the checked-in `.envrc`) provides
+all of this: `rustup`, `elan`, a libc++ Clang for the cvc5 bindings and the Z3
+release the Verus pin expects. It also sets what the scripts need under Nix:
+zlib on the library path for the Verus driver, and `CARGO_TARGET_DIR=target`,
+so each cargo workspace's tools land where the scripts look for them whatever
+the machine-wide cargo configuration says. `nix flake check` builds and tests
+the Rust tools and runs the Python tooling's unit tests.
+
 The repository selects its Lean version in [`lean-toolchain`](../lean-toolchain),
 Lean dependencies in [`lakefile.lean`](../lakefile.lean) and
 [`lake-manifest.json`](../lake-manifest.json), and the Verus revision in

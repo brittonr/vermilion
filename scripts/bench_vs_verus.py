@@ -8,14 +8,15 @@ vrml_check. Splits clean timing (both pass) from capability divergences
 """
 import subprocess, time, pathlib, os, statistics
 ROOT=pathlib.Path.cwd()
-# Resolve the real env once (toolchain bin on PATH + DYLD from verus_env), no per-call bash wrapper.
+# Resolve the real env once (toolchain bin on PATH + library paths from verus_env), no per-call bash wrapper.
 info=subprocess.run(["bash","-c",'repository="$PWD"; source scripts/verus_env.sh; source scripts/lean_env.sh; '
-  'echo "$verus"; echo "$verus_toolchain"; echo "$DYLD_LIBRARY_PATH"; echo "$LEAN_PATH"; rustup which --toolchain "$verus_toolchain" rustc'],
+  'echo "$verus"; echo "$verus_toolchain"; echo "$DYLD_LIBRARY_PATH"; echo "$LEAN_PATH"; rustup which --toolchain "$verus_toolchain" rustc; '
+  'echo "$LD_LIBRARY_PATH"'],
   cwd=ROOT,capture_output=True,text=True).stdout.splitlines()
-verus,tk,dyld,leanpath,rustc=info[0],info[1],info[2],info[3],info[4]
+verus,tk,dyld,leanpath,rustc,ld=info[0],info[1],info[2],info[3],info[4],info[5]
 tkbin=str(pathlib.Path(rustc).parent)
 env=os.environ.copy()
-env["PATH"]=tkbin+":"+env["PATH"]; env["DYLD_LIBRARY_PATH"]=dyld; env["LD_LIBRARY_PATH"]=dyld; env["LEAN_PATH"]=leanpath
+env["PATH"]=tkbin+":"+env["PATH"]; env["DYLD_LIBRARY_PATH"]=dyld; env["LD_LIBRARY_PATH"]=ld; env["LEAN_PATH"]=leanpath
 env["VERUS_ROOT"]=str(pathlib.Path(verus).parent); env["VERUS_Z3_PATH"]=str(pathlib.Path(verus).parent/"z3")
 def run(args,extra=None):
     e=dict(env); 

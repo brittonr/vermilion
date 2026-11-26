@@ -124,6 +124,26 @@
             nixfmt --check ${./flake.nix}
             touch $out
           '';
+          # The unit tests of the Python tooling; no other gate runs them.
+          script-tests =
+            pkgs.runCommand "script-tests"
+              {
+                nativeBuildInputs = [ pkgs.python3 ];
+                src = lib.fileset.toSource {
+                  root = ./.;
+                  fileset = lib.fileset.unions [
+                    ./scripts/differential_outcomes.py
+                    ./scripts/sync_issues.py
+                    ./tests/test_differential_outcomes.py
+                    ./tests/test_sync_issues.py
+                  ];
+                };
+              }
+              ''
+                cd $src
+                python3 -B -m unittest discover -s tests -p 'test_*.py'
+                touch $out
+              '';
         }
         // lib.optionalAttrs (self.packages.${system} ? verus-z3) {
           inherit (self.packages.${system}) verus-z3;
@@ -171,10 +191,19 @@
             ++ lib.optional pkgs.stdenv.hostPlatform.isLinux pkgs.llvmPackages.libcxx
             ++ lib.optional (verusZ3 != null) verusZ3;
 
+            env = {
+              # The scripts run each cargo workspace's tools from that
+              # workspace's own target/ (the repository root and
+              # crates/vermilion_direct). A machine-wide CARGO_TARGET_DIR or
+              # `build.target-dir` would put them elsewhere; cargo resolves a
+              # relative value against the directory it is run from, which is
+              # where the scripts look.
+              CARGO_TARGET_DIR = "target";
+            }
             # Picked up by scripts/setup_verus.sh in place of Verus's
             # tools/get-z3.sh download, whose dynamically linked binary does
             # not run on NixOS.
-            env = lib.optionalAttrs (verusZ3 != null) {
+            // lib.optionalAttrs (verusZ3 != null) {
               VERMILION_Z3 = lib.getExe' verusZ3 "z3";
             };
 
@@ -182,6 +211,13 @@
               if ! rustup show active-toolchain >/dev/null 2>&1; then
                 echo "vermilion: no default Rust toolchain; run 'rustup default stable' once" >&2
               fi
+            ''
+            # The Verus driver loads rustc's libLLVM, which needs zlib. rustup's
+            # proxies get it from the nixpkgs wrapper, but the scripts start
+            # `rust_verify` directly, with the toolchain's lib directory ahead
+            # of this path.
+            + lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
+              export LD_LIBRARY_PATH="${lib.makeLibraryPath [ pkgs.zlib ]}''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
             '';
           };
         }
