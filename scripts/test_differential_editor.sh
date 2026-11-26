@@ -23,21 +23,17 @@ setup_file() {
   "$editor_lake" setup-file "$1" - --no-build --no-cache <<< "$header"
 }
 
-check_setup() {
-  local module_file="$1"
-  local expected_name="$2"
-  local expected_import="${3:-}"
-  local unexpected_import="${4:-}"
-  local setup
-  setup="$(setup_file "$module_file" "$expected_import")"
-  SETUP_JSON="$setup" EXPECTED_NAME="$expected_name" \
-  EXPECTED_IMPORT="$expected_import" UNEXPECTED_IMPORT="$unexpected_import" \
-  python3 - <<'PY'
+# The check reads `lake setup-file`'s description on stdin. For a module that
+# imports Mathlib it runs to hundreds of kilobytes, and Linux refuses to exec
+# a process handed one environment string over 128 KiB ("Argument list too
+# long"), so the description must not travel in the environment.
+check_setup_program() {
+  cat <<'PY'
 import json
 import os
+import sys
 
-lines = [line for line in os.environ["SETUP_JSON"].splitlines()
-         if line.startswith("{")]
+lines = [line for line in sys.stdin.read().splitlines() if line.startswith("{")]
 if not lines:
     raise SystemExit("lake setup-file did not return its JSON description")
 setup = json.loads(lines[-1])
@@ -50,6 +46,16 @@ unexpected = os.environ["UNEXPECTED_IMPORT"]
 if unexpected and unexpected in setup.get("importArts", {}):
     raise SystemExit(f"Lake reused a setup cached for the old header: {unexpected}")
 PY
+}
+
+check_setup() {
+  local module_file="$1"
+  local expected_name="$2"
+  local expected_import="${3:-}"
+  local unexpected_import="${4:-}"
+  setup_file "$module_file" "$expected_import" \
+    | EXPECTED_NAME="$expected_name" EXPECTED_IMPORT="$expected_import" \
+      UNEXPECTED_IMPORT="$unexpected_import" python3 -c "$(check_setup_program)"
 }
 
 # Prime Lake without relying on a numbered corpus case. The fresh proof root
