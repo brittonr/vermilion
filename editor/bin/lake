@@ -38,7 +38,11 @@ stamp="$cache_dir/config-stamp"
 proof_roots_cache="$cache_dir/proof-roots"
 generated_roots_cache="$cache_dir/generated-roots"
 generated_src="$cache_dir/generated-src"
-lake_config="$root/.lake/config/[anonymous]/lakefile.olean"
+# The root package's compiled configuration. Lake keeps it under the package's
+# workspace index (`LoadConfig.configDir`: `.lake/config/<pkgIdx>`), and the
+# root is index 0. Removing it is how a proof-root change reaches Lake: the
+# roots are discovered while the Lakefile elaborates, not hashed into it.
+lake_config="$root/.lake/config/0/lakefile.olean"
 lake_config_trace="$lake_config.trace"
 
 real_lake() {
