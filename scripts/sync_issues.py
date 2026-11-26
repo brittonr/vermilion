@@ -24,6 +24,15 @@ recording, per issue, the content hash and the GitHub `updatedAt` at the last
 sync. In bidirectional mode, if BOTH sides changed since that point the file is
 reported as a conflict and left untouched — neither side is clobbered.
 
+A `github:` number names an issue of the sync target only while the file's
+title is that issue's, or the file is the only one carrying the number and
+this checkout has synced the pair before (a retitle). A tree forked from
+another repository keeps that repository's files, numbered for it: where a
+number collides with one of the fork's own issues, the file with the issue's
+title is the issue and the other is skipped; a lone file whose title differs
+from an issue this checkout has never synced is a conflict in every
+direction, --push and --pull included.
+
 The content hash covers title + state + body (the human-authored content).
 Labels are mirrored GitHub -> file on every touch and used verbatim when
 creating an issue; a push never removes labels added on GitHub.
@@ -270,13 +279,73 @@ def relocate(path: Path, state: str, dry_run: bool) -> tuple[Path, str | None]:
     return dest, line
 
 
+Claim = tuple[Path, dict, str]
+
+
+def resolve_claims(
+    claims: dict[int, list[Claim]], remote: dict[int, dict], state: dict
+) -> tuple[dict[int, Claim], set[int], list[str], list[str]]:
+    """Pick, for each issue number local files carry, the file that IS that
+    issue of the sync target.
+
+    `github: N` alone does not say which repository numbered the file: a tree
+    forked from another repository keeps that one's files, and their numbers
+    collide with the fork's own issues. A file is trusted for #N when its
+    title is the issue's, or when it is the only file carrying N and this
+    checkout has reconciled #N before (a retitle since the last sync).
+    Anything else is left alone on both sides: skipped with a warning when
+    another file is the issue, a conflict when none can be told to be.
+
+    Returns the trusted file per number, the numbers left unresolved, and the
+    warning and conflict report lines.
+    """
+    files: dict[int, Claim] = {}
+    unresolved: set[int] = set()
+    warnings: list[str] = []
+    conflicts: list[str] = []
+    for number, claimants in sorted(claims.items()):
+        issue = remote.get(number)
+        if issue is None:
+            for path, _, _ in claimants:
+                warnings.append(
+                    f"WARN    {path.name:45} references #{number}, absent on GitHub (skipped)"
+                )
+            continue
+        titled = [claim for claim in claimants if claim[1]["title"] == issue["title"]]
+        if len(titled) == 1:
+            chosen = titled[0]
+        elif not titled and len(claimants) == 1 and str(number) in state:
+            chosen = claimants[0]
+        else:
+            unresolved.add(number)
+            why = (
+                f"{len(titled)} files carry the issue's title — keep one"
+                if titled
+                else "its title is not the issue's and this checkout never synced the pair"
+            )
+            for path, _, _ in claimants:
+                conflicts.append(
+                    f"CONFLICT {path.name:44} #{number}: {why} — resolve by hand, then re-run"
+                )
+            continue
+        files[number] = chosen
+        for path, _, _ in claimants:
+            if path != chosen[0]:
+                warnings.append(
+                    f"WARN    {path.name:45} carries #{number}, which is {chosen[0].name} here "
+                    f"(numbered for another repository? skipped)"
+                )
+    return files, unresolved, warnings, conflicts
+
+
 def sync(gh: Gh, label_arg: str | None, direction: str, dry_run: bool) -> int:
     state = load_state()
     conflicts: list[str] = []
     actions: list[str] = []
 
-    # Index local files by github number and collect the "not yet pushed" ones.
-    files: dict[int, tuple[Path, dict, str]] = {}
+    # Index local files by the github number they carry and collect the "not
+    # yet pushed" ones.
+    claims: dict[int, list[Claim]] = {}
     new_local: list[tuple[Path, dict, str]] = []
     local_labels: set[str] = set()
     for path in local_files():
@@ -287,7 +356,7 @@ def sync(gh: Gh, label_arg: str | None, direction: str, dry_run: bool) -> int:
         if num is None:
             new_local.append((path, meta, body))
         else:
-            files[int(num)] = (path, meta, body)
+            claims.setdefault(int(num), []).append((path, meta, body))
 
     # Discovery labels: an explicit --label wins; otherwise sync whatever
     # labels the local files use (so `feature`, `bug`, … are all covered),
@@ -298,6 +367,8 @@ def sync(gh: Gh, label_arg: str | None, direction: str, dry_run: bool) -> int:
         labels = sorted(local_labels) or [DEFAULT_LABEL]
 
     remote = {it["number"]: it for it in gh.list_issues(labels)}
+    files, unresolved, warnings, claim_conflicts = resolve_claims(claims, remote, state)
+    conflicts.extend(claim_conflicts)
 
     # 1. New local files -> create GitHub issues (push / both).
     if direction in ("push", "both"):
@@ -327,13 +398,9 @@ def sync(gh: Gh, label_arg: str | None, direction: str, dry_run: bool) -> int:
             actions.append(f"CREATE  {path.name:45} -> #{number} ({issue['state']})")
 
     # 2. Reconcile matched pairs.
+    actions.extend(warnings)
     for number, (path, meta, body) in sorted(files.items()):
-        issue = remote.get(number)
-        if issue is None:
-            actions.append(
-                f"WARN    {path.name:45} references #{number}, absent on GitHub (skipped)"
-            )
-            continue
+        issue = remote[number]
         title = meta["title"]
         cur_state = meta.get("state", "open")
         local_sha = content_hash(title, cur_state, body)
@@ -416,7 +483,7 @@ def sync(gh: Gh, label_arg: str | None, direction: str, dry_run: bool) -> int:
 
     # 3. Remote-only issues -> new local files (pull / both).
     if direction in ("pull", "both"):
-        known = set(files.keys())
+        known = set(files) | unresolved
         for number, issue in sorted(remote.items()):
             if number in known:
                 continue

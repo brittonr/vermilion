@@ -53,6 +53,15 @@ scripts/sync_issues.py --pull      # only fetch GitHub -> local files
   left untouched — resolve by hand, then re-run.
 - After reconciling, every file is moved into the folder its state dictates
   (`open` → top level, `closed` → `closed/`).
+- A `github:` number is trusted only for the repository that numbered it. The
+  sync pairs a file with issue #N when their titles agree, or when the file is
+  the only one carrying N and this checkout has synced the pair before (a
+  retitle). A tree forked from another repository keeps that repository's
+  files: where their numbers collide with the fork's own issues, the file
+  with the issue's title is the issue and the others are skipped with a
+  warning. A lone file whose title differs from an issue this checkout has
+  never synced is a conflict in every direction — `--push` and `--pull`
+  included — so one issue's text is never written over another's.
 
 Change detection is recorded in `docs/issues/.sync-state.json` (gitignored):
 per issue, the content hash and GitHub `updatedAt` at the last sync. The hash
