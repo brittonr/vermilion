@@ -2,7 +2,7 @@
 title: The editor guard pins a generated unit that no suite phase produces, so a fresh checkout ends red
 labels: [bug]
 state: closed
-github: null
+github: 50
 ---
 
 *Evidence level: reproduced on a checkout without the probe's output; fixed

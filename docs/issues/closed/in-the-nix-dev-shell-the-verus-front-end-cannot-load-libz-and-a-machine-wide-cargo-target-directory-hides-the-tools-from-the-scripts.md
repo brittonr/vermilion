@@ -2,7 +2,7 @@
 title: In the Nix dev shell the Verus front end cannot load libz, and a machine-wide cargo target directory hides the tools from the scripts
 labels: [bug]
 state: closed
-github: null
+github: 45
 ---
 
 *Evidence level: reproduced on NixOS (x86_64-linux) inside `nix develop`;
