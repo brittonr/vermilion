@@ -2,7 +2,7 @@
 title: The editor integration has not been run in a project outside the repository
 labels: [enhancement, vscode-extension]
 state: open
-github: null
+github: 51
 ---
 
 *Evidence level: read from the code; not executed.*

@@ -79,9 +79,18 @@ user-visible workflow.
   in the build sandbox, requires the checked-in twins of m2-loops
   unchanged, and builds them with Lake from the project's workspace,
   without the network.
+- **dalek-lite**, run once by hand. The installed tool, on a copy of
+  `case-studies/dalek-lite/` in a project outside the repository (the
+  tracked files, the upstream clone and the stub rlib copied in), with the
+  flags of its `run.sh` given to `vrml run`: `generated/` (436 modules and
+  the manifests) is byte-identical to the repository run's, the twins
+  reconcile to the same files, the same 38 functions are refused, and the
+  run ends with the same status (1: two obligations of `lemma_or_bit`
+  still need proofs).
 
-Not covered: dalek-lite as the copied study (its runner clones upstream
-and builds a stub crate with rustup), and the editor in a project
+Not covered: `case-studies/dalek-lite/run.sh` as it is (it reads the Rust
+release from `.verus-checkout` and builds the stub crate with rustup, which
+a project does not have), and the editor in a project
 (`docs/issues/the-editor-integration-has-not-been-run-in-a-project-outside-the-repository.md`).
 `docs/TUTORIAL.md` step 8 and `docs/development.md` ("Home and project")
 describe the workflow.

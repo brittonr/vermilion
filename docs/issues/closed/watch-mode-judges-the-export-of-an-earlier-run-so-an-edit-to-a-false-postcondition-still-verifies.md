@@ -2,7 +2,7 @@
 title: Watch mode judges the export of an earlier run, so an edit to a false postcondition still verifies
 labels: [bug]
 state: closed
-github: null
+github: 52
 ---
 
 *Evidence level: executed; found while moving `vrml_watch` to the
